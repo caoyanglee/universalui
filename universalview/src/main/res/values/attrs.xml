@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--多状态视图-->
+    <declare-styleable name="MultiStateViewWM">
+        <attr name="msv_loadingView" format="reference" />
+        <attr name="msv_emptyView" format="reference" />
+        <attr name="msv_errorView" format="reference" />
+        <attr name="msv_viewState" format="enum">
+            <enum name="content" value="0" />
+            <enum name="error" value="1" />
+            <enum name="empty" value="2" />
+            <enum name="loading" value="3" />
+        </attr>
+    </declare-styleable>
+
+
+
+    <!--简单按钮-->
+    <declare-styleable name="SimpleView">
+        <attr name="wm_backgroundColor" format="color" />
+        <attr name="wm_backgroundPressColor" format="color" />
+        <attr name="wm_backgroundUnEnableColor" format="color" />
+        <attr name="wm_cornerRadius" format="dimension" />
+        <attr name="wm_strokeWidth" format="dimension" />
+        <attr name="wm_strokeColor" format="color" />
+        <attr name="wm_strokePressColor" format="color" />
+        <attr name="wm_strokeUnEnableColor" format="color" />
+        <attr name="wm_cornerRadius_TL" format="dimension" />
+        <attr name="wm_cornerRadius_TR" format="dimension" />
+        <attr name="wm_cornerRadius_BL" format="dimension" />
+        <attr name="wm_cornerRadius_BR" format="dimension" />
+        <attr name="wm_textColor" format="color" />
+        <attr name="wm_textPressColor" format="color" />
+        <attr name="wm_textUnEnableColor" format="color" />
+    </declare-styleable>
+
+</resources>
