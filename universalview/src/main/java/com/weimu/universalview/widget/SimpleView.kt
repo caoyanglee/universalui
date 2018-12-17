@@ -6,8 +6,9 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
-import android.widget.TextView
+import android.view.Gravity
 import com.weimu.universalview.R
 
 /**
@@ -15,7 +16,7 @@ import com.weimu.universalview.R
  * Date:2018/9/17 10:04
  * Description:可变化的TextView,为了减少drawable的使用
  */
-class SimpleView : TextView {
+class SimpleView : AppCompatTextView {
 
 
     //获取对应的属性值 Android框架自带的属性 attr
@@ -41,7 +42,7 @@ class SimpleView : TextView {
         val strokeWidth = attr.getDimension(R.styleable.SimpleView_wm_strokeWidth, 0f)
         val strokeColor = attr.getColor(R.styleable.SimpleView_wm_strokeColor, Color.TRANSPARENT)
         val strokePressColor = attr.getColor(R.styleable.SimpleView_wm_strokePressColor, strokeColor)
-        val strokeUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_strokePressColor, strokeColor)
+        val strokeUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_strokeUnEnableColor, strokeColor)
         //corner
         val cornerRadius = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius, -1f)
         val cornerRadius_TL = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_TL, 0f)
@@ -53,37 +54,36 @@ class SimpleView : TextView {
         val textPressColor = attr.getColor(R.styleable.SimpleView_wm_textPressColor, textColor)
         val textUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_textUnEnableColor, textColor)
         setTextColor(createColorStateList(textColor, textPressColor, textPressColor, textUnEnableColor, textPressColor))
-        attr.recycle()
 
         //bg-default
         val bg = GradientDrawable()
         //background
         bg.setColor(backgroundColor)
         //stroke
-        bg.setStroke(strokeWidth.toInt(), strokeColor)
+        bg.setStroke(dip2px(strokeWidth).toInt(), strokeColor)
         //corner
         bg.cornerRadii = floatArrayOf(
-                cornerRadius_TL, cornerRadius_TL,
-                cornerRadius_TR, cornerRadius_TR,
-                cornerRadius_BR, cornerRadius_BR,
-                cornerRadius_BL, cornerRadius_BL
+                dip2px(cornerRadius_TL), dip2px(cornerRadius_TL),
+                dip2px(cornerRadius_TR), dip2px(cornerRadius_TR),
+                dip2px(cornerRadius_BR), dip2px(cornerRadius_BR),
+                dip2px(cornerRadius_BL), dip2px(cornerRadius_BL)
         )
-        if (cornerRadius != -1f) bg.cornerRadius = cornerRadius
+        if (cornerRadius != -1f) bg.cornerRadius = dip2px(cornerRadius)
 
         //bg-select
         val selectBg = GradientDrawable()
         //background
         selectBg.setColor(backgroundPressColor)
         //stroke
-        selectBg.setStroke(strokeWidth.toInt(), strokePressColor)
+        selectBg.setStroke(dip2px(strokeWidth).toInt(), strokePressColor)
         //corner
         selectBg.cornerRadii = floatArrayOf(
-                cornerRadius_TL, cornerRadius_TL,
-                cornerRadius_TR, cornerRadius_TR,
-                cornerRadius_BR, cornerRadius_BR,
-                cornerRadius_BL, cornerRadius_BL
+                dip2px(cornerRadius_TL), dip2px(cornerRadius_TL),
+                dip2px(cornerRadius_TR), dip2px(cornerRadius_TR),
+                dip2px(cornerRadius_BR), dip2px(cornerRadius_BR),
+                dip2px(cornerRadius_BL), dip2px(cornerRadius_BL)
         )
-        if (cornerRadius != -1f) selectBg.cornerRadius = cornerRadius
+        if (cornerRadius != -1f) selectBg.cornerRadius = dip2px(cornerRadius)
 
 
         //bg-uneable
@@ -91,21 +91,21 @@ class SimpleView : TextView {
         //background
         unEnablebg.setColor(backgroundUnEnableColor)
         //stroke
-        unEnablebg.setStroke(strokeWidth.toInt(), strokeUnEnableColor)
+        unEnablebg.setStroke(dip2px(strokeWidth).toInt(), strokeUnEnableColor)
         //corner
         unEnablebg.cornerRadii = floatArrayOf(
-                cornerRadius_TL, cornerRadius_TL,
-                cornerRadius_TR, cornerRadius_TR,
-                cornerRadius_BR, cornerRadius_BR,
-                cornerRadius_BL, cornerRadius_BL
+                dip2px(cornerRadius_TL), dip2px(cornerRadius_TL),
+                dip2px(cornerRadius_TR), dip2px(cornerRadius_TR),
+                dip2px(cornerRadius_BR), dip2px(cornerRadius_BR),
+                dip2px(cornerRadius_BL), dip2px(cornerRadius_BL)
         )
-        if (cornerRadius != -1f) unEnablebg.cornerRadius = cornerRadius
+        if (cornerRadius != -1f) unEnablebg.cornerRadius = dip2px(cornerRadius)
 
         //复制给背景
         background = createSelector(bg, selectBg, bg, unEnablebg, selectBg)
 
         //gravity
-        //gravity = Gravity.CENTER
+        gravity = Gravity.CENTER
 
 
     }
@@ -131,7 +131,7 @@ class SimpleView : TextView {
     /**
      * 设置背景的Selector
      */
-    fun createSelector(normal: Drawable, pressed: Drawable, focused: Drawable, unable: Drawable, activited: Drawable): StateListDrawable {
+    private fun createSelector(normal: Drawable, pressed: Drawable, focused: Drawable, unable: Drawable, activited: Drawable): StateListDrawable {
         val bg = StateListDrawable()
         // View.PRESSED_ENABLED_STATE_SET
         bg.addState(intArrayOf(this.enabled, this.pressed), pressed)
@@ -151,6 +151,10 @@ class SimpleView : TextView {
         bg.addState(intArrayOf(), normal)
         return bg
     }
+
+
+    //dp2px
+    private fun dip2px(dpValue: Float) = (dpValue * context.resources.displayMetrics.density + 0.5f)
 
 
 }
