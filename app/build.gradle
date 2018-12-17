@@ -27,6 +27,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //通用包
-    implementation 'com.github.caoyanglee:universal:1.0.0'
+    implementation 'com.github.caoyanglee:universal:1.1.0'
     implementation project(':universalview')
 }
