@@ -60,14 +60,14 @@ class SimpleView : AppCompatTextView {
         //background
         bg.setColor(backgroundColor)
         //stroke
-        bg.setStroke(dip2px(strokeWidth).toInt(), strokeColor)
+        bg.setStroke(strokeWidth.toInt(), strokeColor)
         //corner
         bg.cornerRadii = floatArrayOf(
-                dip2px(cornerRadius_TL), dip2px(cornerRadius_TL),
-                dip2px(cornerRadius_TR), dip2px(cornerRadius_TR),
-                dip2px(cornerRadius_BR), dip2px(cornerRadius_BR),
-                dip2px(cornerRadius_BL), dip2px(cornerRadius_BL)
-        )
+                cornerRadius_TL, cornerRadius_TL,
+                cornerRadius_TR, cornerRadius_TR,
+                cornerRadius_BR, cornerRadius_BR,
+                cornerRadius_BL, cornerRadius_BL)
+
         if (cornerRadius != -1f) bg.cornerRadius = dip2px(cornerRadius)
 
         //bg-select
@@ -94,10 +94,10 @@ class SimpleView : AppCompatTextView {
         unEnablebg.setStroke(dip2px(strokeWidth).toInt(), strokeUnEnableColor)
         //corner
         unEnablebg.cornerRadii = floatArrayOf(
-                dip2px(cornerRadius_TL), dip2px(cornerRadius_TL),
-                dip2px(cornerRadius_TR), dip2px(cornerRadius_TR),
-                dip2px(cornerRadius_BR), dip2px(cornerRadius_BR),
-                dip2px(cornerRadius_BL), dip2px(cornerRadius_BL)
+                cornerRadius_TL, cornerRadius_TL,
+                cornerRadius_TR, cornerRadius_TR,
+                cornerRadius_BR, cornerRadius_BR,
+                cornerRadius_BL, cornerRadius_BL
         )
         if (cornerRadius != -1f) unEnablebg.cornerRadius = dip2px(cornerRadius)
 
