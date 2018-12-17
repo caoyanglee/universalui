@@ -68,22 +68,22 @@ class SimpleView : AppCompatTextView {
                 cornerRadius_BR, cornerRadius_BR,
                 cornerRadius_BL, cornerRadius_BL)
 
-        if (cornerRadius != -1f) bg.cornerRadius = dip2px(cornerRadius)
+        if (cornerRadius != -1f) bg.cornerRadius = cornerRadius
 
         //bg-select
         val selectBg = GradientDrawable()
         //background
         selectBg.setColor(backgroundPressColor)
         //stroke
-        selectBg.setStroke(dip2px(strokeWidth).toInt(), strokePressColor)
+        selectBg.setStroke(strokeWidth.toInt(), strokePressColor)
         //corner
         selectBg.cornerRadii = floatArrayOf(
-                dip2px(cornerRadius_TL), dip2px(cornerRadius_TL),
-                dip2px(cornerRadius_TR), dip2px(cornerRadius_TR),
-                dip2px(cornerRadius_BR), dip2px(cornerRadius_BR),
-                dip2px(cornerRadius_BL), dip2px(cornerRadius_BL)
-        )
-        if (cornerRadius != -1f) selectBg.cornerRadius = dip2px(cornerRadius)
+                cornerRadius_TL, cornerRadius_TL,
+                cornerRadius_TR, cornerRadius_TR,
+                cornerRadius_BR, cornerRadius_BR,
+                cornerRadius_BL, cornerRadius_BL)
+
+        if (cornerRadius != -1f) selectBg.cornerRadius = cornerRadius
 
 
         //bg-uneable
@@ -91,7 +91,7 @@ class SimpleView : AppCompatTextView {
         //background
         unEnablebg.setColor(backgroundUnEnableColor)
         //stroke
-        unEnablebg.setStroke(dip2px(strokeWidth).toInt(), strokeUnEnableColor)
+        unEnablebg.setStroke(strokeWidth.toInt(), strokeUnEnableColor)
         //corner
         unEnablebg.cornerRadii = floatArrayOf(
                 cornerRadius_TL, cornerRadius_TL,
@@ -99,7 +99,7 @@ class SimpleView : AppCompatTextView {
                 cornerRadius_BR, cornerRadius_BR,
                 cornerRadius_BL, cornerRadius_BL
         )
-        if (cornerRadius != -1f) unEnablebg.cornerRadius = dip2px(cornerRadius)
+        if (cornerRadius != -1f) unEnablebg.cornerRadius = cornerRadius
 
         //复制给背景
         background = createSelector(bg, selectBg, bg, unEnablebg, selectBg)
@@ -151,10 +151,6 @@ class SimpleView : AppCompatTextView {
         bg.addState(intArrayOf(), normal)
         return bg
     }
-
-
-    //dp2px
-    private fun dip2px(dpValue: Float) = (dpValue * context.resources.displayMetrics.density + 0.5f)
 
 
 }
