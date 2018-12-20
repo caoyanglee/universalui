@@ -53,12 +53,13 @@ class SimpleView : AppCompatTextView {
         val textColor = attr.getColor(R.styleable.SimpleView_wm_textColor, Color.BLACK)
         val textPressColor = attr.getColor(R.styleable.SimpleView_wm_textPressColor, textColor)
         val textUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_textUnEnableColor, textColor)
-        setTextColor(createColorStateList(textColor, textPressColor, textPressColor, textUnEnableColor, textPressColor))
+        setTextColor(createTextStateList(textColor, textPressColor, textPressColor, textUnEnableColor, textPressColor))
 
         //bg-default
         val bg = GradientDrawable()
         //background
         bg.setColor(backgroundColor)
+
         //stroke
         bg.setStroke(strokeWidth.toInt(), strokeColor)
         //corner
@@ -86,7 +87,7 @@ class SimpleView : AppCompatTextView {
         if (cornerRadius != -1f) selectBg.cornerRadius = cornerRadius
 
 
-        //bg-uneable
+        //bg-unEnable
         val unEnablebg = GradientDrawable()
         //background
         unEnablebg.setColor(backgroundUnEnableColor)
@@ -102,28 +103,26 @@ class SimpleView : AppCompatTextView {
         if (cornerRadius != -1f) unEnablebg.cornerRadius = cornerRadius
 
         //复制给背景
-        background = createSelector(bg, selectBg, bg, unEnablebg, selectBg)
+        background = createBgSelector(bg, selectBg, bg, unEnablebg, selectBg)
 
         //gravity
         gravity = Gravity.CENTER
-
-
     }
 
 
     /**
      * 设置文本Selector
      */
-    private fun createColorStateList(normal: Int, pressed: Int, focused: Int, unable: Int, activited: Int): ColorStateList {
-//        val colors = intArrayOf(pressed, focused, normal, focused, unable, activited, normal)
-        val colors = intArrayOf(pressed, unable, activited, normal)
+    private fun createTextStateList(normal: Int, pressed: Int, focused: Int, unable: Int, activated: Int): ColorStateList {
+//        val colors = intArrayOf(pressed, focused, normal, focused, unable, activated, normal)
+        val colors = intArrayOf(pressed, unable, activated, normal)
         val states = arrayOfNulls<IntArray>(colors.size)
         states[0] = intArrayOf(this.enabled, this.pressed)
+        states[1] = intArrayOf(-this.enabled)
 //        states[1] = intArrayOf(enabled, this.focused)
 //        states[2] = intArrayOf(enabled)
 //        states[3] = intArrayOf(this.focused)
-        states[1] = intArrayOf(-this.enabled, -this.activited)
-        states[2] = intArrayOf(-this.enabled, this.activited)
+        states[2] = intArrayOf(this.activited)
         states[3] = intArrayOf()
         return ColorStateList(states, colors)
     }
@@ -131,10 +130,12 @@ class SimpleView : AppCompatTextView {
     /**
      * 设置背景的Selector
      */
-    private fun createSelector(normal: Drawable, pressed: Drawable, focused: Drawable, unable: Drawable, activited: Drawable): StateListDrawable {
+    private fun createBgSelector(normal: Drawable, pressed: Drawable, focused: Drawable, unable: Drawable, activated: Drawable): StateListDrawable {
         val bg = StateListDrawable()
         // View.PRESSED_ENABLED_STATE_SET
         bg.addState(intArrayOf(this.enabled, this.pressed), pressed)
+        //activated
+        bg.addState(intArrayOf(this.enabled, this.activited), activated)
 //        // View.ENABLED_FOCUSED_STATE_SET
 //        bg.addState(intArrayOf(this.enabled, this.focused), focused)
 //        // View.ENABLED_STATE_SET
@@ -145,8 +146,6 @@ class SimpleView : AppCompatTextView {
 //        bg.addState(intArrayOf(this.window_focused), unable)
         //unable
         bg.addState(intArrayOf(-this.enabled, -this.activited), unable)
-        //activited
-        bg.addState(intArrayOf(-this.enabled, this.activited), activited)
         // default
         bg.addState(intArrayOf(), normal)
         return bg
