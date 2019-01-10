@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">universalib</string>
+
+
+    <!--progressbar-->
+    <string name="progressbar_title">提示</string>
+    <string name="progressbar_content">请求中&#8230;</string>
+
+</resources>

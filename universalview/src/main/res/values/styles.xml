@@ -1,0 +1,57 @@
+<resources>
+
+    <!--所有主题的基类-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/colorBg</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+    </style>
+
+
+    <!--沉浸式主题-->
+    <style name="AppImmersionTheme" parent="AppTheme">
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+    </style>
+
+    <!--全屏幕主题-无状态栏-->
+    <style name="AppFullScreenTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/colorBg</item>
+    </style>
+
+    <!--底部弹出的Dialog-->
+    <style name="BottomToUpDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_from_bottom</item>
+    </style>
+
+
+    <!--透明背景-->
+    <style name="TransparentTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/colorTransparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <!--微信分享-->
+    <style name="WeChatTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/colorTransparent</item>
+    </style>
+
+    <!--popupWindow的动画-->
+    <style name="MyPopUpWindow">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+</resources>

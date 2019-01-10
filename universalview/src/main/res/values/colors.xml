@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--调用的统一颜色-->
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorAccent">#2C2D31</color>
+    <color name="colorBg">@color/white</color>
+
+    <color name="colorTransparent">#00000000</color>
+
+    <color name="black">#000000</color>
+    <color name="black_alpha95">#F3000000</color>
+    <color name="black_alpha90">#E5000000</color>
+    <color name="black_alpha85">#DA000000</color>
+    <color name="black_alpha80">#CC000000</color>
+    <color name="black_alpha75">#C0000000</color>
+    <color name="black_alpha70">#B3000000</color>
+    <color name="black_alpha65">#A6000000</color>
+    <color name="black_alpha60">#99000000</color>
+    <color name="black_alpha55">#8D000000</color>
+    <color name="black_alpha50">#7f000000</color>
+    <color name="black_alpha45">#74000000</color>
+    <color name="black_alpha40">#66000000</color>
+    <color name="black_alpha35">#5A000000</color>
+    <color name="black_alpha30">#4C000000</color>
+    <color name="black_alpha25">#3f000000</color>
+    <color name="black_alpha20">#33000000</color>
+    <color name="black_alpha15">#26000000</color>
+    <color name="black_alpha10">#19000000</color>
+    <color name="black_alpha5">#0C000000</color>
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_alpha95">#f3ffffff</color>
+    <color name="white_alpha90">#f0ffffff</color>
+    <color name="white_alpha85">#DAffffff</color>
+    <color name="white_alpha80">#CCffffff</color>
+    <color name="white_alpha75">#C0ffffff</color>
+    <color name="white_alpha70">#B3ffffff</color>
+    <color name="white_alpha65">#A6ffffff</color>
+    <color name="white_alpha60">#99ffffff</color>
+    <color name="white_alpha55">#8dffffff</color>
+    <color name="white_alpha50">#7fffffff</color>
+    <color name="white_alpha45">#74ffffff</color>
+    <color name="white_alpha40">#66ffffff</color>
+    <color name="white_alpha35">#5Affffff</color>
+    <color name="white_alpha30">#4Cffffff</color>
+    <color name="white_alpha25">#3fffffff</color>
+    <color name="white_alpha20">#33ffffff</color>
+    <color name="white_alpha15">#26ffffff</color>
+    <color name="white_alpha10">#19FFFFFF</color>
+    <color name="white_alpha5">#0CFFFFFF</color>
+
+
+</resources>
+
+
