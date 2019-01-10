@@ -1,4 +1,4 @@
-package com.weimu.universalib.helper.glide
+package com.weimu.universalview.glide
 
 import android.content.res.Resources
 import android.graphics.*
