@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import com.weimu.universalib.ktx.toast
 import com.weimu.universalib.origin.mvp.BaseView
-import com.weimu.universalib.helper.SnackBarCenter
-import com.weimu.universalib.origin.view.ProgressDialog
+import com.weimu.universalview.core.dialog.ProgressDialog
+import com.weimu.universalview.core.snackerbar.SnackBarCenter
 
 /**
  * Author:你需要一台永动机

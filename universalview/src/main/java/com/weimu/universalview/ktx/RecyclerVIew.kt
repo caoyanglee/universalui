@@ -4,7 +4,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SimpleItemAnimator
-import com.weimu.universalib.origin.list.layoutmanager.WrapContentLinearLayoutManger
+import com.weimu.universalview.core.recyclerview.layoutmanager.WrapContentLinearLayoutManger
 
 /**
  * Author:你需要一台永动机

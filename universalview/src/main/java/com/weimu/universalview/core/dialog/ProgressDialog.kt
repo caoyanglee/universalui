@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
-import com.weimu.universalib.R
+import com.weimu.universalview.R
 
 
 object ProgressDialog {

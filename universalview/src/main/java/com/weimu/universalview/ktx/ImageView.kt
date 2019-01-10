@@ -7,8 +7,8 @@ import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.weimu.universalib.R
 import com.weimu.universalib.helper.glide.GlideRoundTransform
+import com.weimu.universalview.R
 import java.io.File
 
 /**

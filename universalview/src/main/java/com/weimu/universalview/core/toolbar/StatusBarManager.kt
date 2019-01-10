@@ -10,7 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.weimu.universalib.R
+import com.weimu.universalview.R
 
 /**
  * 状态栏操作中心

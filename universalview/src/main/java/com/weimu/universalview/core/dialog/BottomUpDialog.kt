@@ -5,8 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.ViewGroup
-import com.weimu.universalib.R
-import com.weimu.universalview.core.dialog.BaseDialog
+import com.weimu.universalview.R
 
 /**
  * Author:你需要一台永动机
