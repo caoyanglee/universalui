@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.weimu.universalib.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.setOnClickListenerPro
 
 /**
  * @project KotLinProject

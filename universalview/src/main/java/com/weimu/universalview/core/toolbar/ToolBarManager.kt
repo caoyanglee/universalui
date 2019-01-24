@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.weimu.universalib.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.include_toolbar_primary.view.*
 
 

@@ -1,9 +1,9 @@
 package com.weimu.app.universalview
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.weimu.universalib.ktx.setOnClickListenerPro
+import android.support.v7.app.AppCompatActivity
 import com.weimu.universalib.ktx.toast
+import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
