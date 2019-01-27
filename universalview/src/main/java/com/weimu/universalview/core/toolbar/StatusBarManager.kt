@@ -17,12 +17,11 @@ import com.weimu.universalview.R
  */
 object StatusBarManager {
 
+
     /**
      * 修改状态栏为全透明
-     *
-     * @param activity
      */
-    private fun transparencyBar(window: Window) {
+    fun setTransparencyBar(window: Window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -35,8 +34,10 @@ object StatusBarManager {
         }
     }
 
-
-    private fun setColor(context: Context, window: Window, @ColorRes color: Int) {
+    /**
+     * 设置状态栏的背景颜色
+     */
+    fun setColor(context: Context, window: Window, @ColorRes color: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -56,7 +57,7 @@ object StatusBarManager {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    private fun StatusBarLightMode(window: Window): Int {
+    fun setLightMode(window: Window): Int {
         var result = 0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (MIUISetStatusBarLightMode(window, true)) {
@@ -80,7 +81,7 @@ object StatusBarManager {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    private fun StatusBarDarkMode(window: Window): Int {
+    fun setDarkMode(window: Window): Int {
         var result = 0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (MIUISetStatusBarLightMode(window, false)) {
@@ -190,21 +191,23 @@ object StatusBarManager {
         }
         //亮色模式
         if (color == R.color.white) {
-            StatusBarLightMode(window)
+            setLightMode(window)
         } else {
-            StatusBarDarkMode(window)
+            setDarkMode(window)
         }
     }
 
 
     //设置透明
+    @Deprecated("慢慢弃用")
     fun transparentPro(activity: Activity) {
-        transparencyBar(activity.window)
+        setTransparencyBar(activity.window)
     }
 
     //设置透明
+    @Deprecated("慢慢弃用")
     fun transparentPro(window: Window) {
-        transparencyBar(window)
+        setTransparencyBar(window)
     }
 
 
