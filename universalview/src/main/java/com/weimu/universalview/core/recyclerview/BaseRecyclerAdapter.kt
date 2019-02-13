@@ -276,8 +276,7 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
     open fun setDataToAdapter(data: List<T>?) {
         if (data == null) return
         if (dataList.size != 0) {
-            dataList.clear()
-            notifyDataSetChanged()
+            clearDataList()
             addData(data)
         } else {
             addData(data)
@@ -308,9 +307,10 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
         notifyItemRangeChanged(0, itemCount - footViewSize)
     }
 
+    //清除数据
     open fun clearDataList() {
         dataList.clear()
-        notifyItemRangeChanged(0, itemCount - footViewSize)
+        notifyDataSetChanged()
     }
 
 

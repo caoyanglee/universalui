@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="StarRateView">
+        <attr name="srv_showText" format="boolean" />
+        <attr name="srv_rateValue" format="integer" />
+        <attr name="srv_canClick" format="boolean" />
+        <attr name="srv_starFull" format="reference" />
+        <attr name="srv_starHalf" format="reference" />
+    </declare-styleable>
+
+</resources>
