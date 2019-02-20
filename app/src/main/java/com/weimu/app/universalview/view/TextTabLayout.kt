@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.widget.TextView
 import com.weimu.app.universalview.R
-import com.weimu.universalib.interfaces.MyViewPagerChangeListener
 import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalib.ktx.getColorPro
+import com.weimu.universalview.interfaces.MyViewPagerChangeListener
 import com.weimu.universalview.ktx.setMargins
 import com.weimu.universalview.ktx.setOnClickListenerPro
 

@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import com.weimu.universalib.interfaces.MyTextWatcher
+import com.weimu.universalview.interfaces.MyTextWatcher
 
 
 //TextView 扩展函数&扩展属性

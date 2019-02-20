@@ -5,22 +5,23 @@ import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.weimu.universalib.OriginAppData
+import com.weimu.universalib.ktx.dip2px
+import com.weimu.universalview.ktx.setHeight
 import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.visible
 import kotlinx.android.synthetic.main.include_toolbar_primary.view.*
 
 
 class ToolBarManager private constructor(private val mActivity: AppCompatActivity, private val mContent: ViewGroup) {
 
-    private var mParent: ViewGroup? = null
-    private var mToolBar: Toolbar? = null
+    private var mContainer: ViewGroup? = null
     /**
      * 获取标题视图
-
      * @备注 若有特殊处理，请获取此视图进行修改
      */
     private var mTitle: TextView? = null
@@ -45,13 +46,11 @@ class ToolBarManager private constructor(private val mActivity: AppCompatActivit
         if (mContent == null) {
             return
         }
-        //toolbar
-        mToolBar = mContent.toolbar
-        if (mToolBar == null)
-            return
 
-        //mParent
-        mParent = mContent.toolbar_parent
+        //mContainer
+        mContainer = mContent.cl_toolbar
+        mContainer?.setPadding(DefaultConfig.toolbarPadding, 0, DefaultConfig.toolbarPadding, 0)
+        mContainer?.setHeight(DefaultConfig.toolbarHeight)
 
 
         //mTitle
@@ -59,72 +58,68 @@ class ToolBarManager private constructor(private val mActivity: AppCompatActivit
         actionMenu1 = mContent.toolbar_menu_icon_right
         actionMenu2 = mContent.toolbar_menu_icon_right_v2
         mMenuIconLeft = mContent.toolbar_menu_icon_left
+        mMenuIconLeft?.setOnClickListenerPro {
+            mActivity.onBackPressed()
+        }
 
 
         //textMenu
         mMenuTextViewRight = mContent.toolbar_menu_text_right
         mMenuTextViewRight2 = mContent.toolbar_menu_text_right_v2
         mMenuTextViewLeft = mContent.toolbar_menu_text_left
-
-
-        //setup
-        mActivity.setSupportActionBar(mToolBar)
-        val actionBar = mActivity.supportActionBar
-        actionBar?.title = ""
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        setNavigationIcon(-1)
-        mToolBar?.setNavigationOnClickListener { mActivity.onBackPressed() }
-
-        mToolBar?.navigationIcon = null
     }
 
     /**
      * 设置左边的按钮Icon
      * 备注：若不想显示图片，可以输入-1或者0
      */
+    @Deprecated("尽量使用通用方法 @link leftMenuIcon")
     fun setNavigationIcon(@DrawableRes resId: Int) = this.apply {
         if (resId != 0 && resId != -1) {
-            mActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            mToolBar?.setNavigationIcon(resId)
+            mMenuIconLeft?.setImageResource(resId)
+            mMenuIconLeft?.visibility = View.VISIBLE
         } else {
-            mToolBar?.navigationIcon = null
+            mMenuIconLeft?.setImageResource(resId)
+            mMenuIconLeft?.visibility = View.GONE
         }
     }
 
 
     //通用设置 设置背景
     fun bg(config: (ViewGroup.() -> Unit)) = this.apply {
-        mParent?.config()
+        mContainer?.config()
     }
 
     //设置 背景 color
     @Deprecated("尽量使用通用方法")
     fun setBackgroundColor(@ColorRes color: Int) = this.apply {
-        mParent?.setBackgroundColor(ContextCompat.getColor(mActivity, color))
+        mContainer?.setBackgroundColor(ContextCompat.getColor(mActivity, color))
     }
 
     //设置 背景 drawable
     @Deprecated("尽量使用通用方法")
     fun setBackground(background: Drawable) = this.apply {
-        mParent?.background = background
+        mContainer?.background = background
     }
 
 
     //设置 背景 DrawableRes
     @Deprecated("尽量使用通用方法")
     fun setBackground(@DrawableRes drawableRes: Int) = this.apply {
-        mParent?.background = ContextCompat.getDrawable(mActivity, drawableRes)
+        mContainer?.background = ContextCompat.getDrawable(mActivity, drawableRes)
     }
 
 
     //通用设置 中间标题方法
     fun title(config: (TextView.() -> Unit)) = this.apply {
+        mTitle?.visible()
         mTitle?.config()
     }
 
     //设置标题内容
     @Deprecated("尽量使用通用方法")
     fun setTitle(consequence: CharSequence) = this.apply {
+        mTitle?.visible()
         mTitle?.text = consequence
     }
 
@@ -132,12 +127,14 @@ class ToolBarManager private constructor(private val mActivity: AppCompatActivit
     //设置标题颜色
     @Deprecated("尽量使用通用方法")
     fun setTitleColor(@ColorRes color: Int) = this.apply {
+        mTitle?.visible()
         mTitle?.setTextColor(ContextCompat.getColor(mActivity, color))
     }
 
     //设置标题字体大小
     @Deprecated("尽量使用通用方法")
     fun setTitleSize(size: Float) = this.apply {
+        mTitle?.visible()
         mTitle?.textSize = size
     }
 
@@ -258,6 +255,7 @@ class ToolBarManager private constructor(private val mActivity: AppCompatActivit
     fun setRightMenuIcon2Res(@DrawableRes resId: Int) = this.apply {
         actionMenu2?.visibility = View.VISIBLE
         actionMenu2?.setImageResource(resId)
+
     }
 
     //设置 右侧icon2点击事件
@@ -268,33 +266,23 @@ class ToolBarManager private constructor(private val mActivity: AppCompatActivit
 
 
     //通用设置 左侧icon
-    fun leftMenuIcon2(config: (ImageView.() -> Unit)) = this.apply {
-        setNavigationIcon(-1)
+    fun leftMenuIcon(config: (ImageView.() -> Unit)) = this.apply {
         mMenuIconLeft?.config()
         mMenuIconLeft?.visibility = View.VISIBLE
     }
 
 
-    //设置左侧icon
-    @Deprecated("尽量使用通用方法")
-    fun setLeftMenuIconRes(@DrawableRes resId: Int) = this.apply {
-        setNavigationIcon(-1)
-        mMenuIconLeft?.visibility = View.VISIBLE
-        mMenuIconLeft?.setImageResource(resId)
-    }
-
-
-    //设置左侧icon点击事件
-    @Deprecated("尽量使用通用方法")
-    fun setLeftMenuIconClickListener(onclick: ((View) -> Unit)) = this.apply {
-        mMenuIconLeft?.setOnClickListenerPro(onclick)
-    }
-
     //隐藏工具栏
-    fun hideToolBar() = this.apply { mParent?.visibility = View.GONE }
+    fun hideToolBar() = this.apply { mContainer?.visibility = View.GONE }
 
     //显示工具栏
-    fun showToolBar() = this.apply { mParent?.visibility = View.VISIBLE }
+    fun showToolBar() = this.apply { mContainer?.visibility = View.VISIBLE }
 
 
+    //默认配置
+    object DefaultConfig {
+        var toolbarPadding = OriginAppData.context.dip2px(16f)//父视图的左右padding
+        var toolbarHeight = OriginAppData.context.dip2px(48f)//父视图的高度
+    }
 }
+

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,40 +7,8 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <com.weimu.universalview.widget.SimpleView
-        android:id="@+id/sv_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="Hello World!"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:wm_backgroundColor="#26FF4444"
-        app:wm_backgroundPressColor="@color/colorAccent"
-        app:wm_backgroundUnEnableColor="@color/black"
-        app:wm_cornerRadius="2dp"
-        app:wm_textColor="#393939"
-        app:wm_textPressColor="@color/white"
-        app:wm_textUnEnableColor="@color/white" />
+
+    <include layout="@layout/include_toolbar_primary" />
 
 
-    <com.weimu.app.universalview.view.GridInputText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:focusableInTouchMode="true"
-        app:gridInputChildMargin="6dp"
-        app:gridInputHide="false"
-        app:gridInputItemBackgroundType="line"
-        app:gridInputItemLineBackgroundColor="@color/colorAccent"
-        app:gridInputItemLineBackgroundWidth="1dp"
-        app:gridInputLength="6"
-        app:gridInputTextColor="@color/colorAccent"
-        app:gridInputTextSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -2,6 +2,8 @@ package com.weimu.app.universalview
 
 import android.app.Activity
 import com.weimu.universalib.OriginAppData
+import com.weimu.universalib.ktx.dip2px
+import com.weimu.universalview.core.toolbar.ToolBarManager
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -40,5 +42,17 @@ class AppData : OriginAppData() {
 
     override fun isDebug() = BuildConfig.DEBUG
 
+    override fun onCreate() {
+        super.onCreate()
+        context = this
+        initAppBarConfig()
+    }
+
+    private fun initAppBarConfig() {
+        ToolBarManager.DefaultConfig.apply {
+            toolbarPadding= context.dip2px(20f)
+            toolbarHeight= context.dip2px(44f)
+        }
+    }
 
 }
