@@ -10,4 +10,25 @@
         <attr name="srv_starHalf" format="reference" />
     </declare-styleable>
 
+
+    <declare-styleable name="GridInputText">
+
+        <attr name="gridInputLength" format="integer" />
+        <attr name="gridInputItemBackground" format="reference" />
+        <attr name="gridInputHide" format="boolean" />
+        <attr name="gridInputType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="number" value="1" />
+        </attr>
+        <attr name="gridInputItemBackgroundType">
+            <enum name="rect" value="0" />
+            <enum name="line" value="1" />
+            <enum name="self" value="2" />
+        </attr>
+        <attr name="gridInputItemLineBackgroundWidth" format="dimension|reference"/>
+        <attr name="gridInputItemLineBackgroundColor" format="color|reference"/>
+        <attr name="gridInputTextSize" format="reference|dimension" />
+        <attr name="gridInputTextColor" format="reference|color" />
+        <attr name="gridInputChildMargin" format="reference|dimension" />
+    </declare-styleable>
 </resources>

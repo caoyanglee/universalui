@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <com.weimu.universalview.widget.SimpleView
@@ -24,5 +25,22 @@
         app:wm_textColor="#393939"
         app:wm_textPressColor="@color/white"
         app:wm_textUnEnableColor="@color/white" />
+
+
+    <com.weimu.app.universalview.view.GridInputText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:focusableInTouchMode="true"
+        app:gridInputChildMargin="6dp"
+        app:gridInputHide="false"
+        app:gridInputItemBackgroundType="line"
+        app:gridInputItemLineBackgroundColor="@color/colorAccent"
+        app:gridInputItemLineBackgroundWidth="1dp"
+        app:gridInputLength="6"
+        app:gridInputTextColor="@color/colorAccent"
+        app:gridInputTextSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

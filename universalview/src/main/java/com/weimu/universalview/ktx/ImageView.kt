@@ -2,6 +2,8 @@ package com.weimu.universalview.ktx
 
 import android.app.Activity
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
@@ -164,7 +166,7 @@ fun ImageView.load4Circle(bitmap: Bitmap, placeholder: Int = -1, useAnim: Boolea
 
 
 //图片加载 round
-fun ImageView.load4Round(url: String = "", radius: Int=6, placeholder: Int = -1, useAnim: Boolean = true) {
+fun ImageView.load4Round(url: String = "", radius: Int = 6, placeholder: Int = -1, useAnim: Boolean = true) {
     if (context is Activity) {
         if ((context as Activity).isFinishing) return
     }
@@ -175,7 +177,7 @@ fun ImageView.load4Round(url: String = "", radius: Int=6, placeholder: Int = -1,
     requestBuilder.into(this)
 }
 
-fun ImageView.load4Round(drawableRes: Int = 0, radius: Int=6, placeholder: Int = -1, useAnim: Boolean = true) {
+fun ImageView.load4Round(drawableRes: Int = 0, radius: Int = 6, placeholder: Int = -1, useAnim: Boolean = true) {
     if (context is Activity) {
         if ((context as Activity).isFinishing) return
     }
@@ -188,7 +190,7 @@ fun ImageView.load4Round(drawableRes: Int = 0, radius: Int=6, placeholder: Int =
 }
 
 
-fun ImageView.load4Round(file: File, radius: Int=6, placeholder: Int = -1, useAnim: Boolean = true) {
+fun ImageView.load4Round(file: File, radius: Int = 6, placeholder: Int = -1, useAnim: Boolean = true) {
     if (context is Activity) {
         if ((context as Activity).isFinishing) return
     }
@@ -200,7 +202,7 @@ fun ImageView.load4Round(file: File, radius: Int=6, placeholder: Int = -1, useAn
 }
 
 
-fun ImageView.load4Round(bitmap: Bitmap, radius: Int=6, placeholder: Int = -1, useAnim: Boolean = true) {
+fun ImageView.load4Round(bitmap: Bitmap, radius: Int = 6, placeholder: Int = -1, useAnim: Boolean = true) {
     if (context is Activity) {
         if ((context as Activity).isFinishing) return
     }
@@ -210,7 +212,6 @@ fun ImageView.load4Round(bitmap: Bitmap, radius: Int=6, placeholder: Int = -1, u
     if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
     requestBuilder.into(this)
 }
-
 
 
 //不进行缓存的图片请求
@@ -231,3 +232,9 @@ fun ImageView.load4NoCache(url: String = "", placeholder: Int = -1, useAnim: Boo
     requestBuilder.into(this)
 }
 
+//加载base64的图片
+fun ImageView.loadBae64(base64Data: String) {
+    val bytes = Base64.decode(base64Data, Base64.DEFAULT)
+    val btm = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    this.load(btm)
+}
