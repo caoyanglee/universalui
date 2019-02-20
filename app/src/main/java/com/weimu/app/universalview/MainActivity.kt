@@ -16,6 +16,9 @@ class MainActivity : BaseActivity() {
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         ToolBarManager.with(this, getContentView())
                 .setNavigationIcon(R.drawable.ic_nav_back_white)
+                .leftMenuText {
+                    text="呵呵哒"
+                }
                 .bg {
                     setBackgroundColor(getColorPro(R.color.black))
                 }

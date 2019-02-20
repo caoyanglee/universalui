@@ -79,7 +79,6 @@ class ToolBarManager private constructor(private val mActivity: AppCompatActivit
             mMenuIconLeft?.setImageResource(resId)
             mMenuIconLeft?.visibility = View.VISIBLE
         } else {
-            mMenuIconLeft?.setImageResource(resId)
             mMenuIconLeft?.visibility = View.GONE
         }
     }
