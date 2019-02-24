@@ -2,22 +2,26 @@ package com.weimu.app.universalview
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.weimu.app.universalview.adapter.StringAdapter
 import com.weimu.universalib.ktx.getColorPro
 import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.activity.BaseActivity
 import com.weimu.universalview.core.toolbar.ToolBarManager
+import com.weimu.universalview.ktx.init
 import com.weimu.universalview.ktx.setMargins
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+    private val adapter by lazy { StringAdapter(getContext()) }
+
     override fun getLayoutResID(): Int = R.layout.activity_main
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         ToolBarManager.with(this, getContentView())
                 .setNavigationIcon(R.drawable.ic_nav_back_white)
                 .leftMenuText {
-                    text="呵呵哒"
+                    text = "呵呵哒"
                 }
                 .bg {
                     setBackgroundColor(getColorPro(R.color.black))
@@ -28,9 +32,9 @@ class MainActivity : BaseActivity() {
                 }
                 .rightMenuIcon {
                     setImageResource(R.drawable.ic_nav_back_white)
-                }
-                .rightMenuIcon2 {
-                    setImageResource(R.drawable.ic_nav_back_white)
+                    setOnClickListenerPro {
+                        adapter.setDataToAdapter(arrayListOf("1", "2", "3"))
+                    }
                 }
 //                .rightMenuText {
 //                    text="测试"
@@ -40,5 +44,10 @@ class MainActivity : BaseActivity() {
 //                    text="通知"
 //                    setTextColor(getColorPro(R.color.white))
 //                }
+
+        recy_title.init()
+        recy_title.adapter = adapter
+
+        adapter.setDataToAdapter(arrayListOf("1", "2"))
     }
 }
