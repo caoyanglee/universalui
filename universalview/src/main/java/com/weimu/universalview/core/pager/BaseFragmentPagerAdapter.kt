@@ -12,7 +12,6 @@ import android.view.View
  */
 open class BaseFragmentPagerAdapter(var fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-
     private val mFragment = arrayListOf<Fragment>()
 
     override fun getItem(arg0: Int): Fragment {
