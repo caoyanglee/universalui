@@ -20,7 +20,7 @@ allprojects {
 **app的build.gradle**
 [![](https://jitpack.io/v/caoyanglee/universalui.svg)](https://jitpack.io/#caoyanglee/universalui)
 
-> 注意：默认使用kotlin1.3.10版本的库
+> 注意：默认使用kotlin1.3.20版本的库
 
 ```gradle
 implementation 'com.github.caoyanglee:universalui:{latestVersion}'
