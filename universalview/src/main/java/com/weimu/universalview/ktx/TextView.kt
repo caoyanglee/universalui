@@ -17,20 +17,38 @@ import com.weimu.universalview.interfaces.MyTextWatcher
 
 
 //TextView 扩展函数&扩展属性
+
 //******    SpannableString     ******
 
-//普通染色
-fun TextView.dye(start: Int, end: Int, @ColorRes color: Int) {
-    val origin = this.text.toString().trim { it <= ' ' }
-    val str = SpannableString(origin)
-    str.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, color)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)//染色
-    text = str
-}
 
-//染色-Html
-fun TextView.dyeByHtml(color: Int) {
-    val str = "我是谁？我在哪？ <font color=${ContextCompat.getColor(context, color)}>我在干什么？</font>"
-    text = Html.fromHtml(str)
+/**
+ * 暂时所知的Span类型
+ * 文字大小： AbsoluteSizeSpan(18, true)
+ * 文字颜色：ForegroundColorSpan(color)
+ * 文字加粗：StyleSpan(Typeface.BOLD)
+ * 文字斜体：StyleSpan(Typeface.ITALIC)
+ */
+data class SpannableParam(var content: String, var characterStyle: CharacterStyle? = null)
+
+/**
+ * 设置文本 通过分段来设置 文本样式
+ */
+fun TextView.setSpannableString(vararg items: SpannableParam) {
+    val ssb = SpannableStringBuilder()
+    for (item in items) {
+        if (item.characterStyle == null) {
+            ssb.append(SpannableStringBuilder(item.content))
+        } else {
+            ssb.append(SpannableStringBuilder(item.content).apply {
+                setSpan(item.characterStyle, 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            })
+            if (item.characterStyle is ClickableSpan){
+                movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
+                highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
+            }
+        }
+    }
+    this.text = ssb
 }
 
 //根据关键词染色，懒得再数了
@@ -124,26 +142,6 @@ abstract class BaseClickSpan : ClickableSpan {
             isUnderlineText = isUnderLine
         }
     }
-}
-
-
-//设置样式
-val spanStyleBold = StyleSpan(Typeface.BOLD)
-val spanStyleItalic = StyleSpan(Typeface.ITALIC)
-fun TextView.setStyleSpan(start: Int, end: Int, styleSpan: Int) {
-    val origin = text.toString().trim { it <= ' ' }
-    val span = SpannableString(origin)
-    span.setSpan(styleSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    text = span
-}
-
-//设置大小
-fun TextView.setPartTextSize(start: Int, end: Int, textSize: Int) {
-    //textsize 单位为sp
-    val origin = text.toString().trim { it <= ' ' }
-    val str = SpannableString(origin)
-    str.setSpan(AbsoluteSizeSpan(textSize, true), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    text = str
 }
 
 
