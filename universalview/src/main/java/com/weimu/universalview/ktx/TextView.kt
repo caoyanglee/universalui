@@ -20,15 +20,15 @@ import com.weimu.universalview.interfaces.MyTextWatcher
 
 //******    SpannableString     ******
 
-
 /**
  * 暂时所知的Span类型 characterStyle
  * 文字大小： AbsoluteSizeSpan(18, true)
  * 文字颜色：ForegroundColorSpan(color)
  * 文字加粗：StyleSpan(Typeface.BOLD)
  * 文字斜体：StyleSpan(Typeface.ITALIC)
+ * 文字点击：MyClickSpan(dyeColor,isUnderLine,clickListener)
  */
-data class SpannableParam(var content: String, var characterStyle: CharacterStyle? = null)
+data class SpannableParam(var content: String, var characterStyles: List<CharacterStyle>? = null)
 
 /**
  * 设置文本 通过分段来设置 文本样式
@@ -36,110 +36,39 @@ data class SpannableParam(var content: String, var characterStyle: CharacterStyl
 fun TextView.setSpannableString(vararg items: SpannableParam) {
     val ssb = SpannableStringBuilder()
     for (item in items) {
-        if (item.characterStyle == null) {
-            ssb.append(SpannableStringBuilder(item.content))
-        } else {
+        if (item.characterStyles != null) {
             ssb.append(SpannableStringBuilder(item.content).apply {
-                setSpan(item.characterStyle, 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                for (style in item.characterStyles!!) {
+                    setSpan(style, 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    if (style is ClickableSpan) {
+                        movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
+                        highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
+                    }
+                }
             })
-            if (item.characterStyle is ClickableSpan) {
-                movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
-                highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
-            }
+        } else {
+            ssb.append(SpannableStringBuilder(item.content))
         }
+
     }
     this.text = ssb
 }
 
-//根据关键词染色，懒得再数了
-fun TextView.dyeByKeyword(keyWord: String, @ColorRes color: Int) {
-    if (TextUtils.isEmpty(keyWord)) return
-    if (!text.contains(keyWord)) return
-    val str = SpannableStringBuilder(text)
-    var start = 0
-    while (true) {
-        start = text.indexOf(keyWord, start)
-        if (start < 0 || start >= text.length) break
-        str.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, color)), start, start + keyWord.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)//染色
-        start += keyWord.length
+//ClickSpan
+class MyClickSpan(
+        @ColorInt var dyeColor: Int,
+        var isUnderLine: Boolean = false,
+        var clickListener: ((widget: View?) -> Unit)? = null) : ClickableSpan() {
+
+    override fun onClick(widget: View?) {
+        clickListener?.invoke(widget)//设置点击事件
     }
-    text = str
-}
-
-
-//染色+点击事件
-fun TextView.addClickArea(start: Int, end: Int,
-                          @ColorInt color: Int = -1,
-                          isUnderLine: Boolean = false,
-                          click: () -> Unit) {
-
-    val origin = text.toString().trim { it <= ' ' }
-    val str = SpannableString(origin)
-    str.setSpan(object : BaseClickSpan(if (color == -1) currentTextColor else color, isUnderLine) {
-        override fun onClick(widget: View?) {
-            //点击事件
-            click()
-        }
-
-    }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    text = str
-    movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
-    highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
-}
-
-
-//染色+自动寻找+点击事件
-fun TextView.addClickAreaByKeyWord(keyWord: String,
-                                   @ColorInt color: Int = -1,
-                                   isUnderLine: Boolean = true,
-                                   click: () -> Unit) {
-
-    if (TextUtils.isEmpty(keyWord)) return
-    val str = SpannableStringBuilder(text)
-    var start = 0
-    while (true) {
-        start = text.indexOf(keyWord, start)
-        if (start < 0 || start >= text.length) break
-        str.setSpan(object : BaseClickSpan(if (color == -1) currentTextColor else color, isUnderLine) {
-            override fun onClick(widget: View?) {
-                //点击事件
-                click()
-            }
-
-
-        }, start, start + keyWord.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        start += keyWord.length
-    }
-    text = str
-    movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
-    highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
-}
-
-//clickSpan
-abstract class BaseClickSpan : ClickableSpan {
-    private var colorDye = -1//颜色
-    private var isUnderLine = false//是否有下划线
-
-    constructor(@ColorInt colorDye: Int) : super() {
-        this.colorDye = colorDye
-    }
-
-    constructor(isUnderLine: Boolean) : super() {
-        this.isUnderLine = isUnderLine
-    }
-
-
-    constructor(colorDye: Int, isUnderLine: Boolean) : super() {
-        this.colorDye = colorDye
-        this.isUnderLine = isUnderLine
-    }
-
 
     override fun updateDrawState(ds: TextPaint?) {
         super.updateDrawState(ds)
         ds?.apply {
-            color = colorDye
-            isUnderlineText = isUnderLine
+            isUnderlineText = isUnderLine//是否有下划线
+            color = dyeColor//设置点击颜色
         }
     }
 }
