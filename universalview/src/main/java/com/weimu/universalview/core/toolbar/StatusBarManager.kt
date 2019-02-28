@@ -1,22 +1,19 @@
 package com.weimu.universalview.core.toolbar
 
 
-import android.app.Activity
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
-import android.support.annotation.ColorRes
-import android.support.v4.content.ContextCompat
+import android.support.annotation.ColorInt
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.weimu.universalview.R
 
 /**
  * 状态栏操作中心
  */
 object StatusBarManager {
 
+    var statusLightBarColorV5 = Color.rgb(102, 102, 102)//5.0及其5.1亮色状态背景
 
     /**
      * 修改状态栏为全透明
@@ -37,16 +34,17 @@ object StatusBarManager {
     /**
      * 设置状态栏的背景颜色
      */
-    fun setColor(context: Context, window: Window, @ColorRes color: Int) {
+    fun setColor(window: Window, @ColorInt color: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(context, color)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.statusBarColor = color
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = color
         }
     }
 
@@ -59,16 +57,16 @@ object StatusBarManager {
      */
     fun setLightMode(window: Window): Int {
         var result = 0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(window, true)) {
-                result = 1
-            } else if (FlymeSetStatusBarLightMode(window, true)) {
-                result = 2
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                result = 3
-            }
+        if (MIUISetStatusBarLightMode(window, true)) {
+            result = 1
+        } else if (FlymeSetStatusBarLightMode(window, true)) {
+            result = 2
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            result = 3
+        } else {//5.x版本的手机不支持状态栏你黑色字体，所以状态栏的颜色自己看设置一个
+            setColor(window, statusLightBarColorV5)
         }
         return result
     }
@@ -83,15 +81,13 @@ object StatusBarManager {
      */
     fun setDarkMode(window: Window): Int {
         var result = 0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(window, false)) {
-                result = 1
-            } else if (FlymeSetStatusBarLightMode(window, false)) {
-                result = 2
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                //activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                result = 3
-            }
+        if (MIUISetStatusBarLightMode(window, false)) {
+            result = 1
+        } else if (FlymeSetStatusBarLightMode(window, false)) {
+            result = 2
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            result = 3
         }
         return result
     }
@@ -161,7 +157,7 @@ object StatusBarManager {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     //开发版 7.7.13 及以后版本采用了系统API，旧方法无效但不会报错，所以两个方式都要加上
                     if (dark) {
-//                        activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                        //activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     } else {
                         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
@@ -173,41 +169,6 @@ object StatusBarManager {
 
         }
         return result
-    }
-
-
-    //设置颜色-activity
-    fun setColorPro(activity: Activity, @ColorRes color: Int) {
-        setColorPro(activity, activity.window, color)
-    }
-
-
-    //设置颜色-activity
-    fun setColorPro(context: Context, window: Window, @ColorRes color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            setColor(context, window, color)
-        } else {
-            setColor(context, window, R.color.black_alpha50)
-        }
-        //亮色模式
-        if (color == R.color.white) {
-            setLightMode(window)
-        } else {
-            setDarkMode(window)
-        }
-    }
-
-
-    //设置透明
-    @Deprecated("慢慢弃用")
-    fun transparentPro(activity: Activity) {
-        setTransparencyBar(activity.window)
-    }
-
-    //设置透明
-    @Deprecated("慢慢弃用")
-    fun transparentPro(window: Window) {
-        setTransparencyBar(window)
     }
 
 

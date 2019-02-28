@@ -6,6 +6,7 @@ import com.weimu.app.universalview.adapter.StringAdapter
 import com.weimu.universalib.ktx.getColorPro
 import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.activity.BaseActivity
+import com.weimu.universalview.core.toolbar.StatusBarManager
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.init
 import com.weimu.universalview.ktx.setMargins
@@ -18,13 +19,15 @@ class MainActivity : BaseActivity() {
     override fun getLayoutResID(): Int = R.layout.activity_main
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
+        StatusBarManager.setColor(window, getColorPro(R.color.white))
+        StatusBarManager.setLightMode(window)
         ToolBarManager.with(this, getContentView())
                 .setNavigationIcon(R.drawable.ic_nav_back_white)
                 .leftMenuText {
                     text = "呵呵哒"
                 }
                 .bg {
-                    setBackgroundColor(getColorPro(R.color.black))
+                    setBackgroundColor(getColorPro(R.color.white))
                 }
                 .title {
                     text = "测试ToolBar"
