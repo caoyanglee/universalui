@@ -22,7 +22,7 @@ import com.weimu.universalview.interfaces.MyTextWatcher
 
 
 /**
- * 暂时所知的Span类型
+ * 暂时所知的Span类型 characterStyle
  * 文字大小： AbsoluteSizeSpan(18, true)
  * 文字颜色：ForegroundColorSpan(color)
  * 文字加粗：StyleSpan(Typeface.BOLD)
@@ -42,7 +42,7 @@ fun TextView.setSpannableString(vararg items: SpannableParam) {
             ssb.append(SpannableStringBuilder(item.content).apply {
                 setSpan(item.characterStyle, 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             })
-            if (item.characterStyle is ClickableSpan){
+            if (item.characterStyle is ClickableSpan) {
                 movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
                 highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
             }
