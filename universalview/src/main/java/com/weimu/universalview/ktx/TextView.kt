@@ -187,8 +187,13 @@ fun TextView.setDrawables(
     val rightDrawable = if (rightImage != null) context.getDrawablePro(rightImage) else null
     val bottomDrawable = if (bottomImage != null) context.getDrawablePro(bottomImage) else null
     if (leftDrawable == null && topDrawable == null && rightDrawable == null && bottomDrawable == null) return
-    this.setCompoundDrawables(leftDrawable, topDrawable, rightDrawable, bottomDrawable)//画在顶部
+    this.setCompoundDrawables(leftDrawable, topDrawable, rightDrawable, bottomDrawable)
     this.compoundDrawablePadding = drawablePadding
+}
+
+//清除TextView的drawable
+fun TextView.clearAllDrawables() {
+    this.setCompoundDrawables(null, null, null, null)
 }
 
 //检查通行证 -> 检查对其有意义的编辑框
