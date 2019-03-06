@@ -51,25 +51,5 @@ class MainActivity : BaseActivity() {
         recy_title.adapter = adapter
 
         adapter.setDataToAdapter(arrayListOf("1", "2"))
-
-
-        //增加 TextView显示 图片 CenterAlignImageSpan
-        tv_test.setSpannableString(
-                SpannableParam("这是 "),
-                SpannableParam("大文字 ", arrayListOf(
-                        AbsoluteSizeSpan(20, true)
-                )),
-                SpannableParam("图片", arrayListOf(
-                        CenterAlignImageSpan(getContext().getDrawablePro(R.drawable.universal_ic_edit_clear))
-                ))
-        )
-        //增加 动态设置TextView的drawables
-        tv_test.setDrawables(
-                leftImage = R.drawable.address_ic_edit,
-                topImage = R.drawable.address_ic_edit,
-                rightImage = R.drawable.address_ic_edit,
-                bottomImage = R.drawable.address_ic_edit,
-                drawablePadding = getContext().dip2px(8f)
-        )
     }
 }
