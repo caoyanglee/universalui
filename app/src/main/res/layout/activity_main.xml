@@ -11,11 +11,17 @@
 
     <include layout="@layout/include_toolbar_primary" />
 
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="wrap_content"
+        android:text="我去"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recy_title"
         android:layout_width="match_parent"
-        android:background="@color/black_alpha5"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/black_alpha5" />
 
 
 </LinearLayout>

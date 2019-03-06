@@ -1,11 +1,15 @@
 package com.weimu.universalview.ktx
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.text.*
 import android.text.method.LinkMovementMethod
@@ -29,6 +33,7 @@ import com.weimu.universalview.interfaces.MyTextWatcher
  * 文字斜体：StyleSpan(Typeface.ITALIC)
  * 文字点击：MyClickSpan(dyeColor,isUnderLine,clickListener)
  * 文字样式自定义：MyTypefaceSpan(typeface)
+ * 文字图片：CenterAlignImageSpan(drawable)
  */
 data class SpannableParam(var content: String, var characterStyles: List<CharacterStyle>? = null)
 
@@ -38,25 +43,30 @@ data class SpannableParam(var content: String, var characterStyles: List<Charact
 fun TextView.setSpannableString(vararg items: SpannableParam) {
     val ssb = SpannableStringBuilder()
     for (item in items) {
-        if (item.characterStyles != null) {
-            ssb.append(SpannableStringBuilder(item.content).apply {
-                for (style in item.characterStyles!!) {
-                    setSpan(style, 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    if (style is ClickableSpan) {
-                        movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
-                        highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
-                    }
-                }
-            })
-        } else {
+        val targetStyle = item.characterStyles
+        if (targetStyle == null) {
             ssb.append(SpannableStringBuilder(item.content))
+            continue
         }
-
+        ssb.append(SpannableStringBuilder(item.content).apply {
+            for (style in targetStyle) {
+                if (style is ImageSpan) {
+                    item.content = item.content.isBlank().toString() ?: "图片"
+                    setSpan(style, 0, this.length, ImageSpan.ALIGN_BOTTOM)//这个与CenterAlignImageSpan配合使用
+                    continue
+                }
+                if (style is ClickableSpan) {
+                    movementMethod = LinkMovementMethod.getInstance()//必须设置才能点击
+                    highlightColor = ContextCompat.getColor(context, android.R.color.transparent)//设置透明的高亮背景
+                }
+                setSpan(style, 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        })
     }
     this.text = ssb
 }
 
-//ClickSpan
+//点击的Span
 class MyClickSpan(
         @ColorInt var dyeColor: Int,
         var isUnderLine: Boolean = false,
@@ -78,7 +88,6 @@ class MyClickSpan(
 
 //自定义获取TypeFace的Span
 class MyTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
-
 
     override fun updateDrawState(ds: TextPaint) {
         apply(ds)
@@ -109,6 +118,28 @@ class MyTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
         }
 
         paint.typeface = tf
+    }
+}
+
+//图片居中显示Span
+class CenterAlignImageSpan : ImageSpan {
+
+    constructor(drawable: Drawable) : super(drawable) {
+
+    }
+
+    constructor(b: Bitmap) : super(b) {}
+
+    override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int,
+                      paint: Paint) {
+
+        val b = drawable
+        val fm = paint.fontMetricsInt
+        val transY = (y + fm.descent + y + fm.ascent) / 2 - b.bounds.bottom / 2//计算y方向的位移
+        canvas.save()
+        canvas.translate(x, transY.toFloat())//绘制图片位移一段距离
+        b.draw(canvas)
+        canvas.restore()
     }
 }
 
@@ -144,46 +175,21 @@ fun TextView.fullText() {
     text = String(c)
 }
 
-
-//顶部画drawable
-fun TextView.setTopDrawable(resource: Int = -1) {
-    if (resource == -1) {
-        this.setCompoundDrawables(null, null, null, null)//画在顶部
-        return
-    }
-    val drawable = context.resources.getDrawable(resource)
-    drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
-    this.setCompoundDrawables(null, drawable, null, null)//画在顶部
+//设置TextView的drawable
+fun TextView.setDrawables(
+        @DrawableRes leftImage: Int? = null,
+        @DrawableRes topImage: Int? = null,
+        @DrawableRes rightImage: Int? = null,
+        @DrawableRes bottomImage: Int? = null,
+        drawablePadding: Int = 0) {
+    val leftDrawable = if (leftImage != null) context.getDrawablePro(leftImage) else null
+    val topDrawable = if (topImage != null) context.getDrawablePro(topImage) else null
+    val rightDrawable = if (rightImage != null) context.getDrawablePro(rightImage) else null
+    val bottomDrawable = if (bottomImage != null) context.getDrawablePro(bottomImage) else null
+    if (leftDrawable == null && topDrawable == null && rightDrawable == null && bottomDrawable == null) return
+    this.setCompoundDrawables(leftDrawable, topDrawable, rightDrawable, bottomDrawable)//画在顶部
+    this.compoundDrawablePadding = drawablePadding
 }
-
-
-//右侧画drawable
-fun TextView.setRightDrawable(resource: Int = -1) {
-    if (resource == -1) {
-        this.setCompoundDrawables(null, null, null, null)//画在顶部
-        return
-    }
-    val drawable = ContextCompat.getDrawable(context, resource)!!
-    drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
-    this.setCompoundDrawables(null, null, drawable, null)
-}
-
-//左侧画drawable
-fun TextView.setLeftDrawable(resource: Int = -1) {
-    if (resource == -1) {
-        this.setCompoundDrawables(null, null, null, null)//画在顶部
-        return
-    }
-    val drawable = context.resources.getDrawable(resource)
-    drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
-    this.setCompoundDrawables(drawable, null, null, null)
-}
-
-//清除所有的drawable
-fun TextView.clearDrawables() {
-    this.setCompoundDrawables(null, null, null, null)
-}
-
 
 //检查通行证 -> 检查对其有意义的编辑框
 fun TextView.addGuard(vararg editText: EditText) {
@@ -207,7 +213,6 @@ fun TextView.addGuard(vararg editText: EditText) {
 fun TextView.addMiddleLine() {
     this.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
 }
-
 
 //显示中划线并加清晰
 fun TextView.addMiddleLineAndEmphasize() {

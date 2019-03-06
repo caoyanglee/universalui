@@ -4,8 +4,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Handler
+import android.support.annotation.DrawableRes
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -215,6 +218,13 @@ fun View.bg(option: ViewBgOption) {
     background = targetBg
 }
 
+
+//获取drawable
+fun Context.getDrawablePro(@DrawableRes id: Int): Drawable? {
+    val drawable = ContextCompat.getDrawable(this, id)
+    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
+    return drawable
+}
 
 
 
