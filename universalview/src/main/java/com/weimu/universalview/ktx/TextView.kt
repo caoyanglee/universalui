@@ -1,5 +1,6 @@
 package com.weimu.universalview.ktx
 
+import android.content.Context
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Build
@@ -27,6 +28,7 @@ import com.weimu.universalview.interfaces.MyTextWatcher
  * 文字加粗：StyleSpan(Typeface.BOLD)
  * 文字斜体：StyleSpan(Typeface.ITALIC)
  * 文字点击：MyClickSpan(dyeColor,isUnderLine,clickListener)
+ * 文字样式自定义：MyTypefaceSpan(typeface)
  */
 data class SpannableParam(var content: String, var characterStyles: List<CharacterStyle>? = null)
 
@@ -73,6 +75,45 @@ class MyClickSpan(
     }
 }
 
+
+//自定义获取TypeFace的Span
+class MyTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
+
+
+    override fun updateDrawState(ds: TextPaint) {
+        apply(ds)
+    }
+
+    override fun updateMeasureState(paint: TextPaint) {
+        apply(paint)
+    }
+
+    private fun apply(paint: Paint) {
+        val oldStyle: Int
+
+        val old = paint.typeface
+        if (old == null) {
+            oldStyle = 0
+        } else {
+            oldStyle = old.style
+        }
+        val tf = typeface
+        val fake = oldStyle and tf.style.inv()
+
+        if (fake and Typeface.BOLD != 0) {
+            paint.isFakeBoldText = true
+        }
+
+        if (fake and Typeface.ITALIC != 0) {
+            paint.textSkewX = -0.25f
+        }
+
+        paint.typeface = tf
+    }
+}
+
+//从asset中获取获取文字样式TypeFace
+fun Context.getTypeFaceFromAssets(assetPath: String): Typeface = Typeface.createFromAsset(this.assets, assetPath)
 
 //******    Others     ******
 
