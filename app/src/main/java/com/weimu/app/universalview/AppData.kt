@@ -1,6 +1,7 @@
 package com.weimu.app.universalview
 
 import android.app.Activity
+import com.weimu.app.universalview.module.main.MainActivity
 import com.weimu.universalib.OriginAppData
 import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalview.core.toolbar.ToolBarManager

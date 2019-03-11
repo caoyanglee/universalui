@@ -45,7 +45,7 @@ fun RecyclerView.addScrollToBottomAnimation(vararg views: View, scrollHeight: Fl
 
     this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (Math.abs(dy) <= 20) return//偏移量必须大于20
             if (dy > 0) {

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!--调用的统一颜色-->
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryLight">#FFCDD2</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorIcon">#FFFFFF</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorBackground">#FFFFFF</color>
+
+    <!--水波纹颜色-->
+    <color name="colorRipple">#0C999999</color>
 </resources>

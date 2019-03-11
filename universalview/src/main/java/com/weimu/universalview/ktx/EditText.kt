@@ -132,7 +132,7 @@ fun EditText.checkIsNullAndToast(): Boolean {
 /**
  * 增加清除视图
  */
-fun EditText.addClearView(clearView: View?=null, keyWordListener: ((keyWord: String) -> Unit)? = null) {
+fun EditText.addClearView(clearView: View? = null, keyWordListener: ((keyWord: String) -> Unit)? = null) {
     //默认隐藏处理
     clearView?.gone()
     this.addTextChangedListener(object : MyTextWatcher() {
@@ -153,3 +153,13 @@ fun EditText.addClearView(clearView: View?=null, keyWordListener: ((keyWord: Str
         this.clearContent()
     }
 }
+
+/**
+ * 设置文本时 自动将角标显示都尾部
+ */
+fun EditText.setTextPro(text: CharSequence) {
+    this.setText(text)
+    this.setSelectionEnd()
+}
+
+

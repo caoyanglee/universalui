@@ -3,6 +3,7 @@ package com.weimu.universalview.ktx
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.support.annotation.DrawableRes
 import android.util.Base64
 import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
@@ -30,13 +31,18 @@ fun ImageView.load(url: String = "", placeholder: Int = 0, error: Int = 0, useAn
     requestBuilder.into(this)
 }
 
-fun ImageView.load(drawableRes: Int = 0, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+fun ImageView.load(@DrawableRes drawableRes: Int = 0, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
     if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
     val requestBuilder = Glide.with(context)
             .load(drawableRes)
-            .apply(RequestOptions().placeholder(placeholder).error(error))
-    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
-
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
     requestBuilder.into(this)
 }
 
@@ -71,12 +77,19 @@ fun ImageView.load4CenterCrop(url: String = "", placeholder: Int = 0, error: Int
     requestBuilder.into(this)
 }
 
-fun ImageView.load4CenterCrop(drawableRes: Int = 0, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+fun ImageView.load4CenterCrop(@DrawableRes drawableRes: Int = 0, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
     if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .centerCrop()
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
     val requestBuilder = Glide.with(context)
             .load(drawableRes)
-            .apply(RequestOptions().centerCrop().placeholder(placeholder).error(error))
-    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
     requestBuilder.into(this)
 }
 
@@ -110,12 +123,19 @@ fun ImageView.load4Circle(url: String = "", placeholder: Int = 0, error: Int = 0
     requestBuilder.into(this)
 }
 
-fun ImageView.load4Circle(drawableRes: Int = 0, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+fun ImageView.load4Circle(@DrawableRes drawableRes: Int = 0, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
     if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .circleCrop()
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
     val requestBuilder = Glide.with(context)
             .load(drawableRes)
-            .apply(RequestOptions().circleCrop().placeholder(placeholder).error(error))
-    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
     requestBuilder.into(this)
 }
 
@@ -151,13 +171,19 @@ fun ImageView.load4Round(url: String = "", radius: Int = 6, placeholder: Int = 0
     requestBuilder.into(this)
 }
 
-fun ImageView.load4Round(drawableRes: Int = 0, radius: Int = 6, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+fun ImageView.load4Round(@DrawableRes drawableRes: Int = 0, radius: Int = 6, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
     if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .transform(GlideRoundTransform(radius))
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
     val requestBuilder = Glide.with(context)
             .load(drawableRes)
-            .apply(RequestOptions().transform(GlideRoundTransform(radius)).placeholder(placeholder).error(error))
-    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
-
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
     requestBuilder.into(this)
 }
 
