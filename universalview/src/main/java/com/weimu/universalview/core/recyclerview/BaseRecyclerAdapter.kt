@@ -293,37 +293,31 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
     }
 
     open fun addData(item: T) {
-        val currentSize = itemCount
         dataList.add(item)
-        val start = currentSize - footViewSize
+        val start = itemCount - footViewSize
         val count = 1 + footViewSize
         notifyItemRangeChanged(start, count)
+    }
+
+    open fun addData(position: Int, item: T) {
+        dataList.add(position, item)
+        val start = headViewSize + emptyViewSize + errorViewSize + position
+        notifyItemInserted(start)
+        notifyItemRangeChanged(headViewSize + emptyViewSize + errorViewSize, itemCount - footViewSize)
     }
 
     open fun removeItem(position: Int) {
         if (position == -1) return
         dataList.removeAt(position)
-        notifyItemRemoved(headViewSize + emptyViewSize + errorViewSize + position)
-        notifyItemRangeChanged(0, itemCount - footViewSize)
+        val start = headViewSize + emptyViewSize + errorViewSize + position
+        notifyItemRemoved(start)
+        notifyItemRangeChanged(headViewSize + emptyViewSize + errorViewSize, itemCount - footViewSize)
     }
 
     //清除数据
     open fun clearDataList() {
         dataList.clear()
         notifyDataSetChanged()
-    }
-
-
-    //插入数据
-    open fun insertData(item: T) {
-        dataList.add(item)
-        notifyItemInserted(headViewSize + emptyViewSize + errorViewSize + dataList.size)
-    }
-
-    //插入数据
-    open fun insertData(position: Int, item: T) {
-        dataList.add(position, item)
-        notifyItemInserted(headViewSize + emptyViewSize + errorViewSize + position)
     }
 
     //Empty
@@ -357,7 +351,6 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
         notifyItemChanged(0 + headViewSize + emptyViewSize)
         return true
     }
-
 
     //Footer
     open fun showFooter() {
@@ -403,7 +396,7 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
         dataList.removeAt(position)
         newDataList.addAll(dataList)
         dataList = newDataList
-        notifyItemRangeChanged(headViewSize, itemCount - footViewSize)
+        notifyItemRangeChanged(headViewSize + emptyViewSize + errorViewSize, itemCount - footViewSize)
     }
 
 
@@ -411,7 +404,7 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
      * 刷新所有Item notifyDataSetChanged
      */
     open fun refreshAllItem() {
-        notifyItemRangeChanged(headViewSize, itemCount - footViewSize)
+        notifyItemRangeChanged(headViewSize + emptyViewSize + errorViewSize, itemCount - footViewSize)
     }
 
 

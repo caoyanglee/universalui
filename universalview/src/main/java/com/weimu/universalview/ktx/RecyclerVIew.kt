@@ -14,7 +14,10 @@ import com.weimu.universalview.core.recyclerview.layoutmanager.WrapContentLinear
 
 //初始化列表
 fun RecyclerView.init() {
-    this.itemAnimator = DefaultItemAnimator()//设置Item增加、移除动画
+    this.itemAnimator = DefaultItemAnimator().apply {
+        addDuration = 300
+        removeDuration = 300
+    }//设置Item增加、移除动画
     //取消刷新闪烁
     (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     (this.itemAnimator as SimpleItemAnimator).changeDuration = 0
