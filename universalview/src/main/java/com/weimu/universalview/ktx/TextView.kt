@@ -124,11 +124,9 @@ class MyTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
 //图片居中显示Span
 class CenterAlignImageSpan : ImageSpan {
 
-    constructor(drawable: Drawable) : super(drawable) {
+    constructor(drawable: Drawable) : super(drawable)
 
-    }
-
-    constructor(b: Bitmap) : super(b) {}
+    constructor(b: Bitmap) : super(b)
 
     override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int,
                       paint: Paint) {
@@ -143,8 +141,22 @@ class CenterAlignImageSpan : ImageSpan {
     }
 }
 
-//从asset中获取获取文字样式TypeFace
-fun Context.getTypeFaceFromAssets(assetPath: String): Typeface = Typeface.createFromAsset(this.assets, assetPath)
+
+//根据关键词染色，懒得再数了
+fun TextView.dyeByKeyword(keyWord: String, @ColorRes color: Int) {
+    if (TextUtils.isEmpty(keyWord)) return
+    if (!text.contains(keyWord)) return
+    val str = SpannableStringBuilder(text)
+    var start = 0
+    while (true) {
+        start = text.indexOf(keyWord, start)
+        if (start < 0 || start >= text.length) break
+        str.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, color)), start, start + keyWord.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)//染色
+        start += keyWord.length
+    }
+    text = str
+}
+
 
 //******    Others     ******
 

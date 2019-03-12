@@ -10,11 +10,12 @@ import com.weimu.universalview.R
 object ProgressDialog {
 
     @SuppressLint("StaticFieldLeak")
-    var materialDialog: MaterialDialog? = null
+    private var materialDialog: MaterialDialog? = null
 
-
-    fun show(context: Context, title: String = context.getString(R.string.progressbar_title), content: String = context.getString(R.string.progressbar_content)) {
-
+    fun show(
+            context: Context,
+            title: String = context.getString(R.string.progressbar_title),
+            content: String = context.getString(R.string.progressbar_content)) {
         try {
             if ((context as Activity).isFinishing) return
         } catch (e: Exception) {
@@ -31,6 +32,9 @@ object ProgressDialog {
 
             } else if (!(materialDialog!!.isShowing)) {
                 materialDialog?.show()
+            } else if (materialDialog!!.isShowing) {
+                materialDialog?.setTitle(title)
+                materialDialog?.setContent(content)
             }
         } catch (e: Exception) {
             return
@@ -41,7 +45,7 @@ object ProgressDialog {
         try {
             materialDialog?.dismiss()
         } catch (e: Exception) {
-            e.printStackTrace()
+            return
         } finally {
             materialDialog = null
         }
