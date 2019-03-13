@@ -1,10 +1,12 @@
 package com.weimu.app.universalview
 
 import android.app.Activity
+import android.os.Bundle
 import com.weimu.app.universalview.module.main.MainActivity
 import com.weimu.universalib.OriginAppData
 import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalview.core.toolbar.ToolBarManager
+import com.weimu.universalview.interfaces.MyActivityLifeCycleCallbacks
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -30,7 +32,6 @@ class AppData : OriginAppData() {
             activityList.filter { it !is MainActivity }.forEach { it.finish() }
         }
 
-
         //退出app
         fun exitApp() {
             activityList.forEach { it.finish() }
@@ -46,14 +47,31 @@ class AppData : OriginAppData() {
     override fun onCreate() {
         super.onCreate()
         context = this
+        //检测activity的回调
+        initActivityCallback()
         initAppBarConfig()
     }
 
     private fun initAppBarConfig() {
         ToolBarManager.DefaultConfig.apply {
-            toolbarPadding= context.dip2px(20f)
-            toolbarHeight= context.dip2px(44f)
+            toolbarPadding = context.dip2px(20f)
+            toolbarHeight = context.dip2px(44f)
         }
+    }
+
+    private fun initActivityCallback() {
+        registerActivityLifecycleCallbacks(object : MyActivityLifeCycleCallbacks() {
+
+            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+                activityList.add(activity)
+            }
+
+            override fun onActivityDestroyed(activity: Activity) {
+                super.onActivityDestroyed(activity)
+                activityList.remove(activity)
+            }
+
+        })
     }
 
 }
