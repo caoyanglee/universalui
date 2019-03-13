@@ -6,7 +6,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import com.weimu.universalib.ktx.toast
-import com.weimu.universalib.origin.mvp.BaseView
+import com.weimu.universalview.core.architecture.mvp.BaseView
 import com.weimu.universalview.core.dialog.ProgressDialog
 import com.weimu.universalview.core.snackerbar.SnackBarCenter
 
