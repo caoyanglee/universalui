@@ -62,28 +62,6 @@ fun View.clearFocus(view: View) {
     view.clearFocus()
 }
 
-/**
- * 修改字体样式
- */
-fun ViewGroup.changeFonts() {
-
-    val tf = Typeface.createFromAsset(context.getAssets(), "font/HelveticaNeue-Light.ttf")
-    for (i in 0..this.childCount - 1) {
-        val v = this.getChildAt(i)
-        if (v is TextView) {
-            v.typeface = tf
-        } else if (v is Button) {
-            v.typeface = tf
-        } else if (v is EditText) {
-            v.typeface = tf
-        } else if (v is ViewGroup) {
-            v.changeFonts()
-        }
-    }
-
-}
-
-
 //解析xml视图
 fun ViewGroup.inflate(layoutRes: Int): View = LayoutInflater.from(context).inflate(layoutRes, this, false)
 

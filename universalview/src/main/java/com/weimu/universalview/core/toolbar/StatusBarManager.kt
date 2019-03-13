@@ -13,22 +13,16 @@ import android.view.WindowManager
  */
 object StatusBarManager {
 
-    var statusLightBarColorV5 = Color.rgb(102, 102, 102)//5.0及其5.1亮色状态背景
+    private var statusLightBarColorV5 = Color.rgb(102, 102, 102)//5.0及其5.1亮色状态背景
 
     /**
      * 修改状态栏为全透明
      */
     fun setTransparencyBar(window: Window) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.TRANSPARENT
-
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        }
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.TRANSPARENT
     }
 
     /**
@@ -55,15 +49,17 @@ object StatusBarManager {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    fun setLightMode(window: Window): Int {
+    fun setLightMode(window: Window, isFullScreen: Boolean = false): Int {
         var result = 0
-        if (MIUISetStatusBarLightMode(window, true)) {
+        if (MIUISetStatusBarLightMode(window, true, isFullScreen)) {
             result = 1
-        } else if (FlymeSetStatusBarLightMode(window, true)) {
+        } else if (FlymeSetStatusBarLightMode(window, true, isFullScreen)) {
             result = 2
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            if (isFullScreen)
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            else
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             result = 3
         } else {//5.x版本的手机不支持状态栏你黑色字体，所以状态栏的颜色自己看设置一个
             setColor(window, statusLightBarColorV5)
@@ -79,14 +75,14 @@ object StatusBarManager {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    fun setDarkMode(window: Window): Int {
+    fun setDarkMode(window: Window, isFullScreen: Boolean = false): Int {
         var result = 0
-        if (MIUISetStatusBarLightMode(window, false)) {
+        if (MIUISetStatusBarLightMode(window, false, isFullScreen)) {
             result = 1
-        } else if (FlymeSetStatusBarLightMode(window, false)) {
+        } else if (FlymeSetStatusBarLightMode(window, false, isFullScreen)) {
             result = 2
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            if (isFullScreen) window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             result = 3
         }
         return result
@@ -101,7 +97,7 @@ object StatusBarManager {
      * @param dark   是否把状态栏文字及图标颜色设置为深色
      * @return boolean 成功执行返回true
      */
-    private fun FlymeSetStatusBarLightMode(window: Window?, dark: Boolean): Boolean {
+    private fun FlymeSetStatusBarLightMode(window: Window?, dark: Boolean, isFullScreen: Boolean): Boolean {
         var result = false
         if (window != null) {
             try {
@@ -137,7 +133,7 @@ object StatusBarManager {
      * @param dark     是否把状态栏文字及图标颜色设置为深色
      * @return boolean 成功执行返回true
      */
-    private fun MIUISetStatusBarLightMode(window: Window, dark: Boolean): Boolean {
+    private fun MIUISetStatusBarLightMode(window: Window, dark: Boolean, isFullScreen: Boolean): Boolean {
         var result = false
         if (window != null) {
             val clazz = window.javaClass
@@ -157,8 +153,10 @@ object StatusBarManager {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     //开发版 7.7.13 及以后版本采用了系统API，旧方法无效但不会报错，所以两个方式都要加上
                     if (dark) {
-                        //activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                        if (isFullScreen)
+                            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                        else
+                            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     } else {
                         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
                     }
