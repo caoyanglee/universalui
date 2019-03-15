@@ -27,24 +27,76 @@ import com.weimu.universalview.interfaces.MyTextWatcher
 
 /**
  * 暂时所知的Span类型 characterStyle
- * 文字大小： AbsoluteSizeSpan(18, true)
+ * 文字大小：AbsoluteSizeSpan(18, true)
  * 文字颜色：ForegroundColorSpan(color)
+ * 文字背景：BackgroundColorSpan(color)
  * 文字加粗：StyleSpan(Typeface.BOLD)
  * 文字斜体：StyleSpan(Typeface.ITALIC)
  * 文字点击：MyClickSpan(dyeColor,isUnderLine,clickListener)
- * 文字样式自定义：MyTypefaceSpan(typeface)
+ * 文字字体：MyTypefaceSpan(typeface)
  * 文字图片：CenterAlignImageSpan(drawable)
  */
-data class SpannableParam(var content: String, var characterStyles: List<CharacterStyle>? = null)
+class SpannableParam(var content: String) {
+    var characterStyles = arrayListOf<CharacterStyle>()
+        private set
+
+    //通用增加Span
+    fun addSpan(characterStyle: CharacterStyle): SpannableParam {
+        characterStyles.add(characterStyle)
+        return this
+    }
+
+    //文字大小
+    fun setTextSize(size: Int, dip: Boolean): SpannableParam {
+        characterStyles.add(AbsoluteSizeSpan(size, dip))
+        return this
+    }
+
+    //文字颜色
+    fun setTextColor(@ColorInt color: Int): SpannableParam {
+        characterStyles.add(ForegroundColorSpan(color))
+        return this
+    }
+
+    //文字背景
+    fun setTextBackground(@ColorInt color: Int): SpannableParam {
+        characterStyles.add(BackgroundColorSpan(color))
+        return this
+    }
+
+    //文字样式
+    fun setTextStyle(style: Int = Typeface.NORMAL): SpannableParam {
+        characterStyles.add(StyleSpan(style))
+        return this
+    }
+
+    //文字点击
+    fun setClick(@ColorInt dyeColor: Int? = null, isUnderLine: Boolean = false, clickListener: ((widget: View?) -> Unit)? = null): SpannableParam {
+        characterStyles.add(MyClickSpan(dyeColor, isUnderLine, clickListener))
+        return this
+    }
+
+    //文字字体
+    fun setTypeFace(typeface: Typeface): SpannableParam {
+        characterStyles.add(MyTypefaceSpan(typeface))
+        return this
+    }
+
+    //文字图片
+    fun setImage(drawable: Drawable): SpannableParam {
+        characterStyles.add(CenterAlignImageSpan(drawable))
+        return this
+    }
+}
 
 /**
- * 设置文本 通过分段来设置 文本样式
+ * 设置文本 通过分段来设置 文本样式 多个span
  */
 fun TextView.setSpannableString(vararg items: SpannableParam) {
     val ssb = SpannableStringBuilder()
     for (item in items) {
         val targetStyle = item.characterStyles
-        if (targetStyle == null) {
+        if (targetStyle.isEmpty()) {
             ssb.append(SpannableStringBuilder(item.content))
             continue
         }
@@ -66,9 +118,36 @@ fun TextView.setSpannableString(vararg items: SpannableParam) {
     this.text = ssb
 }
 
+/**
+ * 设置文本 通过分段来设置 文本样式 多个span
+ * @tips 建议使用TextView的扩展
+ */
+fun SpannableStringBuilder.addSpans(vararg items: SpannableParam): SpannableStringBuilder {
+    val ssb = SpannableStringBuilder()
+    for (item in items) {
+        val targetStyle = item.characterStyles
+        if (targetStyle.isEmpty()) {
+            ssb.append(SpannableStringBuilder(item.content))
+            continue
+        }
+        ssb.append(SpannableStringBuilder(item.content).apply {
+            for (style in targetStyle) {
+                if (style is ImageSpan) {
+                    item.content = item.content.isBlank().toString() ?: "图片"
+                    setSpan(style, 0, this.length, ImageSpan.ALIGN_BOTTOM)//这个与CenterAlignImageSpan配合使用
+                    continue
+                }
+                setSpan(style, 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        })
+    }
+    return ssb
+}
+
+
 //点击的Span
 class MyClickSpan(
-        @ColorInt var dyeColor: Int,
+        @ColorInt var dyeColor: Int? = null,
         var isUnderLine: Boolean = false,
         var clickListener: ((widget: View?) -> Unit)? = null) : ClickableSpan() {
 
@@ -80,7 +159,7 @@ class MyClickSpan(
         super.updateDrawState(ds)
         ds?.apply {
             isUnderlineText = isUnderLine//是否有下划线
-            color = dyeColor//设置点击颜色
+            if (dyeColor != null) color = dyeColor as Int//设置点击颜色
         }
     }
 }
@@ -122,11 +201,7 @@ class MyTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
 }
 
 //图片居中显示Span
-class CenterAlignImageSpan : ImageSpan {
-
-    constructor(drawable: Drawable) : super(drawable)
-
-    constructor(b: Bitmap) : super(b)
+class CenterAlignImageSpan(drawable: Drawable) : ImageSpan(drawable) {
 
     override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int,
                       paint: Paint) {
