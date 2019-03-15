@@ -16,18 +16,15 @@ import com.weimu.universalview.core.snackerbar.SnackBarCenter
 
 /**
  * Author:你需要一台永动机
- * Date:2018/3/8 11:15
+ * Date:2019/3/15 17:07
  * Description:
  */
-
-abstract class BaseFragment : Fragment(), BaseView {
-
-
+abstract class BaseFragmentV2 : Fragment(), BaseView {
     private lateinit var mActivity: AppCompatActivity
     private var mContentView: ViewGroup? = null
-    private var isInit = false//是否初始化
-    protected var isShow = false//是否显示在用户  viewPager
-
+    private var isPrepare = false//是否初始化
+    private var isViewPagerShow = false
+    private var isFirstShow = false
 
     @LayoutRes
     protected abstract fun getLayoutResID(): Int
@@ -59,9 +56,12 @@ abstract class BaseFragment : Fragment(), BaseView {
         super.onActivityCreated(savedInstanceState)
         afterViewAttachBaseViewAction(savedInstanceState)
         afterViewAttach(savedInstanceState)
-        isInit = true
-
-        if (isShow) onViewPageVisible()
+        isPrepare = true
+        onViewPagerShow(isViewPagerShow)
+        if (isViewPagerShow && !isFirstShow) {
+            onViewPagerFirstShow()
+            isFirstShow = true
+        }
     }
 
     //baseView的操作
@@ -84,19 +84,31 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun getContentView(): ViewGroup = mContentView as ViewGroup
 
     //吐司通知&普通的MD弹窗
-    override fun toastSuccess(message: CharSequence) { toast(message) }
+    override fun toastSuccess(message: CharSequence) {
+        toast(message)
+    }
 
-    override fun toastFail(message: CharSequence) { toast(message) }
+    override fun toastFail(message: CharSequence) {
+        toast(message)
+    }
 
 
-    override fun showProgressBar() { ProgressDialog.show(getContext()) }
+    override fun showProgressBar() {
+        ProgressDialog.show(getContext())
+    }
 
-    override fun showProgressBar(message: CharSequence) { ProgressDialog.show(getContext(), content = message.toString()) }
+    override fun showProgressBar(message: CharSequence) {
+        ProgressDialog.show(getContext(), content = message.toString())
+    }
 
-    override fun hideProgressBar() { ProgressDialog.hide() }
+    override fun hideProgressBar() {
+        ProgressDialog.hide()
+    }
 
     //snaker
-    override fun showSnackBar(message: CharSequence) { SnackBarCenter.show(getContentView(), message) }
+    override fun showSnackBar(message: CharSequence) {
+        SnackBarCenter.show(getContentView(), message)
+    }
 
     //打开Activity
     override fun startActivity(intent: Intent) {
@@ -107,29 +119,32 @@ abstract class BaseFragment : Fragment(), BaseView {
         mActivity.startActivityForResult(intent, requestCode)
     }
 
-    //Fragment直接切换show和hide
-    override fun onHiddenChanged(hidden: Boolean) {
+    //FrameLayout的切换
+    final override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!isInit) return
-        if (hidden) onHide() else onShow()
+        if (!isPrepare) return
+        onFrameLayoutShow(hidden)
     }
 
-    //fragment显示
-    open fun onShow() {}
-
-    //fragment隐藏
-    open fun onHide() {}
+    //fragment 在FrameLayout的隐藏显示
+    open fun onFrameLayoutShow(show: Boolean) {}
 
     //ViewPager的切换
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+    final override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        isShow = isVisibleToUser
-        if (isInit && isShow) {
-            onViewPageVisible()
+        isViewPagerShow = isVisibleToUser
+        if (!isPrepare) return
+        onViewPagerShow(isViewPagerShow)
+        if (isViewPagerShow && !isFirstShow) {
+            onViewPagerFirstShow()
+            isFirstShow = true
         }
     }
 
-    //fragment隐藏
-    open fun onViewPageVisible() {}
+    //fragment 在ViewPager的隐藏显示
+    open fun onViewPagerShow(show: Boolean) {}
+
+    //fragment 在啊ViewPager的第一次显示
+    open fun onViewPagerFirstShow() {}
 
 }
