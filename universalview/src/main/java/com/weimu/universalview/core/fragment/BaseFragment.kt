@@ -19,7 +19,7 @@ import com.weimu.universalview.core.snackerbar.SnackBarCenter
  * Date:2019/3/15 17:07
  * Description:
  */
-abstract class BaseFragmentV2 : Fragment(), BaseView {
+abstract class BaseFragment : Fragment(), BaseView {
     private lateinit var mActivity: AppCompatActivity
     private var mContentView: ViewGroup? = null
     private var isPrepare = false//是否初始化
