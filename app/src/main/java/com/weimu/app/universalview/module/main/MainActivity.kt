@@ -10,6 +10,7 @@ import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
 import com.weimu.universalib.ktx.dip2px
+import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
 import com.weimu.universalview.ktx.init
 import kotlinx.android.synthetic.main.include_recyclerview.*
 
@@ -58,6 +59,7 @@ class MainActivity : BaseViewActivity() {
             }
         }
         recyclerView.init()
+        recyclerView.addItemDecoration(LinearItemDecoration(this, dip2px(16f)))
         recyclerView.adapter = adapter
 
 
@@ -76,6 +78,8 @@ class MainActivity : BaseViewActivity() {
         category.add(CategoryB("实用的第三方库", "必备~"))
 
         adapter.setDataToAdapter(category)
+
+
     }
 
 }
