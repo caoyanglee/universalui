@@ -71,11 +71,13 @@ class LinearItemDecoration(
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position: Int = parent.getChildAdapterPosition(view)
         if (this.orientation == VERTICAL_LIST) {
-            if (position == 0 && haveHeader) return
+            if (position == 0) return
+            if (position == 1 && haveHeader) return
             if (position == parent.childCount - 1 && haveFooter) return
             outRect.top = dividerSize
         } else {
-            if (position == 0 && haveHeader) return
+            if (position == 0) return
+            if (position == 1 && haveHeader) return
             if (position == parent.childCount - 1 && haveFooter) return
             outRect.left = dividerSize
         }
