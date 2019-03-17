@@ -123,7 +123,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     final override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!isPrepare) return
-        onFrameLayoutShow(hidden)
+        onFrameLayoutShow(!hidden)
     }
 
     //fragment 在FrameLayout的隐藏显示
