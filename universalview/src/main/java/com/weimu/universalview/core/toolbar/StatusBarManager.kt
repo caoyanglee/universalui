@@ -15,6 +15,7 @@ object StatusBarManager {
 
     private var statusLightBarColorV5 = Color.rgb(102, 102, 102)//5.0及其5.1亮色状态背景
 
+
     /**
      * 修改状态栏为全透明
      */
@@ -167,6 +168,24 @@ object StatusBarManager {
 
         }
         return result
+    }
+
+    /**
+     * 隐藏状态栏
+     */
+    fun hideStatusBar(window: Window) {
+        val attrs = window.attributes
+        attrs.flags = attrs.flags or WindowManager.LayoutParams.FLAG_FULLSCREEN
+        window.attributes = attrs
+    }
+
+    /**
+     * 显示状态栏
+     */
+    fun showStatusBar(window: Window) {
+        val attrs = window.attributes
+        attrs.flags = attrs.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
+        window.attributes = attrs
     }
 
 
