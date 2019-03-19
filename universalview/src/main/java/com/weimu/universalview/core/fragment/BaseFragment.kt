@@ -65,9 +65,9 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     //baseView的操作
-    protected abstract fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?)
+    protected open fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
 
-    protected abstract fun afterViewAttachBaseViewAction(savedInstanceState: Bundle?)
+    protected open fun afterViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
 
     //子View的操作
     protected open fun beforeViewAttach(savedInstanceState: Bundle?) {}
