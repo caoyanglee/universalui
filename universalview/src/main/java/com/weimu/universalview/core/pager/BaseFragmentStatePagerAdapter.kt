@@ -10,7 +10,7 @@ import java.util.ArrayList
 /**
  * 适合多个fragment，内存占用少
  */
-class BaseFragmentStatePagerAdapter(var fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+open class BaseFragmentStatePagerAdapter(var fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private val mFragment = arrayListOf<Fragment>()
 
