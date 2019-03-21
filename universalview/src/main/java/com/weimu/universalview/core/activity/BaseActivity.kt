@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
+import com.weimu.universalib.OriginAppData
 import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.architecture.mvp.BaseView
 import com.weimu.universalview.core.dialog.ProgressDialog
@@ -49,9 +50,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
 
-    override fun getAppDataContext(): Context = this.getAppDataContext()
-
-    override fun getCurrentActivity(): AppCompatActivity = this;
+    override fun getCurrentActivity(): AppCompatActivity = this
 
     //吐司通知&普通的MD弹窗
     override fun toastSuccess(message: CharSequence) { toast(message) }

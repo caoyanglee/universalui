@@ -75,8 +75,6 @@ abstract class BaseFragment : Fragment(), BaseView {
     protected open fun afterViewAttach(savedInstanceState: Bundle?) {}
 
     //各种上下文的获取
-    override fun getAppDataContext(): Context = mActivity.applicationContext
-
     override fun getContext(): Context = mActivity
 
     override fun getCurrentActivity(): AppCompatActivity = mActivity

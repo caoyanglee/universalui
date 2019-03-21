@@ -19,8 +19,6 @@ interface BaseView {
 
     fun getContentView(): ViewGroup
 
-    fun getAppDataContext(): Context
-
     //Toast
     fun toastSuccess(message: CharSequence)
 

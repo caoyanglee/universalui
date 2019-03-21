@@ -27,13 +27,6 @@ abstract class BaseViewActivity : BaseActivity(), BaseView {
         } catch (e: Exception) {
             //Logger.e("Only fullscreen activities can request orientation")
         }
-
-        try {
-            //EventBus
-            EventBusPro.register(this)
-        } catch (e: Exception) {
-        }
-
     }
 
     override fun onResume() {
@@ -44,14 +37,6 @@ abstract class BaseViewActivity : BaseActivity(), BaseView {
     override fun onPause() {
         super.onPause()
         Glide.with(this).pauseRequests()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        try {
-            EventBusPro.unregister(this)
-        } catch (e: Exception) {
-        }
     }
 
 
