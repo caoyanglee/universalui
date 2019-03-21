@@ -7,6 +7,16 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
+    <!--Navigation-->
+    <ImageView
+        android:id="@+id/toolbar_menu_icon_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
 
     <!--左侧文本文本菜单-->
     <TextView
@@ -67,15 +77,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/toolbar_menu_icon_left"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageView
         android:id="@+id/toolbar_menu_icon_right_v2"
