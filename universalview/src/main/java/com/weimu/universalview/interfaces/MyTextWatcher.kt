@@ -4,16 +4,16 @@ import android.text.Editable
 import android.text.TextWatcher
 
 /**
- * @project KotLinProject
- * @author 艹羊
- * @date 2017/6/13 下午4:48
- * @description
+ * Author:你需要一台永动机
+ * Date:2019/3/21 22:16
+ * Description:
  */
-abstract class MyTextWatcher : TextWatcher {
+interface MyTextWatcher : TextWatcher {
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-    }
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-    override fun afterTextChanged(s: Editable?) {
-    }
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+    override fun afterTextChanged(s: Editable?) {}
+
 }
