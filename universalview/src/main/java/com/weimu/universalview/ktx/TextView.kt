@@ -288,7 +288,7 @@ fun TextView.addGuard(vararg editText: EditText) {
     val that = this
     that.isEnabled = editText.isEmpty()
     for (item in editText) {
-        item.addTextChangedListener(object : MyTextWatcher() {
+        item.addTextChangedListener(object : MyTextWatcher {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 that.isEnabled = true
