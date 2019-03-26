@@ -8,12 +8,12 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Space
 import android.widget.TextView
 import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalib.ktx.getStatusBarHeight
@@ -39,15 +39,10 @@ class ToolBarPro : ViewGroup {
 
     private var activityReference: WeakReference<Activity?>? = null
 
-    var showStatusView by Delegates.observable(GlobalConfig.showStatusView) { property, oldValue, newValue ->
-        if (newValue && !statusBarView.isChild()) addView(statusBarView)
-        if (!newValue && statusBarView.isChild()) removeView(statusBarView)
-        postInvalidate()
-    }
-    private var toolbarHeight by Delegates.observable(GlobalConfig.toolbarHeight) { property, oldValue, newValue -> postInvalidate() }
-    var toolBarPaddingLeft by Delegates.observable(GlobalConfig.toolbarPaddingLeft) { property, oldValue, newValue -> postInvalidate() }
-    var toolBarPaddingRight by Delegates.observable(GlobalConfig.toolBarPaddingRight) { property, oldValue, newValue -> postInvalidate() }
-    private var centerTitleSize by Delegates.observable(GlobalConfig.centerTitleSize) { property, oldValue, newValue -> postInvalidate() }
+    var showStatusView by Delegates.observable(GlobalConfig.showStatusView) { property, oldValue, newValue -> requestLayout() }
+    var toolbarHeight by Delegates.observable(GlobalConfig.toolbarHeight) { property, oldValue, newValue -> requestLayout() }
+    var toolBarPaddingLeft by Delegates.observable(GlobalConfig.toolbarPaddingLeft) { property, oldValue, newValue -> requestLayout() }
+    var toolBarPaddingRight by Delegates.observable(GlobalConfig.toolBarPaddingRight) { property, oldValue, newValue -> requestLayout() }
 
     //全局配置
     object GlobalConfig {
@@ -57,9 +52,6 @@ class ToolBarPro : ViewGroup {
         var toolBarPaddingRight = 15f//dp
         var centerTitleSize = 17f//sp 标题文字大小
     }
-
-
-    private val statusBarView by lazy { Space(context) }
 
     private val ivNavigation: ImageView by lazy {
         ImageView(context).apply {
@@ -81,9 +73,6 @@ class ToolBarPro : ViewGroup {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.leftMargin = context.dip2px(toolBarPaddingLeft)
             }
-            this.setOnClickListenerPro {
-                activityReference?.get()?.onBackPressed()
-            }
         }
     }
 
@@ -95,7 +84,7 @@ class ToolBarPro : ViewGroup {
             }
             this.text = ""
             this.gravity = Gravity.CENTER
-            this.textSize = centerTitleSize
+            this.textSize = GlobalConfig.centerTitleSize
             this.setTextColor(Color.WHITE)
             this.setSingleLine()//必须设置此属性 否则无法正常居中
             this.ellipsize = TextUtils.TruncateAt.END
@@ -136,6 +125,7 @@ class ToolBarPro : ViewGroup {
 
 
     init {
+        Log.d(TAG, "========================================")
         this.layoutTransition = LayoutTransition()
         //本身视图的基础配置
         this.apply {
@@ -149,17 +139,17 @@ class ToolBarPro : ViewGroup {
         if (activity != null) this.activityReference = WeakReference(activity)
     }
 
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         //分别获取宽高的测量模式
-        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
-
+        //val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        //val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val statusHeight = if (showStatusView) context.getStatusBarHeight() else 0
-
         val toolbarHeight = context.dip2px(toolbarHeight)
+        val heightSize = toolbarHeight + statusHeight
 
-        val heightSize = (if (heightMode == MeasureSpec.EXACTLY) MeasureSpec.getSize(heightMeasureSpec) else toolbarHeight) + statusHeight
+        Log.d(TAG, "onMeasure widthSize=$widthSize heightSize=$heightSize")
         setMeasuredDimension(widthSize, heightSize)
 
         val newWidthMeasureSpec = MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.AT_MOST)
@@ -181,8 +171,6 @@ class ToolBarPro : ViewGroup {
 
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        if (showStatusView) statusBarView.layout(0, 0, measuredWidth, context.getStatusBarHeight())
-
         val startY = if (showStatusView) context.getStatusBarHeight() else 0//是否有状态栏视图
 
         //navigation iv
