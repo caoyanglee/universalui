@@ -1,6 +1,7 @@
 package com.weimu.universalview.widget
 
 import android.animation.LayoutTransition
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -16,6 +17,8 @@ import android.widget.Space
 import android.widget.TextView
 import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalib.ktx.getStatusBarHeight
+import com.weimu.universalview.ktx.setOnClickListenerPro
+import java.lang.ref.WeakReference
 import kotlin.properties.Delegates
 
 /**
@@ -33,6 +36,8 @@ class ToolBarPro : ViewGroup {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+
+    private var activityReference: WeakReference<Activity?>? = null
 
     var showStatusView by Delegates.observable(GlobalConfig.showStatusView) { property, oldValue, newValue ->
         if (newValue && !statusBarView.isChild()) addView(statusBarView)
@@ -65,6 +70,9 @@ class ToolBarPro : ViewGroup {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 this.foreground = getRippleDrawable()
             }
+            this.setOnClickListenerPro {
+                activityReference?.get()?.onBackPressed()
+            }
         }
     }
 
@@ -72,6 +80,9 @@ class ToolBarPro : ViewGroup {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.leftMargin = context.dip2px(toolBarPaddingLeft)
+            }
+            this.setOnClickListenerPro {
+                activityReference?.get()?.onBackPressed()
             }
         }
     }
@@ -134,8 +145,8 @@ class ToolBarPro : ViewGroup {
     }
 
     //默认配置
-    fun default() = this.apply {
-        //暂时不做任何配置
+    fun with(activity: Activity? = null) = this.apply {
+        if (activity != null) this.activityReference = WeakReference(activity)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

@@ -37,7 +37,7 @@ class MainActivity : BaseViewActivity() {
         toastSuccess("欢迎来到通用UI库")
         initRecy()
 
-        mToolbar.default()
+        mToolbar.with(this)
                 .apply {
                     //ToolBar本身的设置
                     setBackgroundResource(R.color.colorPrimary)
