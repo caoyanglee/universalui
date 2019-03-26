@@ -16,7 +16,7 @@ import com.weimu.universalview.ktx.setOnClickListenerPro
 import com.weimu.universalview.ktx.visible
 import kotlinx.android.synthetic.main.include_toolbar_primary.view.*
 
-
+@Deprecated("逐步弃用，专用ToolBarPro")
 class ToolBarManager private constructor(private val mActivity: AppCompatActivity, private val mContent: ViewGroup) {
 
     private var mContainer: ViewGroup? = null

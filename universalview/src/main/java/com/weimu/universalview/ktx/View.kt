@@ -196,6 +196,15 @@ fun Context.getDrawablePro(@DrawableRes id: Int): Drawable? {
     return drawable
 }
 
+//是否是显示状态 VISIBLE
+fun View.isVisible() = this.visibility == View.VISIBLE
+
+//是否是显示状态 GONE
+fun View.isGone() = this.visibility == View.GONE
+
+//是否是显示状态 INVISIBLE
+fun View.isInvisible() = this.visibility == View.INVISIBLE
+
 
 
 

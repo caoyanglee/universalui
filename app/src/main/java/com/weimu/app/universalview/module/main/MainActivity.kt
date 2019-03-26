@@ -10,8 +10,11 @@ import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
 import com.weimu.universalib.ktx.dip2px
+import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
 import com.weimu.universalview.ktx.init
+import com.weimu.universalview.ktx.setOnClickListenerPro
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
 
 class MainActivity : BaseViewActivity() {
@@ -34,6 +37,52 @@ class MainActivity : BaseViewActivity() {
         toastSuccess("欢迎来到通用UI库")
         initRecy()
 
+        mToolbar.default()
+                .apply {
+                    //ToolBar本身的设置
+                    setBackgroundResource(R.color.colorPrimary)
+                }
+                .navigationText {
+                    //导航文本
+                    text = "关闭"
+                    setOnClickListenerPro {
+                        onBackPressed()
+                    }
+                }
+                .navigationIcon {
+                    setImageResource(R.drawable.universal_arrow_back_white)
+                    setOnClickListenerPro {
+                        onBackPressed()
+                    }
+                }
+                .centerTitle {
+                    text = "测试标题"
+                }
+                .menuText1 {
+                    text = "菜单1"
+                }
+                .menuText2 {
+                    text = "菜单2"
+                }
+                .menuIcon1 {
+                    setImageResource(R.drawable.universal_arrow_back_white)
+                    setOnClickListenerPro {
+                        toast("菜单1")
+                    }
+                }
+                .menuIcon2 {
+                    setImageResource(R.drawable.universal_arrow_back_white)
+                    setOnClickListenerPro {
+                        toast("菜单1")
+                    }
+                }
+
+
+
+
+        btn_test.setOnClickListenerPro {
+            mToolbar.showStatusView = !mToolbar.showStatusView
+        }
     }
 
 
