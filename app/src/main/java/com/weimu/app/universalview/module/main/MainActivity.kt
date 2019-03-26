@@ -50,27 +50,33 @@ class MainActivity : BaseViewActivity() {
                     }
                 }
                 .navigationIcon {
+                    //导航图标
                     setImageResource(R.drawable.universal_arrow_back_white)
                     setOnClickListenerPro {
                         onBackPressed()
                     }
                 }
                 .centerTitle {
+                    //中间标题
                     text = "测试标题"
                 }
                 .menuText1 {
+                    //菜单文本1
                     text = "菜单1"
                 }
                 .menuText2 {
+                    //菜单文本2
                     text = "菜单2"
                 }
                 .menuIcon1 {
+                    //菜单图标1
                     setImageResource(R.drawable.universal_arrow_back_white)
                     setOnClickListenerPro {
                         toast("菜单1")
                     }
                 }
                 .menuIcon2 {
+                    //菜单图标2
                     setImageResource(R.drawable.universal_arrow_back_white)
                     setOnClickListenerPro {
                         toast("菜单1")
