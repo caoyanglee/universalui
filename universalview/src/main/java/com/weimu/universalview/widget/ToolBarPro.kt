@@ -125,7 +125,6 @@ class ToolBarPro : ViewGroup {
 
 
     init {
-        Log.d(TAG, "========================================")
         this.layoutTransition = LayoutTransition()
         //本身视图的基础配置
         this.apply {
@@ -149,7 +148,6 @@ class ToolBarPro : ViewGroup {
         val toolbarHeight = context.dip2px(toolbarHeight)
         val heightSize = toolbarHeight + statusHeight
 
-        Log.d(TAG, "onMeasure widthSize=$widthSize heightSize=$heightSize")
         setMeasuredDimension(widthSize, heightSize)
 
         val newWidthMeasureSpec = MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.AT_MOST)
