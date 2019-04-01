@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import android.view.ViewConfiguration
 import android.widget.ScrollView
 
-
+@Deprecated("建议改成 NestedScrollView")
 open class ScrollViewExtend : ScrollView {
 
     var xDistance: Float = 0f
