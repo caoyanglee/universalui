@@ -5,9 +5,14 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.StateListDrawable
+import android.os.Build
+import android.support.annotation.ColorInt
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.Gravity
 import com.weimu.universalview.R
 
@@ -18,7 +23,6 @@ import com.weimu.universalview.R
  */
 class SimpleView : AppCompatTextView {
 
-
     //获取对应的属性值 Android框架自带的属性 attr
     private val pressed = android.R.attr.state_pressed
     private val window_focused = android.R.attr.state_window_focused
@@ -27,6 +31,28 @@ class SimpleView : AppCompatTextView {
     private val activited = android.R.attr.state_activated
     private val enabled = android.R.attr.state_enabled
 
+    //bg
+    private val bg: GradientDrawable by lazy { GradientDrawable() }
+    private val selectBg: GradientDrawable by lazy { GradientDrawable() }
+    private val unEnableBg: GradientDrawable by lazy { GradientDrawable() }
+
+    //stroke
+    private var strokeWidth = 0f
+    private var strokeColor = Color.TRANSPARENT
+    private var strokePressColor = strokeColor
+    private var strokeUnEnableColor = strokeColor
+
+    //corner
+    private var cornerRadius = 0f
+    private var cornerRadius_TL = 0f
+    private var cornerRadius_TR = 0f
+    private var cornerRadius_BL = 0f
+    private var cornerRadius_BR = 0f
+
+    //text
+    private var textDefaultColor = Color.BLACK
+    private var textPressColor = textDefaultColor
+    private var textUnEnableColor = textDefaultColor
 
     constructor(context: Context) : this(context, null)
 
@@ -39,74 +65,85 @@ class SimpleView : AppCompatTextView {
         val backgroundPressColor = attr.getColor(R.styleable.SimpleView_wm_backgroundPressColor, backgroundColor)
         val backgroundUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_backgroundUnEnableColor, backgroundColor)
         //stroke
-        val strokeWidth = attr.getDimension(R.styleable.SimpleView_wm_strokeWidth, 0f)
-        val strokeColor = attr.getColor(R.styleable.SimpleView_wm_strokeColor, Color.TRANSPARENT)
-        val strokePressColor = attr.getColor(R.styleable.SimpleView_wm_strokePressColor, strokeColor)
-        val strokeUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_strokeUnEnableColor, strokeColor)
+        strokeWidth = attr.getDimension(R.styleable.SimpleView_wm_strokeWidth, 0f)
+        strokeColor = attr.getColor(R.styleable.SimpleView_wm_strokeColor, Color.TRANSPARENT)
+        strokePressColor = attr.getColor(R.styleable.SimpleView_wm_strokePressColor, strokeColor)
+        strokeUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_strokeUnEnableColor, strokeColor)
         //corner
-        val cornerRadius = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius, -1f)
-        val cornerRadius_TL = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_TL, 0f)
-        val cornerRadius_TR = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_TR, 0f)
-        val cornerRadius_BL = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_BL, 0f)
-        val cornerRadius_BR = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_BR, 0f)
+        cornerRadius = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius, -1f)
+        cornerRadius_TL = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_TL, 0f)
+        cornerRadius_TR = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_TR, 0f)
+        cornerRadius_BL = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_BL, 0f)
+        cornerRadius_BR = attr.getDimension(R.styleable.SimpleView_wm_cornerRadius_BR, 0f)
+
         //textPressColor
-        val textColor = attr.getColor(R.styleable.SimpleView_wm_textColor, Color.BLACK)
-        val textPressColor = attr.getColor(R.styleable.SimpleView_wm_textPressColor, textColor)
-        val textUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_textUnEnableColor, textColor)
-        setTextColor(createTextStateList(textColor, textPressColor, textPressColor, textUnEnableColor, textPressColor))
+        textDefaultColor = attr.getColor(R.styleable.SimpleView_wm_textColor, Color.BLACK)
+        textPressColor = attr.getColor(R.styleable.SimpleView_wm_textPressColor, textDefaultColor)
+        textUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_textUnEnableColor, textDefaultColor)
 
-        //bg-default
-        val bg = GradientDrawable()
-        //background
-        bg.setColor(backgroundColor)
+        //默认背景
+        bg.apply {
+            bg.setColor(backgroundColor)
+            bg.setStroke(strokeWidth.toInt(), strokeColor)
+            bg.cornerRadii = floatArrayOf(
+                    cornerRadius_TL, cornerRadius_TL,
+                    cornerRadius_TR, cornerRadius_TR,
+                    cornerRadius_BR, cornerRadius_BR,
+                    cornerRadius_BL, cornerRadius_BL)
 
-        //stroke
-        bg.setStroke(strokeWidth.toInt(), strokeColor)
-        //corner
-        bg.cornerRadii = floatArrayOf(
-                cornerRadius_TL, cornerRadius_TL,
-                cornerRadius_TR, cornerRadius_TR,
-                cornerRadius_BR, cornerRadius_BR,
-                cornerRadius_BL, cornerRadius_BL)
+            if (this@SimpleView.cornerRadius != -1f) bg.cornerRadius = this@SimpleView.cornerRadius
+        }
 
-        if (cornerRadius != -1f) bg.cornerRadius = cornerRadius
+        //选中背景
+        selectBg.apply {
+            selectBg.setColor(backgroundPressColor)
+            selectBg.setStroke(strokeWidth.toInt(), strokePressColor)
+            selectBg.cornerRadii = floatArrayOf(
+                    cornerRadius_TL, cornerRadius_TL,
+                    cornerRadius_TR, cornerRadius_TR,
+                    cornerRadius_BR, cornerRadius_BR,
+                    cornerRadius_BL, cornerRadius_BL)
 
-        //bg-select
-        val selectBg = GradientDrawable()
-        //background
-        selectBg.setColor(backgroundPressColor)
-        //stroke
-        selectBg.setStroke(strokeWidth.toInt(), strokePressColor)
-        //corner
-        selectBg.cornerRadii = floatArrayOf(
-                cornerRadius_TL, cornerRadius_TL,
-                cornerRadius_TR, cornerRadius_TR,
-                cornerRadius_BR, cornerRadius_BR,
-                cornerRadius_BL, cornerRadius_BL)
+            if (this@SimpleView.cornerRadius != -1f) selectBg.cornerRadius = this@SimpleView.cornerRadius
+        }
 
-        if (cornerRadius != -1f) selectBg.cornerRadius = cornerRadius
-
-
-        //bg-unEnable
-        val unEnablebg = GradientDrawable()
-        //background
-        unEnablebg.setColor(backgroundUnEnableColor)
-        //stroke
-        unEnablebg.setStroke(strokeWidth.toInt(), strokeUnEnableColor)
-        //corner
-        unEnablebg.cornerRadii = floatArrayOf(
-                cornerRadius_TL, cornerRadius_TL,
-                cornerRadius_TR, cornerRadius_TR,
-                cornerRadius_BR, cornerRadius_BR,
-                cornerRadius_BL, cornerRadius_BL
-        )
-        if (cornerRadius != -1f) unEnablebg.cornerRadius = cornerRadius
+        //不可用背景
+        unEnableBg.apply {
+            unEnableBg.setColor(backgroundUnEnableColor)
+            unEnableBg.setStroke(strokeWidth.toInt(), strokeUnEnableColor)
+            unEnableBg.cornerRadii = floatArrayOf(
+                    cornerRadius_TL, cornerRadius_TL,
+                    cornerRadius_TR, cornerRadius_TR,
+                    cornerRadius_BR, cornerRadius_BR,
+                    cornerRadius_BL, cornerRadius_BL
+            )
+            if (this@SimpleView.cornerRadius != -1f) unEnableBg.cornerRadius = this@SimpleView.cornerRadius
+        }
 
         //复制给背景
-        background = createBgSelector(bg, selectBg, bg, unEnablebg, selectBg)
+        background = createBgSelector(bg, selectBg, bg, unEnableBg, selectBg)
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            foreground = getRippleDrawable()
+//        }
+        //text
+        setTextColor(createTextStateList(textDefaultColor, textPressColor, textPressColor, textUnEnableColor, textPressColor))
 
         //gravity
         gravity = Gravity.CENTER
+    }
+
+
+    //获取系统的水波纹效果
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun getRippleDrawable(): RippleDrawable? {
+        val typedValue = TypedValue()
+        val attribute = intArrayOf(android.R.attr.selectableItemBackground)
+        val typedArray = context.theme.obtainStyledAttributes(typedValue.resourceId, attribute)
+        val drawable = typedArray.getDrawable(0) as RippleDrawable
+        drawable.radius = cornerRadius.toInt()
+        typedArray.recycle()
+        return drawable
     }
 
 
@@ -149,6 +186,105 @@ class SimpleView : AppCompatTextView {
         // default
         bg.addState(intArrayOf(), normal)
         return bg
+    }
+
+    /**
+     * 设置背景颜色
+     */
+    fun setBgColor(@ColorInt default: Int? = null, @ColorInt press: Int? = null, @ColorInt unEnable: Int? = null) {
+        default?.let { bg.setColor(it) }
+        press?.let { selectBg.setColor(it) }
+        unEnable?.let { unEnableBg.setColor(it) }
+        background = createBgSelector(bg, selectBg, bg, unEnableBg, selectBg)
+    }
+
+    /**
+     * 设置边框宽度
+     */
+    fun setBorderWidth(strokeWidth: Float) {
+        this.strokeWidth = strokeWidth
+        this.strokeWidth.let {
+            bg.setStroke(it.toInt(), strokeColor)
+            selectBg.setStroke(it.toInt(), strokePressColor)
+            unEnableBg.setStroke(it.toInt(), strokeUnEnableColor)
+        }
+
+        background = createBgSelector(bg, selectBg, bg, unEnableBg, selectBg)
+    }
+
+    /**
+     * 设置边框颜色
+     */
+    fun setBorderColor(@ColorInt default: Int? = null, @ColorInt press: Int? = null, @ColorInt unEnable: Int? = null) {
+        default?.let { this.strokeColor = it }
+        press?.let { this.strokePressColor = it }
+        unEnable?.let { this.strokeUnEnableColor = it }
+        bg.setStroke(strokeWidth.toInt(), strokeColor)
+        selectBg.setStroke(strokeWidth.toInt(), strokePressColor)
+        unEnableBg.setStroke(strokeWidth.toInt(), strokeUnEnableColor)
+
+        background = createBgSelector(bg, selectBg, bg, unEnableBg, selectBg)
+    }
+
+    /**
+     * 设置圆角 1
+     */
+    fun setCorner(cornerRadius: Float) {
+        bg.cornerRadius = cornerRadius
+        selectBg.cornerRadius = cornerRadius
+        unEnableBg.cornerRadius = cornerRadius
+
+
+        background = createBgSelector(bg, selectBg, bg, unEnableBg, selectBg)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            foreground = getRippleDrawable()
+        }
+    }
+
+    /**
+     * 设置圆角 2
+     */
+    fun setCorner(
+            cornerRadius_TL: Float? = null,
+            cornerRadius_TR: Float? = null,
+            cornerRadius_BR: Float? = null,
+            cornerRadius_BL: Float? = null) {
+        cornerRadius_TL?.let { this.cornerRadius_TL = it }
+        cornerRadius_TR?.let { this.cornerRadius_TR = it }
+        cornerRadius_BR?.let { this.cornerRadius_BR = it }
+        cornerRadius_BL?.let { this.cornerRadius_BL = it }
+
+        bg.cornerRadii = floatArrayOf(
+                this@SimpleView.cornerRadius_TL, this@SimpleView.cornerRadius_TL,
+                this@SimpleView.cornerRadius_TR, this@SimpleView.cornerRadius_TR,
+                this@SimpleView.cornerRadius_BR, this@SimpleView.cornerRadius_BR,
+                this@SimpleView.cornerRadius_BL, this@SimpleView.cornerRadius_BL)
+
+        selectBg.cornerRadii = floatArrayOf(
+                this@SimpleView.cornerRadius_TL, this@SimpleView.cornerRadius_TL,
+                this@SimpleView.cornerRadius_TR, this@SimpleView.cornerRadius_TR,
+                this@SimpleView.cornerRadius_BR, this@SimpleView.cornerRadius_BR,
+                this@SimpleView.cornerRadius_BL, this@SimpleView.cornerRadius_BL)
+
+        unEnableBg.cornerRadii = floatArrayOf(
+                this@SimpleView.cornerRadius_TL, this@SimpleView.cornerRadius_TL,
+                this@SimpleView.cornerRadius_TR, this@SimpleView.cornerRadius_TR,
+                this@SimpleView.cornerRadius_BR, this@SimpleView.cornerRadius_BR,
+                this@SimpleView.cornerRadius_BL, this@SimpleView.cornerRadius_BL)
+
+        var max = this@SimpleView.cornerRadius_TL
+        if (this@SimpleView.cornerRadius_TR > max) max = this@SimpleView.cornerRadius_TR
+        if (this@SimpleView.cornerRadius_BR > max) max = this@SimpleView.cornerRadius_BR
+        if (this@SimpleView.cornerRadius_BL > max) max = this@SimpleView.cornerRadius_BL
+
+        this@SimpleView.cornerRadius = max
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            foreground = getRippleDrawable()
+//        }
+
+        background = createBgSelector(bg, selectBg, bg, unEnableBg, selectBg)
     }
 
 
