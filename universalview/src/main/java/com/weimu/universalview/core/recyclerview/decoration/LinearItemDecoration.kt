@@ -21,8 +21,8 @@ class LinearItemDecoration(
         var dividerSize: Int = 0,
         var orientation: Int = VERTICAL_LIST,
         var dividerDrawable: Drawable = ColorDrawable(Color.TRANSPARENT),
-        var needHeaderDivider: Boolean = false,//是否拥用头部
-        var needFooterDivider: Boolean = false//是否拥有底部
+        var hideHeaderDivider: Boolean = false,//是否拥用头部
+        var hideFooterDivider: Boolean = false//是否拥有底部
 ) : RecyclerView.ItemDecoration() {
 
     companion object {
@@ -48,9 +48,9 @@ class LinearItemDecoration(
             val params = child.layoutParams as RecyclerView.LayoutParams
             val top = child.bottom + params.bottomMargin
             var bottom = top + when {
-                positionInAdapter == 0 && needHeaderDivider -> 0
-                positionInAdapter == itemCount - 1 && needFooterDivider -> 0
-                positionInAdapter == itemCount - 2 && needFooterDivider -> 0
+                positionInAdapter == 0 && hideHeaderDivider -> 0
+                positionInAdapter == itemCount - 1 && hideFooterDivider -> 0
+                positionInAdapter == itemCount - 2 && hideFooterDivider -> 0
                 else -> dividerSize
             }
             dividerDrawable.setBounds(left, top, right, bottom)
@@ -68,9 +68,9 @@ class LinearItemDecoration(
             val params = child.layoutParams as RecyclerView.LayoutParams
             val left = child.right + params.rightMargin
             val right = left + when {
-                positionInAdapter == 0 && needHeaderDivider -> 0
-                positionInAdapter == itemCount - 1 && needFooterDivider -> 0
-                positionInAdapter == itemCount - 2 && needFooterDivider -> 0
+                positionInAdapter == 0 && hideHeaderDivider -> 0
+                positionInAdapter == itemCount - 1 && hideFooterDivider -> 0
+                positionInAdapter == itemCount - 2 && hideFooterDivider -> 0
                 else -> dividerSize
             }
             dividerDrawable.setBounds(left, top, right, bottom)
@@ -82,8 +82,8 @@ class LinearItemDecoration(
         val position: Int = parent.getChildAdapterPosition(view)
         val itemCount = parent.adapter?.itemCount ?: 0
         val offset = when {
-            position == 0 && needHeaderDivider -> 0
-            position == itemCount - 2 && needFooterDivider -> 0
+            position == 0 && hideHeaderDivider -> 0
+            position == itemCount - 2 && hideFooterDivider -> 0
             position == itemCount - 1 -> 0
             else -> dividerSize
         }
