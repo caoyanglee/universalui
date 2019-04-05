@@ -90,7 +90,6 @@ abstract class BaseFragment : Fragment(), BaseView {
         toast(message)
     }
 
-
     override fun showProgressBar() {
         ProgressDialog.show(getContext())
     }

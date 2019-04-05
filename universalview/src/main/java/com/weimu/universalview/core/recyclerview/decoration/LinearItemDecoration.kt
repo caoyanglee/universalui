@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
+
 /**
  * Author:你需要一台永动机
  * Date:2019/3/17 01:21
@@ -20,8 +21,8 @@ class LinearItemDecoration(
         var dividerSize: Int = 0,
         var orientation: Int = VERTICAL_LIST,
         var dividerDrawable: Drawable = ColorDrawable(Color.TRANSPARENT),
-        var haveHeader: Boolean = false,//是否拥用头部
-        var haveFooter: Boolean = false//是否拥有底部
+        var needHeaderDivider: Boolean = false,//是否拥用头部
+        var needFooterDivider: Boolean = false//是否拥有底部
 ) : RecyclerView.ItemDecoration() {
 
     companion object {
@@ -40,14 +41,18 @@ class LinearItemDecoration(
     private fun drawVertical(c: Canvas?, parent: RecyclerView?) {
         val left: Int = parent?.paddingLeft!!
         val right: Int = parent.width - parent.paddingRight
-
-        val childCount = parent.childCount
-
-        for (i in (if (haveHeader) 1 else 0) until (if (haveFooter) childCount + 1 else childCount)) {
+        val itemCount = parent.adapter?.itemCount ?: 0
+        for (i in 0 until parent.childCount) {
             val child = parent.getChildAt(i)
+            val positionInAdapter = parent.getChildAdapterPosition(child)
             val params = child.layoutParams as RecyclerView.LayoutParams
             val top = child.bottom + params.bottomMargin
-            val bottom = top + dividerSize
+            var bottom = top + when {
+                positionInAdapter == 0 && needHeaderDivider -> 0
+                positionInAdapter == itemCount - 1 && needFooterDivider -> 0
+                positionInAdapter == itemCount - 2 && needFooterDivider -> 0
+                else -> dividerSize
+            }
             dividerDrawable.setBounds(left, top, right, bottom)
             dividerDrawable.draw(c)
         }
@@ -56,13 +61,18 @@ class LinearItemDecoration(
     private fun drawHorizontal(c: Canvas?, parent: RecyclerView?) {
         val top = parent?.paddingTop!!
         val bottom = parent.height - parent.paddingBottom
-
-        val childCount = parent.childCount
-        for (i in (if (haveHeader) 1 else 0) until (if (haveFooter) childCount + 1 else childCount)) {
+        val itemCount = parent.adapter?.itemCount ?: 0
+        for (i in 0 until parent.childCount) {
             val child = parent.getChildAt(i)
+            val positionInAdapter = parent.getChildAdapterPosition(child)
             val params = child.layoutParams as RecyclerView.LayoutParams
             val left = child.right + params.rightMargin
-            val right = left + dividerSize
+            val right = left + when {
+                positionInAdapter == 0 && needHeaderDivider -> 0
+                positionInAdapter == itemCount - 1 && needFooterDivider -> 0
+                positionInAdapter == itemCount - 2 && needFooterDivider -> 0
+                else -> dividerSize
+            }
             dividerDrawable.setBounds(left, top, right, bottom)
             dividerDrawable.draw(c)
         }
@@ -70,16 +80,17 @@ class LinearItemDecoration(
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position: Int = parent.getChildAdapterPosition(view)
+        val itemCount = parent.adapter?.itemCount ?: 0
+        val offset = when {
+            position == 0 && needHeaderDivider -> 0
+            position == itemCount - 2 && needFooterDivider -> 0
+            position == itemCount - 1 -> 0
+            else -> dividerSize
+        }
         if (this.orientation == VERTICAL_LIST) {
-            if (position == 0) return
-            if (position == 1 && haveHeader) return
-            if (position == parent.childCount - 1 && haveFooter) return
-            outRect.top = dividerSize
+            outRect.bottom = offset
         } else {
-            if (position == 0) return
-            if (position == 1 && haveHeader) return
-            if (position == parent.childCount - 1 && haveFooter) return
-            outRect.left = dividerSize
+            outRect.right = offset
         }
     }
 

@@ -3,6 +3,7 @@ package com.weimu.app.universalview.module.main
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
@@ -90,39 +91,6 @@ class MainActivity : BaseViewActivity() {
 
                     }
                 }
-
-        siv_test.setOnClickListenerPro {
-            toast("呵呵哒")
-        }
-
-        btn_enable.setOnClickListenerPro {
-            siv_test.isEnabled = siv_test.isEnabled
-        }
-
-        btn_bg_color.setOnClickListenerPro {
-            siv_test.setBgColor(
-                    default = Color.GREEN,
-                    press = Color.YELLOW,
-                    unEnable = Color.DKGRAY
-            )
-        }
-
-        btn_border_width.setOnClickListenerPro {
-            siv_test.setBorderWidth(dip2px(10f).toFloat())
-        }
-
-        btn_border_Color.setOnClickListenerPro {
-            siv_test.setBorderColor(
-                    default = Color.DKGRAY,
-                    press = Color.GREEN,
-                    unEnable = Color.YELLOW
-            )
-        }
-
-        btn_corner.setOnClickListenerPro {
-            siv_test.setCorner(dip2px(5f).toFloat())
-        }
-
     }
 
 
@@ -148,13 +116,12 @@ class MainActivity : BaseViewActivity() {
             }
         }
         recyclerView.init()
-        recyclerView.addItemDecoration(LinearItemDecoration(this, dip2px(16f)))
         recyclerView.adapter = adapter
-
-
+        recyclerView.addItemDecoration(LinearItemDecoration(
+                context = this,
+                dividerSize = dip2px(16f)
+        ))
         recyclerView.setPadding(0, dip2px(140f), 0, dip2px(16f))
-
-
         category.add(CategoryB("Java", "Java的一些基础Demo"))
         category.add(CategoryB("Kotlin", "Kotlin的一些基础Demo"))
         category.add(CategoryB("RxJava", "RxJava的Demo集合"))

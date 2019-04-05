@@ -18,7 +18,7 @@ class CategoryListAdapter(mContext: Context) : BaseRecyclerAdapter<BaseB, Catego
 
     override fun itemViewChange(holder: BaseRecyclerViewHolder, position: Int) {
         val item = getItem(position)
-        holder.itemView?.apply {
+        holder.itemView.apply {
             tv_primary.text = item.primaryTitle
             tv_secondary.text = item.subTitle
         }
