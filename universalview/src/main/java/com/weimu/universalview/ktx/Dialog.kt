@@ -1,6 +1,7 @@
 package com.weimu.universalview.ktx
 
 import android.app.Activity
+import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -15,13 +16,12 @@ import com.weimu.universalview.R
  * 消息例子：没有此权限将无法正常使用软件!\n是否要获取此权限？
  *
  */
-fun Activity.requestPermission(vararg permissions: String,
-                               granted: (() -> Unit)? = null,
-                               dialogMessage: String,
-                               dialogPositive: (() -> Boolean)? = null,
-                               dialogNegative: (() -> Unit)? = null
+fun FragmentActivity.requestPermission(vararg permissions: String,
+                                       granted: (() -> Unit)? = null,
+                                       dialogMessage: String,
+                                       dialogPositive: (() -> Boolean)? = null,
+                                       dialogNegative: (() -> Unit)? = null
 ) {
-
     val d = RxPermissions(this).request(*permissions)
             .subscribe {
                 if (it) {
