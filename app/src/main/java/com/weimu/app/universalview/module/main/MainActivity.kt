@@ -16,6 +16,7 @@ import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
 import com.weimu.universalview.core.toolbar.StatusBarManager
 import com.weimu.universalview.ktx.init
+import com.weimu.universalview.ktx.setMargins
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
@@ -40,11 +41,11 @@ class MainActivity : BaseViewActivity() {
         toastSuccess("欢迎来到通用UI库")
         initRecy()
 
-        StatusBarManager.setTransparencyBar(window)
+        //StatusBarManager.setTransparencyBar(window)
         mToolbar.with(this)
                 .apply {
                     //ToolBar本身的设置
-                    showStatusView = true
+                    showStatusView = false
                     toolbarHeight = 48f
                     setBackgroundResource(R.color.colorPrimary)
                 }
@@ -52,13 +53,13 @@ class MainActivity : BaseViewActivity() {
                     //导航图标
                     setImageResource(R.drawable.universal_arrow_back_white)
                 }
-                .navigationText {
-                    //导航文本
-                    text = "登录&注册"
-                    setOnClickListenerPro {
-
-                    }
-                }
+//                .navigationText {
+//                    //导航文本
+//                    text = "登录&注册"
+//                    setOnClickListenerPro {
+//
+//                    }
+//                }
                 .centerTitle {
                     //中间标题
                     text = "测试标题"
@@ -77,20 +78,20 @@ class MainActivity : BaseViewActivity() {
                         toast("菜单1")
                     }
                 }
-                .menuText1 {
-                    //菜单文本1
-                    text = "菜单1"
-                    setOnClickListenerPro {
-
-                    }
-                }
-                .menuText2 {
-                    //菜单文本2
-                    text = "菜单2"
-                    setOnClickListenerPro {
-
-                    }
-                }
+//                .menuText1 {
+//                    //菜单文本1
+//                    text = "菜单1"
+//                    setOnClickListenerPro {
+//
+//                    }
+//                }
+//                .menuText2 {
+//                    //菜单文本2
+//                    text = "菜单2"
+//                    setOnClickListenerPro {
+//
+//                    }
+//                }
     }
 
 

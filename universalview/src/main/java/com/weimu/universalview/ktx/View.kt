@@ -39,10 +39,14 @@ fun View.setWidth(width: Int) {
 }
 
 //设置外边界
-fun View.setMargins(l: Int = 0, t: Int = 0, r: Int = 0, b: Int = 0) {
+fun View.setMargins(l: Int? = null, t: Int? = null, r: Int? = null, b: Int? = null) {
     if (this.layoutParams is ViewGroup.MarginLayoutParams) {
         val p = this.layoutParams as ViewGroup.MarginLayoutParams
-        p.setMargins(l, t, r, b)
+        val left = l ?: p.leftMargin
+        val top = t ?: p.topMargin
+        val right = r ?: p.rightMargin
+        val bottom = b ?: p.bottomMargin
+        p.setMargins(left, top, right, bottom)
         this.requestLayout()
     }
 }

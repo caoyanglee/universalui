@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -57,6 +56,8 @@ class ToolBarPro : ViewGroup {
         ImageView(context).apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.leftMargin = context.dip2px(toolBarPaddingLeft)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
             }
             this.scaleType = ImageView.ScaleType.CENTER_INSIDE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -72,6 +73,8 @@ class ToolBarPro : ViewGroup {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.leftMargin = context.dip2px(toolBarPaddingLeft)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
             }
         }
     }
@@ -95,6 +98,8 @@ class ToolBarPro : ViewGroup {
         getActionImageView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.rightMargin = context.dip2px(toolBarPaddingRight)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
             }
         }
     }
@@ -103,6 +108,8 @@ class ToolBarPro : ViewGroup {
         getActionImageView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.rightMargin = context.dip2px(8f)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
             }
         }
     }
@@ -111,6 +118,8 @@ class ToolBarPro : ViewGroup {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.rightMargin = context.dip2px(toolBarPaddingRight)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
             }
         }
     }
@@ -119,6 +128,8 @@ class ToolBarPro : ViewGroup {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
                 this.rightMargin = context.dip2px(8f)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
             }
         }
     }
@@ -173,51 +184,72 @@ class ToolBarPro : ViewGroup {
 
         //navigation iv
         ivNavigation.shouldRender {
-            val ivNavigationLeft = paddingLeft + (ivNavigation.layoutParams as MarginLayoutParams).leftMargin
-            val ivNavigationRight = paddingLeft + (ivNavigation.layoutParams as MarginLayoutParams).leftMargin + ivNavigation.measuredWidth
-            ivNavigation.layout(ivNavigationLeft, startY, ivNavigationRight, startY + ivNavigation.measuredHeight)
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = paddingLeft + param.leftMargin
+            val right = paddingLeft + (it.layoutParams as MarginLayoutParams).leftMargin + it.measuredWidth
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight - param.bottomMargin
+            it.layout(left, top, right, bottom)
         }
 
         //navigation tv
         tvNavigation.shouldRender {
-            val tvNavigationLeft = paddingLeft + (tvNavigation.layoutParams as MarginLayoutParams).leftMargin
-            val tvNavigationRight = paddingLeft + (tvNavigation.layoutParams as MarginLayoutParams).leftMargin + tvNavigation.measuredWidth
-            tvNavigation.layout(tvNavigationLeft, startY, tvNavigationRight, startY + tvNavigation.measuredHeight)
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = paddingLeft + param.leftMargin
+            val right = paddingLeft + (it.layoutParams as MarginLayoutParams).leftMargin + it.measuredWidth
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight - param.bottomMargin
+            it.layout(left, top, right, bottom)
         }
 
         //title
         tvTitle.shouldRender {
-            val tvCenterLeft = (tvTitle.layoutParams as MarginLayoutParams).leftMargin
-            val tvCenterRight = measuredWidth - (tvTitle.layoutParams as MarginLayoutParams).rightMargin
-            tvTitle.layout(tvCenterLeft, startY, tvCenterRight, startY + tvTitle.measuredHeight)
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = (tvTitle.layoutParams as MarginLayoutParams).leftMargin
+            val right = measuredWidth - (tvTitle.layoutParams as MarginLayoutParams).rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight - param.bottomMargin
+            tvTitle.layout(left, top, right, bottom)
         }
 
         //actionView1 iv
         ivMenuView1.shouldRender {
-            val ivActionView1Left = measuredWidth - paddingRight - ivMenuView1.measuredWidth - (ivMenuView1.layoutParams as MarginLayoutParams).rightMargin
-            val ivActionView1Right = measuredWidth - paddingRight - (ivMenuView1.layoutParams as MarginLayoutParams).rightMargin
-            ivMenuView1.layout(ivActionView1Left, startY, ivActionView1Right, startY + ivMenuView1.measuredHeight)
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = measuredWidth - paddingRight - it.measuredWidth - param.rightMargin
+            val right = measuredWidth - paddingRight - param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight - param.bottomMargin
+            it.layout(left, top, right, startY + bottom)
         }
 
         //actionView1 tv
         tvMenuView1.shouldRender {
-            val tvActionView1Left = measuredWidth - paddingRight - tvMenuView1.measuredWidth - (tvMenuView1.layoutParams as MarginLayoutParams).rightMargin
-            val tvActionView1Right = measuredWidth - paddingRight - (tvMenuView1.layoutParams as MarginLayoutParams).rightMargin
-            tvMenuView1.layout(tvActionView1Left, startY, tvActionView1Right, startY + tvMenuView1.measuredHeight)
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = measuredWidth - paddingRight - it.measuredWidth - param.rightMargin
+            val right = measuredWidth - paddingRight -param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight - param.bottomMargin
+            it.layout(left, top, right, bottom)
         }
 
         //actionView2 iv
         ivMenuView2.shouldRender {
-            val ivActionView2Left = ivMenuView1.left - ivMenuView2.measuredWidth - (ivMenuView2.layoutParams as MarginLayoutParams).rightMargin
-            val ivActionView2Right = ivMenuView1.left - (ivMenuView2.layoutParams as MarginLayoutParams).rightMargin
-            ivMenuView2.layout(ivActionView2Left, startY, ivActionView2Right, startY + ivMenuView2.measuredHeight)
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = ivMenuView1.left - it.measuredWidth - param.rightMargin
+            val right = ivMenuView1.left - param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight - param.bottomMargin
+            it.layout(left, top, right, startY + bottom)
         }
 
-        //actionView2 iv
-        tvMenuView1.shouldRender {
-            val tvActionView2Left = tvMenuView1.left - tvMenuView2.measuredWidth - (tvMenuView2.layoutParams as MarginLayoutParams).rightMargin
-            val tvActionView2Right = tvMenuView1.left - (tvMenuView2.layoutParams as MarginLayoutParams).rightMargin
-            tvMenuView2.layout(tvActionView2Left, startY, tvActionView2Right, startY + tvMenuView2.measuredHeight)
+        //actionView2 tv
+        tvMenuView2.shouldRender {
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = tvMenuView1.left - it.measuredWidth - param.rightMargin
+            val right = tvMenuView1.left - param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight - param.bottomMargin
+            it.layout(left, top, right, bottom)
         }
 
     }
@@ -245,6 +277,7 @@ class ToolBarPro : ViewGroup {
             this.scaleType = ImageView.ScaleType.CENTER_INSIDE
             //this.setPadding(context.dip2px(15f), 0, context.dip2px(15f), 0)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) this.foreground = getRippleDrawable()
+
         }
     }
 

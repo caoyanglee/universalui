@@ -20,8 +20,7 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
                                        granted: (() -> Unit)? = null,
                                        dialogMessage: String,
                                        dialogPositive: (() -> Boolean)? = null,
-                                       dialogNegative: (() -> Unit)? = null
-) {
+                                       dialogNegative: (() -> Unit)? = null) {
     val d = RxPermissions(this).request(*permissions)
             .subscribe {
                 if (it) {

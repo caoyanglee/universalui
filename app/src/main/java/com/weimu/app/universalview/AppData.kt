@@ -55,7 +55,7 @@ class AppData : OriginAppData() {
     private fun initAppBarConfig() {
         ToolBarManager.DefaultConfig.apply {
             toolbarPadding = context.dip2px(20f)
-            toolbarHeight = context.dip2px(44f)
+            toolbarHeight = context.dip2px(48f)
         }
     }
 
