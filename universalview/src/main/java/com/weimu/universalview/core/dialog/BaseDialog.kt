@@ -1,86 +1,71 @@
 package com.weimu.universalview.core.dialog
 
-import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 
 /**
  * Author:你需要一台永动机
- * Date:2018/3/19 10:20
- * Description:
+ * Date:2019/4/9 23:26
+ * Description:专门处理弹窗式Dialog
  */
-
 abstract class BaseDialog : DialogFragment() {
-    protected var mActivity: AppCompatActivity? = null
+    var onDialogButtonListener: OnDialogButtonListener? = null
+    var onDialogActionListener: OnDialogListener? = null
+
+    protected var mContentView: ViewGroup? = null
 
     protected abstract fun getTagName(): String
-
-    protected var onDialogButtonListener: OnDialogButtonListener? = null
-    protected var onDialogActionListener: OnDialogListener? = null
+    @LayoutRes
+    protected abstract fun getLayoutResID(): Int
 
     //修改宽度使用这个方法
-    protected open fun getViewWidth() = WindowManager.LayoutParams.WRAP_CONTENT
+    protected open fun getViewWidth() = WindowManager.LayoutParams.MATCH_PARENT
+
+    protected open fun getViewHeight() = WindowManager.LayoutParams.WRAP_CONTENT
 
 
     override fun onStart() {
         super.onStart()
-        val dialog = dialog
-        if (dialog != null) {
-            val window = dialog.window
+        dialog?.apply {
+            val window = this.window
             window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             val windowParams = window.attributes
             windowParams.width = getViewWidth()
-            windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+            windowParams.height = getViewHeight()
             //windowParams.dimAmount = 0.0f;//设置Dialog外其他区域的alpha值
             window.attributes = windowParams
         }
     }
 
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        this.mActivity = context as AppCompatActivity?
+    final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        mContentView = LayoutInflater.from(context).inflate(getLayoutResID(), container, false) as ViewGroup
+        //设置视图
+        return mContentView
     }
 
-
-    override fun onDetach() {
-        super.onDetach()
-        this.mActivity = null
-    }
-
-    //使用上下文显示
-    fun show(context: Context): BaseDialog {
-        if (context is AppCompatActivity) {
-            show(context)
-        } else {
-            throw IllegalArgumentException("invalid context")
-        }
+    fun show(fragment: Fragment): BaseDialog {
+        showDialog(fragment.childFragmentManager, getTagName())
         return this
     }
 
-    @JvmOverloads
-    fun show(fragment: Fragment, cancelable: Boolean = true): BaseDialog {
-        showPro(fragment.childFragmentManager, getTagName())
-        isCancelable = cancelable
+    fun show(activity: AppCompatActivity): BaseDialog {
+        showDialog(activity.supportFragmentManager, getTagName())
         return this
     }
 
-
-    @JvmOverloads
-    fun show(activity: AppCompatActivity, cancelable: Boolean = true): BaseDialog {
-        showPro(activity.supportFragmentManager, getTagName())
-        isCancelable = cancelable
-        return this
-    }
-
-
-    private fun showPro(manager: FragmentManager, tag: String) {
+    private fun showDialog(manager: FragmentManager, tag: String) {
         try {
             show(manager, tag)
         } catch (e: IllegalStateException) {
@@ -88,9 +73,17 @@ abstract class BaseDialog : DialogFragment() {
             ft.add(this, tag)
             ft.commitAllowingStateLoss()
         }
-
     }
 
+    //屏蔽DialogFragment的方法
+    final override fun show(manager: FragmentManager?, tag: String?) {
+        super.show(manager, tag)
+    }
+
+    //屏蔽DialogFragment的方法
+    final override fun show(transaction: FragmentTransaction?, tag: String?): Int {
+        return super.show(transaction, tag)
+    }
 
     interface OnDialogButtonListener {
         fun onPositive(dialog: BaseDialog)
@@ -98,12 +91,7 @@ abstract class BaseDialog : DialogFragment() {
         fun onNegative(dialog: BaseDialog) {}
     }
 
-    fun setOnDialogButtonListener(onDialogButtonListener: OnDialogButtonListener): BaseDialog {
-        this.onDialogButtonListener = onDialogButtonListener
-        return this
-    }
-
-    //执行postive的操作
+    //执行positive的操作
     protected fun actionPositiveClick() {
         dismiss()
         onDialogButtonListener?.onPositive(this)
@@ -123,22 +111,15 @@ abstract class BaseDialog : DialogFragment() {
         fun onDismiss() {}
     }
 
-    fun setOnDialogListener(onDialogActionListener: OnDialogListener) {
-        this.onDialogActionListener = onDialogActionListener
-    }
 
     override fun onCancel(dialog: DialogInterface?) {
         super.onCancel(dialog)
-        if (onDialogActionListener != null) {
-            onDialogActionListener!!.onCancel()
-        }
+        onDialogActionListener?.onCancel()
     }
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        if (onDialogActionListener != null) {
-            onDialogActionListener!!.onDismiss()
-        }
+        onDialogActionListener?.onDismiss()
     }
 
 }

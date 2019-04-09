@@ -42,15 +42,10 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mContentView = injectView(inflater, container, savedInstanceState) as ViewGroup
+        mContentView = LayoutInflater.from(mActivity).inflate(getLayoutResID(), container, false) as ViewGroup
         //设置视图
         return mContentView
     }
-
-    open protected fun injectView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return LayoutInflater.from(mActivity).inflate(getLayoutResID(), container, false) as ViewGroup
-    }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
