@@ -2,8 +2,6 @@ package com.weimu.app.universalview.module.main
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
@@ -11,12 +9,11 @@ import com.weimu.app.universalview.module.datapersistence.DataPersistenceActivit
 import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
+import com.weimu.app.universalview.view.dialog.FullScreenDialog
 import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
-import com.weimu.universalview.core.toolbar.StatusBarManager
 import com.weimu.universalview.ktx.init
-import com.weimu.universalview.ktx.setMargins
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
@@ -76,6 +73,7 @@ class MainActivity : BaseViewActivity() {
                     setImageResource(R.drawable.universal_arrow_back_white)
                     setOnClickListenerPro {
                         toast("菜单1")
+                        FullScreenDialog().show(this@MainActivity)
                     }
                 }
 //                .menuText1 {
