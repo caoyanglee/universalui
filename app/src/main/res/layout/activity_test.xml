@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".module.test.TestActivity">
 
+    <com.weimu.app.universalview.view.RichEditText
+        android:id="@+id/mRichEditText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.constraint.ConstraintLayout>

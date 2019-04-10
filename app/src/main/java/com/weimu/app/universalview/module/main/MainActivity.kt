@@ -9,6 +9,7 @@ import com.weimu.app.universalview.module.datapersistence.DataPersistenceActivit
 import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
+import com.weimu.app.universalview.module.test.TestActivity
 import com.weimu.app.universalview.view.dialog.FullScreenDialog
 import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalib.ktx.toast
@@ -36,6 +37,11 @@ class MainActivity : BaseViewActivity() {
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
         toastSuccess("欢迎来到通用UI库")
+
+        tv_title.setOnClickListenerPro {
+            startActivity(TestActivity.newIntent(getContext()))
+        }
+
         initRecy()
     }
 
@@ -67,7 +73,7 @@ class MainActivity : BaseViewActivity() {
                 context = this,
                 dividerSize = dip2px(16f)
         ))
-        recyclerView.setPadding(0, dip2px(140f), 0, dip2px(16f))
+        recyclerView.setPadding(0,0, 0, dip2px(16f))
         category.add(CategoryB("Java", "Java的一些基础Demo"))
         category.add(CategoryB("Kotlin", "Kotlin的一些基础Demo"))
         category.add(CategoryB("RxJava", "RxJava的Demo集合"))

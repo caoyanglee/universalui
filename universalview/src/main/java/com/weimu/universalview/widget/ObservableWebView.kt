@@ -10,11 +10,12 @@ import android.webkit.WebView
 class ObservableWebView : WebView {
     private var mOnScrollChangedCallback: OnScrollChangedCallback? = null
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context): this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {}
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+
 
     override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)

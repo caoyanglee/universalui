@@ -9,8 +9,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:visibility="visible">
 
         <View
@@ -48,10 +47,9 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_title" />
 
 
-        <include layout="@layout/include_recyclerview" />
-
-
     </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_recyclerview" />
 
 
 </LinearLayout>
