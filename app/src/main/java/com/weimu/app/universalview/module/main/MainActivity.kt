@@ -37,59 +37,6 @@ class MainActivity : BaseViewActivity() {
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
         toastSuccess("欢迎来到通用UI库")
         initRecy()
-
-        //StatusBarManager.setTransparencyBar(window)
-        mToolbar.with(this)
-                .apply {
-                    //ToolBar本身的设置
-                    showStatusView = false
-                    toolbarHeight = 48f
-                    setBackgroundResource(R.color.colorPrimary)
-                }
-                .navigationIcon {
-                    //导航图标
-                    setImageResource(R.drawable.universal_arrow_back_white)
-                }
-//                .navigationText {
-//                    //导航文本
-//                    text = "登录&注册"
-//                    setOnClickListenerPro {
-//
-//                    }
-//                }
-                .centerTitle {
-                    //中间标题
-                    text = "测试标题"
-                }
-                .menuIcon1 {
-                    //菜单图标1
-                    setImageResource(R.drawable.universal_arrow_back_white)
-                    setOnClickListenerPro {
-                        toast("菜单1")
-                    }
-                }
-                .menuIcon2 {
-                    //菜单图标2
-                    setImageResource(R.drawable.universal_arrow_back_white)
-                    setOnClickListenerPro {
-                        toast("菜单1")
-                        FullScreenDialog().show(this@MainActivity)
-                    }
-                }
-//                .menuText1 {
-//                    //菜单文本1
-//                    text = "菜单1"
-//                    setOnClickListenerPro {
-//
-//                    }
-//                }
-//                .menuText2 {
-//                    //菜单文本2
-//                    text = "菜单2"
-//                    setOnClickListenerPro {
-//
-//                    }
-//                }
     }
 
 

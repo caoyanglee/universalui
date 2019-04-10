@@ -7,7 +7,11 @@
     android:orientation="vertical"
     tools:context=".module.lib3.Lib3Activity">
 
-    <include layout="@layout/include_toolbar_primary" />
+    <com.weimu.universalview.widget.ToolBarPro
+        android:id="@+id/mToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary" />
 
     <include layout="@layout/include_recyclerview" />
 </LinearLayout>
