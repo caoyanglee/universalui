@@ -188,7 +188,7 @@ class ToolBarPro : ViewGroup {
             val left = paddingLeft + param.leftMargin
             val right = paddingLeft + (it.layoutParams as MarginLayoutParams).leftMargin + it.measuredWidth
             val top = startY + param.topMargin
-            val bottom = top + it.measuredHeight - param.bottomMargin
+            val bottom = top + it.measuredHeight
             it.layout(left, top, right, bottom)
         }
 
@@ -198,7 +198,7 @@ class ToolBarPro : ViewGroup {
             val left = paddingLeft + param.leftMargin
             val right = paddingLeft + (it.layoutParams as MarginLayoutParams).leftMargin + it.measuredWidth
             val top = startY + param.topMargin
-            val bottom = top + it.measuredHeight - param.bottomMargin
+            val bottom = top + it.measuredHeight
             it.layout(left, top, right, bottom)
         }
 
@@ -208,7 +208,7 @@ class ToolBarPro : ViewGroup {
             val left = (tvTitle.layoutParams as MarginLayoutParams).leftMargin
             val right = measuredWidth - (tvTitle.layoutParams as MarginLayoutParams).rightMargin
             val top = startY + param.topMargin
-            val bottom = top + it.measuredHeight - param.bottomMargin
+            val bottom = top + it.measuredHeight
             tvTitle.layout(left, top, right, bottom)
         }
 
@@ -218,7 +218,7 @@ class ToolBarPro : ViewGroup {
             val left = measuredWidth - paddingRight - it.measuredWidth - param.rightMargin
             val right = measuredWidth - paddingRight - param.rightMargin
             val top = startY + param.topMargin
-            val bottom = top + it.measuredHeight - param.bottomMargin
+            val bottom = top + it.measuredHeight
             it.layout(left, top, right, startY + bottom)
         }
 
@@ -226,9 +226,9 @@ class ToolBarPro : ViewGroup {
         tvMenuView1.shouldRender {
             val param = (it.layoutParams as MarginLayoutParams)
             val left = measuredWidth - paddingRight - it.measuredWidth - param.rightMargin
-            val right = measuredWidth - paddingRight -param.rightMargin
+            val right = measuredWidth - paddingRight - param.rightMargin
             val top = startY + param.topMargin
-            val bottom = top + it.measuredHeight - param.bottomMargin
+            val bottom = top + it.measuredHeight
             it.layout(left, top, right, bottom)
         }
 
@@ -238,7 +238,7 @@ class ToolBarPro : ViewGroup {
             val left = ivMenuView1.left - it.measuredWidth - param.rightMargin
             val right = ivMenuView1.left - param.rightMargin
             val top = startY + param.topMargin
-            val bottom = top + it.measuredHeight - param.bottomMargin
+            val bottom = top + it.measuredHeight
             it.layout(left, top, right, startY + bottom)
         }
 
@@ -248,7 +248,7 @@ class ToolBarPro : ViewGroup {
             val left = tvMenuView1.left - it.measuredWidth - param.rightMargin
             val right = tvMenuView1.left - param.rightMargin
             val top = startY + param.topMargin
-            val bottom = top + it.measuredHeight - param.bottomMargin
+            val bottom = top + it.measuredHeight
             it.layout(left, top, right, bottom)
         }
 
