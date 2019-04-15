@@ -10,10 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 
 /**
  * Author:你需要一台永动机
@@ -34,8 +31,14 @@ abstract class BaseDialog : DialogFragment() {
     //修改宽度使用这个方法
     protected open fun getViewWidth() = WindowManager.LayoutParams.MATCH_PARENT
 
+    //设置高度
     protected open fun getViewHeight() = WindowManager.LayoutParams.WRAP_CONTENT
 
+    //设置window显示的动画
+    protected open fun getWindowAnimation() = -1//弹窗动画
+
+    //设置gravity
+    protected open fun getGravity() = Gravity.NO_GRAVITY
 
     override fun onStart() {
         super.onStart()
@@ -43,8 +46,10 @@ abstract class BaseDialog : DialogFragment() {
             val window = this.window
             window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             val windowParams = window.attributes
+            windowParams.gravity = getGravity()
             windowParams.width = getViewWidth()
             windowParams.height = getViewHeight()
+            if (getWindowAnimation() != -1) windowParams.windowAnimations = getWindowAnimation()
             //windowParams.dimAmount = 0.0f;//设置Dialog外其他区域的alpha值
             window.attributes = windowParams
         }

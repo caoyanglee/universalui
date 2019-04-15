@@ -2,6 +2,7 @@ package com.weimu.app.universalview.view.dialog
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.WindowManager
 import com.weimu.app.universalview.R
 import com.weimu.universalview.core.dialog.BaseDialog
@@ -22,6 +23,11 @@ class FullScreenDialog : BaseDialog() {
     override fun getViewHeight(): Int = WindowManager.LayoutParams.MATCH_PARENT
 
     override fun getLayoutResID(): Int = R.layout.dialog_full_screen
+
+    override fun getGravity(): Int = Gravity.BOTTOM
+
+    override fun getWindowAnimation(): Int = R.style.BottomToUpDialog
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

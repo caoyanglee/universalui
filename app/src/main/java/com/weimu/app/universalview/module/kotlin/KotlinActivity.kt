@@ -9,7 +9,6 @@ import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.kotlin.coroutines.CoroutineActivity
 import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
-import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.init
 import com.weimu.universalview.ktx.setOnClickListenerPro
@@ -51,7 +50,7 @@ class KotlinActivity : BaseViewActivity() {
                     this.setTextColor(ContextCompat.getColor(context, R.color.white))
                     this.text = "关闭"
                     this.setOnClickListenerPro {
-                        toast("呵呵哒，要关闭了")
+                        toastSuccess("呵呵哒，要关闭了")
                     }
                 }
                 //右侧第一个按钮
@@ -60,7 +59,7 @@ class KotlinActivity : BaseViewActivity() {
                     this.setTextColor(ContextCompat.getColor(context, R.color.white))
                     this.text = "按钮1"
                     this.setOnClickListenerPro {
-                        toast("呵呵哒，干什么1？")
+                        toastSuccess("呵呵哒，干什么1？")
                     }
                 }
                 //右侧第二个按钮
@@ -69,7 +68,7 @@ class KotlinActivity : BaseViewActivity() {
                     this.setTextColor(ContextCompat.getColor(context, R.color.white))
                     this.text = "按钮2"
                     this.setOnClickListenerPro {
-                        toast("呵呵哒，干什么2？")
+                        toastSuccess("呵呵哒，干什么2？")
                     }
                 }
 

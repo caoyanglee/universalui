@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
@@ -80,7 +79,7 @@ class CoroutineActivity : BaseViewActivity() {
 
             withContext(Dispatchers.Main) {
                 //update ui
-                toast("这是令牌1=" + deferred.await())
+                toastSuccess("这是令牌1=" + deferred.await())
             }
 
 //            launch(Dispatchers.Main) {

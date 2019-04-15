@@ -9,10 +9,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.weimu.universalib.ktx.toast
 import com.weimu.universalview.core.architecture.mvp.BaseView
 import com.weimu.universalview.core.dialog.ProgressDialog
 import com.weimu.universalview.core.snackerbar.SnackBarCenter
+import com.weimu.universalview.ktx.toast
 
 /**
  * Author:你需要一台永动机

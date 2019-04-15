@@ -3,7 +3,6 @@ package com.weimu.universalview.ktx
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Handler
@@ -12,10 +11,6 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import com.weimu.universalib.ktx.toast
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
@@ -118,7 +113,7 @@ fun View.screenShot(handle: (viewBitmap: Bitmap) -> Unit) {
         handle(screenshot)
     } catch (e: Exception) {
         System.gc()
-        toast(context, "保存错误，请重新点击")
+        toast("保存错误，请重新点击", context)
     }
 }
 

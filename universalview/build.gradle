@@ -17,6 +17,11 @@ android {
         versionName "1.0.0"
 
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,7 +34,24 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //通用包
-    compile 'com.github.caoyanglee:universal:1.1.10'
+    compile 'com.github.caoyanglee:universal:1.1.11'
+    //google
+    compile 'com.android.support:appcompat-v7:28.0.0'//universal有
+    compile 'com.android.support:recyclerview-v7:28.0.0'
+    compile 'com.android.support:design:28.0.0'
+    compile 'com.android.support:cardview-v7:28.0.0'
+    //kt
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"//universal有
+    //LifeCircle
+    compile 'android.arch.lifecycle:extensions:1.1.1'
+    //约束布局
+    compile 'com.android.support.constraint:constraint-layout:1.1.3'
+    //multidex
+    compile 'com.android.support:multidex:1.0.3'
+    //log
+    compile 'com.orhanobut:logger:2.2.0'
+    //permission
+    compile 'com.github.tbruyelle:rxpermissions:0.10.2'
     //glide
     compile 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'

@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.weimu.universalib.R
+import com.weimu.universalview.R
 
 /**
  * Created by 艹羊 on 2017/2/23.

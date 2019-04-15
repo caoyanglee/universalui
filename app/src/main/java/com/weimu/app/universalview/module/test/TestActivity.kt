@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
+import com.weimu.app.universalview.view.dialog.FullScreenDialog
+import com.weimu.universalib.ktx.formatDate
+import com.weimu.universalib.ktx.getCurrentTimeStamp
 import com.weimu.universalview.ktx.hideKeyBoard
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import com.weimu.universalview.ktx.showKeyBoard
@@ -25,7 +28,9 @@ class TestActivity : BaseViewActivity() {
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         mBtnShowHtml.setOnClickListenerPro {
-            showKeyBoard(mEtTest)
+            FullScreenDialog().show(this@TestActivity)
+//            showKeyBoard(mEtTest)
+            getCurrentTimeStamp().formatDate()
         }
 
         mBtnAddImage.setOnClickListenerPro {

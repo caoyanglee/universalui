@@ -15,24 +15,8 @@ import com.weimu.universalview.R
  */
 abstract class BottomUpDialog : BaseDialog() {
 
-    //位于底部
-    override fun onStart() {
-        super.onStart()
-        dialog?.apply {
-            val win = this.window
-            win!!.attributes.windowAnimations = R.style.BottomToUpDialog//动画
-            // 一定要设置Background，如果不设置，window属性设置无效
-            win.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    override fun getGravity(): Int = Gravity.BOTTOM
 
-            val dm = DisplayMetrics()
-            activity!!.windowManager.defaultDisplay.getMetrics(dm)
+    override fun getWindowAnimation(): Int = R.style.BottomToUpDialog
 
-            val params = win.attributes
-            params.gravity = Gravity.BOTTOM
-            // 使用ViewGroup.LayoutParams，以便Dialog 宽度充满整个屏幕
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            win.attributes = params
-        }
-    }
 }

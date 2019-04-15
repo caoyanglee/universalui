@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.weimu.universalib.OriginAppData
 import com.weimu.universalib.ktx.dip2px
+import com.weimu.universalview.OriginAppData
 import com.weimu.universalview.ktx.setHeight
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import com.weimu.universalview.ktx.visible
