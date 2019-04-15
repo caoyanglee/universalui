@@ -27,6 +27,7 @@ abstract class BaseDialog : DialogFragment() {
     protected var mContentView: ViewGroup? = null
 
     protected abstract fun getTagName(): String
+
     @LayoutRes
     protected abstract fun getLayoutResID(): Int
 

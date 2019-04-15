@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".module.test.TestActivity">
 
-    <com.weimu.app.universalview.view.RichEditText
-        android:id="@+id/mRichEditText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/mEtTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/mBtnShowHtml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="showHtml" />
+
+        <Button
+            android:id="@+id/mBtnAddImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="addImage" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

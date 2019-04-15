@@ -39,6 +39,7 @@ class MainActivity : BaseViewActivity() {
         toastSuccess("欢迎来到通用UI库")
 
         tv_title.setOnClickListenerPro {
+//            FullScreenDialog().show(this)
             startActivity(TestActivity.newIntent(getContext()))
         }
 
@@ -73,7 +74,7 @@ class MainActivity : BaseViewActivity() {
                 context = this,
                 dividerSize = dip2px(16f)
         ))
-        recyclerView.setPadding(0,0, 0, dip2px(16f))
+        recyclerView.setPadding(0, 0, 0, dip2px(16f))
         category.add(CategoryB("Java", "Java的一些基础Demo"))
         category.add(CategoryB("Kotlin", "Kotlin的一些基础Demo"))
         category.add(CategoryB("RxJava", "RxJava的Demo集合"))

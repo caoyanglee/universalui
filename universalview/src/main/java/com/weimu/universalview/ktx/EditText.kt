@@ -67,9 +67,7 @@ fun EditText.changePasswordStatus(isShowPwd: Boolean) {
 
 //隐藏键盘
 fun EditText.hideKeyBoard() {
-    this.requestFocus()
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
     if (inputMethodManager.isActive(this)) {
         clearFocus()
         inputMethodManager.hideSoftInputFromWindow(windowToken, 0) //强制隐藏键盘
@@ -106,7 +104,7 @@ fun EditText.addKeyBoardListener(activity: Activity, fn: (keyBoardHeight: Int) -
  * @param targetActionId 有很多种类型，例如：EditorInfo.IME_ACTION_SEARCH
  */
 fun EditText.addEditorActionListener(targetActionId: Int, callBack: ((keyWork: String) -> Unit)) {
-    setSingleLine()
+    setSingleLine()//必须设置此属性才会生效
     imeOptions = targetActionId
     setOnEditorActionListener { v, actionId, event ->
         if (actionId == targetActionId) {

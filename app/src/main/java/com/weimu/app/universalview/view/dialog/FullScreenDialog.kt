@@ -17,13 +17,18 @@ class FullScreenDialog : BaseDialog() {
 
     override fun getTagName(): String = "TestDialog"
 
+    override fun getViewWidth(): Int = WindowManager.LayoutParams.MATCH_PARENT
+
     override fun getViewHeight(): Int = WindowManager.LayoutParams.MATCH_PARENT
 
     override fun getLayoutResID(): Int = R.layout.dialog_full_screen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initViews()
+    }
 
+    private fun initViews() {
         StatusBarManager.setColor(dialog.window, Color.WHITE)
         StatusBarManager.setLightMode(dialog.window)
 
