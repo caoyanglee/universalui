@@ -1,5 +1,6 @@
 package com.weimu.universalview.core.dialog
 
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -61,13 +62,25 @@ abstract class BaseDialog : DialogFragment() {
         return mContentView
     }
 
+    //使用Fragment
     fun show(fragment: Fragment): BaseDialog {
         showDialog(fragment.childFragmentManager, getTagName())
         return this
     }
 
+    //使用Activity
     fun show(activity: AppCompatActivity): BaseDialog {
         showDialog(activity.supportFragmentManager, getTagName())
+        return this
+    }
+
+    //使用上下文显示
+    fun show(context: Context): BaseDialog {
+        if (context is AppCompatActivity) {
+            show(context)
+        } else {
+            throw IllegalArgumentException("invalid context")
+        }
         return this
     }
 
