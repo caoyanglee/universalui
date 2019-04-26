@@ -5,11 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
+import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.text.*
 import android.text.method.LinkMovementMethod
@@ -18,7 +20,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import com.orhanobut.logger.Logger
 import com.weimu.universalview.interfaces.MyTextWatcher
+import org.xml.sax.XMLReader
+import java.util.*
 
 
 //TextView 扩展函数&扩展属性
@@ -321,20 +329,6 @@ fun TextView.clearMiddleLine() {
 fun TextView.addUnderLine() {
     this.paint.flags = Paint.UNDERLINE_TEXT_FLAG
 }
-
-//显示html文本
-fun TextView.setHtml(htmlStr: String) {
-    var newHtmlStr = htmlStr.replace("\r\n", "<br/>");
-    newHtmlStr = newHtmlStr.replace("\n\n", "<br/><br/>");
-    newHtmlStr = newHtmlStr.replace(" ", "&#x0009;");
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        this.text = Html.fromHtml(newHtmlStr, Html.FROM_HTML_MODE_LEGACY)
-    } else {
-        this.text = Html.fromHtml(newHtmlStr)
-    }
-}
-
 
 //获取文本的内容
 fun TextView.getContent(): String = this.text.toString().trimMargin()
