@@ -1,5 +1,6 @@
 package com.weimu.universalview.core.architecture.mvp
 
+import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
@@ -33,5 +34,7 @@ interface BaseView {
     fun showProgressBar(message: CharSequence)
 
     fun hideProgressBar()
+
+    fun getLifeCycle(): Lifecycle
 
 }

@@ -1,5 +1,6 @@
 package com.weimu.universalview.core.fragment
 
+import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -77,39 +78,25 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun getContentView(): ViewGroup = mContentView as ViewGroup
 
     //吐司通知&普通的MD弹窗
-    override fun toastSuccess(message: CharSequence) {
-        toast(message)
-    }
+    override fun toastSuccess(message: CharSequence) { toast(message) }
 
-    override fun toastFail(message: CharSequence) {
-        toast(message)
-    }
+    override fun toastFail(message: CharSequence) { toast(message) }
 
-    override fun showProgressBar() {
-        ProgressDialog.show(getContext())
-    }
+    override fun showProgressBar() { ProgressDialog.show(context) }
 
-    override fun showProgressBar(message: CharSequence) {
-        ProgressDialog.show(getContext(), content = message.toString())
-    }
+    override fun showProgressBar(message: CharSequence) { ProgressDialog.show(context, content = message.toString()) }
 
-    override fun hideProgressBar() {
-        ProgressDialog.hide()
-    }
+    override fun hideProgressBar() { ProgressDialog.hide() }
 
-    //snaker
-    override fun showSnackBar(message: CharSequence) {
-        SnackBarCenter.show(getContentView(), message)
-    }
+    override fun getLifeCycle(): Lifecycle =lifecycle
+
+    //showSnackBar
+    override fun showSnackBar(message: CharSequence) { SnackBarCenter.show(getContentView(), message) }
 
     //打开Activity
-    override fun startActivity(intent: Intent) {
-        mActivity.startActivity(intent)
-    }
+    override fun startActivity(intent: Intent) { mActivity.startActivity(intent) }
 
-    override fun startActivityForResult(intent: Intent, requestCode: Int) {
-        mActivity.startActivityForResult(intent, requestCode)
-    }
+    override fun startActivityForResult(intent: Intent, requestCode: Int) { mActivity.startActivityForResult(intent, requestCode) }
 
     //FrameLayout的切换
     final override fun onHiddenChanged(hidden: Boolean) {

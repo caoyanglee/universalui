@@ -1,5 +1,6 @@
 package com.weimu.universalview.core.activity
 
+import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
@@ -56,14 +57,15 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun toastFail(message: CharSequence) { toast(message) }
 
-
     override fun showProgressBar() { ProgressDialog.show(getContext()) }
 
     override fun showProgressBar(message: CharSequence) { ProgressDialog.show(getContext(), content = message.toString()) }
 
     override fun hideProgressBar() { ProgressDialog.hide() }
 
-    //snaker
+    override fun getLifeCycle(): Lifecycle =lifecycle
+
+    //showSnackBar
     override fun showSnackBar(message: CharSequence) { SnackBarCenter.show(getContentView(), message) }
 
 

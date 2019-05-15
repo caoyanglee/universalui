@@ -32,7 +32,6 @@ interface BasePresenter : LifecycleObserver {
 
     }
 
-
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(@NotNull owner: LifecycleOwner) {
     }

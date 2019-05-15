@@ -1,5 +1,6 @@
 package com.weimu.app.universalview.module.test
 
+import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
