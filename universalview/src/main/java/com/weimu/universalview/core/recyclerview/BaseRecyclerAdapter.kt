@@ -15,7 +15,7 @@ import com.weimu.universalview.ktx.setOnClickListenerPro
  * @description 适配器的基类
  */
 //todo 设置空视图或者错误视图为0时，会出现问题
-abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerViewHolder> {
+abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : RecyclerView.Adapter<BaseRecyclerViewHolder>() {
     private val TYPE_HEADER = 0
     private val TYPE_ITEM = 1
     private val TYPE_FOOT = 2
@@ -23,7 +23,6 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
     private val TYPE_ERROR = 4
 
 
-    protected var mContext: Context
     var dataList = arrayListOf<T>()
     var headerData: H? = null
 
@@ -32,58 +31,84 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
     var onItemLongClick: ((item: T, position: Int) -> Unit)? = null//Item长按事件
     var onFooterClick: (() -> Unit)? = null//底部点击事件
 
-    var headViewSize = 0
-    var emptyViewSize = 0
-    var errorViewSize = 0
-    var footViewSize = 0
+    private var headViewSize = 0
+    private var emptyViewSize = 0
+    private var errorViewSize = 0
+    private var footViewSize = 0
+
+    private var headView: View? = null
+        set(value) {
+            field = value
+            headViewSize = if (field != null) 1 else 0
+        }
+
+    private var emptyView: View? = null
+        set(value) {
+            field = value
+            emptyViewSize = if (field != null) 1 else 0
+        }
+
+    private var errorView: View? = null
+        set(value) {
+            field = value
+            errorViewSize = if (field != null) 1 else 0
+        }
+
+    private var footerView: View? = null
+        set(value) {
+            field = value
+            footViewSize = if (field != null) 1 else 0
+        }
+
+    private var itemView: View? = null
 
     var emptyHeight = -1
     var errorHeight = -1
-
-    constructor(mContext: Context) : super() {
-        this.mContext = mContext
-
-        if (getHeaderLayoutRes() != -1) headViewSize = 1
-        if (getEmptyLayoutRes() != -1) emptyViewSize = 1
-        if (getErrorLayoutRes() != -1) errorViewSize = 1
-        if (getFooterLayoutRes() != -1) footViewSize = 1
-
-    }
 
     //---Layout---
 
     //获取Header的Layout
     protected open fun getHeaderLayoutRes() = -1
 
+    protected open fun getHeaderUI(): View? = null
+
     //获取EmptyView的Layout
     protected open fun getEmptyLayoutRes() = -1
+
+    protected open fun getEmptyUI(): View? = null
 
     //获取ErrorView的Layout
     protected open fun getErrorLayoutRes() = -1
 
+    protected open fun getErrorUI(): View? = null
+
     //获取Body的Layout
-    abstract fun getItemLayoutRes(): Int
+    protected open fun getItemLayoutRes(): Int = -1
+
+    protected open fun getItemUI(): View? = null
 
     //获取Footer的Layout
     protected open fun getFooterLayoutRes() = -1
+
+    protected open fun getFooterUI(): View? = null
 
 
     //---Holder---
 
     //获取Header的Holder
-    protected open fun getHeaderHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView!!)
+    protected open fun getHeaderHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView)
 
     //获取Empty的Holder
-    protected open fun getEmptyHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView!!)
+    protected open fun getEmptyHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView)
 
     //获取Error的Holder
-    protected open fun getErrorHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView!!)
+    protected open fun getErrorHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView)
 
     //获取Body的Holder
-    protected open fun getViewHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView!!)
+    protected open fun getViewHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView)
 
     //获取Footer的Holder
-    protected open fun getFooterHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView!!)
+    protected open fun getFooterHolder(itemView: View?): BaseRecyclerViewHolder = BaseRecyclerViewHolder(itemView)
 
 
     //---View---
@@ -140,33 +165,30 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder {
-        var targetView: View? = null
         val mInflater = LayoutInflater.from(parent.context)
         when (viewType) {
             TYPE_HEADER -> {
-                targetView = mInflater.inflate(getHeaderLayoutRes(), parent, false)
-                return getHeaderHolder(targetView)
+                headView = getHeaderUI() ?: mInflater.inflate(getHeaderLayoutRes(), parent, false)
+                return getHeaderHolder(headView)
             }
             TYPE_EMPTY -> {
-                targetView = mInflater.inflate(getEmptyLayoutRes(), parent, false)
-                return getEmptyHolder(targetView)
+                emptyView = getEmptyUI() ?: mInflater.inflate(getEmptyLayoutRes(), parent, false)
+                return getEmptyHolder(emptyView)
             }
-
             TYPE_ERROR -> {
-                targetView = mInflater.inflate(getErrorLayoutRes(), parent, false)
-                return getErrorHolder(targetView)
-            }
-            TYPE_ITEM -> {
-                targetView = mInflater.inflate(getItemLayoutRes(), parent, false)
-                return getViewHolder(targetView)
+                errorView = getErrorUI() ?: mInflater.inflate(getErrorLayoutRes(), parent, false)
+                return getErrorHolder(errorView)
             }
             TYPE_FOOT -> {
-                targetView = mInflater.inflate(getFooterLayoutRes(), parent, false)
-                return getFooterHolder(targetView)
+                footerView = getFooterUI() ?: mInflater.inflate(getFooterLayoutRes(), parent, false)
+                return getFooterHolder(footerView)
             }
-
+            TYPE_ITEM -> {
+                itemView = getItemUI() ?: mInflater.inflate(getItemLayoutRes(), parent, false)
+                return getViewHolder(itemView)
+            }
         }
-        return getViewHolder(targetView)
+        return getViewHolder(itemView)
     }
 
 
@@ -177,7 +199,7 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
         super.onBindViewHolder(holder, position, payloads)
         when (getItemViewType(position)) {
             TYPE_HEADER -> {
-                holder.itemView?.setOnClickListener {
+                holder.itemView.setOnClickListener {
                     onHeaderClick?.invoke(headerData)
                 }
                 if (payloads.size > 0) {
@@ -197,11 +219,11 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
                 val index = position - (headViewSize + emptyViewSize + errorViewSize)
 
                 //单点
-                holder.itemView?.setOnClickListenerPro {
+                holder.itemView.setOnClickListenerPro {
                     onItemClick?.invoke(getItem(index), index)
                 }
                 //长按
-                holder.itemView?.setOnLongClickListener {
+                holder.itemView.setOnLongClickListener {
                     onItemLongClick?.invoke(getItem(index), index)
                     true
                 }
@@ -213,7 +235,7 @@ abstract class BaseRecyclerAdapter<H, T> : RecyclerView.Adapter<BaseRecyclerView
                 }
             }
             TYPE_FOOT -> {
-                holder.itemView?.setOnClickListenerPro {
+                holder.itemView.setOnClickListenerPro {
                     onFooterClick?.invoke()
                 }
                 footerViewChange(holder)

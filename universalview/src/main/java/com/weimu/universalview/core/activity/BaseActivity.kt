@@ -18,10 +18,10 @@ import com.weimu.universalview.ktx.toast
  */
 abstract class BaseActivity : AppCompatActivity(), BaseView {
 
-    open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
+    protected open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
 
     @LayoutRes
-    open fun getLayoutResID(): Int = -1
+    protected open fun getLayoutResID(): Int = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

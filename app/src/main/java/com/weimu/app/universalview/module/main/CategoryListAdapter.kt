@@ -1,6 +1,9 @@
 package com.weimu.app.universalview.module.main
 
 import android.content.Context
+import android.support.v7.widget.LinearLayoutCompat
+import android.view.View
+import android.widget.TextView
 import com.weimu.app.universalview.R
 import com.weimu.universalib.origin.BaseB
 import com.weimu.universalview.core.recyclerview.BaseRecyclerAdapter
