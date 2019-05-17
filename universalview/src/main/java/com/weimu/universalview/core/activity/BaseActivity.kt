@@ -18,18 +18,26 @@ import com.weimu.universalview.ktx.toast
  */
 abstract class BaseActivity : AppCompatActivity(), BaseView {
 
+    open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
 
     @LayoutRes
-    protected abstract fun getLayoutResID(): Int
+    open fun getLayoutResID(): Int = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //绑定视图前
         beforeViewAttachBaseViewAction(savedInstanceState)
         beforeViewAttach(savedInstanceState)
-        //绑定视图前
-        setContentView(getLayoutResID())//设置视图
+
+        //设置视图
+        if (getLayoutUI() != null) {
+            setContentView(getLayoutUI())
+        } else if (getLayoutResID() != -1) {
+            setContentView(getLayoutResID())
+        }
+
         //绑定视图后
         afterViewAttachBaseViewAction(savedInstanceState)
         afterViewAttach(savedInstanceState)
@@ -53,22 +61,32 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun getCurrentActivity(): AppCompatActivity = this
 
     //吐司通知&普通的MD弹窗
-    override fun toastSuccess(message: CharSequence) { toast(message) }
+    override fun toastSuccess(message: CharSequence) {
+        toast(message)
+    }
 
-    override fun toastFail(message: CharSequence) { toast(message) }
+    override fun toastFail(message: CharSequence) {
+        toast(message)
+    }
 
-    override fun showProgressBar() { ProgressDialog.show(getContext()) }
+    override fun showProgressBar() {
+        ProgressDialog.show(getContext())
+    }
 
-    override fun showProgressBar(message: CharSequence) { ProgressDialog.show(getContext(), content = message.toString()) }
+    override fun showProgressBar(message: CharSequence) {
+        ProgressDialog.show(getContext(), content = message.toString())
+    }
 
-    override fun hideProgressBar() { ProgressDialog.hide() }
+    override fun hideProgressBar() {
+        ProgressDialog.hide()
+    }
 
-    override fun getLifeCycle(): Lifecycle =lifecycle
+    override fun getLifeCycle(): Lifecycle = lifecycle
 
     //showSnackBar
-    override fun showSnackBar(message: CharSequence) { SnackBarCenter.show(getContentView(), message) }
-
-
+    override fun showSnackBar(message: CharSequence) {
+        SnackBarCenter.show(getContentView(), message)
+    }
 
 
 }

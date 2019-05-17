@@ -1,6 +1,5 @@
 package com.weimu.app.universalview.module.test
 
-import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +10,6 @@ import com.weimu.universalib.ktx.formatDate
 import com.weimu.universalib.ktx.getCurrentTimeStamp
 import com.weimu.universalview.ktx.hideKeyBoard
 import com.weimu.universalview.ktx.setOnClickListenerPro
-import com.weimu.universalview.ktx.showKeyBoard
 import kotlinx.android.synthetic.main.activity_test.*
 
 class TestActivity : BaseViewActivity() {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.datapersistence.DataPersistenceActivity
+import com.weimu.app.universalview.module.fragment.single.SingleFragmentActivity
 import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
@@ -38,7 +39,7 @@ class MainActivity : BaseViewActivity() {
 
         tv_title.setOnClickListenerPro {
 //            FullScreenDialog().show(this)
-            startActivity(TestActivity.newIntent(getContext()))
+            startActivity(SingleFragmentActivity.newIntent(getContext()))
         }
 
         initRecy()

@@ -25,7 +25,7 @@ interface BaseView {
 
     fun toastFail(message: CharSequence)
 
-    //SnakerBar
+    //SnackBar
     fun showSnackBar(message: CharSequence)
 
     //ProgressBar
@@ -35,6 +35,7 @@ interface BaseView {
 
     fun hideProgressBar()
 
+    //Lifecycle
     fun getLifeCycle(): Lifecycle
 
 }

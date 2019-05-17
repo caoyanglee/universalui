@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.content.ContextWrapper
+
 
 /**
  * Author:你需要一台永动机

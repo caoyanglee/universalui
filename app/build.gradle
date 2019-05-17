@@ -28,4 +28,5 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //通用包
     implementation project(':universalview')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
