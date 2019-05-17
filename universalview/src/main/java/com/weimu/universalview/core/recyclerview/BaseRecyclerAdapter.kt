@@ -31,10 +31,11 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     var onItemLongClick: ((item: T, position: Int) -> Unit)? = null//Item长按事件
     var onFooterClick: (() -> Unit)? = null//底部点击事件
 
-    private var headViewSize = 0
-    private var emptyViewSize = 0
-    private var errorViewSize = 0
-    private var footViewSize = 0
+    //不私有
+    var headViewSize = 0
+    var emptyViewSize = 0
+    var errorViewSize = 0
+    var footViewSize = 0
 
     private var headView: View? = null
         set(value) {
