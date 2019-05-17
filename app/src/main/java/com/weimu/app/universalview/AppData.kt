@@ -3,10 +3,10 @@ package com.weimu.app.universalview
 import android.app.Activity
 import android.os.Bundle
 import com.weimu.app.universalview.module.main.MainActivity
-import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalview.OriginAppData
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.interfaces.MyActivityLifeCycleCallbacks
+import com.weimu.universalview.ktx.dip2px
 import java.util.*
 import kotlin.properties.Delegates
 

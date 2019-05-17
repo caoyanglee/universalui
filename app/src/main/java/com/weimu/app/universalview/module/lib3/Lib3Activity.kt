@@ -10,9 +10,8 @@ import com.weimu.app.universalview.module.lib3.eventbus.EventBusActivity
 import com.weimu.app.universalview.module.lib3.materialdialog.MaterialDialogActivity
 import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
-import com.weimu.universalib.ktx.dip2px
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
-import com.weimu.universalview.core.toolbar.ToolBarManager
+import com.weimu.universalview.ktx.dip2px
 import com.weimu.universalview.ktx.init
 import kotlinx.android.synthetic.main.activity_lib3.*
 import kotlinx.android.synthetic.main.include_recyclerview.*

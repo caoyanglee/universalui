@@ -14,8 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.weimu.universalib.ktx.dip2px
-import com.weimu.universalib.ktx.getStatusBarHeight
+import com.weimu.universalview.ktx.dip2px
+import com.weimu.universalview.ktx.getStatusBarHeight
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import java.lang.ref.WeakReference
 import kotlin.properties.Delegates

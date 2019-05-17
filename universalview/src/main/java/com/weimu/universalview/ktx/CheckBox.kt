@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.annotation.DrawableRes
 import android.widget.CheckBox
-import com.weimu.universalib.ktx.dip2px
 
 /**
  * Author:你需要一台永动机

@@ -34,7 +34,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //通用包
-    compile 'com.github.caoyanglee:universal:1.1.11'
+    compile 'com.github.caoyanglee:universal:1.1.13'
     //google
     compile 'com.android.support:appcompat-v7:28.0.0'//universal有
     compile 'com.android.support:recyclerview-v7:28.0.0'
