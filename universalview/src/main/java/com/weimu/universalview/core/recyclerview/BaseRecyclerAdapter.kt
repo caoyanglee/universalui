@@ -37,31 +37,6 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     var errorViewSize = 0
     var footViewSize = 0
 
-    private var headView: View? = null
-        set(value) {
-            field = value
-            headViewSize = if (field != null) 1 else 0
-        }
-
-    private var emptyView: View? = null
-        set(value) {
-            field = value
-            emptyViewSize = if (field != null) 1 else 0
-        }
-
-    private var errorView: View? = null
-        set(value) {
-            field = value
-            errorViewSize = if (field != null) 1 else 0
-        }
-
-    private var footerView: View? = null
-        set(value) {
-            field = value
-            footViewSize = if (field != null) 1 else 0
-        }
-
-    private var itemView: View? = null
 
     var emptyHeight = -1
     var errorHeight = -1
@@ -92,6 +67,14 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     protected open fun getFooterLayoutRes() = -1
 
     protected open fun getFooterUI(): View? = null
+
+
+    init {
+        headViewSize = if (getHeaderUI() != null || getHeaderLayoutRes() != -1) 1 else 0
+        emptyViewSize = if (getEmptyUI() != null || getEmptyLayoutRes() != -1) 1 else 0
+        errorViewSize = if (getErrorUI() != null || getErrorLayoutRes() != -1) 1 else 0
+        footViewSize = if (getFooterUI() != null || getFooterLayoutRes() != -1) 1 else 0
+    }
 
 
     //---Holder---
@@ -166,30 +149,31 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder {
+        var targetView: View? = null
         val mInflater = LayoutInflater.from(parent.context)
         when (viewType) {
             TYPE_HEADER -> {
-                headView = getHeaderUI() ?: mInflater.inflate(getHeaderLayoutRes(), parent, false)
-                return getHeaderHolder(headView)
+                targetView = getHeaderUI() ?: mInflater.inflate(getHeaderLayoutRes(), parent, false)
+                return getHeaderHolder(targetView)
             }
             TYPE_EMPTY -> {
-                emptyView = getEmptyUI() ?: mInflater.inflate(getEmptyLayoutRes(), parent, false)
-                return getEmptyHolder(emptyView)
+                targetView = getEmptyUI() ?: mInflater.inflate(getEmptyLayoutRes(), parent, false)
+                return getEmptyHolder(targetView)
             }
             TYPE_ERROR -> {
-                errorView = getErrorUI() ?: mInflater.inflate(getErrorLayoutRes(), parent, false)
-                return getErrorHolder(errorView)
+                targetView = getErrorUI() ?: mInflater.inflate(getErrorLayoutRes(), parent, false)
+                return getErrorHolder(targetView)
             }
             TYPE_FOOT -> {
-                footerView = getFooterUI() ?: mInflater.inflate(getFooterLayoutRes(), parent, false)
-                return getFooterHolder(footerView)
+                targetView = getFooterUI() ?: mInflater.inflate(getFooterLayoutRes(), parent, false)
+                return getFooterHolder(targetView)
             }
             TYPE_ITEM -> {
-                itemView = getItemUI() ?: mInflater.inflate(getItemLayoutRes(), parent, false)
-                return getViewHolder(itemView)
+                targetView = getItemUI() ?: mInflater.inflate(getItemLayoutRes(), parent, false)
+                return getViewHolder(targetView)
             }
         }
-        return getViewHolder(itemView)
+        return getViewHolder(targetView)
     }
 
 
