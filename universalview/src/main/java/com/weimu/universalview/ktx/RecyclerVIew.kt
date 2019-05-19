@@ -4,6 +4,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SimpleItemAnimator
+import com.weimu.universalview.core.recyclerview.layoutmanager.LinearLayoutMangerPro
 
 /**
  * Author:你需要一台永动机
@@ -20,5 +21,5 @@ fun RecyclerView.init() {
     //取消刷新闪烁
     (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     (this.itemAnimator as SimpleItemAnimator).changeDuration = 0
-    this.layoutManager = WrapContentLinearLayoutManger(context, LinearLayoutManager.VERTICAL, false)
+    this.layoutManager = LinearLayoutMangerPro(context, LinearLayoutManager.VERTICAL, false)
 }

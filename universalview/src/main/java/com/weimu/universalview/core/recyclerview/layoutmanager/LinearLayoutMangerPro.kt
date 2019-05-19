@@ -4,7 +4,6 @@ package com.weimu.universalview.core.recyclerview.layoutmanager
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.AttributeSet
 import android.util.Log
 
 /**
@@ -13,8 +12,10 @@ import android.util.Log
  */
 class LinearLayoutMangerPro(
         context: Context?,
+        orientation: Int = VERTICAL,
+        reverseLayout: Boolean = false,
         private val canScrollVertically: Boolean = true//是否可以竖直滚动
-) : LinearLayoutManager(context) {
+) : LinearLayoutManager(context, orientation, reverseLayout) {
 
     private val TAG = "LinearLayoutMangerPro"
 
