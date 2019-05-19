@@ -10,7 +10,7 @@ import android.util.Log
  * 解决问题  列表布局专用
  * RecyclerView Bug：IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter的解决方案
  */
-class LinearLayoutMangerPro(
+class LinearLayoutManagerPro(
         context: Context?,
         orientation: Int = VERTICAL,
         reverseLayout: Boolean = false,
