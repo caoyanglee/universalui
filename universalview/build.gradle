@@ -33,15 +33,23 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    //通用包
-    compile 'com.github.caoyanglee:universal:1.1.13'
     //google
-    compile 'com.android.support:appcompat-v7:28.0.0'//universal有
+    compile 'com.android.support:appcompat-v7:28.0.0'
     compile 'com.android.support:recyclerview-v7:28.0.0'
     compile 'com.android.support:design:28.0.0'
     compile 'com.android.support:cardview-v7:28.0.0'
     //kt
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"//universal有
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //kt-coroutines
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+    //json
+    compile 'com.google.code.gson:gson:2.8.5'
+    //event bus
+    compile 'org.greenrobot:eventbus:3.1.1'
+    //RxJava RxAndroid
+    compile 'io.reactivex.rxjava2:rxjava:2.1.14'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
     //LifeCircle
     compile 'android.arch.lifecycle:extensions:1.1.1'
     //约束布局

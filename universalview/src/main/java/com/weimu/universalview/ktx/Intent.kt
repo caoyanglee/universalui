@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import com.orhanobut.logger.Logger
-import com.weimu.universalib.ktx.getUri4File
 import com.weimu.universalview.types.FILE
 import java.io.File
 

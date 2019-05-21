@@ -3,7 +3,6 @@ package com.weimu.app.universalview.base
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.weimu.universalib.helper.EventBusPro
 import com.weimu.universalview.core.activity.BaseActivity
 import com.weimu.universalview.core.architecture.mvp.BaseView
 

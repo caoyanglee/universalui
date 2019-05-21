@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
-import com.weimu.universalib.origin.BaseB
+import com.weimu.universalview.core.BaseB
 
 /**
  * Author:你需要一台永动机

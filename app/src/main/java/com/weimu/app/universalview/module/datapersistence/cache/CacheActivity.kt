@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalib.ktx.clearAllCache
-import com.weimu.universalib.ktx.getTotalCacheSize
 import com.weimu.universalview.core.toolbar.ToolBarManager
+import com.weimu.universalview.ktx.clearAllCache
+import com.weimu.universalview.ktx.getTotalCacheSize
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_cache.*
 

@@ -6,8 +6,8 @@ import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.view.dialog.FullScreenDialog
-import com.weimu.universalib.ktx.formatDate
-import com.weimu.universalib.ktx.getCurrentTimeStamp
+import com.weimu.universalview.ktx.formatDate
+import com.weimu.universalview.ktx.getCurrentTimeStamp
 import com.weimu.universalview.ktx.hideKeyBoard
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_test.*

@@ -1,9 +1,7 @@
 package com.weimu.universalview.ktx
 
 import android.content.Context
-import android.os.Environment
 import com.bumptech.glide.Glide
-import com.weimu.universalib.ktx.deleteDir
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
