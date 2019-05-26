@@ -10,13 +10,19 @@ import java.util.concurrent.TimeUnit
  * String转Date
  * @param format 模板 yyyy-MM-dd HH:mm:ss
  */
-fun String.string2Date(format: String= "yyyy-MM-dd HH:mm:ss"): Date = SimpleDateFormat(format, Locale.CHINA).parse(this)
+fun String.string2Date(
+        format: String = "yyyy-MM-dd HH:mm:ss",
+        local: Locale = Locale.getDefault()
+): Date = SimpleDateFormat(format, local).parse(this)
 
 /**
  * Date转String
  *  @param format 模板 yyyy-MM-dd HH:mm:ss
  */
-fun Date.date2String(format: String= "yyyy-MM-dd HH:mm:ss"): String = SimpleDateFormat(format, Locale.CHINA).format(this)
+fun Date.date2String(
+        format: String = "yyyy-MM-dd HH:mm:ss",
+        local: Locale = Locale.getDefault()
+): String = SimpleDateFormat(format, local).format(this)
 
 
 /**
@@ -24,10 +30,10 @@ fun Date.date2String(format: String= "yyyy-MM-dd HH:mm:ss"): String = SimpleDate
  * 单位：毫秒
  * @param format 模板 yyyy-MM-dd HH:mm:ss
  */
-fun Long.formatDate(format: String = "yyyy-MM-dd HH:mm:ss"): String {
-    val date = Date(this)
-    return SimpleDateFormat(format, Locale.CHINA).format(date)
-}
+fun Long.formatDate(
+        format: String = "yyyy-MM-dd HH:mm:ss",
+        local: Locale = Locale.getDefault()
+): String = SimpleDateFormat(format, local).format(Date(this))
 
 /**
  *
@@ -98,8 +104,9 @@ internal fun Long.moreThanDays(day: Int = 7): Boolean {
  * 当地时间 ---> UTC时间
  */
 fun Any.local2UTC(): String {
-    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    sdf.timeZone = TimeZone.getTimeZone("gmt")
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).apply {
+        this.timeZone = TimeZone.getTimeZone("gmt")
+    }
     return sdf.format(Date())
 }
 
@@ -111,17 +118,18 @@ fun Any.local2UTC(): String {
  */
 fun String.utc2Local(format: String = "yyyy-MM-dd HH:mm:ss"): String {
     if (this.isBlank()) return ""
-    val utcFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    utcFormat.timeZone = TimeZone.getTimeZone("UTC")
-    val wantFormat = SimpleDateFormat(format)
-    wantFormat.timeZone = TimeZone.getDefault()
+    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).apply {
+        this.timeZone = TimeZone.getTimeZone("UTC")
+    }
+    val wantFormat = SimpleDateFormat(format, Locale.getDefault()).apply {
+        this.timeZone = TimeZone.getDefault()
+    }
     try {
-        val tiemBefore = utcFormat.parse(this.substring(0, 19).replace("T", " "))
-        return wantFormat.format(tiemBefore)
+        val timeBefore = utcFormat.parse(this)
+        return wantFormat.format(timeBefore)
     } catch (e: ParseException) {
         e.printStackTrace()
     }
-
     return ""
 }
 
