@@ -4,6 +4,7 @@ import android.animation.LayoutTransition
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.TextUtils
@@ -179,6 +180,9 @@ class ToolBarPro : ViewGroup {
     fun with(activity: Activity? = null) = this.apply {
         if (activity != null) this.activityReference = WeakReference(activity)
     }
+
+    //获取当前ToolBar的背景颜色
+    fun getToolBarBgColor(): Int = (this.background as ColorDrawable).color
 
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

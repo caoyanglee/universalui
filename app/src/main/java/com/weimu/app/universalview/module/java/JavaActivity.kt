@@ -2,12 +2,15 @@ package com.weimu.app.universalview.module.java
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.java.pattern.PatternActivity
 import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
+import com.weimu.universalview.core.toolbar.StatusBarManager
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.init
 import com.weimu.universalview.ktx.setOnClickListenerPro
@@ -39,6 +42,10 @@ class JavaActivity : BaseViewActivity() {
                 .centerTitle {
                     this.text = "Java"
                 }
+
+        if (mToolBar.getToolBarBgColor()== Color.BLACK){
+            Log.d("weimu","测试成功")
+        }
 
 
         initRecy()

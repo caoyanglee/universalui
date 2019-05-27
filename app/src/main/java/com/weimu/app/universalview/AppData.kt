@@ -63,7 +63,7 @@ class AppData : OriginAppData() {
 
         ToolBarPro.GlobalConfig.apply {
             //ToolBar
-            toolBarBgColor = Color.BLACK
+            toolBarBgColor = Color.CYAN
 
             //centerTitle
             centerTitleColor = Color.WHITE
