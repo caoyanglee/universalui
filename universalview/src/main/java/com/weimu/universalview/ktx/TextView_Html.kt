@@ -85,7 +85,7 @@ internal class URLDrawableWrapper : BitmapDrawable() {
 }
 
 //实现图片点击 提供农默认的TagHandler供使用者  使用
-class URLTagHandler( var imageClickListener: ((picUrl: String) -> Unit)? = null) : Html.TagHandler {
+class URLTagHandler(var imageClickListener: ((picUrl: String) -> Unit)? = null) : Html.TagHandler {
 
     override fun handleTag(opening: Boolean, tag: String?, output: Editable?, xmlReader: XMLReader?) {
         if (tag.isNullOrEmpty()) return

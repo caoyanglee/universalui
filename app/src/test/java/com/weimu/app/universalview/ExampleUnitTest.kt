@@ -1,5 +1,8 @@
 package com.weimu.app.universalview
 
+import android.graphics.Color
+import android.util.Log
+import com.weimu.universalview.ktx.isLightColor
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +15,9 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        //assertEquals(4, 2 + 2)
+//        val a = Color.WHITE.isLightColor()
+//        Log.d("weimu","${a}")
+//        assertEquals(true, )
     }
 }

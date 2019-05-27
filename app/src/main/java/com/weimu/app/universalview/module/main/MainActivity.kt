@@ -2,7 +2,9 @@ package com.weimu.app.universalview.module.main
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.datapersistence.DataPersistenceActivity
@@ -13,6 +15,7 @@ import com.weimu.app.universalview.module.lib3.Lib3Activity
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
 import com.weimu.universalview.ktx.dip2px
 import com.weimu.universalview.ktx.init
+import com.weimu.universalview.ktx.isLightColor
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
@@ -37,7 +40,7 @@ class MainActivity : BaseViewActivity() {
         toastSuccess("欢迎来到通用UI库")
 
         tv_title.setOnClickListenerPro {
-//            FullScreenDialog().show(this)
+            //            FullScreenDialog().show(this)
             startActivity(SingleFragmentActivity.newIntent(getContext()))
         }
 
