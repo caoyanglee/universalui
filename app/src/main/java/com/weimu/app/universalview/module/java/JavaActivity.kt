@@ -10,6 +10,8 @@ import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.init
+import com.weimu.universalview.ktx.setOnClickListenerPro
+import kotlinx.android.synthetic.main.activity_java.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
 
 /**
@@ -29,10 +31,16 @@ class JavaActivity : BaseViewActivity() {
     override fun getLayoutResID() = R.layout.activity_java
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        ToolBarManager.with(this, getContentView())
-                .setTitle("Kotlin")
-                .setTitleColor(R.color.white)
-                .setNavigationIcon(R.drawable.universal_arrow_back_white)
+        mToolBar.apply { }
+                .navigationIcon {
+                    this.setImageResource(R.drawable.universal_arrow_back_white)
+                    this.setOnClickListenerPro { onBackPressed() }
+                }
+                .centerTitle {
+                    this.text = "Java"
+                }
+
+
         initRecy()
     }
 

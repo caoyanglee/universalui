@@ -1,12 +1,15 @@
 package com.weimu.app.universalview
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import com.weimu.app.universalview.module.main.MainActivity
 import com.weimu.universalview.OriginAppData
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.interfaces.MyActivityLifeCycleCallbacks
 import com.weimu.universalview.ktx.dip2px
+import com.weimu.universalview.ktx.getDrawablePro
+import com.weimu.universalview.widget.ToolBarPro
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -56,6 +59,18 @@ class AppData : OriginAppData() {
         ToolBarManager.DefaultConfig.apply {
             toolbarPadding = context.dip2px(20f)
             toolbarHeight = context.dip2px(48f)
+        }
+
+        ToolBarPro.GlobalConfig.apply {
+            //ToolBar
+            toolBarBgColor = Color.BLACK
+
+            //centerTitle
+            centerTitleColor = Color.WHITE
+            centerTitleSize = 17f
+
+            //navigation
+            navigationDrawable = context.getDrawablePro(R.drawable.universal_arrow_back_white)
         }
     }
 

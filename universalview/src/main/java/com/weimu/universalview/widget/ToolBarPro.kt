@@ -14,7 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.weimu.universalview.R
 import com.weimu.universalview.ktx.dip2px
+import com.weimu.universalview.ktx.getColorPro
 import com.weimu.universalview.ktx.getStatusBarHeight
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import java.lang.ref.WeakReference
@@ -28,13 +30,15 @@ import kotlin.properties.Delegates
 
 class ToolBarPro : ViewGroup {
 
-    private val TAG = "ToolBarPro"
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+
+    private val colorPrimary: Int by lazy { context.getColorPro(R.color.colorPrimary) }
+    private val colorPrimaryDark: Int by lazy { context.getColorPro(R.color.colorPrimaryDark) }
+    private val colorAccent: Int by lazy { context.getColorPro(R.color.colorAccent) }
 
     private var activityReference: WeakReference<Activity?>? = null
 
@@ -46,10 +50,26 @@ class ToolBarPro : ViewGroup {
     //全局配置
     object GlobalConfig {
         var showStatusView = false//是否显示状态栏视图
+
+        //ToolBar
         var toolbarHeight = 44f//dp
         var toolbarPaddingLeft = 15f//dp
         var toolBarPaddingRight = 15f//dp
-        var centerTitleSize = 17f//sp 标题文字大小
+        var toolBarBgColor: Int? = null
+        //CenterTitle
+        var centerTitleSize: Float? = null//sp 标题文字大小
+        var centerTitleColor: Int? = null
+        //Navigation
+        var navigationDrawable: Drawable? = null
+        var navigationColor: Int? = null
+        //menu1
+        var menu1Drawable: Drawable? = null
+        var menu1TextColor: Int? = null
+        var menu1TextSize: Float? = null
+        //menu2
+        var menu2Drawable: Drawable? = null
+        var menu2TextColor: Int? = null
+        var menu2TextSize: Float? = null
     }
 
     private val ivNavigation: ImageView by lazy {
@@ -63,6 +83,7 @@ class ToolBarPro : ViewGroup {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 this.foreground = getRippleDrawable()
             }
+            setImageDrawable(GlobalConfig.navigationDrawable)
             this.setOnClickListenerPro {
                 activityReference?.get()?.onBackPressed()
             }
@@ -76,6 +97,7 @@ class ToolBarPro : ViewGroup {
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
+            this.setTextColor(GlobalConfig.navigationColor ?: colorAccent)
         }
     }
 
@@ -87,10 +109,10 @@ class ToolBarPro : ViewGroup {
             }
             this.text = ""
             this.gravity = Gravity.CENTER
-            this.textSize = GlobalConfig.centerTitleSize
-            this.setTextColor(Color.WHITE)
             this.setSingleLine()//必须设置此属性 否则无法正常居中
             this.ellipsize = TextUtils.TruncateAt.END
+            GlobalConfig.centerTitleSize?.let { this.textSize = (it) } //设置大小
+            GlobalConfig.centerTitleColor?.let { this.setTextColor(it) } //设置颜色
         }
     }
 
@@ -101,6 +123,7 @@ class ToolBarPro : ViewGroup {
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
+            setImageDrawable(GlobalConfig.menu1Drawable)
         }
     }
 
@@ -111,6 +134,7 @@ class ToolBarPro : ViewGroup {
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
+            setImageDrawable(GlobalConfig.menu2Drawable)
         }
     }
 
@@ -121,6 +145,9 @@ class ToolBarPro : ViewGroup {
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
+            this.setTextColor(GlobalConfig.menu1TextColor ?: colorAccent)
+
+            GlobalConfig.menu1TextSize?.let { this.textSize = (it) } //设置大小
         }
     }
 
@@ -131,11 +158,15 @@ class ToolBarPro : ViewGroup {
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
+            this.setTextColor(GlobalConfig.menu2TextColor ?: colorAccent)
+
+            GlobalConfig.menu2TextSize?.let { this.textSize = (it) } //设置大小
         }
     }
 
 
     init {
+        this.setBackgroundColor(GlobalConfig.toolBarBgColor ?: colorPrimary)
         this.layoutTransition = LayoutTransition()
         //本身视图的基础配置
         this.apply {
