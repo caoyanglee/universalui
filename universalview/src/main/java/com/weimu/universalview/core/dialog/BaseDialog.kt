@@ -22,7 +22,8 @@ abstract class BaseDialog : DialogFragment() {
     var onDialogButtonListener: OnDialogButtonListener? = null
     var onDialogActionListener: OnDialogListener? = null
 
-    private lateinit var mContentView: View
+    lateinit var mContentView: View
+        private set
 
     protected abstract fun getTagName(): String
 
@@ -64,7 +65,7 @@ abstract class BaseDialog : DialogFragment() {
     }
 
 
-    fun onViewChange(contentView: View) {}
+    protected open fun onViewChange(contentView: View) {}
 
     //使用Fragment
     fun show(fragment: Fragment): BaseDialog {

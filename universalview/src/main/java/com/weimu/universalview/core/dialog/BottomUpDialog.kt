@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import com.weimu.universalview.R
 
@@ -18,5 +19,6 @@ abstract class BottomUpDialog : BaseDialog() {
     override fun getGravity(): Int = Gravity.BOTTOM
 
     override fun getWindowAnimation(): Int = R.style.BottomToUpDialog
+
 
 }
