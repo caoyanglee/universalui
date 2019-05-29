@@ -38,4 +38,7 @@ interface BaseView {
     //Lifecycle
     fun getLifeCycle(): Lifecycle
 
+    //Back
+    fun back()
+
 }

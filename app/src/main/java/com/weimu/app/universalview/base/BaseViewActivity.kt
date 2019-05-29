@@ -13,11 +13,8 @@ import com.weimu.universalview.core.architecture.mvp.BaseView
  */
 abstract class BaseViewActivity : BaseActivity(), BaseView {
 
-
     //视图加载前
-    final override fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?) {
-
-    }
+    final override fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
 
     //视图加载后
     final override fun afterViewAttachBaseViewAction(savedInstanceState: Bundle?) {

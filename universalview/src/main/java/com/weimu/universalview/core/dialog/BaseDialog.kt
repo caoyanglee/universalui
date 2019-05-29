@@ -22,7 +22,7 @@ abstract class BaseDialog : DialogFragment() {
     var onDialogButtonListener: OnDialogButtonListener? = null
     var onDialogActionListener: OnDialogListener? = null
 
-    protected var mContentView: ViewGroup? = null
+    private lateinit var mContentView: View
 
     protected abstract fun getTagName(): String
 
@@ -57,10 +57,14 @@ abstract class BaseDialog : DialogFragment() {
     }
 
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mContentView = LayoutInflater.from(context).inflate(getLayoutResID(), container, false) as ViewGroup
+        mContentView = LayoutInflater.from(context).inflate(getLayoutResID(), container, false) as View
         //设置视图
+        onViewChange(mContentView)
         return mContentView
     }
+
+
+    fun onViewChange(contentView: View) {}
 
     //使用Fragment
     fun show(fragment: Fragment): BaseDialog {

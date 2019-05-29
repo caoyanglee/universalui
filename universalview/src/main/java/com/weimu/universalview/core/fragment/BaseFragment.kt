@@ -47,7 +47,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mContentView = getLayoutUI()//设置视图
 
-        if (mContentView == null&&getLayoutResID()!=-1)
+        if (mContentView == null && getLayoutResID() != -1)
             mContentView = LayoutInflater.from(mActivity).inflate(getLayoutResID(), container, false) as ViewGroup
 
         return mContentView
@@ -104,6 +104,10 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     override fun getLifeCycle(): Lifecycle = lifecycle
+
+    override fun back() {
+        mActivity.onBackPressed()
+    }
 
     //showSnackBar
     override fun showSnackBar(message: CharSequence) {

@@ -83,6 +83,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun getLifeCycle(): Lifecycle = lifecycle
 
+    override fun back() {
+        onBackPressed()
+    }
+
     //showSnackBar
     override fun showSnackBar(message: CharSequence) {
         SnackBarCenter.show(getContentView(), message)
