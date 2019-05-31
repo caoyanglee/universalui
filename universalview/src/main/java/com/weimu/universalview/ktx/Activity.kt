@@ -1,10 +1,12 @@
 package com.weimu.universalview.ktx
 
 import android.app.Activity
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.content.ContextWrapper
+import java.util.*
 
 
 /**
@@ -32,4 +34,24 @@ fun Activity.showKeyBoard(targetView: View? = null) {
         inputMethodManager.showSoftInput(window.decorView, 0) //强制显示键盘
     }
 
+}
+
+//显示时间选择器
+fun Activity.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Unit)) {
+    val hourOfDayNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+    val minuteNow = Calendar.getInstance().get(Calendar.MINUTE)
+    TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+        callBack.invoke(hourOfDay, minute)
+    }, hourOfDayNow, minuteNow, true).show()
+}
+
+//显示日期选择器
+fun Activity.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int) -> Unit)) {
+    val yearNow = Calendar.getInstance().get(Calendar.YEAR)
+    val monthNow = Calendar.getInstance().get(Calendar.MONTH)
+    val dayOfMonthNow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+    DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+        callBack.invoke(year, month + 1, dayOfMonth)
+    }, yearNow, monthNow, dayOfMonthNow).show()
 }
