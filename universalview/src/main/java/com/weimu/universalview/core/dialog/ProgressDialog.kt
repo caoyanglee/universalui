@@ -3,6 +3,7 @@ package com.weimu.universalview.core.dialog
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.weimu.universalview.R
 
@@ -15,7 +16,9 @@ object ProgressDialog {
     fun show(
             context: Context,
             title: String = context.getString(R.string.progressbar_title),
-            content: String = context.getString(R.string.progressbar_content)) {
+            content: String = context.getString(R.string.progressbar_content),
+            cancelable: Boolean = false
+    ) {
         try {
             if ((context as Activity).isFinishing) return
         } catch (e: Exception) {
@@ -27,7 +30,7 @@ object ProgressDialog {
                         .title(title)
                         .content(content)
                         .progress(true, 0)
-                        .cancelable(false)
+                        .cancelable(cancelable)
                         .show()
 
             } else if (!(materialDialog!!.isShowing)) {
