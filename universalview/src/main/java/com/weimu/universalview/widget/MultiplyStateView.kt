@@ -1,5 +1,6 @@
 package com.weimu.universalview.widget
 
+import android.animation.LayoutTransition
 import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.annotation.Nullable
@@ -82,6 +83,9 @@ class MultiplyStateView : FrameLayout {
         }
         //recycle for preventing app from ram leaking
         a.recycle()
+
+
+        this.layoutTransition = LayoutTransition()//设置布局动画
     }
 
     override fun onAttachedToWindow() {
