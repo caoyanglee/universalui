@@ -6,10 +6,7 @@ import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.view.dialog.FullScreenDialog
-import com.weimu.universalview.ktx.formatDate
-import com.weimu.universalview.ktx.getCurrentTimeStamp
-import com.weimu.universalview.ktx.hideKeyBoard
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.*
 import kotlinx.android.synthetic.main.activity_test.*
 
 class TestActivity : BaseViewActivity() {
@@ -26,14 +23,16 @@ class TestActivity : BaseViewActivity() {
     override fun beforeViewAttach(savedInstanceState: Bundle?) {}
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        mBtnShowHtml.setOnClickListenerPro {
-            FullScreenDialog().show(this@TestActivity)
-//            showKeyBoard(mEtTest)
-            getCurrentTimeStamp().formatDate()
+        mBtn1.setOnClickListenerPro {
+            this@TestActivity.showTimePicker { hourOfDay, minute ->
+                toastSuccess("$hourOfDay:$minute")
+            }
         }
 
-        mBtnAddImage.setOnClickListenerPro {
-            hideKeyBoard(mEtTest)
+        mBtn2.setOnClickListenerPro {
+            this@TestActivity.showDatePicker { year, month, dayOfMonth ->
+                toastSuccess("$year-$month-$dayOfMonth")
+            }
         }
     }
 }

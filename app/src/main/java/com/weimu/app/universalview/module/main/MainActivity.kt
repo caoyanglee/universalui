@@ -12,6 +12,7 @@ import com.weimu.app.universalview.module.fragment.single.SingleFragmentActivity
 import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
+import com.weimu.app.universalview.module.test.TestActivity
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
 import com.weimu.universalview.ktx.dip2px
 import com.weimu.universalview.ktx.init
@@ -41,7 +42,7 @@ class MainActivity : BaseViewActivity() {
 
         tv_title.setOnClickListenerPro {
             //            FullScreenDialog().show(this)
-            startActivity(SingleFragmentActivity.newIntent(getContext()))
+            startActivity(TestActivity.newIntent(getContext()))
         }
 
         initRecy()

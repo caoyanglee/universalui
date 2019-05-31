@@ -13,23 +13,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/mEtTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/mBtnShowHtml"
+            android:id="@+id/mBtn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="showHtml" />
+            android:text="selector" />
 
         <Button
-            android:id="@+id/mBtnAddImage"
+            android:id="@+id/mBtn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="addImage" />
-
+            android:text="selector" />
 
     </LinearLayout>
 
