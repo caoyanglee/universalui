@@ -79,11 +79,11 @@ fun View.setOnClickListenerPro(singleClick: View.OnClickListener) {
 
 
 //防止重复点击2
-fun View.setOnClickListenerPro(onclick: ((View) -> Unit)) {
+fun View.setOnClickListenerPro(onclick: ((View) -> Unit)?) {
     var isDoing = false//是否正在处理事件
     this.setOnClickListener {
         if (isDoing) return@setOnClickListener
-        onclick.invoke(this)
+        onclick?.invoke(this)
         isDoing = true
         Observable.timer(600, TimeUnit.MILLISECONDS).subscribe { isDoing = false }
     }
