@@ -21,8 +21,11 @@ fun String.string2Date(
  */
 fun Date.date2String(
         format: String = "yyyy-MM-dd HH:mm:ss",
-        local: Locale = Locale.getDefault()
-): String = SimpleDateFormat(format, local).format(this)
+        local: Locale = Locale.getDefault(),
+        isUtc: Boolean = false
+): String = SimpleDateFormat(format, local).apply {
+    if (isUtc) this.timeZone = TimeZone.getTimeZone("UTC")
+}.format(this)
 
 
 /**
@@ -32,8 +35,11 @@ fun Date.date2String(
  */
 fun Long.formatDate(
         format: String = "yyyy-MM-dd HH:mm:ss",
-        local: Locale = Locale.getDefault()
-): String = SimpleDateFormat(format, local).format(Date(this))
+        local: Locale = Locale.getDefault(),
+        isUtc: Boolean = false
+): String = SimpleDateFormat(format, local).apply {
+    if (isUtc) this.timeZone = TimeZone.getTimeZone("UTC")
+}.format(Date(this))
 
 /**
  *
@@ -46,25 +52,26 @@ fun Long.formatDate(
  * 前天
  */
 fun Long.formatDate2now(): String {
-    TimeUnit.MILLISECONDS
     val currentMilSec = Date().time
     //是否为0
-    if (this == 0L) return currentMilSec.formatDate("yyyy/MM/dd HH:mm")
-
+    if (this == 0L) return this.formatDate("yyyy/MM/dd HH:mm")
 
     //差 多少秒
     val diffSec = currentMilSec / 1000 - this / 1000//时间差 秒
+    if (diffSec < 0) this.formatDate("yyyy/MM/dd HH:mm")
+
     if (diffSec < 60) return "刚刚"
     if (diffSec < 60 * 60) return "${diffSec / 60}分钟前"
-
     //差 多少天
-    val currentDay = currentMilSec.formatDate("dd")
-    val targetDay = this.formatDate("dd")
-    val diffDay = currentDay.toInt() - targetDay.toInt()
-    when (diffDay) {
-        0 -> return "今天 ${this.formatDate("HH:mm")}"
-        1 -> return "昨天 ${this.formatDate("HH:mm")}"
-        2 -> return "前天 ${this.formatDate("HH:mm")}"
+    val diffDay = (diffSec / 60 / 60 / 24).toInt()
+    when {
+        diffDay == 0 -> return "今天 ${this.formatDate("HH:mm")}"
+        diffDay == 1 -> return "昨天 ${this.formatDate("HH:mm")}"
+        diffDay == 2 -> return "前天 ${this.formatDate("HH:mm")}"
+        diffDay > 7 -> return "一周前"
+        diffDay > 30 -> return "一个月前"
+        diffDay > 30 * 6 -> return "半年前"
+        diffDay > 30 * 12 -> return "一年前"
     }
     return this.formatDate("yyyy/MM/dd HH:mm")
 }
@@ -103,22 +110,31 @@ internal fun Long.moreThanDays(day: Int = 7): Boolean {
 /**
  * 当地时间 ---> UTC时间
  */
-fun Any.local2UTC(): String {
-    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).apply {
-        this.timeZone = TimeZone.getTimeZone("gmt")
+fun String.local2UTC(parseFormat: String = "yyyy-MM-dd HH:mm:ss"): String {
+    val fromFormat = SimpleDateFormat(parseFormat, Locale.getDefault()).apply {
+        this.timeZone = TimeZone.getDefault()
     }
-    return sdf.format(Date())
+
+    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault()).apply {
+        this.timeZone = TimeZone.getTimeZone("UTC")
+    }
+
+    try {
+        return utcFormat.format(fromFormat.parse(this))
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return ""
 }
 
 
 /**
  * 进入时间 UTC时间 2016-09-19T07:13:56
- * 实现的方式不好，以后继续修正
  *  @param format 模板 yyyy-MM-dd HH:mm:ss
  */
 fun String.utc2Local(format: String = "yyyy-MM-dd HH:mm:ss"): String {
     if (this.isBlank()) return ""
-    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).apply {
+    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault()).apply {
         this.timeZone = TimeZone.getTimeZone("UTC")
     }
     val wantFormat = SimpleDateFormat(format, Locale.getDefault()).apply {
