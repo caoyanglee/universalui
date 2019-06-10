@@ -116,6 +116,7 @@ object ProgressDialog {
             return
         } finally {
             materialDialog = null
+            textView = null
             animDisposable = null
         }
     }
