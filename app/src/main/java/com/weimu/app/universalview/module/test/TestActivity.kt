@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.app.universalview.view.dialog.FullScreenDialog
+import com.weimu.universalview.core.dialog.ProgressDialog
 import com.weimu.universalview.ktx.*
 import kotlinx.android.synthetic.main.activity_test.*
 
@@ -33,6 +33,13 @@ class TestActivity : BaseViewActivity() {
             this@TestActivity.showDatePicker { year, month, dayOfMonth ->
                 toastSuccess("$year-$month-$dayOfMonth")
             }
+        }
+
+        mBtn3.setOnClickListenerPro {
+            ProgressDialog.show(this, cancelable = true)
+        }
+
+        mBtn4.setOnClickListenerPro {
         }
     }
 }

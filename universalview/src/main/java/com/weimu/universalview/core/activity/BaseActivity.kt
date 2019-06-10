@@ -74,7 +74,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     override fun showProgressBar(message: CharSequence) {
-        ProgressDialog.show(getContext(), content = message.toString())
+        ProgressDialog.show(getContext(), message = message.toString())
     }
 
     override fun hideProgressBar() {

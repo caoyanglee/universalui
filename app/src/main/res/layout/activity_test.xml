@@ -26,6 +26,18 @@
             android:layout_height="wrap_content"
             android:text="selector" />
 
+        <Button
+            android:id="@+id/mBtn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="progressbar" />
+
+        <Button
+            android:id="@+id/mBtn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="progressbarV2" />
+
     </LinearLayout>
 
 </LinearLayout>

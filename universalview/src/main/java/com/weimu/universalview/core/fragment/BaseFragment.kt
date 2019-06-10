@@ -96,7 +96,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     override fun showProgressBar(message: CharSequence) {
-        ProgressDialog.show(context, content = message.toString())
+        ProgressDialog.show(context, message = message.toString())
     }
 
     override fun hideProgressBar() {
