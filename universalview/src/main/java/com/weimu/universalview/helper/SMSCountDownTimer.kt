@@ -5,15 +5,16 @@ import android.widget.TextView
 
 
 //短信倒计时
-class SMSCountDownTimer(var tv_send_code: TextView? = null) {
+class SMSCountDownTimer(
+        var tv_send_code: TextView? = null,
+        val countDownSecond: Int = 60
+) {
 
     private var cd: CountDownTimer
     var getCodeIng = false//正在获取验证码中
 
-    val MSG_COUNT_DOWN = 60//倒计时时间
-
     init {
-        cd = object : CountDownTimer((MSG_COUNT_DOWN * 1000).toLong(), 1000) {
+        cd = object : CountDownTimer((countDownSecond * 1000).toLong(), 1000) {
             override fun onTick(l: Long) {
                 val str = "重新发送(${l / 1000}s)"
                 tv_send_code?.text = str

@@ -5,16 +5,18 @@ import android.widget.TextView
 
 
 //广告页倒计时
-class SplashCountDownTimer(var tv_send_code: TextView? = null) {
+class SplashCountDownTimer(
+        var tv_send_code: TextView? = null,
+        val countDownSecond: Int = 3
+) {
 
     private var cd: CountDownTimer
 
-    val MSG_COUNT_DOWN = 3//倒计时时间
 
     var onTimeIsUpListener: (() -> Unit)? = null
 
     init {
-        cd = object : CountDownTimer((MSG_COUNT_DOWN * 1000).toLong(), 1000) {
+        cd = object : CountDownTimer((countDownSecond * 1000).toLong(), 1000) {
             override fun onTick(l: Long) {
                 val str = "${l / 1000}s 跳过"
                 tv_send_code?.text = str
