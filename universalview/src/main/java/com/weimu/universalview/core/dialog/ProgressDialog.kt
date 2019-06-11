@@ -70,10 +70,10 @@ object ProgressDialog {
                         }
                     }.show()
                 }
-                materialDialog != null && !(materialDialog!!.isShowing) -> {
+                materialDialog != null && !((materialDialog as AlertDialog).isShowing) -> {
                     materialDialog?.show()
                 }
-                materialDialog != null && materialDialog!!.isShowing -> {
+                materialDialog != null && (materialDialog as AlertDialog).isShowing -> {
                     materialDialog?.setTitle(title)
                     materialDialog?.setMessage(message)
                 }
@@ -91,7 +91,7 @@ object ProgressDialog {
                         }
 
                         override fun onNext(t: Long) {
-                            if (textView?.text!!.contains("......")) {
+                            if ((textView?.text ?: "").contains("......")) {
                                 textView?.text = message
                             } else {
                                 textView?.text = "${textView?.text}."
