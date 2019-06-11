@@ -179,7 +179,13 @@ fun Context.constructOpenApkItent(file: File): Intent {
  * 直接打开APK
  */
 fun Context.openApkByFilePath(file: File) {
-    startActivity(constructOpenApkItent(file))
+    //防止有的系统 强制关闭安装未知来源的app 导致的crash
+    try {
+        startActivity(constructOpenApkItent(file))
+    } catch (e: Exception) {
+        e.printStackTrace()
+        //doNothing
+    }
 }
 
 //分享 文本信息

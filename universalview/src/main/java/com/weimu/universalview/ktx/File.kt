@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.support.v4.content.FileProvider
+import android.text.TextUtils
 import java.io.BufferedReader
 import java.io.File
 import java.io.IOException
@@ -161,4 +162,20 @@ fun Context.getUri4File(file: File?): Uri {
         uri = Uri.fromFile(file)
     }
     return uri
+}
+
+/**
+ * 是否存在文件
+ */
+fun File.isFileExist(): Boolean {
+    if (TextUtils.isEmpty(this.path)) return false
+    return this.exists() && this.isFile
+}
+
+/**
+ * 是否存在文件夹
+ */
+fun File.isDirectoryExist(): Boolean {
+    if (TextUtils.isEmpty(this.path)) return false
+    return this.exists() && this.isDirectory
 }

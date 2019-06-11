@@ -95,7 +95,7 @@ fun Long.moreThanAWeek(): Boolean {
 /**
  * 比较时间 是否超过几天
  */
-internal fun Long.moreThanDays(day: Int = 7): Boolean {
+fun Long.moreThanDays(day: Int = 7): Boolean {
     val currentTime = Calendar.getInstance().time.time
     val recordTime = this
     if (recordTime == 0L) return true
