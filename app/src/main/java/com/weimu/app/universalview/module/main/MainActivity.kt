@@ -14,10 +14,7 @@ import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
 import com.weimu.app.universalview.module.test.TestActivity
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
-import com.weimu.universalview.ktx.dip2px
-import com.weimu.universalview.ktx.init
-import com.weimu.universalview.ktx.isLightColor
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
 
@@ -54,19 +51,19 @@ class MainActivity : BaseViewActivity() {
             when (position) {
                 0 -> {
                     //java
-                    startActivity(JavaActivity.newIntent(getContext()))
+                    openActivity<JavaActivity>()
                 }
                 1 -> {
                     //kotlin
-                    startActivity(KotlinActivity.newIntent(getContext()))
+                    openActivity<KotlinActivity>()
                 }
                 7 -> {
                     //data persistence
-                    startActivity(DataPersistenceActivity.newIntent(getContext()))
+                    openActivity<DataPersistenceActivity>()
                 }
                 9 -> {
                     //lib3
-                    startActivity(Lib3Activity.newIntent(getContext()))
+                    openActivity<Lib3Activity>()
                 }
             }
         }

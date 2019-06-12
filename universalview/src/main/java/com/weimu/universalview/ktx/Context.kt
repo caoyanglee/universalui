@@ -1,14 +1,17 @@
 package com.weimu.universalview.ktx
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
+import android.os.Bundle
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
 import android.view.KeyCharacterMap
@@ -184,7 +187,6 @@ fun Context.getAppIcon(): Int {
     return -1
 }
 
-
 /**
  * 获取应用的名字
  */
@@ -197,4 +199,31 @@ fun Context.getAppName(): String? {
         e.printStackTrace()
     }
     return ""
+}
+
+/**
+ * 打开Activity
+ */
+inline fun <reified T : Activity> Context.openActivity(bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java)
+    if (bundle != null) intent.putExtras(bundle)
+    startActivity(intent)
+}
+
+/**
+ * 打开Activity
+ */
+inline fun <reified T : Activity> Activity.openActivity(
+        bundle: Bundle? = null,
+        requestCode: Int? = null,
+        enterAnim: Int? = null,
+        exitAnim: Int? = null
+) {
+    val intent = Intent(this, T::class.java)
+    if (bundle != null) intent.putExtras(bundle)
+    if (requestCode != null)
+        startActivityForResult(intent, requestCode)
+    else
+        startActivity(intent)
+    if (enterAnim != null && exitAnim != null) overridePendingTransition(enterAnim, exitAnim)
 }
