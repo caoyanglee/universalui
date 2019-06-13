@@ -111,7 +111,10 @@ fun Long.moreThanDays(day: Int = 7): Boolean {
  *  @param localFormatStr 模板 yyyy-MM-dd HH:mm:ss                    2016-09-19T07:13:56
  *  @param utcFormatStr   模板 yyyy-MM-dd'T'HH:mm:ss.SSS'Z'            2019-05-09T05:52:56.000Z
  */
-fun String.local2UTC(localFormatStr: String = "yyyy-MM-dd HH:mm:ss", utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"): String {
+fun String.local2UTC(
+        localFormatStr: String = "yyyy-MM-dd HH:mm:ss",
+        utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+): String {
     val locaFormat = SimpleDateFormat(localFormatStr, Locale.getDefault()).apply {
         this.timeZone = TimeZone.getDefault()
     }
@@ -134,7 +137,10 @@ fun String.local2UTC(localFormatStr: String = "yyyy-MM-dd HH:mm:ss", utcFormatSt
  *  @param localFormatStr 模板 yyyy-MM-dd HH:mm:ss                    2016-09-19T07:13:56
  *  @param utcFormatStr   模板 yyyy-MM-dd'T'HH:mm:ss.SSS'Z'            2019-05-09T05:52:56.000Z
  */
-fun String.utc2Local(localFormatStr: String = "yyyy-MM-dd HH:mm:ss", utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"): String {
+fun String.utc2Local(
+        localFormatStr: String = "yyyy-MM-dd HH:mm:ss",
+        utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+): String {
     if (this.isBlank()) return ""
     val utcFormat = SimpleDateFormat(utcFormatStr, Locale.getDefault()).apply {
         this.timeZone = TimeZone.getTimeZone("UTC")
