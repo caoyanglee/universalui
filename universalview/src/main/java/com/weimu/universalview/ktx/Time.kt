@@ -3,7 +3,6 @@ package com.weimu.universalview.ktx
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -108,19 +107,21 @@ fun Long.moreThanDays(day: Int = 7): Boolean {
 
 
 /**
- * 当地时间 ---> UTC时间
+ *  当地时间 ---> UTC时间
+ *  @param localFormatStr 模板 yyyy-MM-dd HH:mm:ss                    2016-09-19T07:13:56
+ *  @param utcFormatStr   模板 yyyy-MM-dd'T'HH:mm:ss.SSS'Z'            2019-05-09T05:52:56.000Z
  */
-fun String.local2UTC(parseFormat: String = "yyyy-MM-dd HH:mm:ss"): String {
-    val fromFormat = SimpleDateFormat(parseFormat, Locale.getDefault()).apply {
+fun String.local2UTC(localFormatStr: String = "yyyy-MM-dd HH:mm:ss", utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"): String {
+    val locaFormat = SimpleDateFormat(localFormatStr, Locale.getDefault()).apply {
         this.timeZone = TimeZone.getDefault()
     }
 
-    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault()).apply {
+    val utcFormat = SimpleDateFormat(utcFormatStr, Locale.getDefault()).apply {
         this.timeZone = TimeZone.getTimeZone("UTC")
     }
 
     try {
-        return utcFormat.format(fromFormat.parse(this))
+        return utcFormat.format(locaFormat.parse(this))
     } catch (e: ParseException) {
         e.printStackTrace()
     }
@@ -129,20 +130,20 @@ fun String.local2UTC(parseFormat: String = "yyyy-MM-dd HH:mm:ss"): String {
 
 
 /**
- * 进入时间 UTC时间 2016-09-19T07:13:56
- *  @param format 模板 yyyy-MM-dd HH:mm:ss
+ *  UTC时间 ---> 当地时间
+ *  @param localFormatStr 模板 yyyy-MM-dd HH:mm:ss                    2016-09-19T07:13:56
+ *  @param utcFormatStr   模板 yyyy-MM-dd'T'HH:mm:ss.SSS'Z'            2019-05-09T05:52:56.000Z
  */
-fun String.utc2Local(format: String = "yyyy-MM-dd HH:mm:ss"): String {
+fun String.utc2Local(localFormatStr: String = "yyyy-MM-dd HH:mm:ss", utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"): String {
     if (this.isBlank()) return ""
-    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault()).apply {
+    val utcFormat = SimpleDateFormat(utcFormatStr, Locale.getDefault()).apply {
         this.timeZone = TimeZone.getTimeZone("UTC")
     }
-    val wantFormat = SimpleDateFormat(format, Locale.getDefault()).apply {
+    val localFormat = SimpleDateFormat(localFormatStr, Locale.getDefault()).apply {
         this.timeZone = TimeZone.getDefault()
     }
     try {
-        val timeBefore = utcFormat.parse(this)
-        return wantFormat.format(timeBefore)
+        return localFormat.format(utcFormat.parse(this))
     } catch (e: ParseException) {
         e.printStackTrace()
     }
