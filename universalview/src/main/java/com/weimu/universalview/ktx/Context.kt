@@ -209,21 +209,3 @@ inline fun <reified T : Activity> Context.openActivity(bundle: Bundle? = null) {
     if (bundle != null) intent.putExtras(bundle)
     startActivity(intent)
 }
-
-/**
- * 打开Activity
- */
-inline fun <reified T : Activity> Activity.openActivity(
-        bundle: Bundle? = null,
-        requestCode: Int? = null,
-        enterAnim: Int? = null,
-        exitAnim: Int? = null
-) {
-    val intent = Intent(this, T::class.java)
-    if (bundle != null) intent.putExtras(bundle)
-    if (requestCode != null)
-        startActivityForResult(intent, requestCode)
-    else
-        startActivity(intent)
-    if (enterAnim != null && exitAnim != null) overridePendingTransition(enterAnim, exitAnim)
-}
