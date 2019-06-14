@@ -133,7 +133,7 @@ class TabView : LinearLayoutCompat {
                 )
                 this.text = "${data.name}"
                 this.gravity = Gravity.CENTER
-                this.textSize = textSize
+                this.textSize = this@TabView.textSize
                 this.setTextColor(createTextSelector())
 
                 var topDrawable: Drawable? = null
