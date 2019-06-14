@@ -16,10 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.weimu.universalview.R
-import com.weimu.universalview.ktx.dip2px
-import com.weimu.universalview.ktx.getColorPro
-import com.weimu.universalview.ktx.getStatusBarHeight
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.*
 import java.lang.ref.WeakReference
 import kotlin.properties.Delegates
 
@@ -82,7 +79,7 @@ class ToolBarPro : ViewGroup {
             }
             this.scaleType = ImageView.ScaleType.CENTER_INSIDE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                this.foreground = getRippleDrawable()
+                this.foreground = context.getRippleBorderLess()
             }
             setImageDrawable(GlobalConfig.navigationDrawable)
             this.setOnClickListenerPro {
@@ -296,22 +293,13 @@ class ToolBarPro : ViewGroup {
         super.setPadding(left, top, right, bottom)
     }
 
-    //获取系统的水波纹效果
-    private fun getRippleDrawable(): Drawable? {
-        val typedValue = TypedValue()
-        val attribute = intArrayOf(android.R.attr.selectableItemBackgroundBorderless)
-        val typedArray = context.theme.obtainStyledAttributes(typedValue.resourceId, attribute)
-        val drawable = typedArray.getDrawable(0)
-        typedArray.recycle()
-        return drawable
-    }
 
     //获取ActionView ImageView
     private fun getActionImageView(): ImageView {
         return ImageView(context).apply {
             this.scaleType = ImageView.ScaleType.CENTER_INSIDE
             //this.setPadding(context.dip2px(15f), 0, context.dip2px(15f), 0)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) this.foreground = getRippleDrawable()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) this.foreground = context.getRippleBorderLess()
 
         }
     }
@@ -323,7 +311,7 @@ class ToolBarPro : ViewGroup {
             this.textSize = 16f
             this.setTextColor(Color.WHITE)
             this.text = ""
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) this.foreground = getRippleDrawable()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) this.foreground = context.getRippleBorderLess()
         }
     }
 
