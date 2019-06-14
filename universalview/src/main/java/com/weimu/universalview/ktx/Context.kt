@@ -8,12 +8,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
+import android.util.TypedValue
 import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import android.view.ViewConfiguration
@@ -209,3 +211,29 @@ inline fun <reified T : Activity> Context.openActivity(bundle: Bundle? = null) {
     if (bundle != null) intent.putExtras(bundle)
     startActivity(intent)
 }
+
+/**
+ * 获取系统的水波纹效果 有边界
+ */
+fun Context.getRipple(): Drawable? {
+    val typedValue = TypedValue()
+    val attribute = intArrayOf(android.R.attr.selectableItemBackground)
+    val typedArray = this.theme.obtainStyledAttributes(typedValue.resourceId, attribute)
+    val drawable = typedArray.getDrawable(0)
+    typedArray.recycle()
+    return drawable
+}
+
+/**
+ * 获取系统的水波纹效果 无边界
+ */
+fun Context.getRippleBorderLess(): Drawable? {
+    val typedValue = TypedValue()
+    val attribute = intArrayOf(android.R.attr.selectableItemBackgroundBorderless)
+    val typedArray = this.theme.obtainStyledAttributes(typedValue.resourceId, attribute)
+    val drawable = typedArray.getDrawable(0)
+    typedArray.recycle()
+    return drawable
+}
+
+
