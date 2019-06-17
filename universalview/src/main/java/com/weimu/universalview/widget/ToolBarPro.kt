@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.weimu.universalview.OriginAppData
 import com.weimu.universalview.R
 import com.weimu.universalview.ktx.*
 import java.lang.ref.WeakReference
@@ -50,9 +51,9 @@ class ToolBarPro : ViewGroup {
         var showStatusView = false//是否显示状态栏视图
 
         //ToolBar
-        var toolbarHeight = 44f//dp
-        var toolbarPaddingLeft = 15f//dp
-        var toolBarPaddingRight = 15f//dp
+        var toolbarHeight = OriginAppData.context.dip2px(44f)//父视图的高度
+        var toolbarPaddingLeft = OriginAppData.context.dip2px(15f)//父视图的左右padding
+        var toolBarPaddingRight = OriginAppData.context.dip2px(15f)//父视图的左右padding
         var toolBarBgColor: Int? = null
         //CenterTitle
         var centerTitleSize: Float? = null//sp 标题文字大小
@@ -68,12 +69,16 @@ class ToolBarPro : ViewGroup {
         var menu2Drawable: Drawable? = null
         var menu2TextColor: Int? = null
         var menu2TextSize: Float? = null
+        //divider
+        var dividerShow: Boolean = true
+        var dividerSize: Int = 1//1px
+        var dividerColor: Int = Color.rgb(221, 221, 221)
     }
 
     private val ivNavigation: ImageView by lazy {
         ImageView(context).apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
-                this.leftMargin = context.dip2px(toolBarPaddingLeft)
+                this.leftMargin = toolBarPaddingLeft
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
@@ -91,7 +96,7 @@ class ToolBarPro : ViewGroup {
     private val tvNavigation: TextView by lazy {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
-                this.leftMargin = context.dip2px(toolBarPaddingLeft)
+                this.leftMargin = toolBarPaddingLeft
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
@@ -117,7 +122,7 @@ class ToolBarPro : ViewGroup {
     private val ivMenuView1 by lazy {
         getActionImageView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
-                this.rightMargin = context.dip2px(toolBarPaddingRight)
+                this.rightMargin = toolBarPaddingRight
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
@@ -139,7 +144,7 @@ class ToolBarPro : ViewGroup {
     private val tvMenuView1 by lazy {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
-                this.rightMargin = context.dip2px(toolBarPaddingRight)
+                this.rightMargin = toolBarPaddingRight
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
@@ -162,6 +167,13 @@ class ToolBarPro : ViewGroup {
         }
     }
 
+    private val divider by lazy {
+        View(context).apply {
+            this.layoutParams = MarginLayoutParams(LayoutParams.MATCH_PARENT, GlobalConfig.dividerSize)
+            this.setBackgroundColor(GlobalConfig.dividerColor)
+        }
+    }
+
 
     init {
         this.setBackgroundColor(GlobalConfig.toolBarBgColor ?: colorPrimary)
@@ -170,6 +182,7 @@ class ToolBarPro : ViewGroup {
         this.apply {
             clipChildren = false
             setPadding(context.dip2px(0f), context.dip2px(0f), context.dip2px(0f), context.dip2px(0f))
+            if (GlobalConfig.dividerShow) addView(divider)//增加divider
         }
     }
 
@@ -188,7 +201,6 @@ class ToolBarPro : ViewGroup {
         //val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val statusHeight = if (showStatusView) context.getStatusBarHeight() else 0
-        val toolbarHeight = context.dip2px(toolbarHeight)
         val heightSize = toolbarHeight + statusHeight
 
         setMeasuredDimension(widthSize, heightSize)
@@ -208,11 +220,13 @@ class ToolBarPro : ViewGroup {
         measureChild(tvMenuView1)
         measureChild(ivMenuView2)
         measureChild(tvMenuView2)
+        measureChild(divider)
     }
 
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         val startY = if (showStatusView) context.getStatusBarHeight() else 0//是否有状态栏视图
+        val endY = startY + toolbarHeight
 
         //navigation iv
         ivNavigation.shouldRender {
@@ -281,6 +295,16 @@ class ToolBarPro : ViewGroup {
             val right = tvMenuView1.left - param.rightMargin
             val top = startY + param.topMargin
             val bottom = top + it.measuredHeight
+            it.layout(left, top, right, bottom)
+        }
+
+        //divider
+        divider.shouldRender {
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = 0
+            val right = left + it.measuredWidth
+            val top = endY - GlobalConfig.dividerSize
+            val bottom = endY
             it.layout(left, top, right, bottom)
         }
 
@@ -364,6 +388,13 @@ class ToolBarPro : ViewGroup {
         if (ivMenuView2.isChild()) removeView(ivMenuView2)
         tvMenuView2.config()
         if (!tvMenuView2.isChild()) addView(tvMenuView2)
+    }
+
+    //divider
+    fun divider(config:(View.()->Unit)):ToolBarPro= apply {
+        if (divider.isChild()) removeView(divider)
+        divider.config()
+        if (!divider.isChild()) addView(divider)
     }
 
     //是否是ToolBarPro的子视图
