@@ -76,8 +76,8 @@ class AppData : OriginAppData() {
 
             //divider
             dividerShow = false
-//            dividerColor = Color.TRANSPARENT
-//            dividerSize = context.dip2px(0f)
+            dividerColor = Color.TRANSPARENT
+            dividerSize = context.dip2px(0f)
 
         }
     }

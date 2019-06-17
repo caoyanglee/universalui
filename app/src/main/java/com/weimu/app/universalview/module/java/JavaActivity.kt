@@ -43,6 +43,9 @@ class JavaActivity : BaseViewActivity() {
                 .centerTitle {
                     this.text = "Java"
                 }
+                .divider {
+                    this.visible()
+                }
 
         if (mToolBar.getToolBarBgColor() == Color.BLACK) {
             Log.d("weimu", "测试成功")
