@@ -39,7 +39,7 @@ class FullScreenDialog : BaseDialog() {
         StatusBarManager.setLightMode(dialog.window)
 
         mToolbar.with(activity).apply {
-            toolbarHeight = 0f
+            toolbarHeight = 0
             showStatusView = true
         }
     }

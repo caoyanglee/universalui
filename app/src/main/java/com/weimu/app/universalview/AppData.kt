@@ -8,6 +8,7 @@ import com.weimu.universalview.OriginAppData
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.interfaces.MyActivityLifeCycleCallbacks
 import com.weimu.universalview.ktx.dip2px
+import com.weimu.universalview.ktx.getColorPro
 import com.weimu.universalview.ktx.getDrawablePro
 import com.weimu.universalview.widget.ToolBarPro
 import java.util.*
@@ -63,7 +64,8 @@ class AppData : OriginAppData() {
 
         ToolBarPro.GlobalConfig.apply {
             //ToolBar
-            toolBarBgColor = Color.CYAN
+            toolBarBgColor = context.getColorPro(R.color.colorPrimary)
+            toolBarBgColor = Color.WHITE
 
             //centerTitle
             centerTitleColor = Color.WHITE
@@ -71,6 +73,12 @@ class AppData : OriginAppData() {
 
             //navigation
             navigationDrawable = context.getDrawablePro(R.drawable.universal_arrow_back_white)
+
+            //divider
+            dividerShow = false
+//            dividerColor = Color.TRANSPARENT
+//            dividerSize = context.dip2px(0f)
+
         }
     }
 

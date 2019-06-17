@@ -14,6 +14,7 @@ import com.weimu.universalview.core.toolbar.StatusBarManager
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.init
 import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.visible
 import kotlinx.android.synthetic.main.activity_java.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
 
@@ -34,7 +35,7 @@ class JavaActivity : BaseViewActivity() {
     override fun getLayoutResID() = R.layout.activity_java
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        mToolBar.apply { }
+        mToolBar.with(this)
                 .navigationIcon {
                     this.setImageResource(R.drawable.universal_arrow_back_white)
                     this.setOnClickListenerPro { onBackPressed() }
@@ -43,8 +44,8 @@ class JavaActivity : BaseViewActivity() {
                     this.text = "Java"
                 }
 
-        if (mToolBar.getToolBarBgColor()== Color.BLACK){
-            Log.d("weimu","测试成功")
+        if (mToolBar.getToolBarBgColor() == Color.BLACK) {
+            Log.d("weimu", "测试成功")
         }
 
 
