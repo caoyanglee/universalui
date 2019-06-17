@@ -13,7 +13,7 @@ import com.weimu.universalview.core.recyclerview.layoutmanager.LinearLayoutManag
  */
 
 //初始化列表
-fun RecyclerView.init() {
+fun RecyclerView.init(): RecyclerView {
     this.itemAnimator = DefaultItemAnimator().apply {
         addDuration = 300
         removeDuration = 300
@@ -22,4 +22,5 @@ fun RecyclerView.init() {
     (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     (this.itemAnimator as SimpleItemAnimator).changeDuration = 0
     this.layoutManager = LinearLayoutManagerPro(context, LinearLayoutManager.VERTICAL, false)
+    return this
 }
