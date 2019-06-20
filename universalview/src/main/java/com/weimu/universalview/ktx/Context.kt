@@ -123,7 +123,7 @@ fun Context.getScreenHeight(): Int {
 //复制文本内容
 inline fun Context.copyContent(content: String, f: () -> Unit = {}) {
     val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    clipboardManager.primaryClip = ClipData.newPlainText(null, "${content}")
+    clipboardManager.primaryClip = ClipData.newPlainText(null, content)
     f.invoke()
 }
 
@@ -132,7 +132,7 @@ fun Context.pasteContent(): String {
     var content: String = ""
     val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     if (clipboardManager.hasPrimaryClip()) {
-        content = clipboardManager.primaryClip.getItemAt(0).text as String
+        content = "${clipboardManager.primaryClip?.getItemAt(0)?.text}"
     }
     return content
 }
