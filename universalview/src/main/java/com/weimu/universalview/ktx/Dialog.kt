@@ -1,9 +1,9 @@
 package com.weimu.universalview.ktx
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContextWrapper
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
@@ -23,28 +23,28 @@ import java.util.*
 @SuppressLint("CheckResult")
 fun FragmentActivity.requestPermission(vararg permissions: String,
                                        granted: (() -> Unit)? = null,
-                                       dialogMessage: String = "无此权限app有可能无法正常运行!",
-                                       dialogPositive: (() -> Boolean)? = null,
-                                       dialogNegative: (() -> Unit)? = null) {
+                                       content: String = "无此权限app有可能无法正常运行!",
+                                       positiveCallBack: (() -> Boolean)? = null,
+                                       negativeCallBack: (() -> Unit)? = null) {
     fun showDialog() {
-        if (dialogMessage.isBlank()) return
+        if (content.isBlank()) return
         MaterialDialog.Builder(this)
                 .cancelable(false)
                 .backgroundColor(ContextCompat.getColor(this, R.color.white))
                 .title("提示")
-                .content("" + dialogMessage)
+                .content(content)
                 .positiveText("去开启")
                 .negativeText("知道了")
                 .onPositive { dialog, which ->
-                    if (dialogPositive?.invoke() == true) return@onPositive
+                    if (positiveCallBack?.invoke() == true) return@onPositive
                     this.requestPermission(
                             permissions = *permissions,
                             granted = granted,
-                            dialogMessage = dialogMessage
+                            content = content
                     )
 
                 }
-                .onNegative { dialog, which -> dialogNegative?.invoke() }
+                .onNegative { dialog, which -> negativeCallBack?.invoke() }
                 .show()
     }
 
@@ -61,13 +61,13 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
 /**
  * 显示确认的dialog
  */
-fun Activity.showConfirmDialog(
+fun ContextWrapper.showConfirmDialog(
         title: String = "提示",
         content: String = "提示的内容",
-        positiveStr: String = "确认",
-        positive: ((dialog: MaterialDialog) -> Unit)? = null,
         negativeStr: String = "取消",
-        negative: ((dialog: MaterialDialog) -> Unit)? = null
+        negativeCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
+        positiveStr: String = "确认",
+        positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null
 ) {
     MaterialDialog.Builder(this)
             .title(title)
@@ -76,21 +76,40 @@ fun Activity.showConfirmDialog(
             .negativeText(negativeStr)
             .onPositive { dialog, which ->
                 dialog.dismiss()
-                positive?.invoke(dialog)
+                positiveCallBack?.invoke(dialog)
             }
             .onNegative { dialog, which ->
                 dialog.dismiss()
-                negative?.invoke(dialog)
+                negativeCallBack?.invoke(dialog)
             }
             .show()
 }
 
+/**
+ * 显示列表选择器
+ * @param callBack 选择回调
+ */
+fun ContextWrapper.showListPicker(
+        title: String = "列表选择",
+        vararg items: String,
+        selectedIndex: Int = 0,
+        callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
+) {
+    MaterialDialog.Builder(this)
+            .title(title)
+            .items(*items)
+            .itemsCallbackSingleChoice(selectedIndex) { dialog, itemView, which, text ->
+                dialog.dismiss()
+                callBack.invoke(dialog, which, text)
+                true
+            }.show()
+}
 
 /**
  * 显示时间选择器
  * @param callBack 选择回调
  */
-fun Activity.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Unit)) {
+fun ContextWrapper.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Unit)) {
     val hourOfDayNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
     val minuteNow = Calendar.getInstance().get(Calendar.MINUTE)
     TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
@@ -102,7 +121,7 @@ fun Activity.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Unit)) {
  * 显示日期选择器
  * @param callBack 选择回调
  */
-fun Activity.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int) -> Unit)) {
+fun ContextWrapper.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int) -> Unit)) {
     val yearNow = Calendar.getInstance().get(Calendar.YEAR)
     val monthNow = Calendar.getInstance().get(Calendar.MONTH)
     val dayOfMonthNow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
