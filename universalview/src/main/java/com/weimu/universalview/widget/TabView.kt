@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.util.SparseArray
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
@@ -133,7 +134,7 @@ class TabView : LinearLayoutCompat {
                 )
                 this.text = "${data.name}"
                 this.gravity = Gravity.CENTER
-                this.textSize = this@TabView.textSize
+                this.setTextSize(TypedValue.COMPLEX_UNIT_PX,this@TabView.textSize)
                 this.setTextColor(createTextSelector())
 
                 var topDrawable: Drawable? = null

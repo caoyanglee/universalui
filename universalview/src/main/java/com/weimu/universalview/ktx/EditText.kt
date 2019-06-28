@@ -103,9 +103,9 @@ fun EditText.addKeyBoardListener(activity: Activity, fn: (keyBoardHeight: Int) -
  * @param targetActionId 有很多种类型，例如：EditorInfo.IME_ACTION_SEARCH
  */
 fun EditText.addEditorActionListener(targetActionId: Int, callBack: ((keyWork: String) -> Unit)) {
-    setSingleLine()//必须设置此属性才会生效
-    imeOptions = targetActionId
-    setOnEditorActionListener { v, actionId, event ->
+    this.setSingleLine()//必须设置此属性才会生效
+    this.imeOptions = targetActionId
+    this.setOnEditorActionListener { v, actionId, event ->
         if (actionId == targetActionId) {
             callBack(getContent())
             hideKeyBoard()

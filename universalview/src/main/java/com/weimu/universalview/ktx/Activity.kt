@@ -45,32 +45,6 @@ fun Activity.showKeyBoard(targetView: View? = null) {
 }
 
 /**
- * 显示时间选择器
- * @param 选择回到
- */
-fun Activity.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Unit)) {
-    val hourOfDayNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-    val minuteNow = Calendar.getInstance().get(Calendar.MINUTE)
-    TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-        callBack.invoke(hourOfDay, minute)
-    }, hourOfDayNow, minuteNow, true).show()
-}
-
-/**
- * 显示日期选择器
- * @param callBack 选择回调
- */
-fun Activity.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int) -> Unit)) {
-    val yearNow = Calendar.getInstance().get(Calendar.YEAR)
-    val monthNow = Calendar.getInstance().get(Calendar.MONTH)
-    val dayOfMonthNow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-
-    DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-        callBack.invoke(year, month + 1, dayOfMonth)
-    }, yearNow, monthNow, dayOfMonthNow).show()
-}
-
-/**
  * 打开Activity
  */
 inline fun <reified T : Activity> Activity.openActivity(
@@ -87,3 +61,4 @@ inline fun <reified T : Activity> Activity.openActivity(
         startActivity(intent)
     if (enterAnim != null && exitAnim != null) overridePendingTransition(enterAnim, exitAnim)
 }
+

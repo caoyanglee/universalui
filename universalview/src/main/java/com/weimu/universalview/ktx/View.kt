@@ -90,7 +90,7 @@ fun View.setOnClickListenerPro(onclick: ((View) -> Unit)?) {
 }
 
 //获取当前视图对应的Bitmap
-@Deprecated("图片超过屏幕时会crash")
+@Deprecated("图片超过屏幕时会crash @see View.screenShot()")
 fun View.getBitmap(handle: (viewBitmap: Bitmap) -> Unit) {
     isDrawingCacheEnabled = true
     buildDrawingCache()
