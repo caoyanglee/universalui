@@ -85,7 +85,7 @@ class TabView : LinearLayoutCompat {
                 context.getColorPro(R.color.colorAccent)
         )
 
-        textSize = a.getDimension(R.styleable.TabView_tab_textSize, 10f)
+        textSize = a.getDimension(R.styleable.TabView_tab_textSize, getContext().dip2px(10f).toFloat())
         a.recycle()
 
         this.apply {
