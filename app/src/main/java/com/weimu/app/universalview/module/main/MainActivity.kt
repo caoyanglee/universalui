@@ -2,18 +2,17 @@ package com.weimu.app.universalview.module.main
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.datapersistence.DataPersistenceActivity
-import com.weimu.app.universalview.module.fragment.single.SingleFragmentActivity
 import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
 import com.weimu.app.universalview.module.test.TestActivity
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
+import com.weimu.universalview.helper.security.AESHelper
 import com.weimu.universalview.ktx.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
@@ -43,6 +42,12 @@ class MainActivity : BaseViewActivity() {
         }
 
         initRecy()
+
+        val result = AESHelper.encrypt("我是谁","fhdsjfkdlsjfjdsl")
+        Logger.e("result=$result")
+
+        val origin = AESHelper.decrypt("$result","fhdsjfkdlsjfjdsl")
+        Logger.e("origin=$origin")
     }
 
 

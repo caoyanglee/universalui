@@ -1,4 +1,4 @@
-package com.weimu.universalview.helper
+package com.weimu.universalview.helper.security
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -9,7 +9,20 @@ import kotlin.experimental.and
  * Date:2017/12/27 14:56
  * Description:
  */
-object Md5Helper {
+object MD5Helper {
+
+    //Md5签名
+    //slat可以是固定的值，也可以是content的哈希值，也可是随机值
+    fun sign(content: String, slat: String = ""): String {
+        val targetContent = if (slat.isNotBlank()) "$content&slat=$slat" else content
+        return md5Digest(targetContent.toByteArray())
+    }
+
+    //MD5校验
+    fun doCheck(content: String, sign: String, slat: String = ""): Boolean {
+        val targetContent = if (slat.isNotBlank()) "$content&slat=$slat" else content
+        return md5Digest(targetContent.toByteArray()) == sign
+    }
 
     //MD5 摘要计算(byte[]).
     private fun md5Digest(src: ByteArray): String {
@@ -32,19 +45,5 @@ object Md5Helper {
         }
 
         return ""
-    }
-
-
-    //Md5签名
-    //slat可以是固定的值，也可以是content的哈希值，也可是随机值
-    fun sign(content: String, slat: String = ""): String {
-        val targetContent = if (slat.isNotBlank()) "$content&slat=$slat" else content
-        return md5Digest(targetContent.toByteArray())
-    }
-
-    //MD5校验
-    fun doCheck(content: String, sign: String, slat: String = ""): Boolean {
-        val targetContent = if (slat.isNotBlank()) "$content&slat=$slat" else content
-        return md5Digest(targetContent.toByteArray()) == sign
     }
 }
