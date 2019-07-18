@@ -46,7 +46,7 @@ class TabView : LinearLayoutCompat {
     private var mNumMap: SparseArray<SimpleView> = SparseArray()
 
 
-    private var position: Int by Delegates.observable(0) { _, _, newValue ->
+    var position: Int by Delegates.observable(0) { _, _, newValue ->
         for (i in 0 until mTvMap.size()) {
             mTvMap[i].isActivated = newValue == i
         }
@@ -134,7 +134,7 @@ class TabView : LinearLayoutCompat {
                 )
                 this.text = "${data.name}"
                 this.gravity = Gravity.CENTER
-                this.setTextSize(TypedValue.COMPLEX_UNIT_PX,this@TabView.textSize)
+                this.setTextSize(TypedValue.COMPLEX_UNIT_PX, this@TabView.textSize)
                 this.setTextColor(createTextSelector())
 
                 var topDrawable: Drawable? = null
@@ -252,6 +252,7 @@ class TabView : LinearLayoutCompat {
         mNumMap[position].text = "0"
         mNumMap[position].gone()
     }
+
 
     private fun checkPassport(): Boolean {
         if (tabList.isEmpty()) return false
