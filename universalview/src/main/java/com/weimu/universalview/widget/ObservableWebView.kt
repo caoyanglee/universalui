@@ -8,41 +8,31 @@ import android.webkit.WebView
  * 可监听的webVIew
  */
 class ObservableWebView : WebView {
-    private var mOnScrollChangedCallback: OnScrollChangedCallback? = null
 
-    constructor(context: Context): this(context, null)
+    var mOnScrollChangedCallback: OnScrollChangedCallback? = null
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context) : this(context, null)
+
+    //构造函数必须带有样式，否则键盘无法弹起
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.webViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 
 
-    override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
-        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
-    }
-
-
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
-        if (mOnScrollChangedCallback != null) mOnScrollChangedCallback!!.onScroll(l, t, oldl, oldt)
+        mOnScrollChangedCallback?.onScroll(l, t, oldl, oldt)
 
-        //        Logger.i("contentHeight=" + this.getContentHeight() + "  scale=" + this.getScale() + "  height=" + this.getHeight() + "  scrollY=" + this.getScrollY());
+        //Logger.i("contentHeight=" + this.getContentHeight() + "  scale=" + this.getScale() + "  height=" + this.getHeight() + "  scrollY=" + this.getScrollY());
 
         if (this.contentHeight * this.scale - (this.height + this.scrollY) < 3) {
             //已经处于底端
-            if (mOnScrollChangedCallback != null) mOnScrollChangedCallback!!.onTouchBottom()
+            mOnScrollChangedCallback?.onTouchBottom()
         } else if (this.scrollY == 0) {
             //已经处于顶部了
-            if (mOnScrollChangedCallback != null) mOnScrollChangedCallback!!.onTouchTop()
+            mOnScrollChangedCallback?.onTouchTop()
         }
     }
-
-
-    fun setOnScrollChangedCallback(onScrollChangedCallback: OnScrollChangedCallback) {
-        mOnScrollChangedCallback = onScrollChangedCallback
-    }
-
-
 
 
     /**
