@@ -13,6 +13,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.DrawableRes
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
@@ -233,6 +234,15 @@ fun Context.getRippleBorderLess(): Drawable? {
     val typedArray = this.theme.obtainStyledAttributes(typedValue.resourceId, attribute)
     val drawable = typedArray.getDrawable(0)
     typedArray.recycle()
+    return drawable
+}
+
+/**
+ * 获取drawable
+ */
+fun Context.getDrawablePro(@DrawableRes id: Int): Drawable? {
+    val drawable = ContextCompat.getDrawable(this, id)
+    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
     return drawable
 }
 

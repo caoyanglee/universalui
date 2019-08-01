@@ -118,51 +118,51 @@ fun View.screenShot(handle: (viewBitmap: Bitmap) -> Unit) {
 }
 
 //显示
-fun View.visible() {
-    this.visibility = View.VISIBLE
+fun View?.visible() {
+    this?.visibility = View.VISIBLE
 }
 
 //隐藏-占位
-fun View.invisible() {
-    this.visibility = View.INVISIBLE
+fun View?.invisible() {
+    this?.visibility = View.INVISIBLE
 }
 
 //隐藏-不占位
-fun View.gone() {
-    this.visibility = View.GONE
+fun View?.gone() {
+    this?.visibility = View.GONE
 }
 
 
 //隐藏所有视图  无占位
-fun hideAllViews(vararg views: View) {
+fun hideAllViews(vararg views: View?) {
     for (view in views) {
-        view.visibility = View.GONE
+        view?.visibility = View.GONE
     }
 }
 
 
 //隐藏所有视图  有占位
-fun inVisibleAllViews(vararg views: View) {
+fun inVisibleAllViews(vararg views: View?) {
     for (view in views) {
-        view.visibility = View.INVISIBLE
+        view?.visibility = View.INVISIBLE
     }
 }
 
 
 //显示所有视图
-fun showAllViews(vararg views: View) {
+fun showAllViews(vararg views: View?) {
     for (view in views) {
-        view.visibility = View.VISIBLE
+        view?.visibility = View.VISIBLE
     }
 }
 
 //显示视图 one by one
-fun showAllViewOneByOne(timeMillis: Long, vararg views: View) {
+fun showAllViewOneByOne(timeMillis: Long, vararg views: View?) {
     if (views.isEmpty()) return
-    views[0].visibility = View.VISIBLE
+    views[0]?.visibility = View.VISIBLE
     for (i in 1 until views.size) {
         val view = views[i]
-        Handler().postDelayed({ view.visibility = View.VISIBLE }, timeMillis * i)
+        Handler().postDelayed({ view?.visibility = View.VISIBLE }, timeMillis * i)
     }
 }
 
@@ -174,8 +174,9 @@ class ViewBgOption {
 }
 
 //修改背景
-fun View.bg(option: ViewBgOption) {
-    var bg = background
+fun View?.bg(option: ViewBgOption) {
+    if (this==null)return
+    var bg = this.background
     if (bg !is GradientDrawable) {
         bg = GradientDrawable()
     }
@@ -184,15 +185,7 @@ fun View.bg(option: ViewBgOption) {
         targetBg.setColor(option.color)
     if (option.radius != -1f)
         targetBg.cornerRadius = option.radius
-    background = targetBg
-}
-
-
-//获取drawable
-fun Context.getDrawablePro(@DrawableRes id: Int): Drawable? {
-    val drawable = ContextCompat.getDrawable(this, id)
-    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
-    return drawable
+    this.background = targetBg
 }
 
 //是否是显示状态 VISIBLE
