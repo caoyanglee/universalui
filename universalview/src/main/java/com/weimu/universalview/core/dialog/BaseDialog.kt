@@ -69,13 +69,13 @@ abstract class BaseDialog : DialogFragment() {
 
     //使用Fragment
     fun show(fragment: Fragment): BaseDialog {
-        showDialog(fragment.childFragmentManager, getTagName())
+        show(fragment.childFragmentManager, getTagName())
         return this
     }
 
     //使用Activity
     fun show(activity: AppCompatActivity): BaseDialog {
-        showDialog(activity.supportFragmentManager, getTagName())
+        show(activity.supportFragmentManager, getTagName())
         return this
     }
 
@@ -89,15 +89,6 @@ abstract class BaseDialog : DialogFragment() {
         return this
     }
 
-    private fun showDialog(manager: FragmentManager, tag: String) {
-        try {
-            show(manager, tag)
-        } catch (e: IllegalStateException) {
-            val ft = manager.beginTransaction()
-            ft.add(this, tag)
-            ft.commitAllowingStateLoss()
-        }
-    }
 
     //屏蔽DialogFragment的方法
     final override fun show(manager: FragmentManager?, tag: String?) {
