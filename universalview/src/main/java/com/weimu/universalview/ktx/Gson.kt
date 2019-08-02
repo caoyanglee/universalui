@@ -44,7 +44,7 @@ fun BaseB.toJsonStr(): String = mGson.toJson(this)
  * Json字符串转对象
  * reified 的意思是具体化。 而作为 Kotlin 的一个方法 泛型 关键字，它代表你可以在方法体内访问泛型指定的JVM类对象。
  */
-inline fun <reified T> String.toObject(): T = mGson.fromJson(this, T::class.java)
+inline fun <reified T> String.toObject(): T? = mGson.fromJson(this, T::class.java)
 
 /**
  * Map转为字符串
