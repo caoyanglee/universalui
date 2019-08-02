@@ -54,4 +54,4 @@ fun <T, E> Map<T, E>.toJsonStr(): String = mGson.toJson(this)
 /**
  * json字符串转Map
  */
-fun <T, E> String.toMap(): Map<T, E> = mGson.fromJson(this, object : TypeToken<Map<T, E>>() {}.type) as Map<T, E>
+fun <T, E> String.toMap(): Map<T, E>? = mGson.fromJson(this, object : TypeToken<Map<T, E>>() {}.type) as Map<T, E>?
