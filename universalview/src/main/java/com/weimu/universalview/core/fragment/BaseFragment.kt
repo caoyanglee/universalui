@@ -23,9 +23,10 @@ import com.weimu.universalview.ktx.toast
 abstract class BaseFragment : Fragment(), BaseView {
     private lateinit var mActivity: AppCompatActivity
     private var mContentView: ViewGroup? = null
-    private var isPrepare = false//是否初始化
-    private var isViewPagerShow = false
-    private var isFirstShow = false
+    private var isViewAttached = false//视图是否加载
+    private var isViewPagerShow = false//是否在viewpager显示
+    private var isFirstShow = false//第一次显示
+
 
     protected open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
 
@@ -57,7 +58,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         super.onActivityCreated(savedInstanceState)
         afterViewAttachBaseViewAction(savedInstanceState)
         afterViewAttach(savedInstanceState)
-        isPrepare = true
+        isViewAttached = true
         onViewPagerShow(isViewPagerShow)
         if (isViewPagerShow && !isFirstShow) {
             onViewPagerFirstShow()
@@ -126,7 +127,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     //FrameLayout的切换
     final override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!isPrepare) return
+        if (!isViewAttached) return
         onFrameLayoutShow(!hidden)
     }
 
@@ -137,7 +138,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     final override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         isViewPagerShow = isVisibleToUser
-        if (!isPrepare) return
+        if (!isViewAttached) return
         onViewPagerShow(isViewPagerShow)
         if (isViewPagerShow && !isFirstShow) {
             onViewPagerFirstShow()
@@ -150,5 +151,10 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     //fragment 在啊ViewPager的第一次显示
     open fun onViewPagerFirstShow() {}
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isViewAttached = false
+    }
 
 }
