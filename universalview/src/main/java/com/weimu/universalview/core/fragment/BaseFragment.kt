@@ -27,6 +27,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     private var isViewPagerShow = false//是否在viewpager显示
     private var isFirstShow = false//第一次显示
 
+    var isInit = false//Fragment是否已经初始化
 
     protected open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
 
@@ -58,6 +59,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         super.onActivityCreated(savedInstanceState)
         afterViewAttachBaseViewAction(savedInstanceState)
         afterViewAttach(savedInstanceState)
+        isInit = true
         isViewAttached = true
         onViewPagerShow(isViewPagerShow)
         if (isViewPagerShow && !isFirstShow) {
