@@ -23,11 +23,14 @@ import com.weimu.universalview.ktx.toast
 abstract class BaseFragment : Fragment(), BaseView {
     private lateinit var mActivity: AppCompatActivity
     private var mContentView: ViewGroup? = null
-    private var isViewAttached = false//视图是否加载
+
+
     private var isViewPagerShow = false//是否在viewpager显示
     private var isFirstShow = false//第一次显示
 
     var isInit = false//Fragment是否已经初始化
+    var isViewAttached = false //视图是否加载
+        private set//不允许进行设置
 
     protected open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
 
@@ -39,7 +42,6 @@ abstract class BaseFragment : Fragment(), BaseView {
         this.mActivity = context as AppCompatActivity
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         beforeViewAttachBaseViewAction(savedInstanceState)
@@ -48,10 +50,8 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mContentView = getLayoutUI()//设置视图
-
         if (mContentView == null && getLayoutResID() != -1)
             mContentView = LayoutInflater.from(mActivity).inflate(getLayoutResID(), container, false) as ViewGroup
-
         return mContentView
     }
 
