@@ -60,11 +60,14 @@ abstract class BaseDialog : DialogFragment() {
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mContentView = LayoutInflater.from(context).inflate(getLayoutResID(), container, false) as View
         //设置视图
-        onViewChange(mContentView)
         return mContentView
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        onViewChange(mContentView)
+    }
 
+    @Deprecated("尽量使用 onViewCreated 可以直接用kotlin特性引用视图")
     protected open fun onViewChange(contentView: View) {}
 
     //使用Fragment
