@@ -16,7 +16,7 @@ import com.weimu.universalview.R
  * @date 2017/6/6 下午4:17
  * @description 多视图状态
  */
-class MultiplyStateView : FrameLayout {
+open class MultiplyStateView : FrameLayout {
 
     companion object {
         val VIEW_STATE_CONTENT = 0
