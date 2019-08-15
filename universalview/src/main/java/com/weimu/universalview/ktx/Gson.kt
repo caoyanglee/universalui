@@ -5,6 +5,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.weimu.universalview.core.BaseB
+import com.weimu.universalview.core.ParameterizedTypeImpl
 
 /**
  * Author:你需要一台永动机
@@ -27,8 +28,9 @@ fun <T> List<T>.toJsonStr(): String = mGson.toJson(this)
 
 /**
  * Json字符串转集合
+ * reified 的意思是具体化。 而作为 Kotlin 的一个方法 泛型 关键字，它代表你可以在方法体内访问泛型指定的JVM类对象。
  */
-fun <T> String.toArrayList(): List<T> = mGson.fromJson(this, object : TypeToken<List<T>>() {}.type) as ArrayList<T>
+inline fun <reified T> String.toArrayList(): List<T> = mGson.fromJson(this, ParameterizedTypeImpl(T::class.java))
 
 /**
  * 对象转为Json对象
