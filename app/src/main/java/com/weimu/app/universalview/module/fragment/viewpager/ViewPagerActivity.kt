@@ -19,7 +19,7 @@ class ViewPagerActivity : BaseViewActivity() {
     }
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        toolbar.with(this)
+        mToolbar.with(this)
                 .centerTitle {
                     this.text = "ViewPager"
                 }.navigationIcon {

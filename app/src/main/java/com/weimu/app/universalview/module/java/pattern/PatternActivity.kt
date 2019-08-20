@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalview.core.toolbar.ToolBarManager
+import com.weimu.universalview.ktx.setOnClickListenerPro
+import kotlinx.android.synthetic.main.activity_pattern.*
 import java.util.regex.Pattern
 
 /**
@@ -29,10 +30,13 @@ class PatternActivity : BaseViewActivity() {
 
 
     private fun initViews() {
-        ToolBarManager.with(this, getContentView())
-                .setTitle("正则表达式")
-                .setTitleColor(R.color.white)
-                .setNavigationIcon(R.drawable.universal_arrow_back_white)
+        mToolBar.with(this)
+                .navigationIcon {
+                    this.setOnClickListenerPro { onBackPressed() }
+                }
+                .centerTitle {
+                    this.text = "正则表达式"
+                }
     }
 
     private fun initContent() {

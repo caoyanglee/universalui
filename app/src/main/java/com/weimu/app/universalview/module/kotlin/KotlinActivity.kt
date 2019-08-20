@@ -12,7 +12,9 @@ import com.weimu.app.universalview.module.main.CategoryListAdapter
 import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.init
 import com.weimu.universalview.ktx.setOnClickListenerPro
+import kotlinx.android.synthetic.main.activity_universal_list.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
+import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 
 /**
  * kotlin的一些基础Demo
@@ -28,52 +30,12 @@ class KotlinActivity : BaseViewActivity() {
         }
     }
 
-    override fun getLayoutResID() = R.layout.activity_kotlin
+    override fun getLayoutResID() = R.layout.activity_universal_list
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-//        ToolBarManager.with(this, contentView)
-//                .setTitle("Kotlin")
-//                .setTitleColor(R.color.white)
-//                .setNavigationIcon(R.drawable.universal_arrow_back_white)
-
-
-        ToolBarManager.with(this, getContentView())
-                //中间标题
-                .title {
-                    this.textSize = 16f
-                    this.setTextColor(ContextCompat.getColor(context, R.color.white))
-                    this.text = "这是中间标题"
-                }
-                //左侧文本
-                .leftMenuText {
-                    this.textSize = 16f
-                    this.setTextColor(ContextCompat.getColor(context, R.color.white))
-                    this.text = "关闭"
-                    this.setOnClickListenerPro {
-                        toastSuccess("呵呵哒，要关闭了")
-                    }
-                }
-                //右侧第一个按钮
-                .rightMenuText {
-                    this.textSize = 16f
-                    this.setTextColor(ContextCompat.getColor(context, R.color.white))
-                    this.text = "按钮1"
-                    this.setOnClickListenerPro {
-                        toastSuccess("呵呵哒，干什么1？")
-                    }
-                }
-                //右侧第二个按钮
-                .rightMenuText2 {
-                    this.textSize = 16f
-                    this.setTextColor(ContextCompat.getColor(context, R.color.white))
-                    this.text = "按钮2"
-                    this.setOnClickListenerPro {
-                        toastSuccess("呵呵哒，干什么2？")
-                    }
-                }
-
-
-
+        mToolbar.with(this)
+                .centerTitle { this.text = "Kotlin" }
+                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
         initRecy()
     }
 

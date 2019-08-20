@@ -7,6 +7,7 @@ import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.universalview.core.toolbar.ToolBarManager
+import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
 
@@ -26,7 +27,9 @@ class CoroutineActivity : BaseViewActivity() {
 
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        initToolBars()
+        mToolBar.with(this)
+                .centerTitle { this.text = "协程" }
+                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
 
 
 
@@ -38,7 +41,7 @@ class CoroutineActivity : BaseViewActivity() {
     private fun test2() {
 
 
-         GlobalScope.launch {
+        GlobalScope.launch {
             repeat(1000) { i ->
                 Log.e("weimu", "I'm sleeping $i ...")
                 delay(500L)
@@ -101,10 +104,4 @@ class CoroutineActivity : BaseViewActivity() {
         return "67243jk4b5jf4g93820-54f5d4d5h435g3"
     }
 
-    private fun initToolBars() {
-        ToolBarManager.with(this, getContentView())
-                .setTitle("协程")
-                .setTitleColor(R.color.white)
-                .setNavigationIcon(R.drawable.universal_arrow_back_white)
-    }
 }

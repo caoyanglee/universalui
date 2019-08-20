@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.weimu.app.universalview.R
 import com.weimu.universalview.core.toolbar.ToolBarManager
+import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_event_bus.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -25,9 +26,9 @@ class EventBusActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_bus)
 
-        ToolBarManager.with(this, window.decorView.findViewById(android.R.id.content))
-                .setTitle("EventBusActivity")
-                .setNavigationIcon(R.drawable.universal_arrow_back_white)
+        mToolbar.with(this)
+                .centerTitle { this.text = "EventBusActivity" }
+                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
 
 
         btn_next.setOnClickListener {

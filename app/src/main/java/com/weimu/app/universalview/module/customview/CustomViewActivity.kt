@@ -22,7 +22,7 @@ class CustomViewActivity : BaseViewActivity() {
     override fun getLayoutResID(): Int = R.layout.activity_universal_list
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        toolbar.with(this).centerTitle {
+        mToolbar.with(this).centerTitle {
             this.text = "自定义视图"
         }.navigationIcon {
             this.setOnClickListenerPro { onBackPressed() }

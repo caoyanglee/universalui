@@ -15,7 +15,7 @@ class CacheActivity : BaseViewActivity() {
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         super.afterViewAttach(savedInstanceState)
 
-        toolbar.with(this)
+        mToolbar.with(this)
                 .centerTitle {
                     this.text = "缓存"
                 }.navigationIcon {

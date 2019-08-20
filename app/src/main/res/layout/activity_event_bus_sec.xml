@@ -7,7 +7,10 @@
     android:orientation="vertical"
     tools:context=".module.lib3.eventbus.EventBusSecActivity">
 
-    <include layout="@layout/include_toolbar_primary" />
+    <com.weimu.universalview.widget.ToolBarPro
+        android:id="@+id/mToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

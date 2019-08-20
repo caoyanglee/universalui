@@ -8,7 +8,7 @@
     tools:context=".module.fragment.viewpager.ViewPagerActivity">
 
     <com.weimu.universalview.widget.ToolBarPro
-        android:id="@+id/toolbar"
+        android:id="@+id/mToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

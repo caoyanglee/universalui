@@ -2,7 +2,6 @@ package com.weimu.app.universalview.module.lib3
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
@@ -13,8 +12,9 @@ import com.weimu.app.universalview.module.main.CategoryListAdapter
 import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
 import com.weimu.universalview.ktx.dip2px
 import com.weimu.universalview.ktx.init
-import kotlinx.android.synthetic.main.activity_lib3.*
-import kotlinx.android.synthetic.main.include_recyclerview.*
+import com.weimu.universalview.ktx.setOnClickListenerPro
+import kotlinx.android.synthetic.main.activity_universal_list.*
+import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 
 class Lib3Activity : BaseViewActivity() {
 
@@ -28,18 +28,13 @@ class Lib3Activity : BaseViewActivity() {
         }
     }
 
-    override fun getLayoutResID() = R.layout.activity_lib3
+    override fun getLayoutResID() = R.layout.activity_universal_list
 
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         mToolbar.with(this)
-                .navigationIcon {
-                    setImageResource(R.drawable.universal_arrow_back_white)
-                }
-                .centerTitle {
-                    text = "实用第三方库"
-                    setTextColor(Color.WHITE)
-                }
+                .centerTitle { this.text = "实用第三方库" }
+                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
         initRecy()
     }
 

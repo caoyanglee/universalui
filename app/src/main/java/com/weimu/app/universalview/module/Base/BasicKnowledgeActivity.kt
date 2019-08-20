@@ -23,7 +23,7 @@ class BasicKnowledgeActivity : BaseViewActivity() {
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
 
-        toolbar.with(this)
+        mToolbar.with(this)
                 .centerTitle {
                     this.text = "基础知识"
                 }.navigationIcon {

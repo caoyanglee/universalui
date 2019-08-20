@@ -30,7 +30,7 @@ class DataPersistenceActivity : BaseViewActivity() {
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
 
-        toolbar.with(this).centerTitle {
+        mToolbar.with(this).centerTitle {
             this.text = "数据持久化"
         }
 
