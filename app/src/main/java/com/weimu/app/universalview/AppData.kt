@@ -65,7 +65,6 @@ class AppData : OriginAppData() {
         ToolBarPro.GlobalConfig.apply {
             //ToolBar
             toolBarBgColor = context.getColorPro(R.color.colorPrimary)
-            toolBarBgColor = Color.WHITE
 
             //centerTitle
             centerTitleColor = Color.WHITE

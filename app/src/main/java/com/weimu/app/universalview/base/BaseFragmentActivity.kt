@@ -27,7 +27,6 @@ abstract class BaseFragmentActivity : BaseViewActivity() {
         supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, fragment)
                 .commitAllowingStateLoss()
-
     }
 }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
+import com.weimu.app.universalview.module.Base.BasicKnowledgeActivity
 import com.weimu.app.universalview.module.datapersistence.DataPersistenceActivity
 import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
@@ -38,35 +39,38 @@ class MainActivity : BaseViewActivity() {
 
         tv_title.setOnClickListenerPro {
             //            FullScreenDialog().show(this)
-            startActivity(TestActivity.newIntent(getContext()))
+            openActivity<TestActivity>()
         }
 
         initRecy()
 
-        val result = AESHelper.encrypt("我是谁","fhdsjfkdlsjfjdsl")
+        val result = AESHelper.encrypt("我是谁", "fhdsjfkdlsjfjdsl")
         Logger.e("result=$result")
 
-        val origin = AESHelper.decrypt("$result","fhdsjfkdlsjfjdsl")
+        val origin = AESHelper.decrypt("$result", "fhdsjfkdlsjfjdsl")
         Logger.e("origin=$origin")
     }
 
 
     fun initRecy() {
         adapter.onItemClick = { item, position ->
-            when (position) {
-                0 -> {
+            when (item.primaryTitle) {
+                "Android基础" -> {
+                    openActivity<BasicKnowledgeActivity>()
+                }
+                "Java" -> {
                     //java
                     openActivity<JavaActivity>()
                 }
-                1 -> {
+                "Kotlin" -> {
                     //kotlin
                     openActivity<KotlinActivity>()
                 }
-                7 -> {
+                "数据持久化" -> {
                     //data persistence
                     openActivity<DataPersistenceActivity>()
                 }
-                9 -> {
+                "实用的第三方库" -> {
                     //lib3
                     openActivity<Lib3Activity>()
                 }
@@ -79,6 +83,7 @@ class MainActivity : BaseViewActivity() {
                 dividerSize = dip2px(16f)
         ))
         recyclerView.setPadding(0, 0, 0, dip2px(16f))
+        category.add(CategoryB("Android基础", "Android的一些基础Demo"))
         category.add(CategoryB("Java", "Java的一些基础Demo"))
         category.add(CategoryB("Kotlin", "Kotlin的一些基础Demo"))
         category.add(CategoryB("RxJava", "RxJava的Demo集合"))
