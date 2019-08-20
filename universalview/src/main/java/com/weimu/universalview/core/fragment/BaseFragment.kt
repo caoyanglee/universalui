@@ -55,8 +55,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         return mContentView
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         afterViewAttachBaseViewAction(savedInstanceState)
         afterViewAttach(savedInstanceState)
         isInit = true

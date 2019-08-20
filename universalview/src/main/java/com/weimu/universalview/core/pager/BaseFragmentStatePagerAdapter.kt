@@ -29,12 +29,12 @@ open class BaseFragmentStatePagerAdapter(var fm: FragmentManager) : FragmentStat
     /**
      * 优化后的方法
      */
-    fun setFragments(mFragment: List<Fragment>) {
+    open fun setFragments(mFragment: List<Fragment>) {
         val transaction = fm.beginTransaction()
         for (item in this.mFragment) {
             transaction.remove(item)
         }
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
         fm.executePendingTransactions()
 
         this.mFragment.clear()

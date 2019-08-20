@@ -19,7 +19,7 @@ open class BaseFragmentPagerAdapter(var fm: FragmentManager) : FragmentPagerAdap
     }
 
     override fun getCount(): Int {
-        return mFragment.size ?: 0
+        return mFragment.size
     }
 
     override fun isViewFromObject(view: View, obj: Any): Boolean {
@@ -34,13 +34,12 @@ open class BaseFragmentPagerAdapter(var fm: FragmentManager) : FragmentPagerAdap
      * 优化后的方法
      */
     open fun setFragments(mFragment: List<Fragment>) {
-        val transaction = fm.beginTransaction()
-        for (item in this.mFragment) {
-            transaction.remove(item)
+        if (this.mFragment.isNotEmpty()) {
+            val transaction = fm.beginTransaction()
+            this.mFragment.forEach { transaction.remove(it) }
+            transaction.commitAllowingStateLoss()
         }
-        transaction.commit()
         fm.executePendingTransactions()
-
         this.mFragment.clear()
         this.mFragment.addAll(mFragment)
         notifyDataSetChanged()
