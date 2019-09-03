@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +35,6 @@ class ToolBarPro : ViewGroup {
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 
     private val colorPrimary: Int by lazy { context.getColorPro(R.color.colorPrimary) }
-    private val colorPrimaryDark: Int by lazy { context.getColorPro(R.color.colorPrimaryDark) }
     private val colorAccent: Int by lazy { context.getColorPro(R.color.colorAccent) }
 
     private var activityReference: WeakReference<Activity?>? = null
@@ -44,7 +42,7 @@ class ToolBarPro : ViewGroup {
     var showStatusView by Delegates.observable(GlobalConfig.showStatusView) { property, oldValue, newValue -> requestLayout() }
     var toolbarHeight by Delegates.observable(GlobalConfig.toolbarHeight) { property, oldValue, newValue -> requestLayout() }
     var toolBarPaddingLeft by Delegates.observable(GlobalConfig.toolbarPaddingLeft) { property, oldValue, newValue -> requestLayout() }
-    var toolBarPaddingRight by Delegates.observable(GlobalConfig.toolBarPaddingRight) { property, oldValue, newValue -> requestLayout() }
+    var toolBarPaddingRight by Delegates.observable(GlobalConfig.toolbarPaddingRight) { property, oldValue, newValue -> requestLayout() }
 
     //全局配置
     object GlobalConfig {
@@ -53,8 +51,8 @@ class ToolBarPro : ViewGroup {
         //ToolBar
         var toolbarHeight = OriginAppData.context.dip2px(44f)//父视图的高度
         var toolbarPaddingLeft = OriginAppData.context.dip2px(15f)//父视图的左右padding
-        var toolBarPaddingRight = OriginAppData.context.dip2px(15f)//父视图的左右padding
-        var toolBarBgColor: Int? = null
+        var toolbarPaddingRight = OriginAppData.context.dip2px(15f)//父视图的左右padding
+        var toolbarBgColor: Int? = null
         //CenterTitle
         var centerTitleSize: Float? = null//sp 标题文字大小
         var centerTitleColor: Int? = null
@@ -176,7 +174,7 @@ class ToolBarPro : ViewGroup {
 
 
     init {
-        this.setBackgroundColor(GlobalConfig.toolBarBgColor ?: colorPrimary)
+        this.setBackgroundColor(GlobalConfig.toolbarBgColor ?: colorPrimary)
         this.layoutTransition = LayoutTransition()
         //本身视图的基础配置
         this.apply {
@@ -213,6 +211,7 @@ class ToolBarPro : ViewGroup {
                 measureChildWithMargins(it, newWidthMeasureSpec, 0, newHeightMeasureSpec, 0)
             }
         }
+
         measureChild(ivNavigation)
         measureChild(tvNavigation)
         measureChild(tvTitle)
@@ -391,7 +390,7 @@ class ToolBarPro : ViewGroup {
     }
 
     //divider
-    fun divider(config:(View.()->Unit)):ToolBarPro= apply {
+    fun divider(config: (View.() -> Unit)): ToolBarPro = apply {
         if (divider.isChild()) removeView(divider)
         divider.config()
         if (!divider.isChild()) addView(divider)

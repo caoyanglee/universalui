@@ -22,7 +22,6 @@ abstract class OriginAppData : Application() {
 
     abstract fun isDebug(): Boolean//是否是Debug
 
-
     override fun onCreate() {
         super.onCreate()
         context = this
