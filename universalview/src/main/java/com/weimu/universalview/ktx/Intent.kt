@@ -8,7 +8,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import com.orhanobut.logger.Logger
 import com.weimu.universalview.types.FILE
 import java.io.File
 
@@ -130,7 +129,6 @@ fun Context.openPdfByOthers(file: File) {
         intent.addCategory("android.intent.category.DEFAULT")
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val uri = this.getUri4File(file)
-        Logger.e("pdf uri=$uri")
         intent.setDataAndType(uri, "application/pdf")
         startActivity(intent)
     } catch (e: Exception) {
@@ -150,7 +148,6 @@ fun Context.openFileByLocal(file: File, fileType: FILE) {
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 
         val uri = this.getUri4File(file)
-        Logger.e("${uri.toString()}")
         intent.setDataAndType(uri, fileType.uriType)
 
         startActivity(intent)

@@ -26,7 +26,7 @@ class AndroidBug5497Workaround private constructor(activity: Activity, isFullScr
             val usableHeightSansKeyboard = mChildOfContent.rootView.height
             val heightDifference = usableHeightNow - usableHeightNow
 
-            //Logger.e("usableHeightSansKeyboard=" + usableHeightSansKeyboard + " usableHeightNow=" + usableHeightNow + " heightDifference=" + heightDifference);
+            //Log.e("usableHeightSansKeyboard=" + usableHeightSansKeyboard + " usableHeightNow=" + usableHeightNow + " heightDifference=" + heightDifference);
 
             if (heightDifference > usableHeightSansKeyboard / 4) {
                 // keyboard probably just became visible

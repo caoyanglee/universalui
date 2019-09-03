@@ -23,7 +23,7 @@ class ObservableWebView : WebView {
         super.onScrollChanged(l, t, oldl, oldt)
         mOnScrollChangedCallback?.onScroll(l, t, oldl, oldt)
 
-        //Logger.i("contentHeight=" + this.getContentHeight() + "  scale=" + this.getScale() + "  height=" + this.getHeight() + "  scrollY=" + this.getScrollY());
+        //Log.i("contentHeight=" + this.getContentHeight() + "  scale=" + this.getScale() + "  height=" + this.getHeight() + "  scrollY=" + this.getScrollY());
 
         if (this.contentHeight * this.scale - (this.height + this.scrollY) < 3) {
             //已经处于底端

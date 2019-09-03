@@ -49,7 +49,7 @@ class SwipeItemLayout(context: Context, attrs: AttributeSet) : FrameLayout(conte
         override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
             // x轴移动速度大于菜单一半，或者已经移动到菜单的一般之后，展开菜单
 
-            //Logger.e("ViewDragHelper  xvel=" + xvel + "  yvel=" + yvel);
+            //Log.e("ViewDragHelper  xvel=" + xvel + "  yvel=" + yvel);
             if (isOpen && canSwip) {
                 if (xvel > menu!!.width || -content!!.left < menu!!.width / 2) {
                     close()

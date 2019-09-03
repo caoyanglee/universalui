@@ -21,6 +21,10 @@ import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
+import com.bumptech.glide.Glide
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.reflect.Field
 
 /**
@@ -246,4 +250,15 @@ fun Context.getDrawablePro(@DrawableRes id: Int): Drawable? {
     return drawable
 }
 
+/**
+ * 删除Glide缓存
+ */
+fun Context.clearGlideCache() {
+    val that = this
+    //glide
+    Glide.get(this).clearMemory()//必须要主线程内执行
+    GlobalScope.launch(Dispatchers.Default) {
+        Glide.get(that).clearDiskCache()//必须在子线程内执行
+    }
+}
 

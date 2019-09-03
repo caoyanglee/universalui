@@ -45,7 +45,7 @@ open class ScrollViewExtend : ScrollView {
                 downY = ev.rawY.toInt()
             }
             MotionEvent.ACTION_MOVE -> {
-                //Logger.e("移动 " + " x=" + ev.x + " y=" + ev.y + " rawX=" + ev.rawX + " rawY=" + ev.rawY)
+                //Log.e("移动 " + " x=" + ev.x + " y=" + ev.y + " rawX=" + ev.rawX + " rawY=" + ev.rawY)
                 var curX = ev.x
                 var curY = ev.y
 
@@ -73,7 +73,7 @@ open class ScrollViewExtend : ScrollView {
      */
     override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
-        //Logger.d("scrollX " + scrollX + " scrollY " + scrollY + " clampedX " + clampedX + " clampedY " + clampedY);
+        //Log.d("scrollX " + scrollX + " scrollY " + scrollY + " clampedX " + clampedX + " clampedY " + clampedY);
         onScrollToBottom?.onScroll(scrollX, scrollY, clampedX, clampedY)
         if (!clampedY) isTouchDown = false
         if (scrollY != 0 && clampedY) {
@@ -84,11 +84,8 @@ open class ScrollViewExtend : ScrollView {
         }
     }
 
-    fun setCustomOnScrollLintener(listener: OnScrollListener) {
-        onScrollToBottom = listener
-    }
 
-    private var onScrollToBottom: OnScrollListener? = null
+    var onScrollToBottom: OnScrollListener? = null
 
 
     interface OnScrollListener {

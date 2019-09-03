@@ -53,5 +53,4 @@ class BaseFragmentUI : LinearLayoutCompat {
         frameLayout.layoutParams = targetLayoutParams
     }
 
-
 }

@@ -9,9 +9,7 @@ import android.support.v4.view.ViewPager
  */
 abstract class MyViewPagerChangeListener : ViewPager.OnPageChangeListener {
 
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    }
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
-    override fun onPageScrollStateChanged(state: Int) {
-    }
+    override fun onPageScrollStateChanged(state: Int) {}
 }

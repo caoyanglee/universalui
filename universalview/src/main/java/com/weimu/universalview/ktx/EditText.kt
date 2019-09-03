@@ -91,7 +91,7 @@ fun EditText.addKeyBoardListener(activity: Activity, fn: (keyBoardHeight: Int) -
         val screenHeight = activity.window.decorView.findViewById<FrameLayout>(android.R.id.content).height
         //此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
         val heightDifference = screenHeight - r.bottom
-        //Logger.e("屏幕的高度=$screenHeight 键盘高度=$heightDifference")
+        //Log.e("屏幕的高度=$screenHeight 键盘高度=$heightDifference")
 
         fn.invoke(heightDifference)
     }

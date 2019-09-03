@@ -90,7 +90,7 @@ class URLTagHandler(var imageClickListener: ((picUrl: String) -> Unit)? = null) 
     override fun handleTag(opening: Boolean, tag: String?, output: Editable?, xmlReader: XMLReader?) {
         if (tag.isNullOrEmpty()) return
         if (output.isNullOrEmpty()) return
-        //Logger.e("tag=" + tag.toLowerCase())
+        //Log.e("tag=" + tag.toLowerCase())
         // 处理标签<img>
         if (tag.toLowerCase(Locale.getDefault()) == "img") {
             // 获取长度
