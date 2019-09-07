@@ -319,14 +319,13 @@ fun TextView.addUnderLine() {
     this.paint.flags = Paint.UNDERLINE_TEXT_FLAG
 }
 
+//加粗
+fun TextView.setBold(isBold: Boolean) {
+    this.paint.isFakeBoldText = isBold
+}
+
 //获取文本的内容
 fun TextView.getContent(): String = this.text.toString().trimMargin()
-
-
-//设置文本的颜色
-fun TextView.setTextColorV2(@ColorRes color: Int) {
-    this.setTextColor(ContextCompat.getColor(context, color))
-}
 
 
 //增加缩进
@@ -335,4 +334,14 @@ fun TextView.addIndent(marginFirstLine: Int, marginNextLines: Int) {
     val result = SpannableString(originText)
     result.setSpan(LeadingMarginSpan.Standard(marginFirstLine, marginNextLines), 0, originText.length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
     this.text = result
+}
+
+//展示密码 InputTypes
+fun TextView.showPassword() {
+    inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+}
+
+//隐藏密码  InputType
+fun TextView.hidePassword() {
+    inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 }

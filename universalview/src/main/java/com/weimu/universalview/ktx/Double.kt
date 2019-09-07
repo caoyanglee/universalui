@@ -1,5 +1,7 @@
 package com.weimu.universalview.ktx
 
+import java.text.DecimalFormat
+
 /**
  * Author:你需要一台永动机
  * Date:2019-06-20 15:12
@@ -27,9 +29,24 @@ package com.weimu.universalview.ktx
  * g，浮点数型（比%f，%a长度短些，显示6位有效数字，且会进行四舍五入）
  */
 
-fun Double.leftDecimal(num: Int): String {
-    if (num < 0) return "$this"
-    return String.format("%.${num}f", this)
+fun Double.toString(decimalsNum: Int): String {
+    if (decimalsNum < 0) return "$this"
+    return String.format("%.${decimalsNum}f", this)
+}
+
+/**
+ * 增加逗号
+ */
+fun Double.toCommaString(decimalsNum: Int = 0): String {
+    val format = StringBuilder("#,###")
+    if (decimalsNum > 0) {
+        format.append(".")
+        repeat(decimalsNum) {
+            format.append("0")
+        }
+    }
+    val dec = DecimalFormat(format.toString())
+    return dec.format(this)
 }
 
 
