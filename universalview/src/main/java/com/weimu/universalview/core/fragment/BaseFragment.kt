@@ -116,11 +116,6 @@ abstract class BaseFragment : Fragment(), BaseView {
         SnackBarCenter.show(getContentView(), message)
     }
 
-//    //打开Activity
-//    override fun startActivity(intent: Intent) {
-//        mActivity.startActivity(intent)
-//    }
-
     //FrameLayout的切换
     final override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)

@@ -43,7 +43,6 @@ class Section1Fragment : BaseFragment() {
             }
 
         }
-
         addView(tv)
     }
 
@@ -60,4 +59,7 @@ class Section1Fragment : BaseFragment() {
             data = $data
         """.trimIndent())
     }
+
+
 }
+
