@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.universalview.core.pager.BaseFragmentPagerAdapter
@@ -35,5 +36,15 @@ class ViewPagerActivity : BaseViewActivity() {
             setFragments(fragments)
         }
         viewpager.offscreenPageLimit = 3
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Logger.d("""
+            ViewPagerActivity
+            requestCode = $requestCode
+            resultCode = $resultCode
+            data = $data
+        """.trimIndent())
     }
 }

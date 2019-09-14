@@ -1,13 +1,17 @@
 package com.weimu.app.universalview.module.fragment.viewpager
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.LinearLayoutCompat
 import android.view.ViewGroup
 import android.widget.TextView
+import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
+import com.weimu.app.universalview.module.test.TestActivity
 import com.weimu.universalview.core.fragment.BaseFragment
+import com.weimu.universalview.ktx.setOnClickListenerPro
 
 /**
  * Author:你需要一台永动机
@@ -34,6 +38,10 @@ class Section1Fragment : BaseFragment() {
             this.text = "测试fragment1"
             this.textSize = 30f
             this.setTextColor(Color.BLACK)
+            this.setOnClickListenerPro {
+                startActivityForResult(Intent(context, TestActivity::class.java), 1)
+            }
+
         }
 
         addView(tv)
@@ -41,5 +49,15 @@ class Section1Fragment : BaseFragment() {
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Logger.d("""
+            Section1Fragment
+            requestCode = $requestCode
+            resultCode = $resultCode
+            data = $data
+        """.trimIndent())
     }
 }

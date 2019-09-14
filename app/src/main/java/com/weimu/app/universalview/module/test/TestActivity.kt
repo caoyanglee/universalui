@@ -1,15 +1,15 @@
 package com.weimu.app.universalview.module.test
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import com.google.gson.reflect.TypeToken
 import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalview.ktx.getAssetsString
-import com.weimu.universalview.ktx.mGson
-import com.weimu.universalview.ktx.toArrayList
-import com.weimu.universalview.ktx.toJsonStr
+import com.weimu.app.universalview.module.fragment.viewpager.ViewPagerActivity
+import com.weimu.universalview.ktx.*
+import kotlinx.android.synthetic.main.activity_test.*
 
 
 class TestActivity : BaseViewActivity() {
@@ -24,6 +24,11 @@ class TestActivity : BaseViewActivity() {
 //            loader = loader.parent
 //            ClassLoader.getSystemClassLoader()
 //        }
+
+        mBtn1.setOnClickListenerPro {
+            setResult(Activity.RESULT_OK)
+            onBackPressed()
+        }
 
     }
 }
