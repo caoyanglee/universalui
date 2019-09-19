@@ -27,7 +27,4 @@ abstract class OriginAppData : Application() {
         context = this
     }
 
-
-
-
 }
