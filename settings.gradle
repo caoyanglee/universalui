@@ -1,1 +1,1 @@
-include ':app', ':universalview'
+include ':app', ':lib'

@@ -19,7 +19,6 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import com.pmm.ui.ktx.*
 import com.weimu.universalview.R
-import com.weimu.universalview.ktx.*
 import kotlin.properties.Delegates
 
 
