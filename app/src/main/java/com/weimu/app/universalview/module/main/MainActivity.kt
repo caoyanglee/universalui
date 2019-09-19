@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.include_recyclerview.*
 class MainActivity : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(getContext()) }
+    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
 
 
     companion object {
@@ -35,7 +35,7 @@ class MainActivity : BaseViewActivity() {
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
-        toastSuccess("欢迎来到通用UI库")
+        toast("欢迎来到通用UI库")
 
         tv_title.setOnClickListenerPro {
             //            FullScreenDialog().show(this)

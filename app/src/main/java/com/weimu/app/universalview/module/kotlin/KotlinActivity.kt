@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 class KotlinActivity : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(getContext()) }
+    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
 
     companion object {
         fun newIntent(context: Context): Intent {
@@ -42,7 +42,7 @@ class KotlinActivity : BaseViewActivity() {
             when (position) {
                 0 -> {
                     //协程
-                    startActivity(CoroutineActivity.newIntent(getContext()))
+                    startActivity(CoroutineActivity.newIntent(this))
                 }
             }
         }

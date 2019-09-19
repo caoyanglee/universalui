@@ -27,19 +27,19 @@ class MaterialDialogActivity : BaseViewActivity() {
         //日期选择呢器
         mBtn2.setOnClickListenerPro {
             showDatePicker { year, month, dayOfMonth ->
-                toastSuccess("$year-$month-$dayOfMonth")
+                toast("$year-$month-$dayOfMonth")
             }
         }
         //时间选择器
         mBtn3.setOnClickListenerPro {
             showTimePicker { hourOfDay, minute ->
-                toastSuccess("$hourOfDay:$minute")
+                toast("$hourOfDay:$minute")
             }
         }
         //确认选择器
         mBtn4.setOnClickListenerPro {
             showConfirmDialog {
-                toastSuccess("确定成功")
+                toast("确定成功")
             }
         }
 
@@ -49,7 +49,7 @@ class MaterialDialogActivity : BaseViewActivity() {
                     title = "性别",
                     items = *arrayOf("男", "女"),
                     callBack = { dialog, which, text ->
-                        toastSuccess("位置=$which 文本=$text")
+                        toast("位置=$which 文本=$text")
                     }
             )
         }

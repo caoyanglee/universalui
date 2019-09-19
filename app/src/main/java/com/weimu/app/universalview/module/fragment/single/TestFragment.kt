@@ -15,7 +15,6 @@ import com.weimu.universalview.core.fragment.BaseFragment
  */
 class TestFragment : BaseFragment() {
 
-
     companion object {
 
         fun newInstance(activity: FragmentActivity? = null): TestFragment {

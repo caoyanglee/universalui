@@ -28,7 +28,7 @@ fun CheckBox.modifyLeftDrawable(@DrawableRes resId: Int = -1) {
 fun CheckBox.checkIsFalseAndToast(toastMessage: String = ""): Boolean {
     if (!this.isChecked) {
         this.requestFocus()
-        toast(toastMessage)
+        context.toast(toastMessage)
         return true
     }
     return false

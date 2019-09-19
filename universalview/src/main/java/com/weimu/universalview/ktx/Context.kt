@@ -18,10 +18,12 @@ import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.weimu.universalview.OriginAppData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,6 +34,17 @@ import java.lang.reflect.Field
  * Date:2019-05-17 11:51
  * Description:
  */
+
+//吐司通知-普通
+fun Context?.toast(message: CharSequence) {
+    try {
+        val targetContext = this ?: OriginAppData.context
+        val duration = if (message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+        Toast.makeText(targetContext, message, duration).show()
+    } catch (e: Exception) {
+        //doNothing
+    }
+}
 
 //获取颜色
 fun Context.getColorPro(colorRes: Int): Int {

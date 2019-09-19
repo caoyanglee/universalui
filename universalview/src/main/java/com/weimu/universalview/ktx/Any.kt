@@ -5,19 +5,6 @@ import android.widget.Toast
 import com.weimu.universalview.OriginAppData
 
 
-//吐司通知-普通
-fun Any.toast(message: CharSequence, context: Context? = null) {
-    try {
-        Toast.makeText(
-                context ?: OriginAppData.context,
-                message,
-                if (message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
-        ).show()
-    } catch (e: Exception) {
-        //doNothing
-    }
-}
-
 
 private var clickTime: Long = 0
 

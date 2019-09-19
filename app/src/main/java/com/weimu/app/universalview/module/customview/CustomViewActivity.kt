@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 class CustomViewActivity : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(getContext()) }
+    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
 
     override fun getLayoutResID(): Int = R.layout.activity_universal_list
 

@@ -69,7 +69,7 @@ fun Context.openWeiXin() {
         intent.component = cmp
         startActivity(intent)
     } catch (e: ActivityNotFoundException) {
-        toast("检查到您手机没有安装该APP，请安装后使用该功能", this)
+        toast("检查到您手机没有安装该APP，请安装后使用该功能")
     }
 
 }
@@ -80,7 +80,7 @@ fun Context.openAPP(appPackageName: String) {
         val intent = packageManager.getLaunchIntentForPackage(appPackageName)
         startActivity(intent)
     } catch (e: Exception) {
-        toast("检查到您手机没有安装该APP，请安装后使用该功能", this)
+        toast("检查到您手机没有安装该APP，请安装后使用该功能")
     }
 
 }
@@ -95,7 +95,7 @@ fun Context.openMark() {
         startActivity(intent)
     } catch (e: Exception) {
         e.printStackTrace()
-        toast("检测不到已安装的应用市场", this)
+        toast("检测不到已安装的应用市场")
     }
 
 }
@@ -132,7 +132,7 @@ fun Context.openPdfByOthers(file: File) {
         intent.setDataAndType(uri, "application/pdf")
         startActivity(intent)
     } catch (e: Exception) {
-        toast("请安装PDF阅读软件", this)
+        toast("请安装PDF阅读软件")
     }
 }
 
@@ -153,7 +153,7 @@ fun Context.openFileByLocal(file: File, fileType: FILE) {
         startActivity(intent)
     } catch (e: Exception) {
         e.printStackTrace()
-        toast("请安装可以打开此文件的App", this)
+        toast("请安装可以打开此文件的App")
     }
 }
 

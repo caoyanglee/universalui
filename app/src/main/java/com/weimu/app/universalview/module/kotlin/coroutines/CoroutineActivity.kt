@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
+import com.weimu.universalview.core.dialog.ProgressDialog
 import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.toast
 import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
 
@@ -75,13 +77,13 @@ class CoroutineActivity : BaseViewActivity() {
 
 
     private fun test1() {
-        showProgressBar()
+        ProgressDialog.show(this)
         GlobalScope.launch(Dispatchers.IO) {
             val deferred = async { getToken() }
 
             withContext(Dispatchers.Main) {
                 //update ui
-                toastSuccess("这是令牌1=" + deferred.await())
+                toast("这是令牌1=" + deferred.await())
             }
 
 //            launch(Dispatchers.Main) {
@@ -98,7 +100,7 @@ class CoroutineActivity : BaseViewActivity() {
     private suspend fun getToken(): String {
         delay(3000L)
         GlobalScope.launch(Dispatchers.Main) {
-            hideProgressBar()
+            ProgressDialog.hide()
         }
         return "67243jk4b5jf4g93820-54f5d4d5h435g3"
     }

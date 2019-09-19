@@ -13,32 +13,6 @@ import androidx.lifecycle.Lifecycle
 
 interface BaseView {
 
-    //Context & Activity & ContentView
-    fun getContext(): Context
-
-    fun getCurrentActivity(): AppCompatActivity
-
     fun getContentView(): ViewGroup
-
-    //Toast
-    fun toastSuccess(message: CharSequence)
-
-    fun toastFail(message: CharSequence)
-
-    //SnackBar
-    fun showSnackBar(message: CharSequence)
-
-    //ProgressBar
-    fun showProgressBar()
-
-    fun showProgressBar(message: CharSequence)
-
-    fun hideProgressBar()
-
-    //Lifecycle
-    fun getLifeCycle(): Lifecycle
-
-    //Back
-    fun back()
 
 }

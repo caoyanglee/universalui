@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
  */
 class BasicKnowledgeActivity : BaseViewActivity() {
 
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(getContext()) }
+    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
 
     override fun getLayoutResID(): Int = R.layout.activity_universal_list
 

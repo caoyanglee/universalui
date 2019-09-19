@@ -20,7 +20,6 @@ import com.weimu.universalview.ktx.toast
  * Description:
  */
 abstract class BaseFragment : Fragment(), BaseView {
-    private lateinit var mActivity: AppCompatActivity
     private var mContentView: ViewGroup? = null
 
 
@@ -39,7 +38,6 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.mActivity = context as AppCompatActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +49,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mContentView = getLayoutUI()//设置视图
         if (mContentView == null && getLayoutResID() != -1)
-            mContentView = LayoutInflater.from(mActivity).inflate(getLayoutResID(), container, false) as ViewGroup
+            mContentView = LayoutInflater.from(activity).inflate(getLayoutResID(), container, false) as ViewGroup
         return mContentView
     }
 
@@ -77,44 +75,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     protected open fun afterViewAttach(savedInstanceState: Bundle?) {}
 
-    //各种上下文的获取
-    override fun getContext(): Context = mActivity
-
-    override fun getCurrentActivity(): AppCompatActivity = mActivity
-
     override fun getContentView(): ViewGroup = mContentView as ViewGroup
-
-    //吐司通知&普通的MD弹窗
-    override fun toastSuccess(message: CharSequence) {
-        toast(message)
-    }
-
-    override fun toastFail(message: CharSequence) {
-        toast(message)
-    }
-
-    override fun showProgressBar() {
-        ProgressDialog.show(context)
-    }
-
-    override fun showProgressBar(message: CharSequence) {
-        ProgressDialog.show(context, message = message.toString())
-    }
-
-    override fun hideProgressBar() {
-        ProgressDialog.hide()
-    }
-
-    override fun getLifeCycle(): Lifecycle = lifecycle
-
-    override fun back() {
-        mActivity.onBackPressed()
-    }
-
-    //showSnackBar
-    override fun showSnackBar(message: CharSequence) {
-        SnackBarCenter.show(getContentView(), message)
-    }
 
     //FrameLayout的切换
     final override fun onHiddenChanged(hidden: Boolean) {

@@ -110,7 +110,7 @@ fun View.screenShot(handle: (viewBitmap: Bitmap) -> Unit) {
         handle(screenshot)
     } catch (e: Exception) {
         System.gc()
-        toast("保存错误，请重新点击", context)
+        context.toast("保存错误，请重新点击")
     }
 }
 
@@ -172,7 +172,7 @@ class ViewBgOption {
 
 //修改背景
 fun View?.bg(option: ViewBgOption) {
-    if (this==null)return
+    if (this == null) return
     var bg = this.background
     if (bg !is GradientDrawable) {
         bg = GradientDrawable()

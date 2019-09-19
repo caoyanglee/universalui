@@ -121,7 +121,7 @@ fun EditText.checkIsNullAndToast(): Boolean {
     val mobile = this.getContent()
     if (mobile.isBlank()) {
         this.requestFocus()
-        toast(this.hint)
+        context.toast(this.hint)
         return true
     }
     return false

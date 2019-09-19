@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.include_recyclerview.*
 class JavaActivity : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(getContext()) }
+    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
 
     companion object {
         fun newIntent(context: Context): Intent {
@@ -59,7 +59,7 @@ class JavaActivity : BaseViewActivity() {
             when (position) {
                 0 -> {
                     //正则表达式
-                    startActivity(PatternActivity.newIntent(getContext()))
+                    startActivity(PatternActivity.newIntent(this))
                 }
             }
         }

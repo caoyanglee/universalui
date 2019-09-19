@@ -5,6 +5,7 @@ import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.universalview.ktx.getContent
 import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.weimu.universalview.ktx.toast
 import kotlinx.android.synthetic.main.activity_event_bus_sec.*
 import org.greenrobot.eventbus.EventBus
 
@@ -21,7 +22,7 @@ class EventBusSecActivity : BaseViewActivity() {
         btn_send.setOnClickListener {
             val message = et_send.getContent()
             EventBus.getDefault().post(TextEvent(message))
-            toastSuccess("发送成功 返回查看")
+            toast("发送成功 返回查看")
         }
     }
 

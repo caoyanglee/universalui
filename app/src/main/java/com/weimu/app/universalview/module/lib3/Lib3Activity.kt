@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 class Lib3Activity : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(getContext()) }
+    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
 
 
     companion object {
@@ -44,11 +44,11 @@ class Lib3Activity : BaseViewActivity() {
             when (position) {
                 0 -> {
                     //MaterialDialog
-                    startActivity(MaterialDialogActivity.newIntent(getContext()))
+                    startActivity(MaterialDialogActivity.newIntent(this))
                 }
                 1 -> {
                     //EventBus
-                    startActivity(EventBusActivity.newIntent(getContext()))
+                    startActivity(EventBusActivity.newIntent(this))
 
                 }
             }
