@@ -1,8 +1,13 @@
 package com.weimu.app.universalview
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import androidx.multidex.MultiDex
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 import com.weimu.app.universalview.module.main.MainActivity
 import com.weimu.universalview.OriginAppData
 import com.weimu.universalview.interfaces.MyActivityLifeCycleCallbacks
@@ -32,7 +37,13 @@ class AppData : OriginAppData() {
     override fun onCreate() {
         super.onCreate()
         context = this
+        initLogger() //日志
         initAppBarConfig()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
     private fun initAppBarConfig() {
@@ -55,4 +66,18 @@ class AppData : OriginAppData() {
 
         }
     }
+
+    private fun initLogger() {
+        val formatStrategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+                .methodCount(2) // (Optional) How many method line to show. Default 2
+                .tag("weimu")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .build()
+
+        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
+            override fun isLoggable(priority: Int, tag: String?) = isDebug()
+        })
+    }
+
+
 }

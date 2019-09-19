@@ -25,27 +25,9 @@ abstract class OriginAppData : Application() {
     override fun onCreate() {
         super.onCreate()
         context = this
-        //日志
-        initLogger()
-    }
-
-    private fun initLogger() {
-        val formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
-                .methodCount(2) // (Optional) How many method line to show. Default 2
-                .tag("weimu")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
-                .build()
-
-        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
-            override fun isLoggable(priority: Int, tag: String?) = isDebug()
-        })
     }
 
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
-    }
 
 
 }
