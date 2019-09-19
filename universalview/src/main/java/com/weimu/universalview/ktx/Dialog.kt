@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContextWrapper
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
+import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.weimu.universalview.R

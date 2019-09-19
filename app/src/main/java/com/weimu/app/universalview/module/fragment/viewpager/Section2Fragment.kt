@@ -2,10 +2,11 @@ package com.weimu.app.universalview.module.fragment.viewpager
 
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.LinearLayoutCompat
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.fragment.app.FragmentActivity
+import com.weimu.app.universalview.R
 import com.weimu.universalview.core.fragment.BaseFragment
 
 /**

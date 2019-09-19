@@ -2,11 +2,11 @@ package com.weimu.universalview.widget.swipelist
 
 import android.content.Context
 import android.graphics.Rect
+import android.support.v4.widget.ViewDragHelper
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
-import androidx.customview.widget.ViewDragHelper
 
 /**
  * Author:你需要一台永动机

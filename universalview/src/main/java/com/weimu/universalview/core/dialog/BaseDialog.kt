@@ -5,13 +5,13 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.annotation.LayoutRes
+import android.support.v4.app.DialogFragment
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.AppCompatActivity
 import android.view.*
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 
 /**
  * Author:你需要一台永动机

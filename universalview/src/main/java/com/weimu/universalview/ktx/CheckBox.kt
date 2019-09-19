@@ -2,8 +2,8 @@ package com.weimu.universalview.ktx
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.annotation.DrawableRes
 import android.widget.CheckBox
-import androidx.annotation.DrawableRes
 
 /**
  * Author:你需要一台永动机

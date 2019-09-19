@@ -3,9 +3,9 @@ package com.weimu.universalview.ktx
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.support.annotation.DrawableRes
 import android.util.Base64
 import android.widget.ImageView
-import androidx.annotation.DrawableRes
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.Color
+import android.support.v7.widget.LinearLayoutCompat
 import android.view.Gravity
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
+import com.afollestad.materialdialogs.MaterialDialog
+import com.weimu.universalview.R
 import com.weimu.universalview.helper.RxSchedulers
 import com.weimu.universalview.ktx.dip2px
 import io.reactivex.Observable

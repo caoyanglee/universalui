@@ -13,14 +13,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.DrawableRes
+import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
-import androidx.annotation.DrawableRes
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

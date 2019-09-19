@@ -1,8 +1,8 @@
 package com.weimu.universalview.core.recyclerview.decoration
 
 import android.graphics.Rect
+import android.support.v7.widget.RecyclerView
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Author:你需要一台永动机

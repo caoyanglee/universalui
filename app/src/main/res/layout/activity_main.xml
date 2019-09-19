@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".module.main.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible">
@@ -47,7 +47,7 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_title" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <include layout="@layout/include_recyclerview" />
 

@@ -1,11 +1,11 @@
 package com.weimu.universalview.core.activity
 
+import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.LayoutRes
+import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import com.weimu.universalview.core.architecture.mvp.BaseView
 import com.weimu.universalview.core.dialog.ProgressDialog
 import com.weimu.universalview.core.snackerbar.SnackBarCenter

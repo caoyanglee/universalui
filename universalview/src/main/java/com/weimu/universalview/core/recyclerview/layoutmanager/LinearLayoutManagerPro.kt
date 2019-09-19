@@ -2,9 +2,9 @@ package com.weimu.universalview.core.recyclerview.layoutmanager
 
 
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 /**
  * 解决问题  列表布局专用
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 class LinearLayoutManagerPro(
         context: Context?,
-        orientation: Int = RecyclerView.VERTICAL,
+        orientation: Int = VERTICAL,
         reverseLayout: Boolean = false,
         private val canScrollVertically: Boolean = true//是否可以竖直滚动
 ) : LinearLayoutManager(context, orientation, reverseLayout) {

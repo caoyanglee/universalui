@@ -2,11 +2,11 @@ package com.weimu.universalview.core.snackerbar
 
 import android.graphics.Color
 import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.google.android.material.snackbar.Snackbar
 import com.weimu.universalview.R
 
 /**

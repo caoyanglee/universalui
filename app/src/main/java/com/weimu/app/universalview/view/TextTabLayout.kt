@@ -1,10 +1,10 @@
 package com.weimu.app.universalview.view
 
 import android.content.Context
+import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.viewpager.widget.ViewPager
 import com.weimu.app.universalview.R
 import com.weimu.universalview.interfaces.MyViewPagerChangeListener
 import com.weimu.universalview.ktx.dip2px

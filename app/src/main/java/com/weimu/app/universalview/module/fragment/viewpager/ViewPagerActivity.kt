@@ -3,7 +3,7 @@ package com.weimu.app.universalview.module.fragment.viewpager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.support.v4.app.Fragment
 import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
