@@ -1,14 +1,14 @@
 package com.weimu.universalview.core.toolbar
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.weimu.universalview.OriginAppData
 import com.weimu.universalview.ktx.dip2px
 import com.weimu.universalview.ktx.setHeight

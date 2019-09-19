@@ -3,9 +3,8 @@ package com.weimu.app.universalview.module.lib3.eventbus
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.weimu.app.universalview.R
-import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_event_bus.*
 import org.greenrobot.eventbus.EventBus

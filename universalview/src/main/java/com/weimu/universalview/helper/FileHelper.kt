@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
 import android.text.TextUtils
 import java.io.*
 import java.util.*

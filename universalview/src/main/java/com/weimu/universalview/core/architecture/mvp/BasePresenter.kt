@@ -1,10 +1,10 @@
 package com.weimu.universalview.core.architecture.mvp
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import org.jetbrains.annotations.NotNull
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * Author:你需要一台永动机
@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull
  * Description:生命周期观察者
  */
 interface BasePresenter : LifecycleObserver {
-
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(@NotNull owner: LifecycleOwner) {

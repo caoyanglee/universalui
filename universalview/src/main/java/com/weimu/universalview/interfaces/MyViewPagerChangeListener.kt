@@ -1,6 +1,7 @@
 package com.weimu.universalview.interfaces
 
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
+
 
 /**
  * Author:你需要一台永动机

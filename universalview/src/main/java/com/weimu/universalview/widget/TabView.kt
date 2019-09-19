@@ -7,9 +7,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.util.TypedValue
@@ -17,6 +14,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.ContextCompat
 import com.weimu.universalview.R
 import com.weimu.universalview.ktx.*
 import kotlin.properties.Delegates

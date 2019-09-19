@@ -1,9 +1,9 @@
 package com.weimu.universalview.core.architecture.mvp
 
-import android.arch.lifecycle.Lifecycle
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 
 /**
  * Author:你需要一台永动机

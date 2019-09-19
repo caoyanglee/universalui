@@ -2,9 +2,9 @@ package com.weimu.universalview.ktx
 
 import android.animation.ObjectAnimator
 import android.os.Handler
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import androidx.recyclerview.widget.RecyclerView
 
 
 /**
