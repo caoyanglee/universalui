@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_pattern.*
 import java.util.regex.Pattern
 

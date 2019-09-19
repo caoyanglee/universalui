@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalview.core.pager.BaseFragmentPagerAdapter
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.pmm.ui.core.pager.BaseFragmentPagerAdapter
+import com.pmm.ui.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
 class ViewPagerActivity : BaseViewActivity() {

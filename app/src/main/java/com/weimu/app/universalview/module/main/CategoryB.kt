@@ -1,6 +1,6 @@
 package com.weimu.app.universalview.module.main
 
-import com.weimu.universalview.core.BaseB
+import com.pmm.ui.core.BaseB
 
 /**
  * Author:你需要一台永动机

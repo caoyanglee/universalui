@@ -3,9 +3,9 @@ package com.weimu.app.universalview.module.lib3.eventbus
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalview.ktx.getContent
-import com.weimu.universalview.ktx.setOnClickListenerPro
-import com.weimu.universalview.ktx.toast
+import com.pmm.ui.ktx.getContent
+import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.toast
 import kotlinx.android.synthetic.main.activity_event_bus_sec.*
 import org.greenrobot.eventbus.EventBus
 

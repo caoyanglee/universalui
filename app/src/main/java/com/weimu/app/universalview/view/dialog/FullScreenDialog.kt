@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
 import com.weimu.app.universalview.R
-import com.weimu.universalview.core.dialog.BaseDialog
-import com.weimu.universalview.core.toolbar.StatusBarManager
+import com.pmm.ui.core.dialog.BaseDialog
+import com.pmm.ui.core.toolbar.StatusBarManager
 import kotlinx.android.synthetic.main.dialog_full_screen.*
 
 /**

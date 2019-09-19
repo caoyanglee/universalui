@@ -1,8 +1,6 @@
 package com.weimu.app.universalview
 
 import com.weimu.universalview.ktx.leftDecimal
-import com.weimu.universalview.ktx.local2UTC
-import com.weimu.universalview.ktx.utc2Local
 import org.junit.Test
 
 /**

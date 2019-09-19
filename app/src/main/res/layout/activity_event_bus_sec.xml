@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".module.lib3.eventbus.EventBusSecActivity">
 
-    <com.weimu.universalview.widget.ToolBarPro
+    <com.pmm.ui.widget.ToolBarPro
         android:id="@+id/mToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

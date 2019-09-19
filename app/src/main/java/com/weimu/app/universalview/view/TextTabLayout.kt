@@ -6,11 +6,11 @@ import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.viewpager.widget.ViewPager
 import com.weimu.app.universalview.R
-import com.weimu.universalview.interfaces.MyViewPagerChangeListener
-import com.weimu.universalview.ktx.dip2px
-import com.weimu.universalview.ktx.getColorPro
-import com.weimu.universalview.ktx.setMargins
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.pmm.ui.interfaces.MyViewPagerChangeListener
+import com.pmm.ui.ktx.dip2px
+import com.pmm.ui.ktx.getColorPro
+import com.pmm.ui.ktx.setMargins
+import com.pmm.ui.ktx.setOnClickListenerPro
 
 /**
  * Author:你需要一台永动机

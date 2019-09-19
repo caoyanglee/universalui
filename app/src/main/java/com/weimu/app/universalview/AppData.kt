@@ -1,21 +1,16 @@
 package com.weimu.app.universalview
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
-import android.os.Bundle
 import androidx.multidex.MultiDex
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
-import com.weimu.app.universalview.module.main.MainActivity
-import com.weimu.universalview.OriginAppData
-import com.weimu.universalview.interfaces.MyActivityLifeCycleCallbacks
-import com.weimu.universalview.ktx.dip2px
-import com.weimu.universalview.ktx.getColorPro
-import com.weimu.universalview.ktx.getDrawablePro
-import com.weimu.universalview.widget.ToolBarPro
-import java.util.*
+import com.pmm.ui.OriginAppData
+import com.pmm.ui.ktx.dip2px
+import com.pmm.ui.ktx.getColorPro
+import com.pmm.ui.ktx.getDrawablePro
+import com.pmm.ui.widget.ToolBarPro
 import kotlin.properties.Delegates
 
 

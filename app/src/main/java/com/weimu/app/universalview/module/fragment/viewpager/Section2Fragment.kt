@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.FragmentActivity
-import com.weimu.universalview.core.fragment.BaseFragment
+import com.pmm.ui.core.fragment.BaseFragment
 
 /**
  * Author:你需要一台永动机

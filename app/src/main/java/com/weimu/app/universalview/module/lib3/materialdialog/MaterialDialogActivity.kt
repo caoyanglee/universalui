@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalview.core.dialog.ProgressDialog
-import com.weimu.universalview.ktx.*
+import com.pmm.ui.core.dialog.ProgressDialog
+import com.pmm.ui.ktx.*
 import kotlinx.android.synthetic.main.activity_material_dialog.*
 
 class MaterialDialogActivity : BaseViewActivity() {

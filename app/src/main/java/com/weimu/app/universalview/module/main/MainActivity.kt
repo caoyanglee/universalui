@@ -12,9 +12,9 @@ import com.weimu.app.universalview.module.java.JavaActivity
 import com.weimu.app.universalview.module.kotlin.KotlinActivity
 import com.weimu.app.universalview.module.lib3.Lib3Activity
 import com.weimu.app.universalview.module.test.TestActivity
-import com.weimu.universalview.core.recyclerview.decoration.LinearItemDecoration
-import com.weimu.universalview.helper.security.AESHelper
-import com.weimu.universalview.ktx.*
+import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
+import com.pmm.ui.helper.security.AESHelper
+import com.pmm.ui.ktx.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
 

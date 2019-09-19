@@ -3,8 +3,8 @@ package com.weimu.app.universalview.base
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.weimu.universalview.core.activity.BaseActivity
-import com.weimu.universalview.core.architecture.mvp.BaseView
+import com.pmm.ui.core.activity.BaseActivity
+import com.pmm.ui.core.architecture.mvp.BaseView
 
 /**
  * Author:你需要一台永动机

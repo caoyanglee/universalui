@@ -10,9 +10,9 @@ import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.java.pattern.PatternActivity
 import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
-import com.weimu.universalview.ktx.init
-import com.weimu.universalview.ktx.setOnClickListenerPro
-import com.weimu.universalview.ktx.visible
+import com.pmm.ui.ktx.init
+import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.visible
 import kotlinx.android.synthetic.main.activity_java.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
 

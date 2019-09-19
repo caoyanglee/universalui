@@ -8,10 +8,9 @@ import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.FragmentActivity
 import com.orhanobut.logger.Logger
-import com.weimu.app.universalview.R
 import com.weimu.app.universalview.module.test.TestActivity
-import com.weimu.universalview.core.fragment.BaseFragment
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.pmm.ui.core.fragment.BaseFragment
+import com.pmm.ui.ktx.setOnClickListenerPro
 
 /**
  * Author:你需要一台永动机

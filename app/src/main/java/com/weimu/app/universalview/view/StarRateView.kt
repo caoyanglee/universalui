@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.weimu.app.universalview.R
-import com.weimu.universalview.ktx.dip2px
-import com.weimu.universalview.ktx.setMargins
-import com.weimu.universalview.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.dip2px
+import com.pmm.ui.ktx.setMargins
+import com.pmm.ui.ktx.setOnClickListenerPro
 import kotlin.properties.Delegates
 
 /**

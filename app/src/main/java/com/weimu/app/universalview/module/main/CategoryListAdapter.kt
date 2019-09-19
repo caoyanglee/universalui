@@ -2,9 +2,9 @@ package com.weimu.app.universalview.module.main
 
 import android.content.Context
 import com.weimu.app.universalview.R
-import com.weimu.universalview.core.BaseB
-import com.weimu.universalview.core.recyclerview.BaseRecyclerAdapter
-import com.weimu.universalview.core.recyclerview.BaseRecyclerViewHolder
+import com.pmm.ui.core.BaseB
+import com.pmm.ui.core.recyclerview.BaseRecyclerAdapter
+import com.pmm.ui.core.recyclerview.BaseRecyclerViewHolder
 import kotlinx.android.synthetic.main.list_item_main_category.view.*
 
 /**
