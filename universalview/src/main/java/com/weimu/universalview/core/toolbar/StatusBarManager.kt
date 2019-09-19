@@ -19,27 +19,31 @@ object StatusBarManager {
     /**
      * 修改状态栏为全透明
      */
-    fun setTransparencyBar(window: Window) {
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.TRANSPARENT
+    fun setTransparencyBar(window: Window?) {
+        window?.apply {
+            this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            this.statusBarColor = Color.TRANSPARENT
+        }
     }
 
     /**
      * 设置状态栏的背景颜色
      */
-    fun setColor(window: Window, @ColorInt color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = color
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = color
+    fun setColor(window: Window?, @ColorInt color: Int) {
+        window?.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                this.statusBarColor = color
+            } else {
+                this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                this.statusBarColor = color
+            }
         }
     }
 
@@ -50,8 +54,9 @@ object StatusBarManager {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    fun setLightMode(window: Window, isFullScreen: Boolean = false): Int {
+    fun setLightMode(window: Window?, isFullScreen: Boolean = false): Int {
         var result = 0
+        if (window == null) return 0
         if (MIUISetStatusBarLightMode(window, true, isFullScreen)) {
             result = 1
         } else if (FlymeSetStatusBarLightMode(window, true, isFullScreen)) {
@@ -134,7 +139,7 @@ object StatusBarManager {
      * @param dark     是否把状态栏文字及图标颜色设置为深色
      * @return boolean 成功执行返回true
      */
-    private fun MIUISetStatusBarLightMode(window: Window, dark: Boolean, isFullScreen: Boolean): Boolean {
+    private fun MIUISetStatusBarLightMode(window: Window?, dark: Boolean, isFullScreen: Boolean): Boolean {
         var result = false
         if (window != null) {
             val clazz = window.javaClass

@@ -68,7 +68,8 @@ abstract class BaseDialog : DialogFragment() {
     }
 
     @Deprecated("尽量使用 onViewCreated 可以直接用kotlin特性引用视图")
-    protected open fun onViewChange(contentView: View) {}
+    protected open fun onViewChange(contentView: View) {
+    }
 
     //使用Fragment
     fun show(fragment: Fragment): BaseDialog {
@@ -94,14 +95,15 @@ abstract class BaseDialog : DialogFragment() {
 
 
     //屏蔽DialogFragment的方法
-    final override fun show(manager: FragmentManager?, tag: String?) {
+    final override fun show(manager: FragmentManager, tag: String?) {
         super.show(manager, tag)
     }
 
     //屏蔽DialogFragment的方法
-    final override fun show(transaction: FragmentTransaction?, tag: String?): Int {
+    final override fun show(transaction: FragmentTransaction, tag: String?): Int {
         return super.show(transaction, tag)
     }
+
 
     interface OnDialogButtonListener {
         fun onPositive(dialog: BaseDialog)
@@ -130,12 +132,12 @@ abstract class BaseDialog : DialogFragment() {
     }
 
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         onDialogActionListener?.onCancel()
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
+    override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDialogActionListener?.onDismiss()
     }

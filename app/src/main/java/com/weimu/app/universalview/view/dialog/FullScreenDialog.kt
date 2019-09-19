@@ -35,8 +35,8 @@ class FullScreenDialog : BaseDialog() {
     }
 
     private fun initViews() {
-        StatusBarManager.setColor(dialog.window, Color.WHITE)
-        StatusBarManager.setLightMode(dialog.window)
+        StatusBarManager.setColor(dialog?.window, Color.WHITE)
+        StatusBarManager.setLightMode(dialog?.window)
 
         mToolbar.with(activity).apply {
             toolbarHeight = 0

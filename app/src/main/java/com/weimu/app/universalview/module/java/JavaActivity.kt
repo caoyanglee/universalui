@@ -10,8 +10,6 @@ import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.java.pattern.PatternActivity
 import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
-import com.weimu.universalview.core.toolbar.StatusBarManager
-import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.init
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import com.weimu.universalview.ktx.visible

@@ -36,7 +36,8 @@ abstract class BaseFragment : Fragment(), BaseView {
     @LayoutRes
     protected open fun getLayoutResID(): Int = -1
 
-    override fun onAttach(context: Context?) {
+
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         this.mActivity = context as AppCompatActivity
     }

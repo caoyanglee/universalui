@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.weimu.universalview.core.toolbar.ToolBarManager
 import com.weimu.universalview.ktx.setOnClickListenerPro
 import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
