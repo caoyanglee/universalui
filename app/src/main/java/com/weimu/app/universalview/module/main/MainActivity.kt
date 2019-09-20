@@ -37,18 +37,9 @@ class MainActivity : BaseViewActivity() {
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
         toast("欢迎来到通用UI库")
 
-
-        tvTitle.click{}
-
-        tvTitle.clickDouble(
-                singleClick = {
-                    toast("呵呵哒")
-                },
-                doubleClick = {
-                    openActivity<TestActivity>()
-                })
-
-        tvTitle.clickDouble({}, {})
+        tvTitle.click {
+            openActivity<TestActivity>()
+        }
 
         initRecy()
 
