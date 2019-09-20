@@ -50,18 +50,14 @@ dependencies {
     //event bus
     compile 'org.greenrobot:eventbus:3.1.1'
     //RxJava RxAndroid
-    compile 'io.reactivex.rxjava2:rxjava:2.1.14'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.16'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
     //LifeCircle
     compile 'android.arch.lifecycle:extensions:1.1.1'
-    //multidex
-    compile 'com.android.support:multidex:1.0.3'
-    //log
-    compile 'com.orhanobut:logger:2.2.0'
     //permission
     compile 'com.github.tbruyelle:rxpermissions:0.10.2'
     //glide
-    compile 'com.github.bumptech.glide:glide:4.8.0'
+    compile 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     //dialog
     compile 'com.afollestad.material-dialogs:core:0.9.6.0'
