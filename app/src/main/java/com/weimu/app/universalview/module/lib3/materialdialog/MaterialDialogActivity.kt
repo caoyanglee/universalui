@@ -21,30 +21,30 @@ class MaterialDialogActivity : BaseViewActivity() {
     override fun afterViewAttach(savedInstanceState: Bundle?) {
 
         //进度条
-        mBtn1.setOnClickListenerPro {
+        mBtn1.click {
             ProgressDialog.show(this, cancelable = true)
         }
         //日期选择呢器
-        mBtn2.setOnClickListenerPro {
+        mBtn2.click {
             showDatePicker { year, month, dayOfMonth ->
                 toast("$year-$month-$dayOfMonth")
             }
         }
         //时间选择器
-        mBtn3.setOnClickListenerPro {
+        mBtn3.click {
             showTimePicker { hourOfDay, minute ->
                 toast("$hourOfDay:$minute")
             }
         }
         //确认选择器
-        mBtn4.setOnClickListenerPro {
+        mBtn4.click {
             showConfirmDialog {
                 toast("确定成功")
             }
         }
 
         //列表选择器
-        mBtn5.setOnClickListenerPro {
+        mBtn5.click {
             showListPicker(
                     title = "性别",
                     items = *arrayOf("男", "女"),

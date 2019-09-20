@@ -147,7 +147,7 @@ fun EditText.addClearView(clearView: View? = null, keyWordListener: ((keyWord: S
         }
     })
 
-    clearView?.setOnClickListenerPro {
+    clearView?.click {
         this.clearContent()
     }
 }

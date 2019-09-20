@@ -7,7 +7,7 @@ import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.pmm.ui.core.dialog.ProgressDialog
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import com.pmm.ui.ktx.toast
 import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
@@ -30,7 +30,7 @@ class CoroutineActivity : BaseViewActivity() {
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         mToolBar.with(this)
                 .centerTitle { this.text = "协程" }
-                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
+                .navigationIcon { this.click { onBackPressed() } }
 
 
 

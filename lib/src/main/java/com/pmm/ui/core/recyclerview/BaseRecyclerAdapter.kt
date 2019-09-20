@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 
 /**
  * @project KotLinProject
@@ -204,7 +204,7 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
                 val index = position - (headViewSize + emptyViewSize + errorViewSize)
 
                 //单点
-                holder.itemView.setOnClickListenerPro {
+                holder.itemView.click {
                     onItemClick?.invoke(getItem(index), index)
                 }
                 //长按
@@ -220,7 +220,7 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
                 }
             }
             TYPE_FOOT -> {
-                holder.itemView.setOnClickListenerPro {
+                holder.itemView.click {
                     onFooterClick?.invoke()
                 }
                 footerViewChange(holder)

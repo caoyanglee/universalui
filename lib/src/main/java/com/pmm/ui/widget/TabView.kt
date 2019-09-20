@@ -59,6 +59,7 @@ class TabView : LinearLayoutCompat {
     private var textSize = 10f
 
     var onTabClick: ((position: Int) -> Unit)? = null
+    var onTabReClick: ((position: Int) -> Unit)? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -117,10 +118,13 @@ class TabView : LinearLayoutCompat {
         return FrameLayout(context).apply {
             this.layoutTransition = LayoutTransition()//布局动画
             this.layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
-            this.setOnClickListenerPro {
+            this.clickDouble({
                 this@TabView.position = position
                 onTabClick?.invoke(position)
-            }
+            }, {
+                this@TabView.position = position
+                onTabReClick?.invoke(position)
+            })
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 this.foreground = context.getRippleBorderLess()
             }

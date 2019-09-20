@@ -10,7 +10,7 @@ import com.pmm.ui.interfaces.MyViewPagerChangeListener
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.getColorPro
 import com.pmm.ui.ktx.setMargins
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 
 /**
  * Author:你需要一台永动机
@@ -107,7 +107,7 @@ class TextTabLayout : LinearLayoutCompat {
             setMargins(if (position == 0) 0 else context.dip2px(20f), 0, 0, 0)
         }
 
-        setOnClickListenerPro {
+        click {
             currentIndex = position
             viewPager?.currentItem = currentIndex
             onTabClickListener?.invoke(position, title)

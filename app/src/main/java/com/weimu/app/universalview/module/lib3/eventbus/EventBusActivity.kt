@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.weimu.app.universalview.R
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import kotlinx.android.synthetic.main.activity_event_bus.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -27,7 +27,7 @@ class EventBusActivity : AppCompatActivity() {
 
         mToolbar.with(this)
                 .centerTitle { this.text = "EventBusActivity" }
-                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
+                .navigationIcon { this.click { onBackPressed() } }
 
 
         btn_next.setOnClickListener {

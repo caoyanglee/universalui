@@ -8,7 +8,7 @@ import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.pmm.ui.core.pager.BaseFragmentPagerAdapter
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
 class ViewPagerActivity : BaseViewActivity() {
@@ -24,7 +24,7 @@ class ViewPagerActivity : BaseViewActivity() {
                 .centerTitle {
                     this.text = "ViewPager"
                 }.navigationIcon {
-                    this.setOnClickListenerPro { onBackPressed() }
+                    this.click { onBackPressed() }
                 }
 
 

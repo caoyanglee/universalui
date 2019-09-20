@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import kotlinx.android.synthetic.main.activity_pattern.*
 import java.util.regex.Pattern
 
@@ -32,7 +32,7 @@ class PatternActivity : BaseViewActivity() {
     private fun initViews() {
         mToolBar.with(this)
                 .navigationIcon {
-                    this.setOnClickListenerPro { onBackPressed() }
+                    this.click { onBackPressed() }
                 }
                 .centerTitle {
                     this.text = "正则表达式"

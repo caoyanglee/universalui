@@ -2,7 +2,7 @@ package com.weimu.app.universalview.module.test
 
 import android.app.Activity
 import android.os.Bundle
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import kotlinx.android.synthetic.main.activity_test.*
@@ -21,7 +21,7 @@ class TestActivity : BaseViewActivity() {
 //            ClassLoader.getSystemClassLoader()
 //        }
 
-        mBtn1.setOnClickListenerPro {
+        mBtn1.click {
             setResult(Activity.RESULT_OK)
             onBackPressed()
         }

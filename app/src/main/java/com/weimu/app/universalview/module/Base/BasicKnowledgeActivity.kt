@@ -8,7 +8,7 @@ import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
 import com.pmm.ui.ktx.init
 import com.pmm.ui.ktx.openActivity
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import kotlinx.android.synthetic.main.activity_universal_list.*
 import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 
@@ -27,7 +27,7 @@ class BasicKnowledgeActivity : BaseViewActivity() {
                 .centerTitle {
                     this.text = "基础知识"
                 }.navigationIcon {
-                    this.setOnClickListenerPro { onBackPressed() }
+                    this.click { onBackPressed() }
                 }
 
         recyclerView.init()

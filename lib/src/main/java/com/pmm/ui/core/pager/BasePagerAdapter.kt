@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 
 /**
  * 加载View视图
@@ -34,7 +34,7 @@ abstract class BasePagerAdapter<T>(var mContext: Context) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         return LayoutInflater.from(mContext).inflate(getItemLayoutRes(), container, false).apply {
             container.addView(this)//添加页卡
-            this?.setOnClickListenerPro { onItemClickListener?.invoke(getItem(position), position) }
+            this?.click { onItemClickListener?.invoke(getItem(position), position) }
             itemViewChange(this, position)
         }
     }

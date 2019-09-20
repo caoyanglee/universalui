@@ -5,7 +5,7 @@ import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.pmm.ui.ktx.clearAllCache
 import com.pmm.ui.ktx.getTotalCacheSize
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import kotlinx.android.synthetic.main.activity_cache.*
 
 class CacheActivity : BaseViewActivity() {
@@ -19,11 +19,11 @@ class CacheActivity : BaseViewActivity() {
                 .centerTitle {
                     this.text = "缓存"
                 }.navigationIcon {
-                    this.setOnClickListenerPro { onBackPressed() }
+                    this.click { onBackPressed() }
                 }
 
         tv_cache.text = getTotalCacheSize()
-        tv_cache.setOnClickListenerPro {
+        tv_cache.click {
             clearAllCache()
         }
     }

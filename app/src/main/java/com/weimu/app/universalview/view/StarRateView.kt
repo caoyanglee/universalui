@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.weimu.app.universalview.R
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.setMargins
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import kotlin.properties.Delegates
 
 /**
@@ -81,7 +81,7 @@ class StarRateView : LinearLayout {
         this.setImageDrawable(starHalf)
         this.setMargins(leftMargin, 0, 0, 0)
         if (isCanClick)
-            this.setOnClickListenerPro {
+            this.click {
                 rateValue = index
             }
     }

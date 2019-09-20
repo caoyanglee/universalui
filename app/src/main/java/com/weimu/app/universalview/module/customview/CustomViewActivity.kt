@@ -2,7 +2,7 @@ package com.weimu.app.universalview.module.customview
 
 import android.os.Bundle
 import com.pmm.ui.ktx.init
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.weimu.app.universalview.module.main.CategoryB
@@ -21,7 +21,7 @@ class CustomViewActivity : BaseViewActivity() {
         mToolbar.with(this).centerTitle {
             this.text = "自定义视图"
         }.navigationIcon {
-            this.setOnClickListenerPro { onBackPressed() }
+            this.click { onBackPressed() }
         }
 
         recyclerView.init()

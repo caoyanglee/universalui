@@ -11,7 +11,7 @@ import com.weimu.app.universalview.module.java.pattern.PatternActivity
 import com.weimu.app.universalview.module.main.CategoryB
 import com.weimu.app.universalview.module.main.CategoryListAdapter
 import com.pmm.ui.ktx.init
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import com.pmm.ui.ktx.visible
 import kotlinx.android.synthetic.main.activity_java.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
@@ -36,7 +36,7 @@ class JavaActivity : BaseViewActivity() {
         mToolBar.with(this)
                 .navigationIcon {
                     this.setImageResource(R.drawable.universal_arrow_back_white)
-                    this.setOnClickListenerPro { onBackPressed() }
+                    this.click { onBackPressed() }
                 }
                 .centerTitle {
                     this.text = "Java"

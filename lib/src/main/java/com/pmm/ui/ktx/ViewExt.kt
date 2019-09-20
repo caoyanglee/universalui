@@ -8,8 +8,77 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.reactivex.Observable
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+
+/**
+ * 单击 单参
+ */
+
+inline fun View.click(crossinline click: ((View) -> Unit)) {
+    this.click(click, 600)
+}
+
+/**
+ * 单击 双参
+ */
+inline fun View.click(crossinline click: ((View) -> Unit), delay: Long = 600) {
+    var isSingleClick = false//是否正在处理事件
+    this.setOnClickListener {
+        MainScope().launch {
+            if (isSingleClick) return@launch
+            click.invoke(this@click)
+            isSingleClick = true
+            delay(delay)
+            isSingleClick = false
+        }
+    }
+}
+
+/**
+ * 长按
+ */
+inline fun View.clickLong(crossinline longClick: ((View) -> Unit)) {
+    this.setOnLongClickListener {
+        longClick.invoke(this@clickLong)
+        true
+    }
+}
+
+
+/**
+ * 双击
+ */
+inline fun View.clickDouble(crossinline singleClick: () -> Unit, crossinline doubleClick: () -> Unit, delay: Long = 1000) {
+    var lastClickTime: Long = 0
+    var isSingleClick = false//是否已经单击
+    var isDoubleClick = false//是否已经双击
+    this.setOnClickListener {
+        val curTime = System.currentTimeMillis()
+        if (curTime - lastClickTime > delay) {
+            if (isSingleClick) return@setOnClickListener
+            isSingleClick = true
+            singleClick.invoke()
+            lastClickTime = System.currentTimeMillis()
+            MainScope().launch {
+                delay(300)
+                isSingleClick = false
+            }
+        } else {
+            MainScope().launch {
+                if (isDoubleClick) return@launch
+                isDoubleClick = true
+                doubleClick.invoke()
+                delay(301)
+                isSingleClick = false
+                lastClickTime = 0
+                isDoubleClick = false
+            }
+        }
+    }
+}
 
 
 //设置宽度和高度
@@ -45,14 +114,14 @@ fun View.setMargins(l: Int? = null, t: Int? = null, r: Int? = null, b: Int? = nu
 
 
 //请求获取焦点
-fun View.requestFocus() {
+fun View.focus() {
     this.isFocusable = true
     this.isFocusableInTouchMode = true
     this.requestFocus()
 }
 
 //请求去除焦点
-fun View.clearFocus(view: View) {
+fun View.unFocus(view: View) {
     view.isFocusable = false
     view.isFocusableInTouchMode = false
     view.clearFocus()
@@ -62,29 +131,6 @@ fun View.clearFocus(view: View) {
 fun ViewGroup.inflate(layoutRes: Int): View = LayoutInflater.from(context).inflate(layoutRes, this, false)
 
 fun Context.inflate(layoutRes: Int): View = LayoutInflater.from(this).inflate(layoutRes, null, false)
-
-//防止重复点击1
-fun View.setOnClickListenerPro(singleClick: View.OnClickListener) {
-    var isDoing = false//是否正在处理事件
-    this.setOnClickListener {
-        if (isDoing) return@setOnClickListener
-        singleClick.onClick(this)
-        isDoing = true
-        Observable.timer(600, TimeUnit.MILLISECONDS).subscribe { isDoing = false }
-    }
-}
-
-
-//防止重复点击2
-fun View.setOnClickListenerPro(onclick: ((View) -> Unit)?) {
-    var isDoing = false//是否正在处理事件
-    this.setOnClickListener {
-        if (isDoing) return@setOnClickListener
-        onclick?.invoke(this)
-        isDoing = true
-        Observable.timer(600, TimeUnit.MILLISECONDS).subscribe { isDoing = false }
-    }
-}
 
 //获取当前视图对应的Bitmap
 @Deprecated("图片超过屏幕时会crash @see View.screenShot()")

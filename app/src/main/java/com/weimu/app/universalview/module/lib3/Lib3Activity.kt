@@ -12,7 +12,7 @@ import com.weimu.app.universalview.module.main.CategoryListAdapter
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.init
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import kotlinx.android.synthetic.main.activity_universal_list.*
 import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 
@@ -34,7 +34,7 @@ class Lib3Activity : BaseViewActivity() {
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         mToolbar.with(this)
                 .centerTitle { this.text = "实用第三方库" }
-                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
+                .navigationIcon { this.click { onBackPressed() } }
         initRecy()
     }
 

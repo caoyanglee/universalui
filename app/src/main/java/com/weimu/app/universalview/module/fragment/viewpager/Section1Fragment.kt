@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.module.test.TestActivity
 import com.pmm.ui.core.fragment.BaseFragment
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 
 /**
  * Author:你需要一台永动机
@@ -37,7 +37,7 @@ class Section1Fragment : BaseFragment() {
             this.text = "测试fragment1"
             this.textSize = 30f
             this.setTextColor(Color.BLACK)
-            this.setOnClickListenerPro {
+            this.click {
                 startActivityForResult(Intent(context, TestActivity::class.java), 1)
             }
 

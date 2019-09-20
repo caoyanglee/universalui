@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.weimu.app.universalview.base.BaseViewActivity
 import com.pmm.ui.ktx.getContent
-import com.pmm.ui.ktx.setOnClickListenerPro
+import com.pmm.ui.ktx.click
 import com.pmm.ui.ktx.toast
 import kotlinx.android.synthetic.main.activity_event_bus_sec.*
 import org.greenrobot.eventbus.EventBus
@@ -16,7 +16,7 @@ class EventBusSecActivity : BaseViewActivity() {
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         mToolbar.with(this)
                 .centerTitle { this.text = "EventBusSecActivity" }
-                .navigationIcon { this.setOnClickListenerPro { onBackPressed() } }
+                .navigationIcon { this.click { onBackPressed() } }
 
 
         btn_send.setOnClickListener {

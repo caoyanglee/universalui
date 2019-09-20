@@ -85,7 +85,7 @@ class ToolBarPro : ViewGroup {
                 this.foreground = context.getRippleBorderLess()
             }
             setImageDrawable(GlobalConfig.navigationDrawable)
-            this.setOnClickListenerPro {
+            this.click {
                 activityReference?.get()?.onBackPressed()
             }
         }
