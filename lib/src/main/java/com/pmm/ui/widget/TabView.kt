@@ -118,13 +118,14 @@ class TabView : LinearLayoutCompat {
         return FrameLayout(context).apply {
             this.layoutTransition = LayoutTransition()//布局动画
             this.layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
-            this.clickDouble({
-                this@TabView.position = position
-                onTabClick?.invoke(position)
-            }, {
-                this@TabView.position = position
-                onTabReClick?.invoke(position)
-            })
+            this.setOnClickListener {
+                if (this@TabView.position != position) {
+                    this@TabView.position = position
+                    onTabClick?.invoke(position)
+                } else {
+                    onTabReClick?.invoke(position)
+                }
+            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 this.foreground = context.getRippleBorderLess()
             }
