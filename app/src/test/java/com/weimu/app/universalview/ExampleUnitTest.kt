@@ -1,6 +1,6 @@
 package com.weimu.app.universalview
 
-import com.weimu.universalview.ktx.leftDecimal
+import com.pmm.ui.ktx.toCommaString
 import org.junit.Test
 
 /**
@@ -11,10 +11,8 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        val a = 2.345
-        val b = a.leftDecimal(2)
-        print(b)//2.34
-    }
+        print(11231233120.02.toCommaString(2))
 
+    }
 
 }
