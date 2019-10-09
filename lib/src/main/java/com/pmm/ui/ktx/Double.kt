@@ -28,7 +28,6 @@ import java.text.DecimalFormat
  * e，指数类型。如9.38e+5。
  * g，浮点数型（比%f，%a长度短些，显示6位有效数字，且会进行四舍五入）
  */
-
 fun Double?.toString(decimalsNum: Int): String {
     if (decimalsNum < 0) return "$this"
     return String.format("%.${decimalsNum}f", this)
@@ -36,9 +35,10 @@ fun Double?.toString(decimalsNum: Int): String {
 
 /**
  * 增加逗号
+ * DecimalFormat 类主要靠 # 和 0 两种占位符号来指定数字长度。0 表示如果位数不足则以 0 填充，# 表示只要有可能就把数字拉上这个位置
  */
 fun Double?.toCommaString(decimalsNum: Int = 0): String {
-    val format = StringBuilder("#,###")
+    val format = StringBuilder(",##0")
     if (decimalsNum > 0) {
         format.append(".")
         repeat(decimalsNum) {
