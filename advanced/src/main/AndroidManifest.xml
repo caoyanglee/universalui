@@ -1,2 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pmm.demo.advanced" />
+    package="com.pmm.demo.advanced">
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <activity android:name=".binder.CalcActivity"></activity>
+
+        <service android:name=".binder.CalcService">
+            <intent-filter>
+                <action android:name="com.pmm.demo.aidl.calc" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
