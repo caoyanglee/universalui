@@ -5,7 +5,8 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".binder.CalcActivity"></activity>
+        <activity android:name=".AndroidAdvanced"></activity>
+        <activity android:name=".binder.CalcActivity" />
 
         <service android:name=".binder.CalcService">
             <intent-filter>

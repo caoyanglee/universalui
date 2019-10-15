@@ -7,10 +7,7 @@
     android:orientation="vertical"
     tools:context="com.pmm.demo.module.fragment.viewpager.ViewPagerActivity">
 
-    <com.pmm.ui.widget.ToolBarPro
-        android:id="@+id/mToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/base_include_toolbar"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

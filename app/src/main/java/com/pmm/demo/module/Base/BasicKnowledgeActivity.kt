@@ -4,12 +4,11 @@ import android.os.Bundle
 import com.weimu.app.universalview.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.module.fragment.viewpager.ViewPagerActivity
-import com.pmm.demo.module.main.CategoryB
-import com.pmm.demo.module.main.CategoryListAdapter
+import com.pmm.demo.base.CategoryB
+import com.pmm.demo.base.CategoryListAdapter
+import com.pmm.demo.base.initToolBar
 import com.pmm.ui.ktx.init
 import com.pmm.ui.ktx.openActivity
-import com.pmm.ui.ktx.click
-import kotlinx.android.synthetic.main.activity_universal_list.*
 import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 
 /**
@@ -22,13 +21,7 @@ class BasicKnowledgeActivity : BaseViewActivity() {
     override fun getLayoutResID(): Int = R.layout.activity_universal_list
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-
-        mToolbar.with(this)
-                .centerTitle {
-                    this.text = "基础知识"
-                }.navigationIcon {
-                    this.click { onBackPressed() }
-                }
+        initToolBar("基础知识")
 
         recyclerView.init()
         recyclerView.adapter = adapter

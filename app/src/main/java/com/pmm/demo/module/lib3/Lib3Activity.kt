@@ -7,13 +7,12 @@ import com.weimu.app.universalview.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.module.lib3.eventbus.EventBusActivity
 import com.pmm.demo.module.lib3.materialdialog.MaterialDialogActivity
-import com.pmm.demo.module.main.CategoryB
-import com.pmm.demo.module.main.CategoryListAdapter
+import com.pmm.demo.base.CategoryB
+import com.pmm.demo.base.CategoryListAdapter
+import com.pmm.demo.base.initToolBar
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.init
-import com.pmm.ui.ktx.click
-import kotlinx.android.synthetic.main.activity_universal_list.*
 import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 
 class Lib3Activity : BaseViewActivity() {
@@ -32,9 +31,7 @@ class Lib3Activity : BaseViewActivity() {
 
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        mToolbar.with(this)
-                .centerTitle { this.text = "实用第三方库" }
-                .navigationIcon { this.click { onBackPressed() } }
+        initToolBar("实用第三方库")
         initRecy()
     }
 

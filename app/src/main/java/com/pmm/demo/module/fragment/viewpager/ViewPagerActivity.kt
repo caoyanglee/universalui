@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.initToolBar
 import com.pmm.ui.core.pager.BaseFragmentPagerAdapter
 import com.pmm.ui.interfaces.MyViewPagerChangeListener
-import com.pmm.ui.ktx.click
 import com.pmm.ui.ktx.toast
 import com.pmm.ui.widget.TabView
 import kotlinx.android.synthetic.main.activity_view_pager.*
@@ -23,12 +23,7 @@ class ViewPagerActivity : BaseViewActivity() {
     }
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        mToolbar.with(this)
-                .centerTitle {
-                    this.text = "ViewPager"
-                }.navigationIcon {
-                    this.click { onBackPressed() }
-                }
+        initToolBar("ViewPager")
 
         viewpager.adapter = BaseFragmentPagerAdapter(supportFragmentManager).apply {
             val fragments = arrayListOf<Fragment>()

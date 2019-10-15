@@ -1,11 +1,10 @@
-package com.pmm.demo.module.main
+package com.pmm.demo.base
 
 import android.content.Context
-import com.weimu.app.universalview.R
 import com.pmm.ui.core.BaseB
 import com.pmm.ui.core.recyclerview.BaseRecyclerAdapter
 import com.pmm.ui.core.recyclerview.BaseRecyclerViewHolder
-import kotlinx.android.synthetic.main.list_item_main_category.view.*
+import kotlinx.android.synthetic.main.base_list_item_main_category.view.*
 
 /**
  * Author:你需要一台永动机
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.list_item_main_category.view.*
  */
 class CategoryListAdapter(mContext: Context) : BaseRecyclerAdapter<BaseB, CategoryB>(mContext) {
 
-    override fun getItemLayoutRes() = R.layout.list_item_main_category
+    override fun getItemLayoutRes() = R.layout.base_list_item_main_category
 
     override fun itemViewChange(holder: BaseRecyclerViewHolder, position: Int) {
         val item = getItem(position)

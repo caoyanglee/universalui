@@ -6,6 +6,7 @@ import androidx.multidex.MultiDex
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
+import com.pmm.metro.Metro
 import com.pmm.ui.OriginAppData
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.getColorPro
@@ -36,6 +37,9 @@ class AppData : OriginAppData() {
         context = this
         initLogger() //日志
         initAppBarConfig()
+
+        //路由
+        Metro.init(this)
     }
 
     override fun attachBaseContext(base: Context?) {

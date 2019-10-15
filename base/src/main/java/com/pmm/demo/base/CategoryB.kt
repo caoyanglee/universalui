@@ -1,4 +1,4 @@
-package com.pmm.demo.module.main
+package com.pmm.demo.base
 
 import com.pmm.ui.core.BaseB
 

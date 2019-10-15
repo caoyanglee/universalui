@@ -1,27 +1,25 @@
-package com.pmm.demo.module.kotlin
+package com.pmm.demo.advanced
 
 import android.os.Bundle
-import com.weimu.app.universalview.R
 import com.pmm.demo.base.BaseViewActivity
-import com.pmm.demo.base.initToolBar
-import com.pmm.demo.module.kotlin.coroutines.CoroutineActivity
 import com.pmm.demo.base.CategoryB
 import com.pmm.demo.base.CategoryListAdapter
+import com.pmm.demo.base.initToolBar
+import com.pmm.metro.Metro
+import com.pmm.metro.Station
 import com.pmm.ui.ktx.init
-import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
+import kotlinx.android.synthetic.main.activity_android_advanced.*
 
-/**
- * kotlin的一些基础Demo
- */
-class KotlinActivity : BaseViewActivity() {
+@Station("/android/advanced")
+class AndroidAdvanced : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
     private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
 
-    override fun getLayoutResID() = R.layout.activity_universal_list
+    override fun getLayoutResID() = R.layout.activity_android_advanced
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        initToolBar("Kotlin")
+        initToolBar()
         initRecy()
     }
 
@@ -30,8 +28,9 @@ class KotlinActivity : BaseViewActivity() {
         adapter.onItemClick = { item, position ->
             when (position) {
                 0 -> {
-                    //协程
-                    startActivity(CoroutineActivity.newIntent(this))
+                    Metro.with(this).path("/android/advanced/binder")
+                            .attribute("title", item.primaryTitle)
+                            .go()
                 }
             }
         }
@@ -40,7 +39,7 @@ class KotlinActivity : BaseViewActivity() {
 
 
 
-        category.add(CategoryB("协程", "异步处理"))
+        category.add(CategoryB("Android Binder机制", "Service的调用"))
 
         adapter.setDataToAdapter(category)
     }

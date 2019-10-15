@@ -6,12 +6,15 @@ import android.os.Bundle
 import com.orhanobut.logger.Logger
 import com.weimu.app.universalview.R
 import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.CategoryB
+import com.pmm.demo.base.CategoryListAdapter
 import com.pmm.demo.module.Base.BasicKnowledgeActivity
 import com.pmm.demo.module.datapersistence.DataPersistenceActivity
 import com.pmm.demo.module.java.JavaActivity
 import com.pmm.demo.module.kotlin.KotlinActivity
 import com.pmm.demo.module.lib3.Lib3Activity
 import com.pmm.demo.module.test.TestActivity
+import com.pmm.metro.Metro
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
 import com.pmm.ui.helper.security.AESHelper
 import com.pmm.ui.ktx.*
@@ -57,6 +60,11 @@ class MainActivity : BaseViewActivity() {
                 "Android基础" -> {
                     openActivity<BasicKnowledgeActivity>()
                 }
+                "Android进阶" -> {
+                    Metro.with(this).path("/android/advanced")
+                            .attribute("title", item.primaryTitle)
+                            .go()
+                }
                 "Java" -> {
                     //java
                     openActivity<JavaActivity>()
@@ -83,6 +91,7 @@ class MainActivity : BaseViewActivity() {
         ))
         recyclerView.setPadding(0, 0, 0, dip2px(16f))
         category.add(CategoryB("Android基础", "Android的一些基础Demo"))
+        category.add(CategoryB("Android进阶", "Android的一些进阶Demo"))
         category.add(CategoryB("Java", "Java的一些基础Demo"))
         category.add(CategoryB("Kotlin", "Kotlin的一些基础Demo"))
         category.add(CategoryB("RxJava", "RxJava的Demo集合"))
