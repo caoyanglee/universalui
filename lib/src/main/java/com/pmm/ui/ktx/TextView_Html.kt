@@ -100,7 +100,7 @@ class URLTagHandler(var imageClickListener: ((picUrl: String) -> Unit)? = null) 
             val imgURL = images[0].source
             // 使图片可点击并监听点击事件
             output.setSpan(MyClickSpan {
-                imageClickListener?.invoke(imgURL)
+                imageClickListener?.invoke(imgURL ?: "")
             }, len - 1, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }

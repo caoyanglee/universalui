@@ -148,15 +148,15 @@ class MyClickSpan(
         var isUnderLine: Boolean = false,
         var clickListener: ((widget: View?) -> Unit)? = null) : ClickableSpan() {
 
-    override fun onClick(widget: View?) {
+    override fun onClick(widget: View) {
         clickListener?.invoke(widget)//设置点击事件
     }
 
-    override fun updateDrawState(ds: TextPaint?) {
+    override fun updateDrawState(ds: TextPaint) {
         super.updateDrawState(ds)
-        ds?.apply {
-            isUnderlineText = isUnderLine//是否有下划线
-            if (dyeColor != null) color = dyeColor as Int//设置点击颜色
+        with(ds) {
+            this.isUnderlineText = isUnderLine//是否有下划线
+            if (dyeColor != null) this.color = dyeColor as Int//设置点击颜色
         }
     }
 }

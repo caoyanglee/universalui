@@ -38,7 +38,7 @@ class LinearItemDecoration(
             drawHorizontal(c, parent)
     }
 
-    private fun drawVertical(c: Canvas?, parent: RecyclerView?) {
+    private fun drawVertical(c: Canvas, parent: RecyclerView?) {
         val left: Int = parent?.paddingLeft!!
         val right: Int = parent.width - parent.paddingRight
         val itemCount = parent.adapter?.itemCount ?: 0
@@ -58,7 +58,7 @@ class LinearItemDecoration(
         }
     }
 
-    private fun drawHorizontal(c: Canvas?, parent: RecyclerView?) {
+    private fun drawHorizontal(c: Canvas, parent: RecyclerView?) {
         val top = parent?.paddingTop!!
         val bottom = parent.height - parent.paddingBottom
         val itemCount = parent.adapter?.itemCount ?: 0

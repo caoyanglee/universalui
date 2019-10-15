@@ -55,7 +55,7 @@ fun File.getFolderSize(): Long {
 fun Context.getTotalCacheSize(): String {
     var cacheSize = this.cacheDir.getFolderSize()
     if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-        cacheSize += this.externalCacheDir.getFolderSize()
+        cacheSize += this.externalCacheDir?.getFolderSize()?:0
     }
     return getFormatSize(cacheSize.toDouble())
 }
@@ -101,7 +101,7 @@ fun Context.clearAllCache() {
     this.cacheDir.deleteDir()
     //位置存储 缓存
     if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-        this.externalCacheDir.deleteDir()
+        this.externalCacheDir?.deleteDir()
     }
 }
 
