@@ -1,6 +1,5 @@
 package com.pmm.ui.core.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     private var isViewPagerShow = false//是否在viewpager显示
     private var isFirstShow = false//第一次显示
 
-    var isViewAttached = false //视图是否加载
+    var isViewCreated = false //视图是否加载
         private set//不允许进行设置
 
     protected open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
@@ -45,7 +44,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         afterViewAttachBaseViewAction(savedInstanceState)
         afterViewAttach(savedInstanceState)
-        isViewAttached = true
+        isViewCreated = true
         onViewPagerShow(isViewPagerShow)
         if (isViewPagerShow && !isFirstShow) {
             onViewPagerFirstShow()
@@ -68,7 +67,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     //FrameLayout的切换
     final override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!isViewAttached) return
+        if (!isViewCreated) return
         onFrameLayoutShow(!hidden)
     }
 
@@ -79,7 +78,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     final override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         isViewPagerShow = isVisibleToUser
-        if (!isViewAttached) return
+        if (!isViewCreated) return
         onViewPagerShow(isViewPagerShow)
         if (isViewPagerShow && !isFirstShow) {
             onViewPagerFirstShow()
@@ -95,7 +94,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        isViewAttached = false
+        isViewCreated = false
     }
 
 }
