@@ -22,6 +22,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     private var isFirstShow = false//第一次显示
 
     var isInit = false//Fragment是否已经初始化
+        private set
     var isViewAttached = false //视图是否加载
         private set//不允许进行设置
 
