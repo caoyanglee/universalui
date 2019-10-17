@@ -10,9 +10,11 @@ import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.base.initToolBar
 import com.pmm.ui.core.pager.BaseFragmentPagerAdapter
 import com.pmm.ui.interfaces.MyViewPagerChangeListener
+import com.pmm.ui.ktx.setDefaultItem
 import com.pmm.ui.ktx.toast
 import com.pmm.ui.widget.TabView
 import kotlinx.android.synthetic.main.activity_view_pager.*
+
 
 class ViewPagerActivity : BaseViewActivity() {
 
@@ -39,11 +41,13 @@ class ViewPagerActivity : BaseViewActivity() {
             }
 
         })
+        viewpager.setDefaultItem(2)
 
         mTabView.setData(
                 TabView.TabData("1"),
                 TabView.TabData("2"),
                 TabView.TabData("3"))
+        mTabView.position = 2
         mTabView.onTabClick = {
             viewpager.currentItem = it
         }
@@ -63,3 +67,4 @@ class ViewPagerActivity : BaseViewActivity() {
         """.trimIndent())
     }
 }
+

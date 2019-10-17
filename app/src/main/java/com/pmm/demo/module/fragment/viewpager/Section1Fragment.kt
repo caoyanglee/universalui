@@ -59,6 +59,11 @@ class Section1Fragment : BaseFragment() {
         """.trimIndent())
     }
 
+    override fun onViewPagerFirstShow() {
+        super.onViewPagerFirstShow()
+        Logger.d("Section1Fragment 0")
+    }
+
 
 }
 

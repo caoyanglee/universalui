@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.FragmentActivity
+import com.orhanobut.logger.Logger
 import com.pmm.ui.core.fragment.BaseFragment
 
 /**
@@ -40,5 +41,10 @@ class Section2Fragment : BaseFragment() {
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
 
+    }
+
+    override fun onViewPagerFirstShow() {
+        super.onViewPagerFirstShow()
+        Logger.d("Section1Fragment 1")
     }
 }
