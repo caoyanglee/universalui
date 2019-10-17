@@ -1,14 +1,14 @@
 package com.pmm.ui.ktx
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.ContextWrapper
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
+import com.afollestad.materialdialogs.datetime.dateTimePicker
+import com.afollestad.materialdialogs.datetime.timePicker
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.weimu.universalview.R
 import java.util.*
 
 /**
@@ -28,24 +28,23 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
                                        negativeCallBack: (() -> Unit)? = null) {
     fun showDialog() {
         if (content.isBlank()) return
-        MaterialDialog.Builder(this)
-                .cancelable(false)
-                .backgroundColor(ContextCompat.getColor(this, R.color.white))
-                .title("提示")
-                .content(content)
-                .positiveText("去开启")
-                .negativeText("知道了")
-                .onPositive { dialog, which ->
-                    if (positiveCallBack?.invoke() == true) return@onPositive
-                    this.requestPermission(
-                            permissions = *permissions,
-                            granted = granted,
-                            content = content
-                    )
-
-                }
-                .onNegative { dialog, which -> negativeCallBack?.invoke() }
-                .show()
+        MaterialDialog(this).show {
+            cancelable(false)
+            cornerRadius(4f)
+            title(text = "提示")
+            message(text = content)
+            positiveButton(text = "去开启") {
+                if (positiveCallBack?.invoke() == true) return@positiveButton
+                this@requestPermission.requestPermission(
+                        permissions = *permissions,
+                        granted = granted,
+                        content = content
+                )
+            }
+            negativeButton(text = "知道了") {
+                negativeCallBack?.invoke()
+            }
+        }
     }
 
     RxPermissions(this).request(*permissions)
@@ -69,20 +68,20 @@ fun ContextWrapper.showConfirmDialog(
         positiveStr: String = "确认",
         positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null
 ) {
-    MaterialDialog.Builder(this)
-            .title(title)
-            .content(content)
-            .positiveText(positiveStr)
-            .negativeText(negativeStr)
-            .onPositive { dialog, which ->
-                dialog.dismiss()
-                positiveCallBack?.invoke(dialog)
-            }
-            .onNegative { dialog, which ->
-                dialog.dismiss()
-                negativeCallBack?.invoke(dialog)
-            }
-            .show()
+    MaterialDialog(this).show {
+        cancelable(false)
+        cornerRadius(4f)
+        title(text = title)
+        message(text = content)
+        positiveButton(text = positiveStr) {
+            it.dismiss()
+            positiveCallBack?.invoke(it)
+        }
+        negativeButton(text = negativeStr) {
+            it.dismiss()
+            negativeCallBack?.invoke(it)
+        }
+    }
 }
 
 /**
@@ -91,18 +90,18 @@ fun ContextWrapper.showConfirmDialog(
  */
 fun ContextWrapper.showListPicker(
         title: String = "列表选择",
-        vararg items: String,
+        items: List<CharSequence>,
         selectedIndex: Int = 0,
         callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
 ) {
-    MaterialDialog.Builder(this)
-            .title(title)
-            .items(*items)
-            .itemsCallbackSingleChoice(selectedIndex) { dialog, itemView, which, text ->
-                dialog.dismiss()
-                callBack.invoke(dialog, which, text)
-                true
-            }.show()
+    MaterialDialog(this).show {
+        cornerRadius(4f)
+        listItemsSingleChoice(items = items, initialSelection = selectedIndex) { dialog, index, text ->
+            title(text = title)
+            dialog.dismiss()
+            callBack.invoke(dialog, index, text)
+        }
+    }
 }
 
 /**
@@ -110,11 +109,14 @@ fun ContextWrapper.showListPicker(
  * @param callBack 选择回调
  */
 fun ContextWrapper.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Unit)) {
-    val hourOfDayNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-    val minuteNow = Calendar.getInstance().get(Calendar.MINUTE)
-    TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-        callBack.invoke(hourOfDay, minute)
-    }, hourOfDayNow, minuteNow, true).show()
+    MaterialDialog(this).show {
+        cornerRadius(4f)
+        timePicker { dialog, datetime ->
+            val hourOfDay = datetime.get(Calendar.HOUR_OF_DAY)
+            val minute = datetime.get(Calendar.MINUTE)
+            callBack.invoke(hourOfDay, minute)
+        }
+    }
 }
 
 /**
@@ -122,12 +124,28 @@ fun ContextWrapper.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Un
  * @param callBack 选择回调
  */
 fun ContextWrapper.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int) -> Unit)) {
-    val yearNow = Calendar.getInstance().get(Calendar.YEAR)
-    val monthNow = Calendar.getInstance().get(Calendar.MONTH)
-    val dayOfMonthNow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+    MaterialDialog(this).show {
+        cornerRadius(4f)
+        datePicker { dialog, datetime ->
+            val year = Calendar.getInstance().get(Calendar.YEAR)
+            val month = Calendar.getInstance().get(Calendar.MONTH)
+            val dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            callBack.invoke(year, month + 1, dayOfMonth)
+        }
+    }
+}
 
-    DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-        callBack.invoke(year, month + 1, dayOfMonth)
-    }, yearNow, monthNow, dayOfMonthNow).show()
+fun ContextWrapper.showDateTimePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) -> Unit)) {
+    MaterialDialog(this).show {
+        cornerRadius(4f)
+        dateTimePicker { dialog, datetime ->
+            val year = Calendar.getInstance().get(Calendar.YEAR)
+            val month = Calendar.getInstance().get(Calendar.MONTH)
+            val dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            val hourOfDay = datetime.get(Calendar.HOUR_OF_DAY)
+            val minute = datetime.get(Calendar.MINUTE)
+            callBack.invoke(year, month + 1, dayOfMonth, hourOfDay, minute)
+        }
+    }
 }
 

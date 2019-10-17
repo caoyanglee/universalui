@@ -47,7 +47,7 @@ class MaterialDialogActivity : BaseViewActivity() {
         mBtn5.click {
             showListPicker(
                     title = "性别",
-                    items = *arrayOf("男", "女"),
+                    items = listOf("男", "女"),
                     callBack = { dialog, which, text ->
                         toast("位置=$which 文本=$text")
                     }
