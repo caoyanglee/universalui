@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.ViewPager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -239,6 +240,19 @@ fun View.isGone() = this.visibility == View.GONE
 
 //是否是显示状态 INVISIBLE
 fun View.isInvisible() = this.visibility == View.INVISIBLE
+
+//设置ViewPgaer的默认显示位置 通过反射 防止第一个Fragment加载
+fun ViewPager.setDefaultItem(item: Int = 0, smoothScroll: Boolean = true) {
+    try {
+        val c = Class.forName("androidx.viewpager.widget")
+        val field = c.getDeclaredField("mCurItem")
+        field.isAccessible = true
+        field.setInt(this, item)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    this.setCurrentItem(item, smoothScroll)
+}
 
 
 
