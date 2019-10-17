@@ -29,11 +29,6 @@ abstract class BaseFragment : Fragment(), BaseView {
     @LayoutRes
     protected open fun getLayoutResID(): Int = -1
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         beforeViewAttachBaseViewAction(savedInstanceState)
@@ -95,7 +90,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     //fragment 在ViewPager的隐藏显示
     open fun onViewPagerShow(show: Boolean) {}
 
-    //fragment 在啊ViewPager的第一次显示
+    //fragment 在ViewPager的第一次显示
     open fun onViewPagerFirstShow() {}
 
     override fun onDestroyView() {
