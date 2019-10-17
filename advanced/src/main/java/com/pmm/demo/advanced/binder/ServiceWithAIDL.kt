@@ -9,20 +9,33 @@ import com.pmm.demo.advanced.ICalcAIDL
 
 /**
  * Author:你需要一台永动机
- * Date:2019-10-15 11:19
- * Description:
+ * Date:2019-10-17 11:30
+ * Description: 使用AIDL的Service
  */
-class CalcService : Service() {
+class ServiceWithAIDL : Service() {
 
-    private val TAG = "server"
+    private val TAG = "ServiceWithAIDL"
 
-    override fun onCreate() {
-        Log.e(TAG, "onCreate")
+    private val mBinder = object : ICalcAIDL.Stub() {
+
+        @Throws(RemoteException::class)
+        override fun add(x: Int, y: Int): Int {
+            return x + y
+        }
+
+        @Throws(RemoteException::class)
+        override fun min(x: Int, y: Int): Int {
+            return x - y
+        }
     }
 
     override fun onBind(t: Intent): IBinder? {
         Log.e(TAG, "onBind")
         return mBinder
+    }
+
+    override fun onCreate() {
+        Log.e(TAG, "onCreate")
     }
 
     override fun onDestroy() {
@@ -38,20 +51,6 @@ class CalcService : Service() {
     override fun onRebind(intent: Intent) {
         Log.e(TAG, "onRebind")
         super.onRebind(intent)
-    }
-
-    private val mBinder = object : ICalcAIDL.Stub() {
-
-        @Throws(RemoteException::class)
-        override fun add(x: Int, y: Int): Int {
-            return x + y
-        }
-
-        @Throws(RemoteException::class)
-        override fun min(x: Int, y: Int): Int {
-            return x - y
-        }
-
     }
 
 }

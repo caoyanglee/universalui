@@ -16,11 +16,11 @@ import com.pmm.demo.base.initToolBar
 import com.pmm.metro.Station
 
 @Station("/android/advanced/binder")
-class CalcActivity : BaseViewActivity() {
+class ServiceActivity : BaseViewActivity() {
 
     private val TAG = "client"
 
-    override fun getLayoutResID(): Int = R.layout.activity_calc
+    override fun getLayoutResID(): Int = R.layout.activity_service
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         initToolBar()
@@ -45,7 +45,7 @@ class CalcActivity : BaseViewActivity() {
      * @param view
      */
     fun bindService(view: View) {
-        val intent = Intent(this, CalcService::class.java)
+        val intent = Intent(this, ServiceWithAIDL::class.java)
         bindService(intent, mServiceConn, Context.BIND_AUTO_CREATE)
     }
 

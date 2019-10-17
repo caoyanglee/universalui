@@ -5,13 +5,31 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".AndroidAdvanced"/>
-        <activity android:name=".binder.CalcActivity" />
+        <activity android:name=".AndroidAdvanced" />
+        <activity android:name=".binder.ServiceActivity" />
 
-        <service
-            android:name=".binder.CalcService">
+        <!--使用Binder的服务-->
+        <service android:name=".binder.ServiceWithBinder">
             <intent-filter>
-                <action android:name="com.pmm.demo.aidl.calc" />
+                <action android:name="com.pmm.demo.binder.normal" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <!--使用AIDL的服务-->
+        <service android:name=".binder.ServiceWithAIDL">
+            <intent-filter>
+                <action android:name="com.pmm.demo.binder.aidl" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <!--使用Messenger的服务-->
+        <service android:name=".binder.ServiceWithMessenger">
+            <intent-filter>
+                <action android:name="com.pmm.demo.binder.messenger" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
