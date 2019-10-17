@@ -3,7 +3,7 @@ package com.pmm.demo.module.lib3
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.module.lib3.eventbus.EventBusActivity
 import com.pmm.demo.module.lib3.materialdialog.MaterialDialogActivity

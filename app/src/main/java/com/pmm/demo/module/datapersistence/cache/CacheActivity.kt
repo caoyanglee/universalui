@@ -1,7 +1,7 @@
 package com.pmm.demo.module.datapersistence.cache
 
 import android.os.Bundle
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.ui.ktx.clearAllCache
 import com.pmm.ui.ktx.getTotalCacheSize

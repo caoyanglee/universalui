@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.ui.core.dialog.ProgressDialog
 import com.pmm.ui.ktx.click

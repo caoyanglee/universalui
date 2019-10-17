@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.weimu.app.universalview">
+    package="com.pmm.demo">
     <!-- Normal Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.pmm.demo.AppData"
+        android:name=".AppData"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,10 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.pmm.demo.module.fragment.viewpager.ViewPagerActivity" />
-        <activity android:name="com.pmm.demo.module.fragment.single.SingleFragmentActivity" />
-        <activity android:name="com.pmm.demo.module.test.TestActivity" />
-        <activity android:name="com.pmm.demo.module.customview.CustomViewActivity" /> <!-- file uri provider -->
+        <activity android:name=".module.fragment.viewpager.ViewPagerActivity" />
+        <activity android:name=".module.fragment.single.SingleFragmentActivity" />
+        <activity android:name=".module.test.TestActivity" />
+        <activity android:name=".module.customview.CustomViewActivity" /> <!-- file uri provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -36,24 +36,24 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <activity android:name="com.pmm.demo.module.main.MainActivity">
+        <activity android:name=".module.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.pmm.demo.module.kotlin.coroutines.CoroutineActivity" />
-        <activity android:name="com.pmm.demo.module.kotlin.KotlinActivity" />
-        <activity android:name="com.pmm.demo.module.lib3.Lib3Activity" />
-        <activity android:name="com.pmm.demo.module.lib3.materialdialog.MaterialDialogActivity" />
-        <activity android:name="com.pmm.demo.module.lib3.eventbus.EventBusActivity" />
-        <activity android:name="com.pmm.demo.module.lib3.eventbus.EventBusSecActivity" />
-        <activity android:name="com.pmm.demo.module.java.JavaActivity" />
-        <activity android:name="com.pmm.demo.module.java.pattern.PatternActivity" />
-        <activity android:name="com.pmm.demo.module.datapersistence.DataPersistenceActivity" />
-        <activity android:name="com.pmm.demo.module.datapersistence.cache.CacheActivity" />
-        <activity android:name="com.pmm.demo.module.Base.BasicKnowledgeActivity" />
+        <activity android:name=".module.kotlin.coroutines.CoroutineActivity" />
+        <activity android:name=".module.kotlin.KotlinActivity" />
+        <activity android:name=".module.lib3.Lib3Activity" />
+        <activity android:name=".module.lib3.materialdialog.MaterialDialogActivity" />
+        <activity android:name=".module.lib3.eventbus.EventBusActivity" />
+        <activity android:name=".module.lib3.eventbus.EventBusSecActivity" />
+        <activity android:name=".module.java.JavaActivity" />
+        <activity android:name=".module.java.pattern.PatternActivity" />
+        <activity android:name=".module.datapersistence.DataPersistenceActivity" />
+        <activity android:name=".module.datapersistence.cache.CacheActivity" />
+        <activity android:name=".module.Base.BasicKnowledgeActivity" />
     </application>
 
 </manifest>

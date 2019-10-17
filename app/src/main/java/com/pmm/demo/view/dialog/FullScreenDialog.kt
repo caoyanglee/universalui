@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.ui.core.dialog.BaseDialog
 import com.pmm.ui.core.toolbar.StatusBarManager
 import kotlinx.android.synthetic.main.dialog_full_screen.*

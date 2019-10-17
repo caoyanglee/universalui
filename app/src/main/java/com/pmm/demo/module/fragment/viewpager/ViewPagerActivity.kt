@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.orhanobut.logger.Logger
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.base.initToolBar
 import com.pmm.ui.core.pager.BaseFragmentPagerAdapter

@@ -2,8 +2,8 @@ package com.pmm.demo.module.test
 
 import android.app.Activity
 import android.os.Bundle
+import com.pmm.demo.R
 import com.pmm.ui.ktx.click
-import com.weimu.app.universalview.R
 import com.pmm.demo.base.BaseViewActivity
 import kotlinx.android.synthetic.main.activity_test.*
 

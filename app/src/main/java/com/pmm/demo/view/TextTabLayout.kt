@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.viewpager.widget.ViewPager
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.ui.interfaces.MyViewPagerChangeListener
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.getColorPro

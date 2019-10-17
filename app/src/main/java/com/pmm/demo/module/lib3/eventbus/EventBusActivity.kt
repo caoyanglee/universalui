@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.ui.ktx.click
 import kotlinx.android.synthetic.main.activity_event_bus.*
 import org.greenrobot.eventbus.EventBus

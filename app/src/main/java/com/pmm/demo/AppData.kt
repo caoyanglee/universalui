@@ -12,8 +12,6 @@ import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.getColorPro
 import com.pmm.ui.ktx.getDrawablePro
 import com.pmm.ui.widget.ToolBarPro
-import com.weimu.app.universalview.BuildConfig
-import com.weimu.app.universalview.R
 import kotlin.properties.Delegates
 
 

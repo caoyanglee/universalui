@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.setMargins
 import com.pmm.ui.ktx.click

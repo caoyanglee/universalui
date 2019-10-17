@@ -1,7 +1,7 @@
 package com.pmm.demo.module.Base
 
 import android.os.Bundle
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.module.fragment.viewpager.ViewPagerActivity
 import com.pmm.demo.base.CategoryB

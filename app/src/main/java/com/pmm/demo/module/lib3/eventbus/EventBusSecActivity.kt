@@ -1,7 +1,7 @@
 package com.pmm.demo.module.lib3.eventbus
 
 import android.os.Bundle
-import com.weimu.app.universalview.R
+import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.ui.ktx.getContent
 import com.pmm.ui.ktx.click
