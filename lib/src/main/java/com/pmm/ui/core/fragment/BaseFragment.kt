@@ -21,8 +21,6 @@ abstract class BaseFragment : Fragment(), BaseView {
     private var isViewPagerShow = false//是否在viewpager显示
     private var isFirstShow = false//第一次显示
 
-    var isInit = false//Fragment是否已经初始化
-        private set
     var isViewAttached = false //视图是否加载
         private set//不允许进行设置
 
@@ -52,7 +50,6 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         afterViewAttachBaseViewAction(savedInstanceState)
         afterViewAttach(savedInstanceState)
-        isInit = true
         isViewAttached = true
         onViewPagerShow(isViewPagerShow)
         if (isViewPagerShow && !isFirstShow) {
