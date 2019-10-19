@@ -11,7 +11,7 @@
         <!--使用Binder的服务-->
         <service android:name=".binder.ServiceWithBinder">
             <intent-filter>
-                <action android:name="com.pmm.demo.binder.normal" />
+                <action android:name="com.pmm.demo.advanced.binder.normal" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -20,16 +20,19 @@
         <!--使用AIDL的服务-->
         <service android:name=".binder.ServiceWithAIDL">
             <intent-filter>
-                <action android:name="com.pmm.demo.binder.aidl" />
+                <action android:name="com.pmm.demo.advanced.binder.aidl" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
 
         <!--使用Messenger的服务-->
-        <service android:name=".binder.ServiceWithMessenger">
+        <service android:name=".binder.ServiceWithMessenger"
+            android:enabled="true"
+            android:exported="true"
+            >
             <intent-filter>
-                <action android:name="com.pmm.demo.binder.messenger" />
+                <action android:name="com.pmm.demo.advanced.binder.messenger" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

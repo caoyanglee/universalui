@@ -26,17 +26,35 @@ class ServiceActivity : BaseViewActivity() {
         initToolBar()
     }
 
+    private var binderInterface: ServiceWithBinder.InnerBinder? = null
+
+    private val mServiceConnBinder = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName) {
+            Log.e(TAG, "onServiceDisconnected Binder")
+            binderInterface = null
+        }
+
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            Log.e(TAG, "onServiceConnected Binder")
+            binderInterface = service as ServiceWithBinder.InnerBinder
+            //调用服务的方法
+            binderInterface?.multiply(3, 2)
+        }
+    }
+
     private var mCalcAidl: ICalcAIDL? = null
 
-    private val mServiceConn = object : ServiceConnection {
+    private val mServiceConnAIDL = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
-            Log.e(TAG, "onServiceDisconnected")
+            Log.e(TAG, "onServiceDisconnected AIDL")
             mCalcAidl = null
         }
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
-            Log.e(TAG, "onServiceConnected")
+            Log.e(TAG, "onServiceConnected AIDL")
             mCalcAidl = ICalcAIDL.Stub.asInterface(service)
+            //调用服务的方法
+            mCalcAidl?.add(3, 2)
         }
     }
 
@@ -45,8 +63,11 @@ class ServiceActivity : BaseViewActivity() {
      * @param view
      */
     fun bindService(view: View) {
-        val intent = Intent(this, ServiceWithAIDL::class.java)
-        bindService(intent, mServiceConn, Context.BIND_AUTO_CREATE)
+        val intentBinder = Intent(this, ServiceWithBinder::class.java)
+        bindService(intentBinder, mServiceConnBinder, Context.BIND_AUTO_CREATE)
+
+        val intentAIDL = Intent(this, ServiceWithAIDL::class.java)
+        bindService(intentAIDL, mServiceConnAIDL, Context.BIND_AUTO_CREATE)
     }
 
     /**
@@ -54,7 +75,9 @@ class ServiceActivity : BaseViewActivity() {
      * @param view
      */
     fun unbindService(view: View) {
-        unbindService(mServiceConn)
+        unbindService(mServiceConnAIDL)
+
+        unbindService(mServiceConnBinder)
     }
 
     /**
