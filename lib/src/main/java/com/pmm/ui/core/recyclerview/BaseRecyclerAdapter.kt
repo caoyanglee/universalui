@@ -283,7 +283,7 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     open fun setDataToAdapter(data: List<T>?) {
         if (data == null) return
         if (dataList.size != 0) {
-            clearDataList()
+            clearList()
             addData(data)
         } else {
             addData(data)
@@ -322,7 +322,7 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     }
 
     //清除数据
-    open fun clearDataList() {
+    open fun clearList() {
         dataList.clear()
         notifyDataSetChanged()
     }

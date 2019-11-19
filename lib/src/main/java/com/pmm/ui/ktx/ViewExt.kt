@@ -241,7 +241,7 @@ fun View.isGone() = this.visibility == View.GONE
 //是否是显示状态 INVISIBLE
 fun View.isInvisible() = this.visibility == View.INVISIBLE
 
-//设置ViewPgaer的默认显示位置 通过反射 防止第一个Fragment加载
+//设置ViewPager的默认显示位置 通过反射 防止第一个Fragment加载
 fun ViewPager.setDefaultItem(item: Int = 0, smoothScroll: Boolean = true) {
     try {
         val c = Class.forName("androidx.viewpager.widget")
