@@ -19,10 +19,22 @@ abstract class BaseFragmentStatePagerAdapter(
     /**
      * 获取对应Position的Fragment
      */
-    fun getFragment(position: Int): Fragment = with(this.javaClass.superclass?.getDeclaredField("mFragments")) {
-        this?.isAccessible = true
-        val list = this?.get(this) as ArrayList<Fragment>
-        list[position]
+    fun getFragment(position: Int): Fragment {
+        var superClass: Class<*>? = null
+        while (true) {
+            if (superClass == null) {
+                superClass = this.javaClass.superclass
+            } else {
+                superClass = superClass.superclass
+            }
+            if (superClass === FragmentStatePagerAdapter::class.java) {
+                break
+            }
+        }
+        val field = superClass?.getDeclaredField("mFragments")
+        field?.isAccessible = true
+        val list = field?.get(this) as ArrayList<Fragment>
+        return list[position]
     }
 
 }
