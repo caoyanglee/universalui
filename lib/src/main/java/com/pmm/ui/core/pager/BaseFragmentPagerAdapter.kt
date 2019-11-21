@@ -1,6 +1,7 @@
 package com.pmm.ui.core.pager
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -8,32 +9,46 @@ import androidx.viewpager.widget.PagerAdapter
 
 
 /**
- * 适合少Fragment
+ * Author:你需要一台永动机
+ * Date:2019-11-21 13:49
+ * Description: 适合少Fragment
  */
-open class BaseFragmentPagerAdapter(var fm: FragmentManager) : FragmentPagerAdapter(fm) {
+open class BaseFragmentPagerAdapter(
+        private var fm: FragmentManager,
+        private val mFragment: ArrayList<Fragment> = arrayListOf(),
+        behavior: Int = BEHAVIOR_SET_USER_VISIBLE_HINT
+) : FragmentPagerAdapter(fm, behavior) {
 
-    private val mFragment = arrayListOf<Fragment>()
+    override fun getItem(position: Int): Fragment = mFragment[position]
 
-    override fun getItem(arg0: Int): Fragment {
-        return mFragment[arg0]
+    override fun getCount(): Int = mFragment.size
+
+    override fun isViewFromObject(view: View, obj: Any): Boolean = view === (obj as Fragment).view
+
+    override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
+
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val instantiateItem: Fragment = super.instantiateItem(container, position) as Fragment
+        val item = mFragment[position]
+        //fm对应的Fragment与当前集合的Fragment相同时，直接返回
+        if (instantiateItem === item) {
+            return instantiateItem
+        }
+        //不同时，移除fm的Fragment,返回集合内最新的Fragment
+        fm.beginTransaction().apply {
+            this.remove(instantiateItem).commitAllowingStateLoss()
+            this.add(container.id, item, makeFragmentName(container.id, getItemId(position))).commitNowAllowingStateLoss()
+        }
+        return item
     }
 
-    override fun getCount(): Int {
-        return mFragment.size
-    }
-
-    override fun isViewFromObject(view: View, obj: Any): Boolean {
-        return view === (obj as Fragment).view
-    }
-
-    override fun getItemPosition(`object`: Any): Int {
-        return PagerAdapter.POSITION_NONE
-    }
+    //FragmentPagerAdapter的私有方法，使内部fm能通过findByTag获取正确的Fragment
+    private fun makeFragmentName(viewId: Int, id: Long): String = "android:switcher:$viewId:$id"
 
     /**
      * 优化后的方法
      */
-    open fun setFragments(mFragment: List<Fragment>) {
+    fun setFragments(mFragment: List<Fragment>) {
         if (this.mFragment.isNotEmpty()) {
             val transaction = fm.beginTransaction()
             this.mFragment.forEach { transaction.remove(it) }
@@ -45,5 +60,9 @@ open class BaseFragmentPagerAdapter(var fm: FragmentManager) : FragmentPagerAdap
         notifyDataSetChanged()
     }
 
+    /**
+     * 获取Fragment
+     */
+    fun getFragments() = mFragment
 
 }

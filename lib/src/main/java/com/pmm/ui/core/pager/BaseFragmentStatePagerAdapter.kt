@@ -9,36 +9,20 @@ import androidx.viewpager.widget.PagerAdapter
 /**
  * 适合多个fragment，内存占用少
  */
-open class BaseFragmentStatePagerAdapter(var fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+abstract class BaseFragmentStatePagerAdapter(
+        fm: FragmentManager,
+        behavior: Int = BEHAVIOR_SET_USER_VISIBLE_HINT) : FragmentStatePagerAdapter(fm, behavior) {
 
-    private val mFragment = arrayListOf<Fragment>()
 
-    override fun getItem(arg0: Int): Fragment {
-        return mFragment[arg0]
-    }
-
-    override fun getCount(): Int {
-        return mFragment.size
-    }
-
-    override fun getItemPosition(`object`: Any): Int {
-        return PagerAdapter.POSITION_NONE
-    }
+    override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
 
     /**
-     * 优化后的方法
+     * 获取对应Position的Fragment
      */
-    open fun setFragments(mFragment: List<Fragment>) {
-        val transaction = fm.beginTransaction()
-        for (item in this.mFragment) {
-            transaction.remove(item)
-        }
-        transaction.commitAllowingStateLoss()
-        fm.executePendingTransactions()
-
-        this.mFragment.clear()
-        this.mFragment.addAll(mFragment)
-        notifyDataSetChanged()
+    fun getFragment(position: Int): Fragment = with(this.javaClass.superclass?.getDeclaredField("mFragments")) {
+        this?.isAccessible = true
+        val list = this?.get(this) as ArrayList<Fragment>
+        list[position]
     }
 
 }

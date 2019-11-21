@@ -22,7 +22,6 @@ abstract class BasePagerAdapter<T>(var mContext: Context) : PagerAdapter() {
     //显示Body的视图变化
     abstract fun itemViewChange(view: View, position: Int)
 
-
     override fun getCount(): Int = dataList.size
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
