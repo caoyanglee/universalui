@@ -62,4 +62,5 @@ dependencies {
     //dialog
     compile 'com.afollestad.material-dialogs:core:3.1.1'
     compile 'com.afollestad.material-dialogs:datetime:3.1.1'
+    compile 'com.afollestad.material-dialogs:input:3.1.1'
 }

@@ -7,6 +7,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.afollestad.materialdialogs.datetime.timePicker
+import com.afollestad.materialdialogs.input.InputCallback
+import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.tbruyelle.rxpermissions2.RxPermissions
 import java.util.*
@@ -120,7 +122,7 @@ fun ContextWrapper.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Un
 }
 
 /**
- * 显示日期选择器
+ * 显示日期选择器1
  * @param callBack 选择回调
  */
 fun ContextWrapper.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int) -> Unit)) {
@@ -135,6 +137,10 @@ fun ContextWrapper.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth:
     }
 }
 
+/**
+ * 显示日期时间选择器
+ * @param callBack 选择回调
+ */
 fun ContextWrapper.showDateTimePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) -> Unit)) {
     MaterialDialog(this).show {
         cornerRadius(4f)
@@ -149,3 +155,14 @@ fun ContextWrapper.showDateTimePicker(callBack: ((year: Int, month: Int, dayOfMo
     }
 }
 
+/**
+ * 显示输入选择器
+ * @param callBack 选择回调
+ */
+fun ContextWrapper.showInputPicker(title: String, hint: String, prefill: String, callBack: InputCallback) {
+    MaterialDialog(this).show {
+        cornerRadius(4f)
+        title(text = title)
+        input(hint = hint, prefill = prefill, callback = callBack)
+    }
+}
