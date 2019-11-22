@@ -53,6 +53,17 @@ class MaterialDialogActivity : BaseViewActivity() {
                     }
             )
         }
+        //输入选择器
+        mBtn6.click {
+            showInputPicker(
+                    title = "昵称",
+                    hint = "请输入昵称",
+                    prefill = "永动机",
+                    callBack = { _, charSequence ->
+                        toast("输入=${charSequence}")
+                    }
+            )
+        }
 
     }
 
