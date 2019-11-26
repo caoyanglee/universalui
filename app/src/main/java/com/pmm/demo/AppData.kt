@@ -38,6 +38,7 @@ class AppData : OriginAppData() {
 
         //路由
         Metro.init(this)
+
     }
 
     override fun attachBaseContext(base: Context?) {

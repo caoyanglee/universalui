@@ -62,7 +62,7 @@ class MainActivity : BaseViewActivity() {
                 }
                 "Android进阶" -> {
                     Metro.with(this).path("/android/advanced")
-                            .attribute("title", item.primaryTitle)
+                            .put("title", item.primaryTitle)
                             .go()
                 }
                 "Java" -> {

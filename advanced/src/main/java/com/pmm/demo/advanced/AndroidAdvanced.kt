@@ -6,7 +6,7 @@ import com.pmm.demo.base.CategoryB
 import com.pmm.demo.base.CategoryListAdapter
 import com.pmm.demo.base.initToolBar
 import com.pmm.metro.Metro
-import com.pmm.metro.Station
+import com.pmm.metro.annotatoin.Station
 import com.pmm.ui.ktx.init
 import kotlinx.android.synthetic.main.activity_android_advanced.*
 
@@ -29,7 +29,7 @@ class AndroidAdvanced : BaseViewActivity() {
             when (position) {
                 0 -> {
                     Metro.with(this).path("/android/advanced/binder")
-                            .attribute("title", item.primaryTitle)
+                            .put("title", item.primaryTitle)
                             .go()
                 }
             }

@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger
 import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.base.initToolBar
+import com.pmm.metro.annotatoin.Station
 import com.pmm.ui.core.pager.BaseFragmentPagerAdapter
 import com.pmm.ui.interfaces.MyViewPagerChangeListener
 import com.pmm.ui.ktx.setDefaultItem
@@ -16,7 +17,7 @@ import com.pmm.ui.ktx.toast
 import com.pmm.ui.widget.TabView
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
-
+@Station(path = "/fragment/viewpager")
 class ViewPagerActivity : BaseViewActivity() {
 
     override fun getLayoutResID(): Int = R.layout.activity_view_pager

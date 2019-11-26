@@ -13,7 +13,7 @@ import com.pmm.demo.advanced.ICalcAIDL
 import com.pmm.demo.advanced.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.base.initToolBar
-import com.pmm.metro.Station
+import com.pmm.metro.annotatoin.Station
 
 @Station("/android/advanced/binder")
 class ServiceActivity : BaseViewActivity() {

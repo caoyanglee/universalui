@@ -7,6 +7,7 @@ import com.pmm.demo.module.fragment.viewpager.ViewPagerActivity
 import com.pmm.demo.base.CategoryB
 import com.pmm.demo.base.CategoryListAdapter
 import com.pmm.demo.base.initToolBar
+import com.pmm.metro.Metro
 import com.pmm.ui.ktx.init
 import com.pmm.ui.ktx.openActivity
 import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
@@ -34,7 +35,8 @@ class BasicKnowledgeActivity : BaseViewActivity() {
         adapter.onItemClick = { item, position ->
             when (item.primaryTitle) {
                 "Fragment" -> {
-                    openActivity<ViewPagerActivity>()
+//                    openActivity<ViewPagerActivity>()
+                    Metro.with(this).path("/fragment/viewpager").go()
                 }
             }
         }
