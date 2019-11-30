@@ -3,6 +3,7 @@ package com.pmm.ui.ktx
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Base64
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
@@ -66,6 +67,15 @@ fun ImageView.load(bitmap: Bitmap, placeholder: Int = 0, error: Int = 0, useAnim
     requestBuilder.into(this)
 }
 
+fun ImageView.load(uri: Uri, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val requestBuilder = Glide.with(context)
+            .load(uri)
+            .apply(RequestOptions().placeholder(placeholder).error(error))
+    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+    requestBuilder.into(this)
+}
+
 
 //图片加载 centerCrop
 fun ImageView.load4CenterCrop(url: String = "", placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
@@ -108,6 +118,15 @@ fun ImageView.load4CenterCrop(bitmap: Bitmap, placeholder: Int = 0, error: Int =
     if (context is Activity && (context as Activity).isFinishing) return
     val requestBuilder = Glide.with(context)
             .load(bitmap)
+            .apply(RequestOptions().centerCrop().placeholder(placeholder).error(error))
+    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+    requestBuilder.into(this)
+}
+
+fun ImageView.load4CenterCrop(uri: Uri, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val requestBuilder = Glide.with(context)
+            .load(uri)
             .apply(RequestOptions().centerCrop().placeholder(placeholder).error(error))
     if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
     requestBuilder.into(this)
@@ -160,6 +179,15 @@ fun ImageView.load4Circle(bitmap: Bitmap, placeholder: Int = 0, error: Int = 0, 
     requestBuilder.into(this)
 }
 
+fun ImageView.load4Circle(uri: Uri, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val requestBuilder = Glide.with(context)
+            .load(uri)
+            .apply(RequestOptions().circleCrop().placeholder(placeholder).error(error))
+    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+
+    requestBuilder.into(this)
+}
 
 //图片加载 round
 fun ImageView.load4Round(url: String = "", radius: Int = 6, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
@@ -207,6 +235,15 @@ fun ImageView.load4Round(bitmap: Bitmap, radius: Int = 6, placeholder: Int = 0, 
     requestBuilder.into(this)
 }
 
+fun ImageView.load4Round(uri: Uri, radius: Int = 6, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val requestBuilder = Glide.with(context)
+            .load(uri)
+            .apply(RequestOptions().transform(GlideRoundTransform(radius)).placeholder(placeholder).error(error))
+    if (useAnim) requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+    requestBuilder.into(this)
+}
+
 
 //不进行缓存的图片请求
 fun ImageView.load4NoCache(url: String = "", placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
@@ -218,6 +255,71 @@ fun ImageView.load4NoCache(url: String = "", placeholder: Int = 0, error: Int = 
             .skipMemoryCache(true)
     val requestBuilder = Glide.with(context)
             .load(url)
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+
+    requestBuilder.into(this)
+}
+
+
+fun ImageView.load4NoCache(@DrawableRes drawableRes: Int = 0, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+    val requestBuilder = Glide.with(context)
+            .load(drawableRes)
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+
+    requestBuilder.into(this)
+}
+
+fun ImageView.load4NoCache(file: File, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+    val requestBuilder = Glide.with(context)
+            .load(file)
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+
+    requestBuilder.into(this)
+}
+
+fun ImageView.load4NoCache(bitmap: Bitmap, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+    val requestBuilder = Glide.with(context)
+            .load(bitmap)
+            .apply(options)
+    if (useAnim)
+        requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
+
+    requestBuilder.into(this)
+}
+
+fun ImageView.load4NoCache(uri: Uri, placeholder: Int = 0, error: Int = 0, useAnim: Boolean = true) {
+    if (context is Activity && (context as Activity).isFinishing) return
+    val options = RequestOptions()
+            .placeholder(placeholder)
+            .error(error)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+    val requestBuilder = Glide.with(context)
+            .load(uri)
             .apply(options)
     if (useAnim)
         requestBuilder.transition(GenericTransitionOptions.with(R.anim.fade_in))
