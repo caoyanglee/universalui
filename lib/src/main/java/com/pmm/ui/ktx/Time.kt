@@ -11,8 +11,11 @@ import java.util.*
  */
 fun String.string2Date(
         format: String = "yyyy-MM-dd HH:mm:ss",
-        local: Locale = Locale.getDefault()
-): Date = SimpleDateFormat(format, local).parse(this)
+        local: Locale = Locale.getDefault(),
+        isUtc: Boolean = false
+): Date? = SimpleDateFormat(format, local).apply {
+    if (isUtc) this.timeZone = TimeZone.getTimeZone("UTC")
+}.parse(this)
 
 /**
  * Date转String
