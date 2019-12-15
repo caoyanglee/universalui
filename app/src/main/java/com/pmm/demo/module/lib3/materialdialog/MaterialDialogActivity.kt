@@ -26,13 +26,13 @@ class MaterialDialogActivity : BaseViewActivity() {
         }
         //日期选择呢器
         mBtn2.click {
-            showDatePicker { year, month, dayOfMonth ->
+            showDatePicker { year, month, dayOfMonth, datetime ->
                 toast("$year-$month-$dayOfMonth")
             }
         }
         //时间选择器
         mBtn3.click {
-            showTimePicker { hourOfDay, minute ->
+            showTimePicker { hourOfDay, minute, datetime ->
                 toast("$hourOfDay:$minute")
             }
         }

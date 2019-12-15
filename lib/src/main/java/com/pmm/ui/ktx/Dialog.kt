@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContextWrapper
 import androidx.fragment.app.FragmentActivity
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.DateTimeCallback
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.afollestad.materialdialogs.datetime.timePicker
@@ -32,7 +33,7 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
         if (content.isBlank()) return
         MaterialDialog(this).show {
             cancelable(false)
-            cornerRadius(4f)
+            cornerRadius(8f)
             title(text = "提示")
             message(text = content)
             positiveButton(text = "去开启") {
@@ -72,7 +73,7 @@ fun ContextWrapper.showConfirmDialog(
 ) {
     MaterialDialog(this).show {
         cancelable(false)
-        cornerRadius(4f)
+        cornerRadius(8f)
         title(text = title)
         message(text = content)
         positiveButton(text = positiveStr) {
@@ -97,7 +98,7 @@ fun ContextWrapper.showListPicker(
         callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
 ) {
     MaterialDialog(this).show {
-        cornerRadius(4f)
+        cornerRadius(8f)
         listItemsSingleChoice(items = items, initialSelection = selectedIndex) { dialog, index, text ->
             title(text = title)
             dialog.dismiss()
@@ -110,13 +111,13 @@ fun ContextWrapper.showListPicker(
  * 显示时间选择器
  * @param callBack 选择回调
  */
-fun ContextWrapper.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Unit)) {
+fun ContextWrapper.showTimePicker(callBack: ((hourOfDay: Int, minute: Int, datetime: Calendar) -> Unit)) {
     MaterialDialog(this).show {
-        cornerRadius(4f)
+        cornerRadius(8f)
         timePicker { dialog, datetime ->
             val hourOfDay = datetime.get(Calendar.HOUR_OF_DAY)
             val minute = datetime.get(Calendar.MINUTE)
-            callBack.invoke(hourOfDay, minute)
+            callBack.invoke(hourOfDay, minute,datetime)
         }
     }
 }
@@ -125,14 +126,14 @@ fun ContextWrapper.showTimePicker(callBack: ((hourOfDay: Int, minute: Int) -> Un
  * 显示日期选择器1
  * @param callBack 选择回调
  */
-fun ContextWrapper.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int) -> Unit)) {
+fun ContextWrapper.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int,datetime: Calendar) -> Unit)) {
     MaterialDialog(this).show {
-        cornerRadius(4f)
+        cornerRadius(8f)
         datePicker { dialog, datetime ->
-            val year = Calendar.getInstance().get(Calendar.YEAR)
-            val month = Calendar.getInstance().get(Calendar.MONTH)
-            val dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-            callBack.invoke(year, month + 1, dayOfMonth)
+            val year = datetime.get(Calendar.YEAR)
+            val month = datetime.get(Calendar.MONTH)
+            val dayOfMonth = datetime.get(Calendar.DAY_OF_MONTH)
+            callBack.invoke(year, month + 1, dayOfMonth,datetime)
         }
     }
 }
@@ -141,16 +142,16 @@ fun ContextWrapper.showDatePicker(callBack: ((year: Int, month: Int, dayOfMonth:
  * 显示日期时间选择器
  * @param callBack 选择回调
  */
-fun ContextWrapper.showDateTimePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) -> Unit)) {
+fun ContextWrapper.showDateTimePicker(callBack: ((year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int,datetime: Calendar) -> Unit)) {
     MaterialDialog(this).show {
-        cornerRadius(4f)
+        cornerRadius(8f)
         dateTimePicker { dialog, datetime ->
-            val year = Calendar.getInstance().get(Calendar.YEAR)
-            val month = Calendar.getInstance().get(Calendar.MONTH)
-            val dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            val year = datetime.get(Calendar.YEAR)
+            val month = datetime.get(Calendar.MONTH)
+            val dayOfMonth = datetime.get(Calendar.DAY_OF_MONTH)
             val hourOfDay = datetime.get(Calendar.HOUR_OF_DAY)
             val minute = datetime.get(Calendar.MINUTE)
-            callBack.invoke(year, month + 1, dayOfMonth, hourOfDay, minute)
+            callBack.invoke(year, month + 1, dayOfMonth, hourOfDay, minute,datetime)
         }
     }
 }
@@ -161,7 +162,7 @@ fun ContextWrapper.showDateTimePicker(callBack: ((year: Int, month: Int, dayOfMo
  */
 fun ContextWrapper.showInputPicker(title: String, hint: String, prefill: String, callBack: InputCallback) {
     MaterialDialog(this).show {
-        cornerRadius(4f)
+        cornerRadius(8f)
         title(text = title)
         input(hint = hint, prefill = prefill, callback = callBack)
     }
