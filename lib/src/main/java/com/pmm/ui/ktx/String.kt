@@ -1,5 +1,7 @@
 package com.pmm.ui.ktx
 
+import java.util.*
+
 /**
  * Author:你需要一台永动机
  * Date:2019/1/27 16:24
@@ -46,3 +48,6 @@ fun String.toSBC(content: String): String {
     }
     return String(c)
 }
+
+//uuid字符串
+fun UUID.stringfy() = this.toString().replace("-", "")

@@ -8,7 +8,9 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -255,15 +257,20 @@ fun ViewPager.setDefaultItem(item: Int = 0, smoothScroll: Boolean = true) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * 展示SnackBar的MD2样式
+ * @param marginBottom 距离底部的margin
+ */
+fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
+    val context = this.context
+    val snackbarView = this.view as FrameLayout//获取SnackBar布局View实例
+    snackbarView.bg(ViewBgOption().apply {
+        this.radius = context.dip2px(8f).toFloat()
+    })
+    snackbarView.setMargins(
+            b = marginBottom,
+            l = context.dip2px(16f),
+            r = context.dip2px(16f)
+    )
+    this.show()
+}

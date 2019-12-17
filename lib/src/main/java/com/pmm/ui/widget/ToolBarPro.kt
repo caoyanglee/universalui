@@ -264,7 +264,7 @@ class ToolBarPro : ViewGroup {
             val right = measuredWidth - paddingRight - param.rightMargin
             val top = startY + param.topMargin
             val bottom = top + it.measuredHeight
-            it.layout(left, top, right, startY + bottom)
+            it.layout(left, top, right, bottom)
         }
 
         //actionView1 tv
@@ -284,7 +284,7 @@ class ToolBarPro : ViewGroup {
             val right = ivMenuView1.left - param.rightMargin
             val top = startY + param.topMargin
             val bottom = top + it.measuredHeight
-            it.layout(left, top, right, startY + bottom)
+            it.layout(left, top, right, bottom)
         }
 
         //actionView2 tv

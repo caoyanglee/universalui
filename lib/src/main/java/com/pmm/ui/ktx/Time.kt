@@ -164,6 +164,9 @@ fun String.utc2Local(
  */
 fun Any.getCurrentTimeStamp() = System.currentTimeMillis()
 
+//utc时间字符串
+fun Date.utcTimeStr() = this.date2String("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", isUtc = true)
+
 
 
 
