@@ -1,10 +1,9 @@
-package com.pmm.demo.module.fragment.viewpager
+package com.pmm.demo.module.Base.fragment.viewpager
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 import com.orhanobut.logger.Logger
 import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity

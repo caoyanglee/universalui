@@ -29,11 +29,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //通用包
+    //test
+    testImplementation deps.core.test.junit
+    androidTestImplementation deps.core.test.runner
+    androidTestImplementation deps.core.test.expresso
+    //lib
     api project(':lib')
-    api 'com.github.caoyanglee.Metro:lib:0.2.4'
-    kapt 'com.github.caoyanglee.Metro:compiler:0.2.4'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //metro
+    api deps.extension.metro_lib
+    kapt deps.extension.metro_compiler
+    //multidex
+    api 'com.android.support:multidex:1.0.3'
+    //log
+    api 'com.orhanobut:logger:2.2.0'
 }

@@ -1,4 +1,4 @@
-package com.pmm.demo.module.fragment.single
+package com.pmm.demo.module.Base.fragment.single
 
 import android.content.Context
 import android.content.Intent
