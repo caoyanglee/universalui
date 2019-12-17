@@ -46,8 +46,8 @@ class MaterialDialogActivity : BaseViewActivity() {
         //列表选择器
         mBtn5.click {
             showListPicker(
-                    title = "性别",
-                    items = listOf("男", "女"),
+                    title = "操作",
+                    items = listOf("删除", "还原"),
                     callBack = { dialog, which, text ->
                         toast("位置=$which 文本=$text")
                     }
@@ -61,6 +61,16 @@ class MaterialDialogActivity : BaseViewActivity() {
                     prefill = "永动机",
                     callBack = { _, charSequence ->
                         toast("输入=${charSequence}")
+                    }
+            )
+        }
+        //单选选择器
+        mBtn7.click {
+            showSingleChoicePicker(
+                    title = "性别",
+                    items = listOf("男", "女"),
+                    callBack = { dialog, which, text ->
+                        toast("位置=$which 文本=$text")
                     }
             )
         }
