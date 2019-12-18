@@ -100,8 +100,8 @@ fun ContextWrapper.showSingleChoicePicker(
 ) {
     MaterialDialog(this).show {
         cornerRadius(8f)
+        title(text = title)
         listItemsSingleChoice(items = items, initialSelection = selectedIndex) { dialog, index, text ->
-            title(text = title)
             dialog.dismiss()
             callBack.invoke(dialog, index, text)
         }
@@ -120,8 +120,8 @@ fun ContextWrapper.showListPicker(
 ) {
     MaterialDialog(this).show {
         cornerRadius(8f)
+        title(text = title)
         listItems(items = items) { dialog, index, text ->
-            title(text = title)
             dialog.dismiss()
             callBack.invoke(dialog, index, text)
         }
