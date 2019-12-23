@@ -124,10 +124,10 @@ fun View.focus() {
 }
 
 //请求去除焦点
-fun View.unFocus(view: View) {
-    view.isFocusable = false
-    view.isFocusableInTouchMode = false
-    view.clearFocus()
+fun View.unFocus() {
+    this.isFocusable = false
+    this.isFocusableInTouchMode = false
+    this.clearFocus()
 }
 
 //解析xml视图

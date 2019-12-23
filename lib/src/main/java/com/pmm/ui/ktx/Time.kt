@@ -80,22 +80,8 @@ fun Long.formatDate2now(): String {
 
 
 /**
- * 比较时间  是否超过一周的时间
- * 单位：毫秒
- */
-fun Long.moreThanAWeek(): Boolean {
-    val currentTime = Calendar.getInstance().time.time
-    val targetTime = this
-    if (targetTime == 0L) return true
-    val differ = currentTime - targetTime
-    if (differ > 1000 * 60 * 60 * 24 * 7) {
-        return true
-    }
-    return false
-}
-
-/**
  * 比较时间 是否超过几天
+ * 单位：毫秒
  */
 fun Long.moreThanDays(day: Int = 7): Boolean {
     val currentTime = Calendar.getInstance().time.time
@@ -107,6 +93,12 @@ fun Long.moreThanDays(day: Int = 7): Boolean {
     }
     return false
 }
+
+/**
+ * 比较时间 是否超过几天
+ * 单位：毫秒
+ */
+fun Date.moreThanDays(day: Int = 7): Boolean = this.time.moreThanDays(day)
 
 
 /**
@@ -164,8 +156,12 @@ fun String.utc2Local(
  */
 fun Any.getCurrentTimeStamp() = System.currentTimeMillis()
 
-//utc时间字符串
-fun Date.utcTimeStr() = this.date2String("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", isUtc = true)
+//Date转UTC时间字符串
+fun Date.date2UtcString(): String = this.date2String("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", isUtc = true)
+
+
+//UTC字符串转Date
+fun String.utcString2Date(): Date? = this.string2Date("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", isUtc = true)
 
 
 
