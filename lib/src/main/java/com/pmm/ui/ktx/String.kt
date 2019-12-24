@@ -50,4 +50,4 @@ fun String.toSBC(content: String): String {
 }
 
 //uuid字符串
-fun UUID.stringfy() = this.toString().replace("-", "")
+fun UUID.toStringV2() = this.toString().replace("-", "")
