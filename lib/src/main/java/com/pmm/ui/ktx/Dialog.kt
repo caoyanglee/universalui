@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.ContextWrapper
 import androidx.fragment.app.FragmentActivity
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.datetime.DateTimeCallback
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.afollestad.materialdialogs.datetime.timePicker
@@ -13,6 +12,7 @@ import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.weimu.universalview.R
 import java.util.*
 
 /**
@@ -35,7 +35,7 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
         MaterialDialog(this).show {
             cancelable(false)
             cornerRadius(8f)
-            title(text = "提示")
+            title(R.string.dialog_title_default)
             message(text = content)
             positiveButton(text = "去开启") {
                 if (positiveCallBack?.invoke() == true) return@positiveButton
@@ -65,11 +65,11 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
  * 显示确认的dialog
  */
 fun ContextWrapper.showConfirmDialog(
-        title: String = "提示",
-        content: String = "提示的内容",
-        negativeStr: String = "取消",
+        title: String = baseContext.getString(R.string.dialog_title_default),
+        content: String = baseContext.getString(R.string.dialog_message_default),
+        negativeStr: String = baseContext.getString(R.string.dialog_action_cancel),
         negativeCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
-        positiveStr: String = "确认",
+        positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
         positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null
 ) {
     MaterialDialog(this).show {
@@ -93,7 +93,7 @@ fun ContextWrapper.showConfirmDialog(
  * @param callBack 选择回调
  */
 fun ContextWrapper.showSingleChoicePicker(
-        title: String = "列表选择",
+        title: String = baseContext.getString(R.string.dialog_title_default),
         items: List<CharSequence>,
         selectedIndex: Int = 0,
         callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
@@ -114,7 +114,7 @@ fun ContextWrapper.showSingleChoicePicker(
  * @param callBack 选择回调
  */
 fun ContextWrapper.showListPicker(
-        title: String = "列表选择",
+        title: String = baseContext.getString(R.string.dialog_title_default),
         items: List<CharSequence>,
         callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
 ) {

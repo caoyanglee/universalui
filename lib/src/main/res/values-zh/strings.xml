@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_title_default">提示</string>
     <string name="dialog_message_default">提示的内容</string>
