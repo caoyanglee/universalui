@@ -35,12 +35,12 @@ inline fun <reified T> String.toArrayList(): List<T> = mGson.fromJson(this, Para
 /**
  * 对象转为Json对象
  */
-fun BaseB.toJsonObject(): JsonObject = mGson.toJsonTree(this) as JsonObject
+fun Any.toJsonObject(): JsonObject = mGson.toJsonTree(this) as JsonObject
 
 /**
  * 对象转为字符串
  */
-fun BaseB.toJsonStr(): String = mGson.toJson(this)
+fun Any.toJsonStr(): String = mGson.toJson(this)
 
 /**
  * Json字符串转对象

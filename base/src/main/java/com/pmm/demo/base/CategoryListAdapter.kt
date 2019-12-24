@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.base_list_item_main_category.view.*
  * Date:2018/9/29 16:39
  * Description:
  */
-class CategoryListAdapter(mContext: Context) : BaseRecyclerAdapter<BaseB, CategoryB>(mContext) {
+class CategoryListAdapter(mContext: Context) : BaseRecyclerAdapter<Any, CategoryB>(mContext) {
 
     override fun getItemLayoutRes() = R.layout.base_list_item_main_category
 

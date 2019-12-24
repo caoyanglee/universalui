@@ -7,17 +7,4 @@ import com.pmm.ui.core.BaseB
  * Date:2018/9/29 17:04
  * Description:主页的类型
  */
-class CategoryB : BaseB {
-    var primaryTitle = ""
-    var subTitle = ""
-
-
-    constructor() : super()
-
-    constructor(primaryTitle: String, subTitle: String) : super() {
-        this.primaryTitle = primaryTitle
-        this.subTitle = subTitle
-    }
-
-
-}
+data class CategoryB(var primaryTitle: String = "", var subTitle: String = "")
