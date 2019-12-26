@@ -67,6 +67,11 @@ class ToolBarPro : ViewGroup {
         var menu2Drawable: Drawable? = null
         var menu2TextColor: Int? = null
         var menu2TextSize: Float? = null
+        //menu3
+        var menu3Drawable: Drawable? = null
+        var menu3TextColor: Int? = null
+        var menu3TextSize: Float? = null
+
         //divider
         var dividerShow: Boolean = true
         var dividerSize: Int = 1//1px
@@ -105,8 +110,8 @@ class ToolBarPro : ViewGroup {
     private val tvTitle by lazy {
         TextView(context).apply {
             this.layoutParams = MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
-                this.leftMargin = context.dip2px(104f)
-                this.rightMargin = context.dip2px(104f)
+                this.leftMargin = context.dip2px(56f)
+                this.rightMargin = context.dip2px(56f)
             }
             this.text = ""
             this.gravity = Gravity.CENTER
@@ -131,11 +136,22 @@ class ToolBarPro : ViewGroup {
     private val ivMenuView2 by lazy {
         getActionImageView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
-                this.rightMargin = context.dip2px(8f)
+                this.rightMargin = context.dip2px(16f)
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
             setImageDrawable(GlobalConfig.menu2Drawable)
+        }
+    }
+
+    private val ivMenuView3 by lazy {
+        getActionImageView().apply {
+            this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
+                this.rightMargin = context.dip2px(16f)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
+            }
+            setImageDrawable(GlobalConfig.menu3Drawable)
         }
     }
 
@@ -155,13 +171,26 @@ class ToolBarPro : ViewGroup {
     private val tvMenuView2 by lazy {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
-                this.rightMargin = context.dip2px(8f)
+                this.rightMargin = context.dip2px(16f)
                 this.topMargin = context.dip2px(6f)
                 this.bottomMargin = context.dip2px(6f)
             }
             this.setTextColor(GlobalConfig.menu2TextColor ?: colorAccent)
 
             GlobalConfig.menu2TextSize?.let { this.textSize = (it) } //设置大小
+        }
+    }
+
+    private val tvMenuView3 by lazy {
+        getActionTextView().apply {
+            this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
+                this.rightMargin = context.dip2px(16f)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
+            }
+            this.setTextColor(GlobalConfig.menu3TextColor ?: colorAccent)
+
+            GlobalConfig.menu3TextSize?.let { this.textSize = (it) } //设置大小
         }
     }
 
@@ -219,6 +248,8 @@ class ToolBarPro : ViewGroup {
         measureChild(tvMenuView1)
         measureChild(ivMenuView2)
         measureChild(tvMenuView2)
+        measureChild(ivMenuView3)
+        measureChild(tvMenuView3)
         measureChild(divider)
     }
 
@@ -292,6 +323,26 @@ class ToolBarPro : ViewGroup {
             val param = (it.layoutParams as MarginLayoutParams)
             val left = tvMenuView1.left - it.measuredWidth - param.rightMargin
             val right = tvMenuView1.left - param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight
+            it.layout(left, top, right, bottom)
+        }
+
+        //actionView3 iv
+        ivMenuView3.shouldRender {
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = ivMenuView2.left - it.measuredWidth - param.rightMargin
+            val right = ivMenuView2.left - param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight
+            it.layout(left, top, right, bottom)
+        }
+
+        //actionView3 tv
+        tvMenuView3.shouldRender {
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = tvMenuView2.left - it.measuredWidth - param.rightMargin
+            val right = tvMenuView2.left - param.rightMargin
             val top = startY + param.topMargin
             val bottom = top + it.measuredHeight
             it.layout(left, top, right, bottom)
@@ -374,6 +425,13 @@ class ToolBarPro : ViewGroup {
         if (!ivMenuView2.isChild()) addView(ivMenuView2)
     }
 
+    //右侧菜单3 ImageView
+    fun menuIcon3(config: (ImageView.() -> Unit)): ToolBarPro = apply {
+        if (tvMenuView3.isChild()) removeView(tvMenuView3)
+        ivMenuView3.config()
+        if (!ivMenuView3.isChild()) addView(ivMenuView3)
+    }
+
     //右侧菜单1 TextView
     fun menuText1(config: (TextView.() -> Unit)): ToolBarPro = apply {
         if (ivMenuView1.isChild()) removeView(ivMenuView1)
@@ -387,6 +445,13 @@ class ToolBarPro : ViewGroup {
         if (ivMenuView2.isChild()) removeView(ivMenuView2)
         tvMenuView2.config()
         if (!tvMenuView2.isChild()) addView(tvMenuView2)
+    }
+
+    //右侧菜单3 TextView
+    fun menuText3(config: (TextView.() -> Unit)): ToolBarPro = apply {
+        if (ivMenuView3.isChild()) removeView(ivMenuView3)
+        tvMenuView3.config()
+        if (!tvMenuView3.isChild()) addView(tvMenuView3)
     }
 
     //divider

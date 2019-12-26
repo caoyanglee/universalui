@@ -3,6 +3,7 @@ package com.pmm.ui.ktx
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -57,5 +58,15 @@ inline fun <reified T : Activity> Activity.openActivity(
     else
         startActivity(intent)
     if (enterAnim != null && exitAnim != null) overridePendingTransition(enterAnim, exitAnim)
+}
+
+
+//是否位于栈底
+fun Activity.isOnTaskRoot(): Boolean {
+    if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
+        finish()
+        return false
+    }
+    return true
 }
 

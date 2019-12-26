@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -275,3 +276,8 @@ fun Context.clearGlideCache() {
     }
 }
 
+//检查当前系统是否已开启暗黑模式
+fun Context.isDarkMode(): Boolean {
+    val mode: Int = this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    return mode == Configuration.UI_MODE_NIGHT_YES
+}
