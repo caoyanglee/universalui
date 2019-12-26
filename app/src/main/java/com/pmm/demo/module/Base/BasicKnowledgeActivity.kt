@@ -1,5 +1,6 @@
 package com.pmm.demo.module.Base
 
+import android.graphics.Color
 import android.os.Bundle
 import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
@@ -29,18 +30,40 @@ class BasicKnowledgeActivity : BaseViewActivity() {
             StatusBarManager.setTransparencyBar(window)
             StatusBarManager.setLightMode(window, true)
             this.showStatusView = true
-            this.menuIcon1 {
-                this.setImageResource(R.drawable.ic_label_gray_24dp)
-                this.click {
-                    toast("哈哈1")
-                }
+
+            this.centerTitle {
+                setBackgroundColor(Color.CYAN)
+            }
+//            this.menuIcon1 {
+//                this.setImageResource(R.drawable.ic_label_gray_24dp)
+//                this.click {
+//                    toast("哈哈1")
+//                }
+//            }
+//
+//            this.menuIcon2 {
+//                this.setImageResource(R.drawable.ic_label_gray_24dp)
+//                this.click {
+//                    toast("哈哈2")
+//                }
+//            }
+//
+//            this.menuIcon3 {
+//                this.setImageResource(R.drawable.ic_label_gray_24dp)
+//                this.click {
+//                    toast("哈哈3")
+//                }
+//            }
+            this.menuText1 {
+                this.text="测试"
             }
 
-            this.menuIcon2 {
-                this.setImageResource(R.drawable.ic_label_gray_24dp)
-                this.click {
-                    toast("哈哈2")
-                }
+            this.menuText2 {
+                this.text="删除"
+            }
+
+            this.menuText3 {
+                this.text="恢复"
             }
         }
 
