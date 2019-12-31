@@ -26,15 +26,15 @@ class MaterialDialogActivity : BaseViewActivity() {
         }
         //日期选择呢器
         mBtn2.click {
-            showDatePicker { year, month, dayOfMonth, datetime ->
-                toast("$year-$month-$dayOfMonth")
-            }
+//            showDatePicker { year, month, dayOfMonth, datetime ->
+//                toast("$year-$month-$dayOfMonth")
+//            }
         }
         //时间选择器
         mBtn3.click {
-            showTimePicker { hourOfDay, minute, datetime ->
-                toast("$hourOfDay:$minute")
-            }
+//            showTimePicker { hourOfDay, minute, datetime ->
+//                toast("$hourOfDay:$minute")
+//            }
         }
         //确认选择器
         mBtn4.click {
@@ -55,14 +55,14 @@ class MaterialDialogActivity : BaseViewActivity() {
         }
         //输入选择器
         mBtn6.click {
-            showInputPicker(
-                    title = "昵称",
-                    hint = "请输入昵称",
-                    prefill = "永动机",
-                    callBack = { _, charSequence ->
-                        toast("输入=${charSequence}")
-                    }
-            )
+//            showInputPicker(
+//                    title = "昵称",
+//                    hint = "请输入昵称",
+//                    prefill = "永动机",
+//                    callBack = { _, charSequence ->
+//                        toast("输入=${charSequence}")
+//                    }
+//            )
         }
         //单选选择器
         mBtn7.click {

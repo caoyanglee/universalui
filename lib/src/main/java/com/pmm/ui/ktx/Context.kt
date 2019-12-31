@@ -20,9 +20,13 @@ import android.view.KeyEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.annotation.AttrRes
+import androidx.annotation.CheckResult
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.bumptech.glide.Glide
 import com.pmm.ui.OriginAppData
 import kotlinx.coroutines.Dispatchers
@@ -280,4 +284,51 @@ fun Context.clearGlideCache() {
 fun Context.isDarkMode(): Boolean {
     val mode: Int = this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
     return mode == Configuration.UI_MODE_NIGHT_YES
+}
+
+@CheckResult
+fun Context.resolveColor(
+        @AttrRes attr: Int,
+        fallback: (() -> Int)? = null
+): Int {
+    val a = theme.obtainStyledAttributes(intArrayOf(attr))
+    try {
+        val result = a.getColor(0, 0)
+        if (result == 0 && fallback != null) {
+            return fallback()
+        }
+        return result
+    } finally {
+        a.recycle()
+    }
+}
+
+@CheckResult
+fun Context.resolveDrawable(
+        @AttrRes attr: Int,
+        fallback: (() -> Drawable?)? = null
+): Drawable? {
+    val a = theme.obtainStyledAttributes(intArrayOf(attr))
+    try {
+        val result = a.getDrawable(0)
+        if (result != null && fallback != null) {
+            return fallback()
+        }
+        return result
+    } finally {
+        a.recycle()
+    }
+}
+
+@CheckResult
+fun Context.drawable(
+        @DrawableRes drawable: Int,
+        @ColorInt tint: Int? = null
+): Drawable {
+    val result = ContextCompat.getDrawable(this, drawable)!!
+    if (tint != null) {
+        return DrawableCompat.wrap(result)
+                .apply { DrawableCompat.setTint(this, tint) }
+    }
+    return result
 }

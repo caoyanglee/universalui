@@ -215,7 +215,7 @@ fun showAllViewOneByOne(timeMillis: Long, vararg views: View?) {
 
 //动态修改View的背景 颜色，圆角
 class ViewBgOption {
-    var color: Int = -1
+    var color: Int? = null
     var radius: Float = -1f
 }
 
@@ -226,10 +226,10 @@ fun View?.bg(option: ViewBgOption) {
     if (bg !is GradientDrawable) {
         bg = GradientDrawable()
     }
-    val targetBg = bg as GradientDrawable
-    if (option.color != -1)
-        targetBg.setColor(option.color)
-    if (option.radius != -1f)
+    val targetBg = bg
+    if (option.color != null)
+        targetBg.setColor(option.color!!)
+    if (option.radius > 0f)
         targetBg.cornerRadius = option.radius
     this.background = targetBg
 }
