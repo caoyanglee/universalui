@@ -1,7 +1,5 @@
 package com.pmm.demo.base
 
-import com.pmm.ui.core.BaseB
-
 /**
  * Author:你需要一台永动机
  * Date:2018/9/29 17:04

@@ -1,7 +1,6 @@
 package com.pmm.demo.base
 
 import android.content.Context
-import com.pmm.ui.core.BaseB
 import com.pmm.ui.core.recyclerview.BaseRecyclerAdapter
 import com.pmm.ui.core.recyclerview.BaseRecyclerViewHolder
 import kotlinx.android.synthetic.main.base_list_item_main_category.view.*
