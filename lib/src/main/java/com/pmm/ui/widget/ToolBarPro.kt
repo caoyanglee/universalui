@@ -72,6 +72,11 @@ class ToolBarPro : ViewGroup {
         var menu3TextColor: Int? = null
         var menu3TextSize: Float? = null
 
+        //menu4
+        var menu4Drawable: Drawable? = null
+        var menu4TextColor: Int? = null
+        var menu4TextSize: Float? = null
+
         //divider
         var dividerShow: Boolean = true
         var dividerSize: Int = 1//1px
@@ -155,6 +160,17 @@ class ToolBarPro : ViewGroup {
         }
     }
 
+    private val ivMenuView4 by lazy {
+        getActionImageView().apply {
+            this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
+                this.rightMargin = context.dip2px(16f)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
+            }
+            setImageDrawable(GlobalConfig.menu4Drawable)
+        }
+    }
+
     private val tvMenuView1 by lazy {
         getActionTextView().apply {
             this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
@@ -191,6 +207,19 @@ class ToolBarPro : ViewGroup {
             this.setTextColor(GlobalConfig.menu3TextColor ?: colorAccent)
 
             GlobalConfig.menu3TextSize?.let { this.textSize = (it) } //设置大小
+        }
+    }
+
+    private val tvMenuView4 by lazy {
+        getActionTextView().apply {
+            this.layoutParams = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT).apply {
+                this.rightMargin = context.dip2px(16f)
+                this.topMargin = context.dip2px(6f)
+                this.bottomMargin = context.dip2px(6f)
+            }
+            this.setTextColor(GlobalConfig.menu4TextColor ?: colorAccent)
+
+            GlobalConfig.menu4TextSize?.let { this.textSize = (it) } //设置大小
         }
     }
 
@@ -250,6 +279,8 @@ class ToolBarPro : ViewGroup {
         measureChild(tvMenuView2)
         measureChild(ivMenuView3)
         measureChild(tvMenuView3)
+        measureChild(ivMenuView4)
+        measureChild(tvMenuView4)
         measureChild(divider)
     }
 
@@ -348,6 +379,26 @@ class ToolBarPro : ViewGroup {
             it.layout(left, top, right, bottom)
         }
 
+        //actionView3 iv
+        ivMenuView4.shouldRender {
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = ivMenuView3.left - it.measuredWidth - param.rightMargin
+            val right = ivMenuView3.left - param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight
+            it.layout(left, top, right, bottom)
+        }
+
+        //actionView3 tv
+        tvMenuView4.shouldRender {
+            val param = (it.layoutParams as MarginLayoutParams)
+            val left = tvMenuView3.left - it.measuredWidth - param.rightMargin
+            val right = tvMenuView3.left - param.rightMargin
+            val top = startY + param.topMargin
+            val bottom = top + it.measuredHeight
+            it.layout(left, top, right, bottom)
+        }
+
         //divider
         divider.shouldRender {
             val param = (it.layoutParams as MarginLayoutParams)
@@ -432,6 +483,13 @@ class ToolBarPro : ViewGroup {
         if (!ivMenuView3.isChild()) addView(ivMenuView3)
     }
 
+    //右侧菜单4 ImageView
+    fun menuIcon4(config: (ImageView.() -> Unit)): ToolBarPro = apply {
+        if (tvMenuView4.isChild()) removeView(tvMenuView4)
+        ivMenuView4.config()
+        if (!ivMenuView4.isChild()) addView(ivMenuView4)
+    }
+
     //右侧菜单1 TextView
     fun menuText1(config: (TextView.() -> Unit)): ToolBarPro = apply {
         if (ivMenuView1.isChild()) removeView(ivMenuView1)
@@ -452,6 +510,13 @@ class ToolBarPro : ViewGroup {
         if (ivMenuView3.isChild()) removeView(ivMenuView3)
         tvMenuView3.config()
         if (!tvMenuView3.isChild()) addView(tvMenuView3)
+    }
+
+    //右侧菜单4 TextView
+    fun menuText4(config: (TextView.() -> Unit)): ToolBarPro = apply {
+        if (ivMenuView4.isChild()) removeView(ivMenuView4)
+        tvMenuView4.config()
+        if (!tvMenuView4.isChild()) addView(tvMenuView4)
     }
 
     //divider

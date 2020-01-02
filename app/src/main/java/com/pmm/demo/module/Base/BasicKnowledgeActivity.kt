@@ -34,37 +34,46 @@ class BasicKnowledgeActivity : BaseViewActivity() {
             this.centerTitle {
                 setBackgroundColor(Color.CYAN)
             }
-//            this.menuIcon1 {
-//                this.setImageResource(R.drawable.ic_label_gray_24dp)
-//                this.click {
-//                    toast("哈哈1")
-//                }
-//            }
-//
-//            this.menuIcon2 {
-//                this.setImageResource(R.drawable.ic_label_gray_24dp)
-//                this.click {
-//                    toast("哈哈2")
-//                }
-//            }
-//
-//            this.menuIcon3 {
-//                this.setImageResource(R.drawable.ic_label_gray_24dp)
-//                this.click {
-//                    toast("哈哈3")
-//                }
-//            }
-            this.menuText1 {
-                this.text="测试"
+            this.menuIcon1 {
+                this.setImageResource(R.drawable.ic_label_gray_24dp)
+                this.click {
+                    toast("哈哈1")
+                }
             }
 
-            this.menuText2 {
-                this.text="删除"
+            this.menuIcon2 {
+                this.setImageResource(R.drawable.ic_label_gray_24dp)
+                this.click {
+                    toast("哈哈2")
+                }
             }
 
-            this.menuText3 {
-                this.text="恢复"
+            this.menuIcon3 {
+                this.setImageResource(R.drawable.ic_label_gray_24dp)
+                this.click {
+                    toast("哈哈3")
+                }
             }
+            this.menuIcon4 {
+                this.setImageResource(R.drawable.ic_label_gray_24dp)
+                this.click {
+                    toast("哈哈4")
+                }
+            }
+//            this.menuText1 {
+//                this.text="测试1"
+//            }
+//
+//            this.menuText2 {
+//                this.text="删除2"
+//            }
+//
+//            this.menuText3 {
+//                this.text="恢复3"
+//            }
+//            this.menuText4 {
+//                this.text="恢复4"
+//            }
         }
 
         recyclerView.init()
