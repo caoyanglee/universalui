@@ -6,4 +6,6 @@
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_action_agree">Agree</string>
     <string name="dialog_action_disagree">Disagree</string>
+
+    <string name="share">分享</string>
 </resources>

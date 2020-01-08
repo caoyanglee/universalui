@@ -71,7 +71,6 @@ object AESHelper {
             }
 
         } catch (ex: Exception) {
-            println(ex.toString())
             return ""
         }
 

@@ -1,12 +1,15 @@
 package com.pmm.ui.ktx
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -20,10 +23,7 @@ import android.view.KeyEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.annotation.AttrRes
-import androidx.annotation.CheckResult
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
+import androidx.annotation.*
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -286,6 +286,7 @@ fun Context.isDarkMode(): Boolean {
     return mode == Configuration.UI_MODE_NIGHT_YES
 }
 
+//获取attr的颜色
 @CheckResult
 fun Context.resolveColor(
         @AttrRes attr: Int,
@@ -303,6 +304,7 @@ fun Context.resolveColor(
     }
 }
 
+//获取attr的图片
 @CheckResult
 fun Context.resolveDrawable(
         @AttrRes attr: Int,
@@ -320,6 +322,7 @@ fun Context.resolveDrawable(
     }
 }
 
+//获取图片的染色图
 @CheckResult
 fun Context.drawable(
         @DrawableRes drawable: Int,
@@ -331,4 +334,38 @@ fun Context.drawable(
                 .apply { DrawableCompat.setTint(this, tint) }
     }
     return result
+}
+
+/**
+ * 增加通知栏的频道 通用库更新后可删除
+ * @param importance NotificationManager.IMPORTANCE_LOW
+ */
+fun Context.createNotificationChannel(
+        channelId: String,
+        channelName: String,
+        channelDesc: String = "",
+        importance: Int = 0,
+        enableVibration: Boolean = true,
+        lightColor: Int = Color.GREEN
+) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val mNotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // 通知渠道的id
+        // 用户可以看到的通知渠道的名字.
+        val name = channelName
+        // 用户可以看到的通知渠道的描述
+        val description = channelDesc
+        val mChannel = NotificationChannel(channelId, name, importance)
+        // 配置通知渠道的属性
+        mChannel.description = description
+        // 设置通知出现时的闪灯（如果 android 设备支持的话）
+        mChannel.enableLights(true)
+        mChannel.lightColor = lightColor
+        // 设置通知出现时的震动（如果 android 设备支持的话）
+        mChannel.enableVibration(enableVibration)
+        //mChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
+        //最后在NotificationManager中创建该通知渠道
+        mNotificationManager.createNotificationChannel(mChannel)
+    }
 }

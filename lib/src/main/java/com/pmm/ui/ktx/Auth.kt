@@ -4,6 +4,7 @@ import android.text.TextUtils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 /**
@@ -195,4 +196,16 @@ fun String.hideMobileNo(): String {
     }
 
     return mobileFormat
+}
+
+//是否是邮件地址
+fun String.isEmail(): Boolean {
+    if (this.isBlank()) return false
+    val regEx1 =
+            "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
+    val p: Pattern
+    val m: Matcher
+    p = Pattern.compile(regEx1)
+    m = p.matcher(this)
+    return m.matches()
 }

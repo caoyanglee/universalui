@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import com.pmm.ui.types.FILE
+import com.weimu.universalview.R
 import java.io.File
 
 
@@ -190,15 +191,15 @@ fun Context.shareText(shareText: String) {
     val textIntent = Intent(Intent.ACTION_SEND)
     textIntent.type = "text/plain"
     textIntent.putExtra(Intent.EXTRA_TEXT, shareText)
-    startActivity(Intent.createChooser(textIntent, "Share"));
+    startActivity(Intent.createChooser(textIntent, this.getString(R.string.share)));
 }
 
 //分享 单张图片
 fun Context.shareImage(localImagePath: String) {
     val imageIntent = Intent(Intent.ACTION_SEND)
-    imageIntent.type = "image/jpeg"
+    imageIntent.type = "image/*"
     imageIntent.putExtra(Intent.EXTRA_STREAM, getUri4File(File(localImagePath)))
-    startActivity(Intent.createChooser(imageIntent, "分享"))
+    startActivity(Intent.createChooser(imageIntent, this.getString(R.string.share)))
 }
 
 
