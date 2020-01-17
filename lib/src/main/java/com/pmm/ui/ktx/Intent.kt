@@ -9,7 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import com.pmm.ui.types.FILE
-import com.weimu.universalview.R
+import com.pmm.ui.R
 import java.io.File
 
 

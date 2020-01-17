@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.pmm.ui.glide.GlideRoundTransform
-import com.weimu.universalview.R
+import com.pmm.ui.R
 import java.io.File
 
 /**

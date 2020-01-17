@@ -12,7 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.weimu.universalview.R
+import com.pmm.ui.R
 import java.util.*
 
 /**

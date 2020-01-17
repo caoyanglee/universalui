@@ -16,7 +16,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.pmm.ui.OriginAppData
 import com.pmm.ui.ktx.*
-import com.weimu.universalview.R
+import com.pmm.ui.R
 import java.lang.ref.WeakReference
 import kotlin.properties.Delegates
 

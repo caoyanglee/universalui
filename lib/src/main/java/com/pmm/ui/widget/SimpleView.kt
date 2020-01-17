@@ -14,7 +14,7 @@ import android.view.Gravity
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
-import com.weimu.universalview.R
+import com.pmm.ui.R
 
 /**
  * Author:你需要一台永动机

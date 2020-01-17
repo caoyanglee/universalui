@@ -1,7 +1,7 @@
 package com.pmm.ui.core.dialog
 
 import android.view.Gravity
-import com.weimu.universalview.R
+import com.pmm.ui.R
 
 /**
  * Author:你需要一台永动机

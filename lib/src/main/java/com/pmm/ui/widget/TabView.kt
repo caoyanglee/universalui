@@ -18,7 +18,7 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import com.pmm.ui.ktx.*
-import com.weimu.universalview.R
+import com.pmm.ui.R
 import kotlin.properties.Delegates
 
 
