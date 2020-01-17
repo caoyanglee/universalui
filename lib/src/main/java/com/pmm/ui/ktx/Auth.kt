@@ -199,8 +199,8 @@ fun String.hideMobileNo(): String {
 }
 
 //是否是邮件地址
-fun String.isEmail(): Boolean {
-    if (this.isBlank()) return false
+fun String?.isEmail(): Boolean {
+    if (this.isNullOrBlank()) return false
     val regEx1 =
             "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
     val p: Pattern
