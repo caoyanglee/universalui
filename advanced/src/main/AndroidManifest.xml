@@ -3,7 +3,7 @@
     package="com.pmm.demo.advanced">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:supportsRtl="true">
         <activity android:name=".AndroidAdvanced" />
         <activity android:name=".binder.ServiceActivity" />
