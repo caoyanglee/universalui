@@ -1,6 +1,8 @@
 package com.pmm.ui.ktx
 
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
  * Author:你需要一台永动机
@@ -51,3 +53,18 @@ fun String.toSBC(content: String): String {
 
 //uuid字符串
 fun UUID.toStringV2() = this.toString().replace("-", "")
+
+
+/**
+ * 替代所有空格
+ */
+fun String?.replaceBlank(): String {
+    val str = this
+    var dest = ""
+    if (str != null) {
+        val p: Pattern = Pattern.compile("\\s*|\t|\r|\n")
+        val m: Matcher = p.matcher(str)
+        dest = m.replaceAll("")
+    }
+    return dest
+}
