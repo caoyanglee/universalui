@@ -70,10 +70,11 @@ fun ContextWrapper.showConfirmDialog(
         negativeStr: String = baseContext.getString(R.string.dialog_action_cancel),
         negativeCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
         positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
-        positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null
+        positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
+        cancelable: Boolean = true
 ) {
     MaterialDialog(this).show {
-        cancelable(false)
+        cancelable(cancelable)
         cornerRadius(8f)
         title(text = title)
         message(text = content)
