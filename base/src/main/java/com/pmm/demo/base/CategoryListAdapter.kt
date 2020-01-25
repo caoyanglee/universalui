@@ -15,7 +15,7 @@ class CategoryListAdapter(mContext: Context) : BaseRecyclerAdapter<Any, Category
     override fun getItemLayoutRes() = R.layout.base_list_item_main_category
 
     override fun itemViewChange(holder: BaseRecyclerViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = getItem(position)?:return
         holder.itemView.apply {
             tv_primary.text = item.primaryTitle
             tv_secondary.text = item.subTitle
