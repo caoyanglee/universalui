@@ -205,11 +205,13 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
 
                 //单点
                 holder.itemView.click {
-                    onItemClick?.invoke(getItem(index), index)
+                    val item = getItem(index) ?: return@click
+                    onItemClick?.invoke(item, index)
                 }
                 //长按
                 holder.itemView.setOnLongClickListener {
-                    onItemLongClick?.invoke(getItem(index), index)
+                    val item = getItem(index) ?: return@setOnLongClickListener true
+                    onItemLongClick?.invoke(item, index)
                     true
                 }
                 //刷新  必须先设置点击事件，因为有可能itemViewChange会覆盖
@@ -281,17 +283,18 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
 
     //此方法 性能不好 请避免使用此方法
     open fun setDataToAdapter(data: List<T>?) {
-        if (data == null) return
-        if (dataList.size != 0) {
-            clearList()
-            addData(data)
-        } else {
-            addData(data)
+        when {
+            data.isNullOrEmpty() -> clearList()
+            dataList.size == 0-> addData(data)
+            dataList.size != 0->{
+                clearList()
+                addData(data)
+            }
         }
     }
 
     open fun addData(data: List<T>?) {
-        if (data == null) return
+        if (data.isNullOrEmpty()) return
         val currentSize = itemCount
         dataList.addAll(data)
         val start = currentSize - footViewSize
@@ -372,9 +375,11 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
         notifyItemChanged(itemCount - footViewSize)
     }
 
-    //todo  java.lang.IndexOutOfBoundsException: Index: 0, Size: 0  下拉请求的过程中导致的问题
-    open fun getItem(position: Int): T {
-        return dataList[position]
+    //java.lang.IndexOutOfBoundsException: Index: 0, Size: 0  下拉请求的过程中导致的问题
+    open fun getItem(position: Int): T? = try {
+        dataList[position]
+    } catch (e: Exception) {
+        null
     }
 
     //刷新当前Item
