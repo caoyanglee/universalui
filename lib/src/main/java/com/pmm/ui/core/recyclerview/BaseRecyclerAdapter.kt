@@ -269,15 +269,16 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
 
     //比较不耗性能 有动画
     open fun setDataToAdapterWithAnim(data: List<T>?, delayMills: Long = 300) {
-        if (data == null) return
-        if (dataList.size != 0) {
-            val originDataSize = dataList.size
-            dataList.clear()
-            notifyItemRangeRemoved(headViewSize + errorViewSize + emptyViewSize, originDataSize)
-            //notifyDataSetChanged()
-            Handler().postDelayed({ addData(data) }, delayMills)
-        } else {
-            addData(data)
+        when {
+            data.isNullOrEmpty() -> clearList()
+            dataList.size == 0-> addData(data)
+            dataList.size != 0->{
+                val originDataSize = dataList.size
+                dataList.clear()
+                notifyItemRangeRemoved(headViewSize + errorViewSize + emptyViewSize, originDataSize)
+                //notifyDataSetChanged()
+                Handler().postDelayed({ addData(data) }, delayMills)
+            }
         }
     }
 
