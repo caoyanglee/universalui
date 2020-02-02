@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.pmm.ui.OriginAppData
 import com.pmm.ui.ktx.*
 import com.pmm.ui.R
 import java.lang.ref.WeakReference
@@ -40,18 +39,18 @@ class ToolBarPro : ViewGroup {
     private var activityReference: WeakReference<Activity?>? = null
 
     var showStatusView by Delegates.observable(GlobalConfig.showStatusView) { property, oldValue, newValue -> requestLayout() }
-    var toolbarHeight by Delegates.observable(GlobalConfig.toolbarHeight) { property, oldValue, newValue -> requestLayout() }
-    var toolBarPaddingLeft by Delegates.observable(GlobalConfig.toolbarPaddingLeft) { property, oldValue, newValue -> requestLayout() }
-    var toolBarPaddingRight by Delegates.observable(GlobalConfig.toolbarPaddingRight) { property, oldValue, newValue -> requestLayout() }
+    var toolbarHeight by Delegates.observable(if (GlobalConfig.toolbarHeight == -1) context.dip2px(44f) else GlobalConfig.toolbarHeight) { property, oldValue, newValue -> requestLayout() }
+    var toolBarPaddingLeft by Delegates.observable(if (GlobalConfig.toolbarPaddingLeft == -1) context.dip2px(15f) else GlobalConfig.toolbarPaddingLeft) { property, oldValue, newValue -> requestLayout() }
+    var toolBarPaddingRight by Delegates.observable(if (GlobalConfig.toolbarPaddingRight == -1) context.dip2px(15f) else GlobalConfig.toolbarPaddingRight) { property, oldValue, newValue -> requestLayout() }
 
     //全局配置
     object GlobalConfig {
         var showStatusView = false//是否显示状态栏视图
 
         //ToolBar
-        var toolbarHeight = OriginAppData.context.dip2px(44f)//父视图的高度
-        var toolbarPaddingLeft = OriginAppData.context.dip2px(15f)//父视图的左右padding
-        var toolbarPaddingRight = OriginAppData.context.dip2px(15f)//父视图的左右padding
+        var toolbarHeight = -1//父视图的高度
+        var toolbarPaddingLeft = -1//父视图的左右padding
+        var toolbarPaddingRight = -1//父视图的左右padding
         var toolbarBgColor: Int? = null
         //CenterTitle
         var centerTitleSize: Float? = null//sp 标题文字大小
