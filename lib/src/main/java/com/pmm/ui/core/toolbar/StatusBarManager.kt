@@ -57,16 +57,16 @@ object StatusBarManager {
     fun setLightMode(window: Window?, isFullScreen: Boolean = false): Int {
         var result = 0
         if (window == null) return 0
-        if (MIUISetStatusBarLightMode(window, true, isFullScreen)) {
-            result = 1
-        } else if (FlymeSetStatusBarLightMode(window, true, isFullScreen)) {
-            result = 2
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (isFullScreen)
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             else
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             result = 3
+        } else if (MIUISetStatusBarLightMode(window, true, isFullScreen)) {
+            result = 1
+        } else if (FlymeSetStatusBarLightMode(window, true, isFullScreen)) {
+            result = 2
         } else {//5.x版本的手机不支持状态栏你黑色字体，所以状态栏的颜色自己看设置一个
             setColor(window, statusLightBarColorV5)
         }
@@ -83,13 +83,13 @@ object StatusBarManager {
      */
     fun setDarkMode(window: Window, isFullScreen: Boolean = false): Int {
         var result = 0
-        if (MIUISetStatusBarLightMode(window, false, isFullScreen)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (isFullScreen) window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            result = 3
+        } else if (MIUISetStatusBarLightMode(window, false, isFullScreen)) {
             result = 1
         } else if (FlymeSetStatusBarLightMode(window, false, isFullScreen)) {
             result = 2
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (isFullScreen) window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            result = 3
         }
         return result
     }
@@ -108,10 +108,8 @@ object StatusBarManager {
         if (window != null) {
             try {
                 val lp = window.attributes
-                val darkFlag = WindowManager.LayoutParams::class.java
-                        .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON")
-                val meizuFlags = WindowManager.LayoutParams::class.java
-                        .getDeclaredField("meizuFlags")
+                val darkFlag = WindowManager.LayoutParams::class.java.getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON")
+                val meizuFlags = WindowManager.LayoutParams::class.java.getDeclaredField("meizuFlags")
                 darkFlag.isAccessible = true
                 meizuFlags.isAccessible = true
                 val bit = darkFlag.getInt(null)
@@ -123,6 +121,8 @@ object StatusBarManager {
                 }
                 meizuFlags.setInt(lp, value)
                 window.attributes = lp
+                darkFlag.isAccessible = false
+                meizuFlags.isAccessible = false
                 result = true
             } catch (e: Exception) {
 
