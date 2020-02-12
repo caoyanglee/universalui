@@ -48,18 +48,18 @@ class BasicKnowledgeActivity : BaseViewActivity() {
                 }
             }
 
-            this.menuIcon3 {
-                this.setImageResource(R.drawable.ic_label_gray_24dp)
-                this.click {
-                    toast("哈哈3")
-                }
-            }
-            this.menuIcon4 {
-                this.setImageResource(R.drawable.ic_label_gray_24dp)
-                this.click {
-                    toast("哈哈4")
-                }
-            }
+//            this.menuIcon3 {
+//                this.setImageResource(R.drawable.ic_label_gray_24dp)
+//                this.click {
+//                    toast("哈哈3")
+//                }
+//            }
+//            this.menuIcon4 {
+//                this.setImageResource(R.drawable.ic_label_gray_24dp)
+//                this.click {
+//                    toast("哈哈4")
+//                }
+//            }
 //            this.menuText1 {
 //                this.text="测试1"
 //            }

@@ -112,16 +112,17 @@ fun ContextWrapper.showSingleChoicePicker(
 
 /**
  * 显示列表选择器
+ * @param title getString(R.string.dialog_title_default)
  * @param callBack 选择回调
  */
 fun ContextWrapper.showListPicker(
-        title: String = baseContext.getString(R.string.dialog_title_default),
+        title: String? = null,
         items: List<CharSequence>,
         callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
 ) {
     MaterialDialog(this).show {
         cornerRadius(8f)
-        title(text = title)
+        if (title!=null&&title.isNotBlank())title(text = title)
         listItems(items = items) { dialog, index, text ->
             dialog.dismiss()
             callBack.invoke(dialog, index, text)
