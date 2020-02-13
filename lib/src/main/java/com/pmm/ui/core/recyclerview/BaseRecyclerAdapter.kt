@@ -318,7 +318,7 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     }
 
     open fun removeItem(position: Int) {
-        if (position == -1) return
+        if (position == -1||dataList.isEmpty()) return
         dataList.removeAt(position)
         val start = headViewSize + emptyViewSize + errorViewSize + position
         notifyItemRemoved(start)
