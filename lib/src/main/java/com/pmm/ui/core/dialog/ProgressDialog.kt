@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
+import com.pmm.ui.R
 import com.pmm.ui.helper.RxSchedulers
 import com.pmm.ui.ktx.dip2px
 import io.reactivex.Observable
@@ -26,8 +27,8 @@ object ProgressDialog {
 
     fun show(
             context: Context,
-            title: String = "提示",
-            message: String = "请求中",
+            title: String = context.getString(R.string.dialog_title_default),
+            message: String = context.getString(R.string.dialog_msg_default),
             cancelable: Boolean = false
     ) {
         try {

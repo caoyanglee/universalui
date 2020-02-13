@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_title_default">Tips</string>
+    <string name="dialog_msg_default">Requesting</string>
     <string name="dialog_message_default">Content</string>
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_cancel">Cancel</string>
