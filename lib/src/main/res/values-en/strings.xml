@@ -8,5 +8,8 @@
     <string name="dialog_action_agree">Agree</string>
     <string name="dialog_action_disagree">Disagree</string>
 
-    <string name="share">分享</string>
+    <string name="share">Share</string>
+
+    <string name="sms_get_verify_code">Get verifyCode</string>
+    <string name="sms_get_to_resend">To resend</string>
 </resources>

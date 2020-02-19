@@ -1,11 +1,14 @@
 package com.pmm.ui.helper
 
+import android.content.Context
 import android.os.CountDownTimer
 import android.widget.TextView
+import com.pmm.ui.R
 
 
 //短信倒计时
 class SMSCountDownTimer(
+        var context:Context,
         var tv_send_code: TextView? = null,
         val countDownSecond: Int = 60
 ) {
@@ -16,7 +19,7 @@ class SMSCountDownTimer(
     init {
         cd = object : CountDownTimer((countDownSecond * 1000).toLong(), 1000) {
             override fun onTick(l: Long) {
-                val str = "重新发送(${l / 1000}s)"
+                val str = "${context.getString(R.string.sms_get_to_resend)}(${l / 1000}s)"
                 tv_send_code?.text = str
             }
 
@@ -38,7 +41,7 @@ class SMSCountDownTimer(
     fun endCountTime() {
         cd.cancel()
         getCodeIng = false
-        tv_send_code?.text = "获取验证码"
+        tv_send_code?.text = context.getString(R.string.sms_get_verify_code)
         tv_send_code?.isEnabled = true
     }
 }
