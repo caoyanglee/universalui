@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
+import java.lang.Exception
 
 
 /**
@@ -16,6 +17,7 @@ import androidx.viewpager.widget.PagerAdapter
 open class BaseFragmentPagerAdapter(
         private var fm: FragmentManager,
         private val mFragment: ArrayList<Fragment> = arrayListOf(),
+        private val mTitle: ArrayList<String> = arrayListOf(),
         behavior: Int = BEHAVIOR_SET_USER_VISIBLE_HINT
 ) : FragmentPagerAdapter(fm, behavior) {
 
@@ -64,5 +66,14 @@ open class BaseFragmentPagerAdapter(
      * 获取Fragment
      */
     fun getFragments() = mFragment
+
+    /**
+     * 增加title的显示
+     */
+    override fun getPageTitle(position: Int): CharSequence? = try {
+        mTitle[position]
+    } catch (e: Exception) {
+        ""
+    }
 
 }
