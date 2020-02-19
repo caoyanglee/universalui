@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContextWrapper
 import androidx.fragment.app.FragmentActivity
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.callbacks.onDismiss
 //import com.afollestad.materialdialogs.datetime.datePicker
 //import com.afollestad.materialdialogs.datetime.dateTimePicker
 //import com.afollestad.materialdialogs.datetime.timePicker
@@ -67,11 +68,12 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
 fun ContextWrapper.showConfirmDialog(
         title: String = baseContext.getString(R.string.dialog_title_default),
         content: String = baseContext.getString(R.string.dialog_message_default),
-        negativeStr: String = baseContext.getString(R.string.dialog_action_cancel),
         cancelable: Boolean = true,
+        negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
         negativeCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
         positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
-        positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null
+        positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
+        dismissCallBack: (() -> Unit)? = null
 ) {
     MaterialDialog(this).show {
         cancelable(cancelable)
@@ -82,9 +84,14 @@ fun ContextWrapper.showConfirmDialog(
             it.dismiss()
             positiveCallBack?.invoke(it)
         }
-        negativeButton(text = negativeStr) {
-            it.dismiss()
-            negativeCallBack?.invoke(it)
+        if (negativeStr != null) {
+            negativeButton(text = negativeStr) {
+                it.dismiss()
+                negativeCallBack?.invoke(it)
+            }
+        }
+        onDismiss {
+            dismissCallBack?.invoke()
         }
     }
 }
@@ -97,7 +104,8 @@ fun ContextWrapper.showSingleChoicePicker(
         title: String = baseContext.getString(R.string.dialog_title_default),
         items: List<CharSequence>,
         selectedIndex: Int = 0,
-        callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
+        callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
+        dismissCallBack: (() -> Unit)? = null
 ) {
     MaterialDialog(this).show {
         cornerRadius(8f)
@@ -105,6 +113,9 @@ fun ContextWrapper.showSingleChoicePicker(
         listItemsSingleChoice(items = items, initialSelection = selectedIndex) { dialog, index, text ->
             dialog.dismiss()
             callBack.invoke(dialog, index, text)
+        }
+        onDismiss {
+            dismissCallBack?.invoke()
         }
     }
 }
@@ -118,16 +129,19 @@ fun ContextWrapper.showSingleChoicePicker(
 fun ContextWrapper.showListPicker(
         title: String? = null,
         items: List<CharSequence>,
-        callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit)
+        callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
+        dismissCallBack: (() -> Unit)? = null
 ) {
     MaterialDialog(this).show {
         cornerRadius(8f)
-        if (title!=null&&title.isNotBlank())title(text = title)
+        if (title != null && title.isNotBlank()) title(text = title)
         listItems(items = items) { dialog, index, text ->
             dialog.dismiss()
             callBack.invoke(dialog, index, text)
         }
-
+        onDismiss {
+            dismissCallBack?.invoke()
+        }
     }
 }
 
