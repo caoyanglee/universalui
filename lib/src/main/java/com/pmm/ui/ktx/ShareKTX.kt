@@ -12,7 +12,7 @@ import java.io.File
  * Description:专门处理分享API
  */
 
-@StringDef(value = [ShareContentType.TEXT, ShareContentType.IMAGE, ShareContentType.AUDIO, ShareContentType.VIDEO, ShareContentType.File])
+@StringDef(value = [ShareContentType.TEXT, ShareContentType.IMAGE, ShareContentType.AUDIO, ShareContentType.VIDEO, ShareContentType.FILE])
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
 annotation class ShareContentType {
@@ -41,7 +41,7 @@ annotation class ShareContentType {
         /**
          * Share File
          */
-        const val File: String = "*/*"
+        const val FILE: String = "*/*"
     }
 }
 
