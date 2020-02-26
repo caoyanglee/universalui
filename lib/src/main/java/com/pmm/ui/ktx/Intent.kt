@@ -15,11 +15,6 @@ import java.io.File
 
 private val SCHEME = "package"
 
-//application增加Action
-fun Application.startActivityPro(intent: Intent) {
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    startActivity(intent)
-}
 
 //进入拨号键面
 fun Context.launchCallPage(phoneNumber: String) {
@@ -185,22 +180,5 @@ fun Context.openApkByFilePath(file: File) {
         //doNothing
     }
 }
-
-//分享 文本信息
-fun Context.shareText(shareText: String) {
-    val textIntent = Intent(Intent.ACTION_SEND)
-    textIntent.type = "text/plain"
-    textIntent.putExtra(Intent.EXTRA_TEXT, shareText)
-    startActivity(Intent.createChooser(textIntent, this.getString(R.string.share)));
-}
-
-//分享 单张图片
-fun Context.shareImage(localImagePath: String) {
-    val imageIntent = Intent(Intent.ACTION_SEND)
-    imageIntent.type = "image/*"
-    imageIntent.putExtra(Intent.EXTRA_STREAM, getUri4File(File(localImagePath)))
-    startActivity(Intent.createChooser(imageIntent, this.getString(R.string.share)))
-}
-
 
 

@@ -55,7 +55,7 @@ fun File.getFolderSize(): Long {
 fun Context.getTotalCacheSize(): String {
     var cacheSize = this.cacheDir.getFolderSize()
     if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-        cacheSize += this.externalCacheDir?.getFolderSize()?:0
+        cacheSize += this.externalCacheDir?.getFolderSize() ?: 0
     }
     return getFormatSize(cacheSize.toDouble())
 }
@@ -148,18 +148,16 @@ fun Context.getAssetsString(fileName: String): String {
 /**
  * 获取文件的Uri
  * 兼容7.0
+ * @param file 文件
  */
 fun Context.getUri4File(file: File?): Uri {
     //获取当前app的包名
-    val FPAuth = "$packageName.fileprovider"
-
+    val fileProviderAuth = "$packageName.fileprovider"
     if (file == null) throw NullPointerException()
-
-    val uri: Uri
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        uri = FileProvider.getUriForFile(this.applicationContext, FPAuth, file)
+    val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        FileProvider.getUriForFile(this.applicationContext, fileProviderAuth, file)
     } else {
-        uri = Uri.fromFile(file)
+        Uri.fromFile(file)
     }
     return uri
 }
