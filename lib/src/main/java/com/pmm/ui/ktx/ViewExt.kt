@@ -229,7 +229,7 @@ fun View?.bg(option: ViewBgOption) {
     val targetBg = bg
     if (option.color != null)
         targetBg.setColor(option.color!!)
-    if (option.radius > 0f)
+    if (option.radius >= 0f)
         targetBg.cornerRadius = option.radius
     this.background = targetBg
 }

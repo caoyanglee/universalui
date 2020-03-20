@@ -30,7 +30,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.bumptech.glide.Glide
 import com.pmm.ui.OriginAppData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.lang.reflect.Field
 
@@ -275,7 +275,7 @@ fun Context.clearGlideCache() {
     val that = this
     //glide
     Glide.get(this).clearMemory()//必须要主线程内执行
-    GlobalScope.launch(Dispatchers.Default) {
+    MainScope().launch(Dispatchers.Default) {
         Glide.get(that).clearDiskCache()//必须在子线程内执行
     }
 }
