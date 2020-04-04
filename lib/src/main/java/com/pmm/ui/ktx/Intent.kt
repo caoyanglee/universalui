@@ -153,32 +153,5 @@ fun Context.openFileByLocal(file: File, fileType: FILE) {
     }
 }
 
-/**
- * /构造打开APK的Intent
- */
-fun Context.constructOpenApkItent(file: File): Intent {
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//7.0有效
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)//7.0有效
-    }
-    val uri = this.getUri4File(file)
-    intent.setDataAndType(uri, "application/vnd.android.package-archive")
-    return intent
-}
-
-/**
- * 直接打开APK
- */
-fun Context.openApkByFilePath(file: File) {
-    //防止有的系统 强制关闭安装未知来源的app 导致的crash
-    try {
-        startActivity(constructOpenApkItent(file))
-    } catch (e: Exception) {
-        e.printStackTrace()
-        //doNothing
-    }
-}
 
 
