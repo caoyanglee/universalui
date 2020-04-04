@@ -369,3 +369,13 @@ fun Context.createNotificationChannel(
         mNotificationManager.createNotificationChannel(mChannel)
     }
 }
+
+/**
+ * 是否是竖屏
+ */
+fun Context.isPortrait() = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+
+/**
+ * 是否是横屏
+ */
+fun Context.isLandScape() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
