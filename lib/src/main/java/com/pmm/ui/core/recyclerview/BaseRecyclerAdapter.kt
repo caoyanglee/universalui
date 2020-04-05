@@ -271,8 +271,8 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     open fun setDataToAdapterWithAnim(data: List<T>?, delayMills: Long = 300) {
         when {
             data.isNullOrEmpty() -> clearList()
-            dataList.size == 0-> addData(data)
-            dataList.size != 0->{
+            dataList.size == 0 -> addData(data)
+            dataList.size != 0 -> {
                 val originDataSize = dataList.size
                 dataList.clear()
                 notifyItemRangeRemoved(headViewSize + errorViewSize + emptyViewSize, originDataSize)
@@ -286,8 +286,8 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     open fun setDataToAdapter(data: List<T>?) {
         when {
             data.isNullOrEmpty() -> clearList()
-            dataList.size == 0-> addData(data)
-            dataList.size != 0->{
+            dataList.size == 0 -> addData(data)
+            dataList.size != 0 -> {
                 clearList()
                 addData(data)
             }
@@ -318,7 +318,7 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     }
 
     open fun removeItem(position: Int) {
-        if (position == -1||dataList.isEmpty()) return
+        if (position == -1 || dataList.isEmpty()) return
         dataList.removeAt(position)
         val start = headViewSize + emptyViewSize + errorViewSize + position
         notifyItemRemoved(start)
@@ -384,21 +384,14 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     }
 
     //刷新当前Item
-    open fun refreshItem(position: Int) {
+    open fun refreshItem(position: Int, item: T?) {
+        if (item != null) dataList[position] = item
         notifyItemChanged((headViewSize + emptyViewSize + errorViewSize) + position)
     }
 
-
-    //刷新当前Item
-    open fun refreshItem(item: T, position: Int) {
-        dataList[position] = item
-        notifyItemChanged((headViewSize + emptyViewSize + errorViewSize) + position)
-    }
-
-    //刷新当前Item 携带对象
-    open fun refreshItemWithPlayLoad(item: T, position: Int) {
-        dataList[position] = item
-        notifyItemChanged((headViewSize + emptyViewSize + errorViewSize) + position, item)
+    //刷新当前Item 携带payload 局部刷新
+    open fun refreshItemWithPlayLoad(position: Int, payload: Any) {
+        notifyItemChanged((headViewSize + emptyViewSize + errorViewSize) + position, payload)
     }
 
     //指定某个item
