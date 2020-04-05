@@ -384,13 +384,13 @@ abstract class BaseRecyclerAdapter<H, T>(protected var mContext: Context) : Recy
     }
 
     //刷新当前Item
-    open fun refreshItem(position: Int, item: T?) {
+    open fun refreshItem(position: Int, item: T? = null) {
         if (item != null) dataList[position] = item
         notifyItemChanged((headViewSize + emptyViewSize + errorViewSize) + position)
     }
 
     //刷新当前Item 携带payload 局部刷新
-    open fun refreshItemWithPlayLoad(position: Int, payload: Any) {
+    open fun refreshItemWithPlayLoad(position: Int, payload: Any? = null) {
         notifyItemChanged((headViewSize + emptyViewSize + errorViewSize) + position, payload)
     }
 
