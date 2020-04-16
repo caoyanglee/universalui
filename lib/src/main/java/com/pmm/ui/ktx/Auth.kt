@@ -22,7 +22,8 @@ import java.util.regex.Pattern
  * *
  * @throws ParseException
  */
-fun String.verifyID(): String {
+fun String?.verifyID(): String {
+    if (this.isNullOrBlank()) return ""
     val IDStr = this
     var tipInfo = ""// 记录错误信息
     var Ai = ""
@@ -159,21 +160,24 @@ private fun GetAreaCode(): Hashtable<String, String> {
 
 
 //判断字符串是否为数字,0-9重复0次或者多次
-fun String.isNumeric(): Boolean {
+fun String?.isNumeric(): Boolean {
+    if (this.isNullOrBlank()) return false
     val pattern = Pattern.compile("[0-9]*")
     val isNum = pattern.matcher(this)
     return isNum.matches();
 }
 
 //判断字符串出生日期是否符合正则表达式：包括年月日，闰年、平年和每月31天、30天和闰月的28天或者29天
-fun String.isDate(): Boolean {
+fun String?.isDate(): Boolean {
+    if (this.isNullOrBlank()) return false
     val pattern = Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))?$")
     val m = pattern.matcher(this)
     return m.matches();
 }
 
 //手机号格式验证
-fun String.isMobileNo(): Boolean {
+fun String?.isMobileNo(): Boolean {
+    if (this.isNullOrBlank()) return false
     var isMobileNo = false
     try {
         val p = Pattern.compile("^((13[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\\d{8}$")
@@ -186,7 +190,8 @@ fun String.isMobileNo(): Boolean {
 }
 
 //隐藏手机号中间四位
-fun String.hideMobileNo(): String {
+fun String?.hideMobileNo(): String {
+    if (this.isNullOrBlank()) return ""
     if (!this.isMobileNo()) return this
     var mobileFormat = ""
     try {
@@ -202,7 +207,7 @@ fun String.hideMobileNo(): String {
 fun String?.isEmail(): Boolean {
     if (this.isNullOrBlank()) return false
     val regEx1 =
-            "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
+            "^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
     val p: Pattern
     val m: Matcher
     p = Pattern.compile(regEx1)
