@@ -18,7 +18,7 @@ object StatusBarManager {
     /**
      * 修改状态栏为全透明
      */
-    fun setStatusBarTransparent(window: Window?) {
+    fun setTransparencyBar(window: Window?) {
         window?.apply {
             this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
