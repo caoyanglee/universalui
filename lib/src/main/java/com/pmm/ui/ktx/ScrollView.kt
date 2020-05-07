@@ -11,7 +11,6 @@ import androidx.core.widget.NestedScrollView
 
 //ScrollView 初始化
 fun ScrollView.init() {
-    setPaddingWithNavigationBar(0, 0, 0, 0)
     clipToPadding = false
 }
 
@@ -22,7 +21,6 @@ fun ScrollView.setPaddingWithNavigationBar(left: Int, top: Int, right: Int, bott
 
 //NestedScrollView 初始化
 fun NestedScrollView.init() {
-    setPaddingWithNavigationBar(0, 0, 0, 0)
     clipToPadding = false
 }
 

@@ -26,7 +26,7 @@ fun RecyclerView.init(): RecyclerView {
     (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     (this.itemAnimator as SimpleItemAnimator).changeDuration = 0
     this.layoutManager = LinearLayoutManagerPro(context, LinearLayoutManager.VERTICAL, false)
-    setPaddingWithNavigationBar(0, 0, 0, 0)
+    this.clipToPadding = false
     return this
 }
 
