@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView
 //ScrollView 初始化
 fun ScrollView.init() {
     setPaddingWithNavigationBar(0, 0, 0, 0)
+    clipToPadding = false
 }
 
 //设置留白 兼容底部导航条 已经把NavigationBar的高度算进去了
@@ -22,6 +23,7 @@ fun ScrollView.setPaddingWithNavigationBar(left: Int, top: Int, right: Int, bott
 //NestedScrollView 初始化
 fun NestedScrollView.init() {
     setPaddingWithNavigationBar(0, 0, 0, 0)
+    clipToPadding = false
 }
 
 //设置留白 兼容底部导航条 已经把NavigationBar的高度算进去了
