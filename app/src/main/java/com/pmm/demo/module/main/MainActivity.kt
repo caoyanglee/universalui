@@ -3,6 +3,7 @@ package com.pmm.demo.module.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
 import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
@@ -16,10 +17,14 @@ import com.pmm.demo.module.lib3.Lib3Activity
 import com.pmm.demo.module.test.TestActivity
 import com.pmm.metro.Metro
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
+import com.pmm.ui.core.toolbar.StatusBarManager
 import com.pmm.ui.helper.security.AESHelper
 import com.pmm.ui.ktx.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_recyclerview.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseViewActivity() {
 
@@ -37,8 +42,14 @@ class MainActivity : BaseViewActivity() {
 
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
+        StatusBarManager.setStatusNavigationBarTransparent(window)
+        StatusBarManager.setLightMode(this.window, true)
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
-        toast("欢迎来到通用UI库")
+
+        MainScope().launch {
+            delay(300)
+            Snackbar.make(getContentView(), "欢迎来到通用UI库", Snackbar.LENGTH_SHORT).showMD2()
+        }
 
         tvTitle.click {
             openActivity<TestActivity>()
@@ -89,7 +100,7 @@ class MainActivity : BaseViewActivity() {
                 context = this,
                 dividerSize = dip2px(16f)
         ))
-        recyclerView.setPadding(0, 0, 0, dip2px(16f))
+        recyclerView.setPaddingWithNavigationBar(0, 0, 0, dip2px(16f))
         category.add(CategoryB("Android基础", "Android的一些基础Demo"))
         category.add(CategoryB("Android进阶", "Android的一些进阶Demo"))
         category.add(CategoryB("Java", "Java的一些基础Demo"))

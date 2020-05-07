@@ -26,7 +26,13 @@ fun RecyclerView.init(): RecyclerView {
     (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     (this.itemAnimator as SimpleItemAnimator).changeDuration = 0
     this.layoutManager = LinearLayoutManagerPro(context, LinearLayoutManager.VERTICAL, false)
+    setPaddingWithNavigationBar(0, 0, 0, 0)
     return this
+}
+
+//设置留白 兼容底部导航条 已经把NavigationBar的高度算进去了
+fun RecyclerView.setPaddingWithNavigationBar(left: Int, top: Int, right: Int, bottom: Int) {
+    this.setPadding(left, top, right, this.context.getNavigationBarHeight() + bottom)
 }
 
 /**
