@@ -10,6 +10,10 @@ import androidx.annotation.ColorInt
 
 /**
  * 状态栏操作中心
+ * 5.0~5.1 采用半透明的沉浸模式
+ * 6.0+ 采用全透明的沉浸模式
+ * 6.0~8.0 状态栏有亮色暗色之分
+ * 8.0+ 底部导航条有亮色暗色之分
  */
 object StatusBarManager {
 
