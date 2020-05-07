@@ -13,8 +13,6 @@ import androidx.annotation.ColorInt
  */
 object StatusBarManager {
 
-    private var statusLightBarColorV5 = Color.rgb(102, 102, 102)//5.0及其5.1亮色状态背景
-
     /**
      * 修改状态栏为全透明
      */
@@ -32,14 +30,21 @@ object StatusBarManager {
      */
     fun setStatusNavigationBarTransparent(window: Window?) {
         window?.apply {
-            this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+            } else {
+                this.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                this.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+            }
             this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            this.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            this.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             this.navigationBarColor = Color.TRANSPARENT
             this.statusBarColor = Color.TRANSPARENT
+
         }
     }
 
@@ -89,8 +94,6 @@ object StatusBarManager {
             result = 1
         } else if (FlymeSetStatusBarLightMode(window, true, isFullScreen)) {
             result = 2
-        } else {//5.x版本的手机不支持状态栏里黑色字体，所以状态栏的颜色自己看设置一个
-            setColor(window, statusLightBarColorV5)
         }
         return result
     }

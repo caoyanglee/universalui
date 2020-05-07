@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
@@ -261,7 +262,7 @@ fun ViewPager.setDefaultItem(item: Int = 0, smoothScroll: Boolean = true) {
  * 展示SnackBar的MD2样式
  * @param marginBottom 距离底部的margin
  */
-fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f) + this.context.getNavigationBarHeight()) {
+fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
     val context = this.context
     val snackbarView = this.view as FrameLayout//获取SnackBar布局View实例
     snackbarView.bg(ViewBgOption().apply {

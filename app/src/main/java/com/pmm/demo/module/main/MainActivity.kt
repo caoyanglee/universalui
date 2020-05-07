@@ -40,10 +40,9 @@ class MainActivity : BaseViewActivity() {
 
     override fun getLayoutResID() = R.layout.activity_main
 
-
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         StatusBarManager.setStatusNavigationBarTransparent(window)
-        StatusBarManager.setLightMode(this.window, true)
+        StatusBarManager.setDarkMode(this.window, true)
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
 
         MainScope().launch {
@@ -100,7 +99,7 @@ class MainActivity : BaseViewActivity() {
                 context = this,
                 dividerSize = dip2px(16f)
         ))
-        recyclerView.setPaddingWithNavigationBar(0, 0, 0, dip2px(16f))
+        recyclerView.setPaddingWithNavigationBar(0, 0, 0, getNavigationBarHeight())
         category.add(CategoryB("Android基础", "Android的一些基础Demo"))
         category.add(CategoryB("Android进阶", "Android的一些进阶Demo"))
         category.add(CategoryB("Java", "Java的一些基础Demo"))
