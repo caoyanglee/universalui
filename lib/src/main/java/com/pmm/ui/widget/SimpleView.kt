@@ -81,6 +81,8 @@ class SimpleView : AppCompatTextView {
         textPressColor = attr.getColor(R.styleable.SimpleView_wm_textPressColor, textDefaultColor)
         textUnEnableColor = attr.getColor(R.styleable.SimpleView_wm_textUnEnableColor, textDefaultColor)
 
+        attr.recycle()//必须释放
+
         //默认背景
         bg.apply {
             bg.setColor(backgroundColor)
