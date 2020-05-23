@@ -1,7 +1,29 @@
 package com.pmm.ui.ktx
 
+import android.content.ContentResolver
+import android.graphics.Color
+import android.provider.Settings
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+
+/**
+ * Author:你需要一台永动机
+ * Date:2020/5/23 11:02
+ * Description:
+ */
+
+//获取手机型号
+fun Any.getSystemModel() = android.os.Build.MODEL
+
+// 获取手机厂商
+fun Any.getDeviceBrand() = android.os.Build.BRAND
+
+
+//是否开启 不保留活动
+fun ContentResolver.isAlwaysFinishActivities(): Boolean {
+    val isAlways = Settings.Global.getInt(this, Settings.Global.ALWAYS_FINISH_ACTIVITIES, 0)//开发者选项 不保留活动
+    return isAlways == 1
+}
 
 
 private var lastClickTime: Long = 0
@@ -34,6 +56,16 @@ fun Any.doubleClick(singleClick: () -> Unit, doubleClick: () -> Unit, delay: Lon
         }
     }
 }
+
+
+/**
+ * 是否是亮色
+ */
+fun Int.isLightColor(): Boolean {
+    val darkness = 1 - (0.299 * Color.red(this) + 0.587 * Color.green(this) + 0.114 * Color.blue(this)) / 255
+    return darkness < 0.5
+}
+
 
 
 

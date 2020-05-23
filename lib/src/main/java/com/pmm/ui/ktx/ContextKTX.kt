@@ -379,3 +379,13 @@ fun Context.isPortrait() = resources.configuration.orientation == Configuration.
  * 是否是横屏
  */
 fun Context.isLandScape() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+/**
+ * 判断是否拥有某个权限
+ */
+fun Context.isHavePermissions(vararg permissions: String): Boolean {
+    for (item in permissions) {
+        if (checkCallingOrSelfPermission(item) != PackageManager.PERMISSION_GRANTED) return false
+    }
+    return true
+}

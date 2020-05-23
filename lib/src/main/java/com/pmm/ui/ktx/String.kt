@@ -7,7 +7,11 @@ import java.util.regex.Pattern
 /**
  * Author:你需要一台永动机
  * Date:2019/1/27 16:24
- * Description:补充http的开头
+ * Description:
+ */
+
+/**
+ * 补充http的开头
  */
 fun String?.addHttpStart(): String {
     if (this == null) return ""
