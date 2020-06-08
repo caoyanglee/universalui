@@ -15,13 +15,14 @@ import androidx.annotation.ColorInt
  * 6.0~8.0 状态栏有亮色暗色之分
  * 8.0+ 底部导航条有亮色暗色之分
  * 注意：本类的操作应当在super.onCreate()之前调用
+ * @Link https://unicorn-utterances.com/posts/draw-under-navbar-using-react-native/
  */
 object StatusBarManager {
 
     /**
      * 修改状态栏为全透明
      */
-    fun setTransparencyBar(window: Window?) {
+    fun setStatusBarTransparency(window: Window?) {
         window?.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -83,34 +84,36 @@ object StatusBarManager {
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
     fun setLightMode(window: Window?, isFullScreen: Boolean = false) {
-        if (window == null) return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (isFullScreen)
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
-                        View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            else
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (isFullScreen)
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            else
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        window?.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (isFullScreen)
+                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
+                            View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                else
+                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (isFullScreen)
+                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                else
+                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            }
         }
     }
 
 
     /**
      * 状态栏黑色模式，文字白色文字、图标
-     * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
+     * 6.0以上版本其他Android
      *
      * @param activity
-     * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    fun setDarkMode(window: Window, isFullScreen: Boolean = false) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (isFullScreen) window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (isFullScreen) window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+    fun setDarkMode(window: Window?, isFullScreen: Boolean = false) {
+        window?.apply {
+            if (isFullScreen)
+                this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            else {
+                this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            }
         }
     }
 
