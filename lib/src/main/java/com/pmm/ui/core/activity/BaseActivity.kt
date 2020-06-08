@@ -20,6 +20,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //superCreate之前
+        beforeSuperCreate(savedInstanceState)
+
         super.onCreate(savedInstanceState)
 
         //绑定视图前
@@ -38,16 +41,18 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         afterViewAttach(savedInstanceState)
     }
 
-    //baseView的操作
-    open fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
+    //superCreate之前
+    protected open fun beforeSuperCreate(savedInstanceState: Bundle?){}
 
-    open fun afterViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
+    //baseView的操作
+    protected open fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
+
+    protected open fun afterViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
 
     //子View的操作
     protected open fun beforeViewAttach(savedInstanceState: Bundle?) {}
 
     protected open fun afterViewAttach(savedInstanceState: Bundle?) {}
-
 
     override fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
 

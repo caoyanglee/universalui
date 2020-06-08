@@ -14,6 +14,7 @@ import androidx.annotation.ColorInt
  * 6.0+ 采用全透明的沉浸模式
  * 6.0~8.0 状态栏有亮色暗色之分
  * 8.0+ 底部导航条有亮色暗色之分
+ * 注意：本类的操作应当在super.onCreate()之前调用
  */
 object StatusBarManager {
 
@@ -45,10 +46,8 @@ object StatusBarManager {
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            this.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             this.navigationBarColor = Color.TRANSPARENT
             this.statusBarColor = Color.TRANSPARENT
-
         }
     }
 
