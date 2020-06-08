@@ -9,7 +9,6 @@ import com.pmm.demo.base.CategoryListAdapter
 import com.pmm.demo.base.initToolBar
 import com.pmm.metro.Metro
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
-import com.pmm.ui.core.toolbar.StatusBarManager
 import com.pmm.ui.ktx.click
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.init

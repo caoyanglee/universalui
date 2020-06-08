@@ -1,4 +1,4 @@
-package com.pmm.ui.core.toolbar
+package com.pmm.ui.core
 
 
 import android.graphics.Color
@@ -14,10 +14,10 @@ import androidx.annotation.ColorInt
  * 6.0+ 采用全透明的沉浸模式
  * 6.0~8.0 状态栏有亮色暗色之分
  * 8.0+ 底部导航条有亮色暗色之分
- * 注意：本类的操作应当在super.onCreate()之前调用
+ * 注意：本类的操作应当在super.onCreate()之前调用，慎用FLAG_LAYOUT_NO_LIMITS，否则会导致各种问题
  * @Link https://unicorn-utterances.com/posts/draw-under-navbar-using-react-native/
  */
-object StatusBarManager {
+object StatusNavigationBar {
 
     /**
      * 修改状态栏为全透明

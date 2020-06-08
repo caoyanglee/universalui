@@ -17,7 +17,6 @@ import com.pmm.demo.module.lib3.Lib3Activity
 import com.pmm.demo.module.test.TestActivity
 import com.pmm.metro.Metro
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
-import com.pmm.ui.core.toolbar.StatusBarManager
 import com.pmm.ui.helper.security.AESHelper
 import com.pmm.ui.ktx.*
 import kotlinx.android.synthetic.main.activity_main.*

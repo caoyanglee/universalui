@@ -44,8 +44,7 @@ class AndroidBug5497Workaround private constructor(activity: Activity, isFullScr
         mChildOfContent.getWindowVisibleDisplayFrame(r)
         return if (isFullScreen) {
             r.bottom// 全屏模式下： return r.bottom
-        } else r.bottom - r.top
-//非全屏模式
+        } else r.bottom - r.top //非全屏模式
     }
 
     companion object {

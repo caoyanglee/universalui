@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.WindowManager
 import com.pmm.demo.R
 import com.pmm.ui.core.dialog.BaseDialog
-import com.pmm.ui.core.toolbar.StatusBarManager
+import com.pmm.ui.core.StatusNavigationBar
 import kotlinx.android.synthetic.main.dialog_full_screen.*
 
 /**
@@ -35,8 +35,8 @@ class FullScreenDialog : BaseDialog() {
     }
 
     private fun initViews() {
-        StatusBarManager.setColor(dialog?.window, Color.WHITE)
-        StatusBarManager.setLightMode(dialog?.window)
+        StatusNavigationBar.setColor(dialog?.window, Color.WHITE)
+        StatusNavigationBar.setLightMode(dialog?.window)
 
         mToolbar.with(activity).apply {
             toolbarHeight = 0
