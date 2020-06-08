@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.pmm.ui.core.activity.BaseActivity
 import com.pmm.ui.core.architecture.mvp.BaseView
+import com.pmm.ui.core.toolbar.StatusBarManager
 
 /**
  * Author:你需要一台永动机
@@ -14,7 +15,10 @@ import com.pmm.ui.core.architecture.mvp.BaseView
 abstract class BaseViewActivity : BaseActivity(), BaseView {
 
     //superCreate之前
-    override fun beforeSuperCreate(savedInstanceState: Bundle?) {}
+    final override fun beforeSuperCreate(savedInstanceState: Bundle?) {
+        StatusBarManager.setStatusNavigationBarTransparent(window)
+        StatusBarManager.setDarkMode(window, true)
+    }
 
     //视图加载前
     final override fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?) {}

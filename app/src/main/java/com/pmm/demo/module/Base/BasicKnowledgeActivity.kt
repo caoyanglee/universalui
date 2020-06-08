@@ -26,9 +26,10 @@ class BasicKnowledgeActivity : BaseViewActivity() {
     override fun getLayoutResID(): Int = R.layout.activity_universal_list
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
+//        StatusBarManager.setLightMode(window, true)
+
         initToolBar("基础知识").apply {
-            StatusBarManager.setTransparencyBar(window)
-            StatusBarManager.setLightMode(window, true)
+
             this.showStatusView = true
 
             this.centerTitle {

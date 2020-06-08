@@ -41,8 +41,7 @@ class MainActivity : BaseViewActivity() {
     override fun getLayoutResID() = R.layout.activity_main
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        StatusBarManager.setStatusNavigationBarTransparent(window)
-        StatusBarManager.setDarkMode(this.window, true)
+
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
 
         MainScope().launch {
