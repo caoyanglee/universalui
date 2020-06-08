@@ -12,12 +12,6 @@
         <item name="android:actionMenuTextColor">@android:color/white</item>
     </style>
 
-
-    <!--沉浸式主题-->
-    <style name="AppImmersionTheme" parent="AppTheme">
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-    </style>
-
     <!--全屏幕主题-无状态栏-->
     <style name="AppFullScreenTheme" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
