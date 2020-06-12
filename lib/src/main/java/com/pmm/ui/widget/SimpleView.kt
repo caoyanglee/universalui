@@ -235,13 +235,12 @@ class SimpleView : AppCompatTextView {
         bg.cornerRadius = cornerRadius
         selectBg.cornerRadius = cornerRadius
         unEnableBg.cornerRadius = cornerRadius
-
-
         background = createBgSelector(bg, selectBg, bg, unEnableBg, selectBg)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            foreground = getRippleDrawable()
-        }
+        //todo 暂时不要使用
+        //问题：android.graphics.drawable.StateListDrawable cannot be cast to android.graphics.drawable.RippleDrawable
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            foreground = getRippleDrawable()
+//        }
     }
 
     /**

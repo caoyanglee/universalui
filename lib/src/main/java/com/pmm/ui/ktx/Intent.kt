@@ -154,4 +154,14 @@ fun Context.openFileByLocal(file: File, fileType: FILE) {
 }
 
 
+/**
+ * 返回桌面
+ */
+fun Context.backHomeTable() {
+    val home = Intent(Intent.ACTION_MAIN)
+    home.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+    home.addCategory(Intent.CATEGORY_HOME)
+    startActivity(home)
+}
+
 
