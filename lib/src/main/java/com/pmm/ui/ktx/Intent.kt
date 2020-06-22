@@ -83,7 +83,7 @@ fun Context.openAPP(appPackageName: String) {
 
 
 //打开市场-评价
-fun Context.openMark() {
+fun Context.openMark(packageName: String = this.packageName) {
     try {
         val uri = Uri.parse("market://details?id=$packageName")
         val intent = Intent(Intent.ACTION_VIEW, uri)
