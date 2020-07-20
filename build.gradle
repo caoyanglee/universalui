@@ -12,9 +12,9 @@ buildscript {
             ],
             'extension': [
                     'silentUpdate': 'com.github.caoyanglee:SilentUpdate:0.3.7',//静默更新
-                    'imagePicker' : 'com.github.caoyanglee:ImagePicker:0.2.10',//图片选择
-                    'metro_lib'       : 'com.github.caoyanglee.Metro:lib:0.3.0',//简易路由库-本体
-                    'metro_compiler'       : 'com.github.caoyanglee.Metro:compiler:0.3.0'//简易路由-注解处理器
+                    'imagePicker' : 'com.github.caoyanglee:ImagePicker:0.2.12',//图片选择
+                    'metro_lib'       : 'com.github.caoyanglee.Metro:lib:0.3.1',//简易路由库-本体
+                    'metro_compiler'       : 'com.github.caoyanglee.Metro:compiler:0.3.1'//简易路由-注解处理器
             ]
     ]
     ext.kotlin_version = '1.3.72'
@@ -44,7 +44,7 @@ task clean(type: Delete) {
 
 ext {
     //Sdk and tools
-    minSdkVersion = 21
+    minSdkVersion = 18
     targetSdkVersion = 29
     compileSdkVersion = 29
 }

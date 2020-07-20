@@ -19,6 +19,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     private var isViewPagerShow = false//是否在viewpager显示
     private var isFirstShow = false//第一次显示
+    private var isFirstFrameLayoutShow = false////是否是在FrameLayout显示
 
     var isViewCreated = false //视图是否加载
         private set//不允许进行设置
@@ -68,11 +69,19 @@ abstract class BaseFragment : Fragment(), BaseView {
     final override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!isViewCreated) return
-        onFrameLayoutShow(!hidden)
+        if (!isFirstFrameLayoutShow&&!hidden) {
+            onFrameLayoutFirstShow()
+            isFirstFrameLayoutShow = true
+        }else{
+            onFrameLayoutShow(!hidden)
+        }
     }
 
     //fragment 在FrameLayout的隐藏显示
     open fun onFrameLayoutShow(show: Boolean) {}
+
+    //fragment 在FrameLayout的第一次显示
+    open fun onFrameLayoutFirstShow() {}
 
     //ViewPager的切换
     final override fun setUserVisibleHint(isVisibleToUser: Boolean) {

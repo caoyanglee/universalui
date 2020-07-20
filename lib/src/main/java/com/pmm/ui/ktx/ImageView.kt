@@ -3,14 +3,21 @@ package com.pmm.ui.ktx
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Handler
 import android.util.Base64
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.pmm.ui.glide.GlideRoundTransform
 import com.pmm.ui.R
 import java.io.File
@@ -332,4 +339,71 @@ fun ImageView.loadBae64(base64Data: String) {
     val bytes = Base64.decode(base64Data, Base64.DEFAULT)
     val btm = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     this.load(btm)
+}
+
+/**
+ * 加载gif
+ */
+fun ImageView.loadGif(@DrawableRes gif: Int, placeholder: Drawable? = null, completeListener:(()->Unit) ) {
+    Glide.with(context).asGif()
+            .load(gif)
+            .apply(RequestOptions.placeholderOf(placeholder).diskCacheStrategy(DiskCacheStrategy.ALL))
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<GifDrawable>?,
+                        isFirstResource: Boolean
+                ): Boolean {
+                    completeListener.invoke()
+                    return false
+                }
+
+                override fun onResourceReady(
+                        resource: GifDrawable?,
+                        model: Any?,
+                        target: Target<GifDrawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                ): Boolean {
+                    //resource?.setLoopCount(1)
+
+                    val gifStateField =
+                            GifDrawable::class.java.getDeclaredField(
+                                    "state"
+                            )
+                    gifStateField.isAccessible = true
+
+                    val gifStateClass =
+                            Class.forName("com.bumptech.glide.load.resource.gif.GifDrawable\$GifState")
+                    val gifFrameLoaderField = gifStateClass.getDeclaredField("frameLoader")
+                    gifFrameLoaderField.isAccessible = true
+
+                    val gifFrameLoaderClass =
+                            Class.forName("com.bumptech.glide.load.resource.gif.GifFrameLoader")
+                    val gifDecoderField = gifFrameLoaderClass.getDeclaredField("gifDecoder")
+                    gifDecoderField.isAccessible = true
+
+                    val gifDecoderClass = Class.forName("com.bumptech.glide.gifdecoder.GifDecoder")
+                    val gifDecoder = gifDecoderField[gifFrameLoaderField[gifStateField[resource]]]
+                    val getDelayMethod =
+                            gifDecoderClass.getDeclaredMethod("getDelay", Int::class.javaPrimitiveType)
+                    getDelayMethod.isAccessible = true
+
+                    //获得总帧数
+                    val count: Int = resource?.frameCount ?: 0
+                    var duration = 0
+                    for (i in 0 until count) {
+                        //计算每一帧所需要的时间进行累加
+                        duration += getDelayMethod.invoke(gifDecoder, i) as Int
+                    }
+                    Handler().postDelayed({
+                        completeListener.invoke()
+                    }, duration.toLong())
+                    return false
+                }
+
+            })
+            .into(this)
 }

@@ -251,4 +251,19 @@ open class MultiplyStateView : FrameLayout {
         setViewForState(view, state, switchToState)
     }
 
+    fun showContent(){
+        setViewState(MultiplyStateView.VIEW_STATE_CONTENT)
+    }
+
+    fun showEmpty(){
+        setViewState(MultiplyStateView.VIEW_STATE_EMPTY)
+    }
+
+    fun showError(){
+        setViewState(MultiplyStateView.VIEW_STATE_ERROR)
+    }
+
+    fun showLoading(){
+        setViewState(MultiplyStateView.VIEW_STATE_LOADING)
+    }
 }

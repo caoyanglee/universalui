@@ -160,4 +160,24 @@ fun EditText.setTextPro(text: CharSequence) {
     this.setSelectionEnd()
 }
 
+/**
+ * 添加监听字数视图，且设置限制字数
+ */
+fun EditText.addTextLengthListener(
+        textLengthListener: ((textLength: Int) -> Unit)? = null,
+        limitLength: Int = -1
+) {
+    val edit = this;
+    this.addTextChangedListener(object : MyTextWatcher {
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val content = s.toString()
+            if (limitLength != -1 && content.length > limitLength) {
+                edit.setText(content.substring(0, content.length - 1))
+                edit.setSelectionEnd()
+                return
+            }
+            textLengthListener?.invoke(content.length)
+        }
+    })
+}
 
