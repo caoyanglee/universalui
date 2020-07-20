@@ -1,6 +1,7 @@
 package com.pmm.ui.core
 
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.view.View
@@ -134,6 +135,29 @@ object StatusNavigationBar {
         val attrs = window.attributes
         attrs.flags = attrs.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
         window.attributes = attrs
+    }
+
+
+    /**
+     * 修改状态栏的颜色为白色
+     */
+    fun change2LightStatusBar(window: Window?) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+        val decorView = window?.decorView ?: return
+        decorView.systemUiVisibility = decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
+    /**
+     * 修改状态栏的颜色为黑色，也就是Dark模式
+     */
+    fun change2DarkStatusBar(window: Window?) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+        val decorView = window?.decorView ?: return
+        decorView.systemUiVisibility = decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
     }
 
 
