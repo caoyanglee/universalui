@@ -132,7 +132,7 @@ class SimpleView : AppCompatTextView {
         setTextColor(createTextStateList(textDefaultColor, textPressColor, textPressColor, textUnEnableColor, textPressColor))
 
         //gravity
-        gravity = Gravity.CENTER
+        //gravity = Gravity.CENTER
     }
 
 
