@@ -18,9 +18,9 @@
 
         <com.pmm.ui.widget.SimpleView
             android:id="@+id/btn_coroutine"
-
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:padding="8dp"
             android:text="请求令牌"
             app:layout_constraintBottom_toBottomOf="parent"
