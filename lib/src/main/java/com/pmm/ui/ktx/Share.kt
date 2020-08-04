@@ -52,7 +52,11 @@ annotation class ShareContentType {
  * @param shareText 分享文本
  * @param shareContentType 分享内容类型
  */
-fun Context.share(shareFile: File? = null, shareText: String = "", @ShareContentType shareContentType: String = ShareContentType.TEXT) {
+fun Context.share(
+        shareFile: File? = null,
+        shareText: String = "",
+        @ShareContentType shareContentType: String = ShareContentType.TEXT
+) {
     val shareIntent = Intent(Intent.ACTION_SEND)
     shareIntent.type = shareContentType
     if (shareContentType == ShareContentType.TEXT) {

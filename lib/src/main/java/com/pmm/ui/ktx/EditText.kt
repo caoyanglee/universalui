@@ -153,31 +153,28 @@ fun EditText.addClearView(clearView: View? = null, keyWordListener: ((keyWord: S
 }
 
 /**
- * 设置文本时 自动将角标显示都尾部
- */
-fun EditText.setTextPro(text: CharSequence) {
-    this.setText(text)
-    this.setSelectionEnd()
-}
-
-/**
  * 添加监听字数视图，且设置限制字数
+ * @param limitLength 限制字数
+ * @param textCallback 文本监听者
+ * @param overTextCallback 超过限制字数的回调
  */
-fun EditText.addTextLengthListener(
-        textLengthListener: ((textLength: Int) -> Unit)? = null,
-        limitLength: Int = -1
+fun EditText.addTextLengthLimit(
+        limitLength: Int = -1,
+        textCallback: ((content: String) -> Unit)? = null,
+        overTextCallback: (() -> Unit)? = null
 ) {
     val edit = this;
     this.addTextChangedListener(object : MyTextWatcher {
+
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val content = s.toString()
             if (limitLength != -1 && content.length > limitLength) {
-                edit.setText(content.substring(0, content.length - 1))
+                overTextCallback?.invoke()
+                edit.setText(content.substring(0, limitLength))
                 edit.setSelectionEnd()
                 return
             }
-            textLengthListener?.invoke(content.length)
+            textCallback?.invoke(content)
         }
     })
 }
-
