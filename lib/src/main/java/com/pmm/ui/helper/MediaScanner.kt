@@ -3,27 +3,35 @@ package com.pmm.ui.helper
 import android.content.Context
 import android.media.MediaScannerConnection
 import android.net.Uri
+import android.util.Log
 
 /**
  * Author:你需要一台永动机
  * Date:2018/4/21 01:37
  * Description:保存bitmap图片到图库时，需要通知系统图库，不然系统图库检测不到
+ * val picturePath = getExternalFilesDir(Environment.DIRECTORY_PICTURES) 检测不到图片
+ * val picturePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) 检测得到图片
  */
 class MediaScanner(context: Context) : MediaScannerConnection.MediaScannerConnectionClient {
+
+    private val TAG = "MediaScanner"
 
     /**
      * 扫描对象
      */
     private var mediaScanConn: MediaScannerConnection? = null
 
+    var scanCompletedListener: (() -> Unit)? = null//扫描完成回调
+
     /**
      * 文件路径集合
      */
-    private var filePaths: Array<String>? = null
+    private var filePaths: Array<String> = arrayOf()
+
     /**
      * 文件MimeType集合
      */
-    private var mimeTypes: Array<String>? = null
+    private var mimeTypes: Array<String> = arrayOf()
 
     private var scanTimes = 0
 
@@ -39,22 +47,29 @@ class MediaScanner(context: Context) : MediaScannerConnection.MediaScannerConnec
      * @param mimeTypes  arrayOf(MimeTypeMap.getSingleton().getMimeTypeFromExtension("png"))
      * @author YOLANDA
      */
-    fun scanFiles(filePaths: Array<String>, mimeTypes: Array<String>) {
+    fun scanFiles(filePaths: Array<String>, mimeTypes: Array<String>, scanCompletedListener: (() -> Unit)? = null): MediaScanner {
         this.filePaths = filePaths
         this.mimeTypes = mimeTypes
-        mediaScanConn!!.connect()//连接扫描服务
+        Log.d(TAG, "连接扫描服务")
+        mediaScanConn?.connect()//连接扫描服务
+        this.scanCompletedListener = scanCompletedListener
+        return this
     }
 
     /**
      * @author YOLANDA
      */
     override fun onMediaScannerConnected() {
-        if (filePaths == null) return
-        for (i in filePaths!!.indices) {
-            mediaScanConn!!.scanFile(filePaths!![i], mimeTypes!![i])//服务回调执行扫描
+        Log.d(TAG, "是否连接 = ${mediaScanConn?.isConnected}")
+        for (i in filePaths.indices) {
+            Log.d(TAG, """
+                path = ${filePaths[i]}
+                type = ${mimeTypes[i]}
+            """.trimIndent())
+            mediaScanConn?.scanFile(filePaths[i], mimeTypes[i])//服务回调执行扫描
         }
-        filePaths = null
-        mimeTypes = null
+        filePaths = arrayOf()
+        mimeTypes = arrayOf()
     }
 
     /**
@@ -66,8 +81,16 @@ class MediaScanner(context: Context) : MediaScannerConnection.MediaScannerConnec
      */
     override fun onScanCompleted(path: String, uri: Uri) {
         scanTimes++
-        if (scanTimes == filePaths!!.size) {//如果扫描完了全部文件
-            mediaScanConn!!.disconnect()//断开扫描服务
+        Log.d(TAG, """
+            扫描成功
+            path = $path
+            uri = $uri
+            scanTimes = $scanTimes
+        """.trimIndent())
+        if (scanTimes == filePaths.size) {//如果扫描完了全部文件
+            Log.d(TAG, "扫描完成")
+            scanCompletedListener?.invoke()
+            mediaScanConn?.disconnect()//断开扫描服务
             scanTimes = 0//复位计数
         }
     }
