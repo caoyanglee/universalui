@@ -43,6 +43,7 @@ import java.lang.reflect.Field
 //吐司通知-普通
 fun Context?.toast(message: CharSequence) {
     try {
+        if (message.isBlank())return//过滤
         val targetContext = this ?: OriginAppData.context
         val duration = if (message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
         Toast.makeText(targetContext, message, duration).show()

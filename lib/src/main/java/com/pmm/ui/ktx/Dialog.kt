@@ -31,8 +31,9 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
                                        content: String = "无此权限app有可能无法正常运行!",
                                        positiveCallBack: (() -> Boolean)? = null,
                                        negativeCallBack: (() -> Unit)? = null) {
+    val activity = this
+
     fun showDialog() {
-        if (content.isBlank()) return
         MaterialDialog(this).show {
             cancelable(false)
             cornerRadius(8f)
@@ -40,11 +41,7 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
             message(text = content)
             positiveButton(text = "去开启") {
                 if (positiveCallBack?.invoke() == true) return@positiveButton
-                this@requestPermission.requestPermission(
-                        permissions = *permissions,
-                        granted = granted,
-                        content = content
-                )
+                activity.openAppInfoPage()
             }
             negativeButton(text = "知道了") {
                 negativeCallBack?.invoke()
