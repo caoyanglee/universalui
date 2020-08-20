@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 class GridItemDecoration(
         var spanCount: Int,//几列
         var hGap: Int = 0,//水平方向的间距
-        var vGap: Int = 0//竖直方向的间距
+        var vGap: Int = 0,//竖直方向的间距
+        var skipItemNum: Int = 0//跳过的Item数量
 ) : RecyclerView.ItemDecoration() {
 
     //0/4=0  1/4=0 2/4=0 3/4=0
