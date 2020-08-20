@@ -20,10 +20,10 @@ class GridItemDecoration(
     //4/4=1  5/4=1 6/4=1 5/6=1
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position: Int = parent.getChildAdapterPosition(view)
-        if (spanCount == 0 || skipItemNum < 0) return
+        if (spanCount == 0 || (position-skipItemNum) < 0) return
         //val childCount = parent.childCount
-        val raw = position / spanCount//位于第几行
-        val column = position % spanCount//位于第几列
+        val raw = (position-skipItemNum) / spanCount//位于第几行
+        val column = (position-skipItemNum) % spanCount//位于第几列
 
         outRect.left = (column * (hGap.toFloat() / spanCount)).toInt()
         outRect.right = (hGap - (column + 1) * (hGap.toFloat() / spanCount)).toInt()
