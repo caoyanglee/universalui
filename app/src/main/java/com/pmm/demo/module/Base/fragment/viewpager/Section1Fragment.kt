@@ -30,7 +30,7 @@ class Section1Fragment : BaseFragment() {
         }
     }
 
-    override fun getLayoutUI(): ViewGroup? = LinearLayoutCompat(context).apply {
+    override fun getLayoutUI(): ViewGroup? = LinearLayoutCompat(requireContext()).apply {
         this.orientation = LinearLayoutCompat.VERTICAL
 
         val tv = TextView(context).apply {
