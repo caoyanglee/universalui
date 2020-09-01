@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 // JitPack Maven
 apply plugin: 'com.github.dcendents.android-maven'
 // Your Group
-group='com.github.caoyanglee'
+group = 'com.github.caoyanglee'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -34,19 +34,20 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    //google
+    //kt
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //google core
+    compile 'androidx.core:core-ktx:1.3.1'
     compile 'androidx.appcompat:appcompat:1.2.0'
+    compile 'androidx.constraintlayout:constraintlayout:2.0.1'
+    //google extra
     compile 'com.google.android.material:material:1.2.0'
     //compile 'androidx.legacy:legacy-support-v4:1.0.0'
     compile 'androidx.recyclerview:recyclerview:1.1.0'
-    compile 'androidx.constraintlayout:constraintlayout:2.0.1'
     compile 'androidx.cardview:cardview:1.0.0'
-    compile 'androidx.core:core-ktx:1.3.1'
-    //kt
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //kt-coroutines 暂时用1.3.0,1.3.2有重大bug
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4'
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
+    //kt-coroutines
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
     //json
     compile 'com.google.code.gson:gson:2.8.5'
     //event bus
