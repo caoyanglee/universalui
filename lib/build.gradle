@@ -42,7 +42,7 @@ dependencies {
     compile 'androidx.constraintlayout:constraintlayout:2.0.1'
     //google extra
     compile 'com.google.android.material:material:1.2.0'
-    //compile 'androidx.legacy:legacy-support-v4:1.0.0'
+    compile "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     compile 'androidx.recyclerview:recyclerview:1.1.0'
     compile 'androidx.cardview:cardview:1.0.0'
     //kt-coroutines
