@@ -39,7 +39,7 @@ dependencies {
     api deps.extension.metro_lib
     kapt deps.extension.metro_compiler
     //multidex
-    api 'com.android.support:multidex:1.0.3'
+    api 'androidx.multidex:multidex:2.0.1'
     //log
     api 'com.orhanobut:logger:2.2.0'
 }
