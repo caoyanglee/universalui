@@ -215,7 +215,7 @@ class CenterAlignImageSpan(drawable: Drawable) : ImageSpan(drawable) {
 
 
 //根据关键词染色，懒得再数了
-fun TextView.dyeByKeyword(keyWord: String, @ColorRes color: Int) {
+fun TextView.dyeByKeyword(keyWord: String, @ColorInt color: Int) {
     if (TextUtils.isEmpty(keyWord)) return
     if (!text.contains(keyWord)) return
     val str = SpannableStringBuilder(text)
@@ -223,7 +223,7 @@ fun TextView.dyeByKeyword(keyWord: String, @ColorRes color: Int) {
     while (true) {
         start = text.indexOf(keyWord, start)
         if (start < 0 || start >= text.length) break
-        str.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, color)), start, start + keyWord.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)//染色
+        str.setSpan(ForegroundColorSpan(color), start, start + keyWord.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)//染色
         start += keyWord.length
     }
     text = str
