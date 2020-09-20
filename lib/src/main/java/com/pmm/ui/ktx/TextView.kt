@@ -325,7 +325,7 @@ fun TextView.setBold(isBold: Boolean) {
 }
 
 //获取文本的内容
-fun TextView.getContent(): String = this.text.toString().trimMargin()
+fun TextView.getContent(): String = this.text.toString().trim()
 
 
 //增加缩进

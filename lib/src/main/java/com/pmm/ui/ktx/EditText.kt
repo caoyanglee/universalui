@@ -36,7 +36,7 @@ fun EditText.clearContent() {
 
 //查看是否有空的值
 fun EditText.isEmpty(): Boolean {
-    val str = text.toString().trimMargin()
+    val str = text.toString().trim()
     if (TextUtils.isEmpty(str)) {
         return true
     }
