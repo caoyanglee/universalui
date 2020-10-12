@@ -10,11 +10,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.pmm.ui.R
-import com.pmm.ui.helper.RxSchedulers
 import com.pmm.ui.ktx.dip2px
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 object ProgressDialog {
 
     private var materialDialog: AlertDialog? = null
-    private var animDisposable: Disposable? = null
+    private var animDisposable: Job? = null
     private var textView: TextView? = null
 
     fun show(
@@ -63,7 +63,7 @@ object ProgressDialog {
                         })
                         this.setCancelable(cancelable)
                         this.setOnCancelListener {
-                            animDisposable?.dispose()
+                            animDisposable?.cancel()
                             animDisposable = null
                         }
                     }.show()
@@ -77,30 +77,40 @@ object ProgressDialog {
                 }
             }
             //anim
-            Observable.interval(300, TimeUnit.MILLISECONDS)
-                    .compose(RxSchedulers.toMain())
-                    .subscribe(object : Observer<Long> {
-                        override fun onComplete() {
-                            textView?.text = message
-                        }
-
-                        override fun onSubscribe(d: Disposable) {
-                            animDisposable = d
-                        }
-
-                        override fun onNext(t: Long) {
-                            if ((textView?.text ?: "").contains("......")) {
-                                textView?.text = message
-                            } else {
-                                textView?.text = "${textView?.text}."
-                            }
-                        }
-
-                        override fun onError(e: Throwable) {
-                            //error
-                        }
-
-                    })
+            animDisposable = MainScope().launch {
+                while (true){
+                    if ((textView?.text ?: "").contains("......")) {
+                        textView?.text = message
+                    } else {
+                        textView?.text = "${textView?.text}."
+                    }
+                    delay(300)
+                }
+            }
+//            Observable.interval(300, TimeUnit.MILLISECONDS)
+//                    .compose(RxSchedulers.toMain())
+//                    .subscribe(object : Observer<Long> {
+//                        override fun onComplete() {
+//                            textView?.text = message
+//                        }
+//
+//                        override fun onSubscribe(d: Disposable) {
+//                            animDisposable = d
+//                        }
+//
+//                        override fun onNext(t: Long) {
+//                            if ((textView?.text ?: "").contains("......")) {
+//                                textView?.text = message
+//                            } else {
+//                                textView?.text = "${textView?.text}."
+//                            }
+//                        }
+//
+//                        override fun onError(e: Throwable) {
+//                            //error
+//                        }
+//
+//                    })
         } catch (e: Exception) {
             //nothing
         }
@@ -109,7 +119,7 @@ object ProgressDialog {
     fun hide() {
         try {
             materialDialog?.dismiss()
-            animDisposable?.dispose()
+            animDisposable?.cancel()
         } catch (e: Exception) {
             return
         } finally {

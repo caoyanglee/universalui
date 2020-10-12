@@ -1,11 +1,8 @@
 package com.pmm.ui.helper
 
 import android.annotation.SuppressLint
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import android.os.Handler
 import org.greenrobot.eventbus.EventBus
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -38,10 +35,9 @@ object EventBusPro {
 
     //发送延迟通知
     @SuppressLint("CheckResult")
-    fun postDelay(`object`: Any, time: Long) {
-        Observable.timer(time, TimeUnit.MILLISECONDS)
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe { EventBus.getDefault().post(`object`) }
+    fun postDelay(event: Any, time: Long) {
+        Handler().postDelayed({
+            EventBus.getDefault().post(event)
+        },time)
     }
 }

@@ -3,6 +3,7 @@ package com.pmm.demo.module.test
 import android.Manifest
 import android.app.Activity
 import android.os.Bundle
+import com.afollestad.assent.Permission
 import com.pmm.demo.R
 import com.pmm.ui.ktx.click
 import com.pmm.demo.base.BaseViewActivity
@@ -31,9 +32,10 @@ class TestActivity : BaseViewActivity() {
 
         mBtn5.click {
             this.requestPermission(
-                    permissions = *arrayOf(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    permissions = arrayOf(
+                            Permission.WRITE_EXTERNAL_STORAGE,
+                            Permission.READ_EXTERNAL_STORAGE,
+                            Permission.CAMERA
                     ),
                     granted = { toast("拿到权限了") },
                     content = "您需要给小盛权限，才能正常访问存储文件哦"

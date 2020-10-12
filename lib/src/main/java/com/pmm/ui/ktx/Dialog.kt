@@ -1,20 +1,20 @@
 package com.pmm.ui.ktx
 
-import android.annotation.SuppressLint
-import android.content.ContextWrapper
-import androidx.fragment.app.FragmentActivity
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.callbacks.onDismiss
 //import com.afollestad.materialdialogs.datetime.datePicker
 //import com.afollestad.materialdialogs.datetime.dateTimePicker
 //import com.afollestad.materialdialogs.datetime.timePicker
 //import com.afollestad.materialdialogs.input.InputCallback
 //import com.afollestad.materialdialogs.input.input
+import android.annotation.SuppressLint
+import android.content.ContextWrapper
+import androidx.fragment.app.FragmentActivity
+import com.afollestad.assent.Permission
+import com.afollestad.assent.askForPermissions
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.pmm.ui.R
-import java.util.*
 
 /**
  *
@@ -26,7 +26,7 @@ import java.util.*
  *
  */
 @SuppressLint("CheckResult")
-fun FragmentActivity.requestPermission(vararg permissions: String,
+fun FragmentActivity.requestPermission(vararg permissions: Permission,
                                        granted: (() -> Unit)? = null,
                                        content: String = "无此权限app有可能无法正常运行!",
                                        positiveCallBack: (() -> Boolean)? = null,
@@ -49,14 +49,22 @@ fun FragmentActivity.requestPermission(vararg permissions: String,
         }
     }
 
-    RxPermissions(this).request(*permissions)
-            .subscribe {
-                if (it) {
-                    granted?.invoke()
-                } else {
-                    showDialog()
-                }
-            }
+    askForPermissions(*permissions){
+        if (it.isAllGranted()){
+            granted?.invoke()
+        }else{
+            showDialog()
+        }
+    }
+
+//    RxPermissions(this).request(*permissions)
+//            .subscribe {
+//                if (it) {
+//                    granted?.invoke()
+//                } else {
+//                    showDialog()
+//                }
+//            }
 }
 
 /**
