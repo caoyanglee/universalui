@@ -28,7 +28,7 @@ import com.pmm.ui.R
 @SuppressLint("CheckResult")
 fun FragmentActivity.requestPermission(vararg permissions: Permission,
                                        granted: (() -> Unit)? = null,
-                                       content: String = "无此权限app有可能无法正常运行!",
+                                       message: String = "无此权限app有可能无法正常运行!",
                                        positiveCallBack: (() -> Boolean)? = null,
                                        negativeCallBack: (() -> Unit)? = null) {
     val activity = this
@@ -38,7 +38,7 @@ fun FragmentActivity.requestPermission(vararg permissions: Permission,
             cancelable(false)
             cornerRadius(8f)
             title(R.string.dialog_title_default)
-            message(text = content)
+            message(text = message)
             positiveButton(text = "去开启") {
                 if (positiveCallBack?.invoke() == true) return@positiveButton
                 activity.openAppInfoPage()
@@ -72,7 +72,7 @@ fun FragmentActivity.requestPermission(vararg permissions: Permission,
  */
 fun ContextWrapper.showConfirmDialog(
         title: String = baseContext.getString(R.string.dialog_title_default),
-        content: String = baseContext.getString(R.string.dialog_message_default),
+        message: String = baseContext.getString(R.string.dialog_message_default),
         cancelable: Boolean = true,
         negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
         negativeCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
@@ -84,7 +84,7 @@ fun ContextWrapper.showConfirmDialog(
         cancelable(cancelable)
         cornerRadius(8f)
         title(text = title)
-        message(text = content)
+        message(text = message)
         positiveButton(text = positiveStr) {
             it.dismiss()
             positiveCallBack?.invoke(it)
