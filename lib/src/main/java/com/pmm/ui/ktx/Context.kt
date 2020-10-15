@@ -40,12 +40,16 @@ import java.lang.reflect.Field
  * Description:
  */
 
-//吐司通知-普通
-fun Context?.toast(message: CharSequence) {
+/**
+ * 吐司通知
+ * @param message 吐司内容
+ * @param forceLongShow 强制长显示
+ */
+fun Context?.toast(message: CharSequence, forceLongShow: Boolean = false) {
     try {
-        if (message.isBlank())return//过滤
+        if (message.isBlank()) return//过滤
         val targetContext = this ?: OriginAppData.context
-        val duration = if (message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+        val duration = if (forceLongShow || message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
         Toast.makeText(targetContext, message, duration).show()
     } catch (e: Exception) {
         //doNothing
