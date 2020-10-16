@@ -38,7 +38,7 @@ class TestActivity : BaseViewActivity() {
                             Permission.CAMERA
                     ),
                     granted = { toast("拿到权限了") },
-                    content = "您需要给小盛权限，才能正常访问存储文件哦"
+                    message = "您需要给小盛权限，才能正常访问存储文件哦"
             )
         }
     }

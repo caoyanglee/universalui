@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.MainScope
@@ -274,4 +276,9 @@ fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
             r = context.dip2px(16f)
     )
     this.show()
+}
+
+//寻找fragment 防止闪退获取不到原来的fragment
+fun ViewPager.findFragment(fm: FragmentManager, position: Int): Fragment? {
+    return fm.findFragmentByTag("android:switcher:${this.id}:${position}")
 }
