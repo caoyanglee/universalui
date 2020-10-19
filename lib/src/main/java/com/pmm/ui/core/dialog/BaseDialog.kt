@@ -25,7 +25,7 @@ abstract class BaseDialog : DialogFragment() {
     lateinit var mContentView: View
         private set
 
-    protected abstract fun getTagName(): String
+    protected open fun getTagName(): String = this::class.java.simpleName
 
     @LayoutRes
     protected abstract fun getLayoutResID(): Int
