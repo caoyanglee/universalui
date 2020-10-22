@@ -3,6 +3,7 @@ package com.pmm.demo.module.test
 import android.Manifest
 import android.app.Activity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.afollestad.assent.Permission
 import com.pmm.demo.R
 import com.pmm.ui.ktx.click
@@ -14,10 +15,15 @@ import kotlinx.android.synthetic.main.activity_test.*
 
 class TestActivity : BaseViewActivity() {
 
+    private val vm by lazy { ViewModelProvider(this).get(TestViewModel::class.java) }
+
     override fun getLayoutResID(): Int = R.layout.activity_test
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        vm.test(this)
+
 //        var loader = MainActivity::class.java.classLoader
 //        while (loader != null) {
 //            Log.d("pmm", loader.toString())//1
