@@ -5,7 +5,11 @@ import android.graphics.Rect
 import android.view.View
 import android.widget.FrameLayout
 
-//防止键盘挡住编辑内容
+/**
+ * Author:你需要一台永动机
+ * Date:2020/10/27 10:26
+ * Description:防止键盘挡住编辑内容
+ */
 class AndroidBug5497Workaround private constructor(activity: Activity, isFullScreen: Boolean) {
 
     private val mChildOfContent: View
@@ -23,16 +27,16 @@ class AndroidBug5497Workaround private constructor(activity: Activity, isFullScr
         val usableHeightNow = computeUsableHeight(isFullScreen)
         if (usableHeightNow != usableHeightPrevious) {
             val usableHeightSansKeyboard = mChildOfContent.rootView.height
-            val heightDifference = usableHeightNow - usableHeightNow
+            val heightDifference = usableHeightSansKeyboard - usableHeightNow
 
             //Log.e("usableHeightSansKeyboard=" + usableHeightSansKeyboard + " usableHeightNow=" + usableHeightNow + " heightDifference=" + heightDifference);
 
             if (heightDifference > usableHeightSansKeyboard / 4) {
                 // keyboard probably just became visible
-                frameLayoutParams.height = usableHeightNow - heightDifference
+                frameLayoutParams.height = usableHeightSansKeyboard - heightDifference
             } else {
                 // keyboard probably just became hidden
-                frameLayoutParams.height = usableHeightNow
+                frameLayoutParams.height = usableHeightSansKeyboard
             }
             mChildOfContent.requestLayout()
             usableHeightPrevious = usableHeightNow
@@ -44,19 +48,17 @@ class AndroidBug5497Workaround private constructor(activity: Activity, isFullScr
         mChildOfContent.getWindowVisibleDisplayFrame(r)
         return if (isFullScreen) {
             r.bottom// 全屏模式下： return r.bottom
-        } else r.bottom - r.top //非全屏模式
+        } else {
+            r.bottom - r.top //非全屏模式
+        }
     }
 
     companion object {
         // For more information, see https://code.google.com/p/android/issues/detail?id=5497
         // To use this class, simply invoke assistActivity() on an Activity that already has its content view set.
 
-        fun assistActivity(activity: Activity, isFullScreen: Boolean) {
+        fun assistActivity(activity: Activity, isFullScreen: Boolean = false) {
             AndroidBug5497Workaround(activity, isFullScreen)
-        }
-
-        fun assistActivity(activity: Activity) {
-            AndroidBug5497Workaround(activity, false)
         }
     }
 
