@@ -1,10 +1,7 @@
+@file:Suppress("CHANGING_ARGUMENTS_EXECUTION_ORDER_FOR_NAMED_VARARGS")
+
 package com.pmm.ui.ktx
 
-//import com.afollestad.materialdialogs.datetime.datePicker
-//import com.afollestad.materialdialogs.datetime.dateTimePicker
-//import com.afollestad.materialdialogs.datetime.timePicker
-//import com.afollestad.materialdialogs.input.InputCallback
-//import com.afollestad.materialdialogs.input.input
 import android.annotation.SuppressLint
 import android.content.ContextWrapper
 import androidx.fragment.app.FragmentActivity
@@ -26,45 +23,65 @@ import com.pmm.ui.R
  *
  */
 @SuppressLint("CheckResult")
-fun FragmentActivity.requestPermission(vararg permissions: Permission,
-                                       granted: (() -> Unit)? = null,
-                                       message: String = "无此权限app有可能无法正常运行!",
-                                       positiveCallBack: (() -> Boolean)? = null,
-                                       negativeCallBack: (() -> Unit)? = null) {
+fun FragmentActivity.requestPermission(
+        vararg permissions: Permission,
+        allGrantedCallBack: (() -> Unit)? = null,
+        allDeniedCallBack: (() -> Boolean)? = null,
+        permanentlyDeniedCallBack: (() -> Boolean)? = null,
+        //以下都是权限提示弹窗
+        message: String = "无此权限app有可能无法正常运行!",
+        positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
+        positiveCallBack: (() -> Boolean)? = null,
+        negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
+        negativeCallBack: (() -> Unit)? = null,
+) {
     val activity = this
 
-    fun showDialog() {
+    //权限弹窗
+    fun showDialog(isPermanentlyDenied: Boolean) {
         MaterialDialog(this).show {
             cancelable(false)
             cornerRadius(8f)
             title(R.string.dialog_title_default)
             message(text = message)
-            positiveButton(text = "去开启") {
+            positiveButton(text = positiveStr) {
                 if (positiveCallBack?.invoke() == true) return@positiveButton
-                activity.openAppInfoPage()
+                if (isPermanentlyDenied)
+                    activity.openAppInfoPage()
+                else
+                    activity.requestPermission(
+                            permissions = permissions,
+                            allGrantedCallBack = allGrantedCallBack,
+                            permanentlyDeniedCallBack = permanentlyDeniedCallBack,
+                            message = message,
+                            positiveStr = positiveStr,
+                            positiveCallBack = positiveCallBack,
+                            negativeStr = negativeStr,
+                            negativeCallBack = negativeCallBack
+                    )
             }
-            negativeButton(text = "知道了") {
+            negativeButton(text = negativeStr) {
                 negativeCallBack?.invoke()
             }
         }
     }
-
-    askForPermissions(*permissions){
-        if (it.isAllGranted()){
-            granted?.invoke()
-        }else{
-            showDialog()
+    //开始请求权限
+    askForPermissions(*permissions) {
+        when {
+            it.isAllGranted(*permissions) -> {
+                allGrantedCallBack?.invoke()
+            }
+            it.permanentlyDenied().isNotEmpty() -> {
+                if (permanentlyDeniedCallBack?.invoke() == true) return@askForPermissions
+                showDialog(true)
+            }
+            else -> {
+                if (allDeniedCallBack?.invoke() == true) return@askForPermissions
+                showDialog(false)
+            }
         }
     }
 
-//    RxPermissions(this).request(*permissions)
-//            .subscribe {
-//                if (it) {
-//                    granted?.invoke()
-//                } else {
-//                    showDialog()
-//                }
-//            }
 }
 
 /**

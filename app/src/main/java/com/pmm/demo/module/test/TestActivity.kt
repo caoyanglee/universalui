@@ -1,6 +1,5 @@
 package com.pmm.demo.module.test
 
-import android.Manifest
 import android.app.Activity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -35,16 +34,22 @@ class TestActivity : BaseViewActivity() {
 
         mBtn5.click {
             this.requestPermission(
-                    permissions = arrayOf(
-                            Permission.WRITE_EXTERNAL_STORAGE,
-                            Permission.READ_EXTERNAL_STORAGE,
-                            Permission.CAMERA
-                    ),
-                    granted = { toast("拿到权限了") },
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                    Permission.READ_EXTERNAL_STORAGE,
+                    Permission.CAMERA,
+                    allGrantedCallBack = { toast("拿到权限了") },
+                    allDeniedCallBack = {
+                        toast("所有权限都拒绝了")
+                        true
+                    },
+                    permanentlyDeniedCallBack = {
+                        toast("有权限被永久拒绝了")
+                        true
+                    },
                     message = "您需要给小盛权限，才能正常访问存储文件哦"
             )
         }
-        AndroidBug5497Workaround.assistActivity(this,true)
+        AndroidBug5497Workaround.assistActivity(this, true)
     }
 
     override fun onResume() {
