@@ -1,6 +1,5 @@
 package com.pmm.ui.ktx
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -12,7 +11,6 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ImageSpan
 import android.text.style.URLSpan
 import android.text.util.Linkify
-import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.bumptech.glide.Glide
@@ -116,30 +114,9 @@ const val ContentPattern = "((www|wap)\\.)([\\w-&&[^\\u0391-\\uFFE5]]+\\.)([\\w-
 const val ContentPatternV1 = "((http|ftp|https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&=%_\\./-~-]*)?"
 
 
-//使链接不在有下划线
-class LinkUrlSpan(
-        url: String,
-        @ColorInt var textColor: Int = Color.rgb(33, 168, 240),
-        var isUnderLine: Boolean = false,
-        var urlClickCallBack: ((url: String) -> Unit)? = null,
-) : URLSpan(url) {
-
-    override fun updateDrawState(ds: TextPaint) {
-        super.updateDrawState(ds)
-        ds.apply {
-            isUnderlineText = isUnderLine//没有下划线
-            ds.color = textColor
-        }
-    }
-
-    override fun onClick(widget: View) {
-        urlClickCallBack?.invoke(url)
-    }
-}
-
 fun TextView.linkByUrl(@ColorInt textColor: Int = Color.rgb(33, 168, 240),
                        isUnderLine: Boolean = false,
-                       urlClickCallBack: ((url: String) -> Unit)? = null) {
+                       urlClickCallback: ((url: String) -> Unit)? = null) {
     Linkify.addLinks(this, Pattern.compile(ContentPattern, Pattern.CASE_INSENSITIVE), "http://")
     Linkify.addLinks(this, Pattern.compile(ContentPatternV1, Pattern.CASE_INSENSITIVE), "")
 
@@ -151,7 +128,7 @@ fun TextView.linkByUrl(@ColorInt textColor: Int = Color.rgb(33, 168, 240),
     val style = SpannableStringBuilder(text)
     style.clearSpans(); // should clear old spans
     for (url in urls) {
-        val myURLSpan = LinkUrlSpan(url.url, textColor, isUnderLine, urlClickCallBack)
+        val myURLSpan = LinkUrlSpan(url.url, textColor, isUnderLine, urlClickCallback)
         style.setSpan(myURLSpan, sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
     text = style

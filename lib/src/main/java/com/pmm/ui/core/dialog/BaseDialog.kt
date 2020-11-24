@@ -10,9 +10,6 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.afollestad.materialdialogs.DialogCallback
 
 /**
  * Author:你需要一台永动机
@@ -20,10 +17,10 @@ import com.afollestad.materialdialogs.DialogCallback
  * Description:专门处理弹窗式Dialog
  */
 abstract class BaseDialog : DialogFragment() {
-    var onPositiveCallBack: ((BaseDialog) -> Unit)? = null
-    var onNegativeCallBack: ((BaseDialog) -> Unit)? = null
-    var onCancelCallBack: ((BaseDialog) -> Unit)? = null
-    var onDismissCallBack: ((BaseDialog) -> Unit)? = null
+    var onPositiveCallback: ((BaseDialog) -> Unit)? = null
+    var onNegativeCallback: ((BaseDialog) -> Unit)? = null
+    var onCancelCallback: ((BaseDialog) -> Unit)? = null
+    var onDismissCallback: ((BaseDialog) -> Unit)? = null
 
     lateinit var mContentView: View
         private set
@@ -101,23 +98,23 @@ abstract class BaseDialog : DialogFragment() {
     //执行positive的操作
     protected fun actionPositiveClick() {
         dismiss()
-        onPositiveCallBack?.invoke(this)
+        onPositiveCallback?.invoke(this)
     }
 
     //执行negative的操作
     protected fun actionNegativeClick() {
         dismiss()
-        onNegativeCallBack?.invoke(this)
+        onNegativeCallback?.invoke(this)
     }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        onCancelCallBack?.invoke(this)
+        onCancelCallback?.invoke(this)
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        onDismissCallBack?.invoke(this)
+        onDismissCallback?.invoke(this)
     }
 
 }

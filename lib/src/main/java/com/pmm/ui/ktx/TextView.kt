@@ -145,11 +145,7 @@ fun SpannableStringBuilder.addSpans(vararg items: SpannableParam): SpannableStri
 class MyClickSpan(
         @ColorInt var textColor: Int? = null,
         var isUnderLine: Boolean = false,
-        var clickListener: ((widget: View?) -> Unit)? = null) : ClickableSpan() {
-
-    override fun onClick(widget: View) {
-        clickListener?.invoke(widget)//设置点击事件
-    }
+        var clickCallback: ((widget: View?) -> Unit)? = null) : ClickableSpan() {
 
     override fun updateDrawState(ds: TextPaint) {
         super.updateDrawState(ds)
@@ -157,6 +153,31 @@ class MyClickSpan(
             this.isUnderlineText = isUnderLine//是否有下划线
             if (textColor != null) this.color = textColor as Int//设置点击颜色
         }
+    }
+
+    override fun onClick(widget: View) {
+        clickCallback?.invoke(widget)//设置点击事件
+    }
+}
+
+//使链接不在有下划线
+class LinkUrlSpan(
+        url: String,
+        @ColorInt var textColor: Int? = null,
+        var isUnderLine: Boolean = false,
+        var urlClickCallback: ((url: String) -> Unit)? = null,
+) : URLSpan(url) {
+
+    override fun updateDrawState(ds: TextPaint) {
+        super.updateDrawState(ds)
+        with(ds) {
+            this.isUnderlineText = isUnderLine//没有下划线
+            if (textColor != null) this.color = textColor as Int//设置点击颜色
+        }
+    }
+
+    override fun onClick(widget: View) {
+        urlClickCallback?.invoke(url)
     }
 }
 

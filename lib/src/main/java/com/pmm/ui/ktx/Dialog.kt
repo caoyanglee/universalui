@@ -25,15 +25,15 @@ import com.pmm.ui.R
 @SuppressLint("CheckResult")
 fun FragmentActivity.requestPermission(
         vararg permissions: Permission,
-        allGrantedCallBack: (() -> Unit)? = null,
-        allDeniedCallBack: (() -> Boolean)? = null,
-        permanentlyDeniedCallBack: (() -> Boolean)? = null,
+        allGrantedCallback: (() -> Unit)? = null,
+        allDeniedCallback: (() -> Boolean)? = null,
+        permanentlyDeniedCallback: (() -> Boolean)? = null,
         //以下都是权限提示弹窗
         message: String = "无此权限app有可能无法正常运行!",
         positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
-        positiveCallBack: (() -> Boolean)? = null,
+        positiveCallback: (() -> Boolean)? = null,
         negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
-        negativeCallBack: (() -> Unit)? = null,
+        negativeCallback: (() -> Unit)? = null,
 ) {
     val activity = this
 
@@ -45,23 +45,23 @@ fun FragmentActivity.requestPermission(
             title(R.string.dialog_title_default)
             message(text = message)
             positiveButton(text = positiveStr) {
-                if (positiveCallBack?.invoke() == true) return@positiveButton
+                if (positiveCallback?.invoke() == true) return@positiveButton
                 if (isPermanentlyDenied)
                     activity.openAppInfoPage()
                 else
                     activity.requestPermission(
                             permissions = permissions,
-                            allGrantedCallBack = allGrantedCallBack,
-                            permanentlyDeniedCallBack = permanentlyDeniedCallBack,
+                            allGrantedCallback = allGrantedCallback,
+                            permanentlyDeniedCallback = permanentlyDeniedCallback,
                             message = message,
                             positiveStr = positiveStr,
-                            positiveCallBack = positiveCallBack,
+                            positiveCallback = positiveCallback,
                             negativeStr = negativeStr,
-                            negativeCallBack = negativeCallBack
+                            negativeCallback = negativeCallback
                     )
             }
             negativeButton(text = negativeStr) {
-                negativeCallBack?.invoke()
+                negativeCallback?.invoke()
             }
         }
     }
@@ -69,14 +69,14 @@ fun FragmentActivity.requestPermission(
     askForPermissions(*permissions) {
         when {
             it.isAllGranted(*permissions) -> {
-                allGrantedCallBack?.invoke()
+                allGrantedCallback?.invoke()
             }
             it.permanentlyDenied().isNotEmpty() -> {
-                if (permanentlyDeniedCallBack?.invoke() == true) return@askForPermissions
+                if (permanentlyDeniedCallback?.invoke() == true) return@askForPermissions
                 showDialog(true)
             }
             else -> {
-                if (allDeniedCallBack?.invoke() == true) return@askForPermissions
+                if (allDeniedCallback?.invoke() == true) return@askForPermissions
                 showDialog(false)
             }
         }
@@ -92,10 +92,10 @@ fun ContextWrapper.showConfirmDialog(
         message: String = baseContext.getString(R.string.dialog_message_default),
         cancelable: Boolean = true,
         negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
-        negativeCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
+        negativeCallback: ((dialog: MaterialDialog) -> Unit)? = null,
         positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
-        positiveCallBack: ((dialog: MaterialDialog) -> Unit)? = null,
-        dismissCallBack: (() -> Unit)? = null
+        positiveCallback: ((dialog: MaterialDialog) -> Unit)? = null,
+        dismissCallback: (() -> Unit)? = null
 ) {
     MaterialDialog(this).show {
         cancelable(cancelable)
@@ -104,16 +104,16 @@ fun ContextWrapper.showConfirmDialog(
         message(text = message)
         positiveButton(text = positiveStr) {
             it.dismiss()
-            positiveCallBack?.invoke(it)
+            positiveCallback?.invoke(it)
         }
         if (negativeStr != null) {
             negativeButton(text = negativeStr) {
                 it.dismiss()
-                negativeCallBack?.invoke(it)
+                negativeCallback?.invoke(it)
             }
         }
         onDismiss {
-            dismissCallBack?.invoke()
+            dismissCallback?.invoke()
         }
     }
 }
@@ -127,7 +127,7 @@ fun ContextWrapper.showSingleChoicePicker(
         items: List<CharSequence>,
         selectedIndex: Int = 0,
         callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
-        dismissCallBack: (() -> Unit)? = null
+        dismissCallback: (() -> Unit)? = null
 ) {
     MaterialDialog(this).show {
         cornerRadius(8f)
@@ -137,7 +137,7 @@ fun ContextWrapper.showSingleChoicePicker(
             callBack.invoke(dialog, index, text)
         }
         onDismiss {
-            dismissCallBack?.invoke()
+            dismissCallback?.invoke()
         }
     }
 }
@@ -152,7 +152,7 @@ fun ContextWrapper.showListPicker(
         title: String? = null,
         items: List<CharSequence>,
         callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
-        dismissCallBack: (() -> Unit)? = null
+        dismissCallback: (() -> Unit)? = null
 ) {
     MaterialDialog(this).show {
         cornerRadius(8f)
@@ -162,7 +162,7 @@ fun ContextWrapper.showListPicker(
             callBack.invoke(dialog, index, text)
         }
         onDismiss {
-            dismissCallBack?.invoke()
+            dismissCallback?.invoke()
         }
     }
 }

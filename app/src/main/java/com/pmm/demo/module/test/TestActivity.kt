@@ -37,12 +37,12 @@ class TestActivity : BaseViewActivity() {
                     Permission.WRITE_EXTERNAL_STORAGE,
                     Permission.READ_EXTERNAL_STORAGE,
                     Permission.CAMERA,
-                    allGrantedCallBack = { toast("拿到权限了") },
-                    allDeniedCallBack = {
+                    allGrantedCallback = { toast("拿到权限了") },
+                    allDeniedCallback = {
                         toast("所有权限都拒绝了")
                         true
                     },
-                    permanentlyDeniedCallBack = {
+                    permanentlyDeniedCallback = {
                         toast("有权限被永久拒绝了")
                         true
                     },
