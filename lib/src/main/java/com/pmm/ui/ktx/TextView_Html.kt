@@ -1,22 +1,26 @@
 package com.pmm.ui.ktx
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.text.Editable
-import android.text.Html
-import android.text.SpannableStringBuilder
-import android.text.Spanned
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ImageSpan
+import android.text.style.URLSpan
+import android.text.util.Linkify
+import android.view.View
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import org.xml.sax.XMLReader
 import java.util.*
+import java.util.regex.Pattern
 
 /**
  * Author:你需要一台永动机
@@ -105,5 +109,50 @@ class URLTagHandler(var imageClickListener: ((picUrl: String) -> Unit)? = null) 
         }
     }
 
+}
 
+//文本的URL正则
+const val ContentPattern = "((www|wap)\\.)([\\w-&&[^\\u0391-\\uFFE5]]+\\.)([\\w-?%&=&&[^\\u0391-\\uFFE5]])+"
+const val ContentPatternV1 = "((http|ftp|https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&=%_\\./-~-]*)?"
+
+
+//使链接不在有下划线
+class LinkUrlSpan(
+        url: String,
+        @ColorInt var textColor: Int = Color.rgb(33, 168, 240),
+        var isUnderLine: Boolean = false,
+        var urlClickCallBack: ((url: String) -> Unit)? = null,
+) : URLSpan(url) {
+
+    override fun updateDrawState(ds: TextPaint) {
+        super.updateDrawState(ds)
+        ds.apply {
+            isUnderlineText = isUnderLine//没有下划线
+            ds.color = textColor
+        }
+    }
+
+    override fun onClick(widget: View) {
+        urlClickCallBack?.invoke(url)
+    }
+}
+
+fun TextView.linkByUrl(@ColorInt textColor: Int = Color.rgb(33, 168, 240),
+                       isUnderLine: Boolean = false,
+                       urlClickCallBack: ((url: String) -> Unit)? = null) {
+    Linkify.addLinks(this, Pattern.compile(ContentPattern, Pattern.CASE_INSENSITIVE), "http://")
+    Linkify.addLinks(this, Pattern.compile(ContentPatternV1, Pattern.CASE_INSENSITIVE), "")
+
+    movementMethod = LinkMovementMethod.getInstance();
+
+    val sp = SpannableString(this.text)
+    val urls = sp.getSpans(0, text.length, URLSpan::class.java)
+
+    val style = SpannableStringBuilder(text)
+    style.clearSpans(); // should clear old spans
+    for (url in urls) {
+        val myURLSpan = LinkUrlSpan(url.url, textColor, isUnderLine, urlClickCallBack)
+        style.setSpan(myURLSpan, sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+    text = style
 }

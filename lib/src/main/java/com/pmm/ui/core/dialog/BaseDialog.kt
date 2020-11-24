@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.afollestad.materialdialogs.DialogCallback
 
 /**
  * Author:你需要一台永动机
@@ -19,8 +20,10 @@ import androidx.fragment.app.FragmentTransaction
  * Description:专门处理弹窗式Dialog
  */
 abstract class BaseDialog : DialogFragment() {
-    var onDialogButtonListener: OnDialogButtonListener? = null
-    var onDialogActionListener: OnDialogListener? = null
+    var onPositiveCallBack: ((BaseDialog) -> Unit)? = null
+    var onNegativeCallBack: ((BaseDialog) -> Unit)? = null
+    var onCancelCallBack: ((BaseDialog) -> Unit)? = null
+    var onDismissCallBack: ((BaseDialog) -> Unit)? = null
 
     lateinit var mContentView: View
         private set
@@ -63,14 +66,6 @@ abstract class BaseDialog : DialogFragment() {
         return mContentView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        onViewChange(mContentView)
-    }
-
-    @Deprecated("尽量使用 onViewCreated 可以直接用kotlin特性引用视图")
-    protected open fun onViewChange(contentView: View) {
-    }
-
     //使用Fragment
     fun show(fragment: Fragment): BaseDialog {
         show(fragment.childFragmentManager, getTagName())
@@ -93,53 +88,36 @@ abstract class BaseDialog : DialogFragment() {
         return this
     }
 
-
-    //屏蔽DialogFragment的方法
-    final override fun show(manager: FragmentManager, tag: String?) {
-        super.show(manager, tag)
-    }
-
-    //屏蔽DialogFragment的方法
-    final override fun show(transaction: FragmentTransaction, tag: String?): Int {
-        return super.show(transaction, tag)
-    }
-
-
-    interface OnDialogButtonListener {
-        fun onPositive(dialog: BaseDialog)
-
-        fun onNegative(dialog: BaseDialog) {}
-    }
+//    //屏蔽DialogFragment的方法
+//    final override fun show(manager: FragmentManager, tag: String?) {
+//        super.show(manager, tag)
+//    }
+//
+//    //屏蔽DialogFragment的方法
+//    final override fun show(transaction: FragmentTransaction, tag: String?): Int {
+//        return super.show(transaction, tag)
+//    }
 
     //执行positive的操作
     protected fun actionPositiveClick() {
         dismiss()
-        onDialogButtonListener?.onPositive(this)
-
+        onPositiveCallBack?.invoke(this)
     }
 
     //执行negative的操作
     protected fun actionNegativeClick() {
         dismiss()
-        onDialogButtonListener?.onNegative(this)
+        onNegativeCallBack?.invoke(this)
     }
-
-
-    interface OnDialogListener {
-        fun onCancel() {}
-
-        fun onDismiss() {}
-    }
-
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        onDialogActionListener?.onCancel()
+        onCancelCallBack?.invoke(this)
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        onDialogActionListener?.onDismiss()
+        onDismissCallBack?.invoke(this)
     }
 
 }

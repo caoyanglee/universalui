@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.pmm.ui.interfaces.MyTextWatcher
@@ -144,7 +143,7 @@ fun SpannableStringBuilder.addSpans(vararg items: SpannableParam): SpannableStri
 
 //点击的Span
 class MyClickSpan(
-        @ColorInt var dyeColor: Int? = null,
+        @ColorInt var textColor: Int? = null,
         var isUnderLine: Boolean = false,
         var clickListener: ((widget: View?) -> Unit)? = null) : ClickableSpan() {
 
@@ -156,7 +155,7 @@ class MyClickSpan(
         super.updateDrawState(ds)
         with(ds) {
             this.isUnderlineText = isUnderLine//是否有下划线
-            if (dyeColor != null) this.color = dyeColor as Int//设置点击颜色
+            if (textColor != null) this.color = textColor as Int//设置点击颜色
         }
     }
 }

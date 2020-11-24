@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Typeface
@@ -18,12 +19,13 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.KeyCharacterMap
-import android.view.KeyEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.annotation.*
+import androidx.annotation.AttrRes
+import androidx.annotation.CheckResult
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -33,6 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.lang.reflect.Field
+import java.lang.reflect.Method
 
 /**
  * Author:你需要一台永动机
@@ -101,28 +104,53 @@ fun Context.getStatusBarHeight(): Int {
 
 //Navigation是否显示
 fun Context.isNavigationBarShow(): Boolean {
-    val ws = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        val display = ws.defaultDisplay
-        val size = Point()
-        val realSize = Point()
-        display.getSize(size)
-        display.getRealSize(realSize)
-        return realSize.y != size.y
-    } else {
-        val menu = ViewConfiguration.get(this).hasPermanentMenuKey()
-        val back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
-        return !(menu || back)
+//    val ws = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//        val display = ws.defaultDisplay
+//        val size = Point()
+//        val realSize = Point()
+//        display.getSize(size)
+//        display.getRealSize(realSize)
+//        return realSize.y != size.y
+//    } else {
+//        val menu = ViewConfiguration.get(this).hasPermanentMenuKey()
+//        val back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
+//        return !(menu || back)
+//    }
+
+
+    var hasNavigationBar = false
+    val rs: Resources = this.getResources()
+    val id: Int = rs.getIdentifier("config_showNavigationBar", "bool", "android")
+    if (id > 0) {
+        hasNavigationBar = rs.getBoolean(id)
     }
+    try {
+        val systemPropertiesClass = Class.forName("android.os.SystemProperties")
+        val m: Method = systemPropertiesClass.getMethod("get", String::class.java)
+        val navBarOverride = m.invoke(systemPropertiesClass, "qemu.hw.mainkeys") as String
+        if ("1" == navBarOverride) {
+            hasNavigationBar = false
+        } else if ("0" == navBarOverride) {
+            hasNavigationBar = true
+        }
+    } catch (e: java.lang.Exception) {
+    }
+    return hasNavigationBar
 }
 
 //Navigation的高度
-fun Context.getNavigationBarHeight(): Int {
+fun Context.getNavigationBarHeight(orientation: Int = Configuration.ORIENTATION_PORTRAIT): Int {
     if (!isNavigationBarShow()) return 0
-    val resources = resources
-    val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-    //获取NavigationBar的高度
-    return resources.getDimensionPixelSize(resourceId)
+
+    val resourceId = resources.getIdentifier(
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                "navigation_bar_height"
+            else
+                "navigation_bar_height_landscape",
+            "dimen", "android")
+    val hasMenuKey: Boolean = ViewConfiguration.get(this).hasPermanentMenuKey()
+    return if (resourceId > 0 && !hasMenuKey) { resources.getDimensionPixelSize(resourceId) } else 0
 }
 
 //获取屏幕宽度

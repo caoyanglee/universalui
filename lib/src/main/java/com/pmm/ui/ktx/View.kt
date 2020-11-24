@@ -278,7 +278,15 @@ fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
     this.show()
 }
 
-//寻找fragment 防止闪退获取不到原来的fragment
+//寻找fragment 防止闪退获取不到原来的fragment ViewPager
 fun ViewPager.findFragment(fm: FragmentManager, position: Int): Fragment? {
     return fm.findFragmentByTag("android:switcher:${this.id}:${position}")
+}
+
+//寻找fragment 防止闪退获取不到原来的fragment frameLayout
+inline fun <reified T : Fragment> FragmentManager.findFragment(): T {
+    val fragmentClass = T::class.java
+    val fragmentName = fragmentClass.name
+    return (this.findFragmentByTag(fragmentName)
+            ?: fragmentClass.newInstance()) as T
 }

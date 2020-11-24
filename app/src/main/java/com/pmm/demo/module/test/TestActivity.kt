@@ -6,10 +6,9 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.assent.Permission
 import com.pmm.demo.R
-import com.pmm.ui.ktx.click
 import com.pmm.demo.base.BaseViewActivity
-import com.pmm.ui.ktx.requestPermission
-import com.pmm.ui.ktx.toast
+import com.pmm.ui.helper.AndroidBug5497Workaround
+import com.pmm.ui.ktx.*
 import kotlinx.android.synthetic.main.activity_test.*
 
 
@@ -19,9 +18,7 @@ class TestActivity : BaseViewActivity() {
 
     override fun getLayoutResID(): Int = R.layout.activity_test
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun afterViewAttach(savedInstanceState: Bundle?) {
         vm.test(this)
 
 //        var loader = MainActivity::class.java.classLoader
@@ -47,5 +44,11 @@ class TestActivity : BaseViewActivity() {
                     message = "您需要给小盛权限，才能正常访问存储文件哦"
             )
         }
+        AndroidBug5497Workaround.assistActivity(this,true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        vNavigationBar.text = "导航条高度：${px2dip(getNavigationBarHeight().toFloat())}单位"
     }
 }
