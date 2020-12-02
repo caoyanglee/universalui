@@ -38,10 +38,26 @@ class ToolBarPro : ViewGroup {
 
     private var activityReference: WeakReference<Activity?>? = null
 
-    var showStatusView by Delegates.observable(GlobalConfig.showStatusView) { property, oldValue, newValue -> requestLayout() }
-    var toolbarHeight by Delegates.observable(if (GlobalConfig.toolbarHeight == -1) context.dip2px(44f) else GlobalConfig.toolbarHeight) { property, oldValue, newValue -> requestLayout() }
-    var toolBarPaddingLeft by Delegates.observable(if (GlobalConfig.toolbarPaddingLeft == -1) context.dip2px(15f) else GlobalConfig.toolbarPaddingLeft) { property, oldValue, newValue -> requestLayout() }
-    var toolBarPaddingRight by Delegates.observable(if (GlobalConfig.toolbarPaddingRight == -1) context.dip2px(15f) else GlobalConfig.toolbarPaddingRight) { property, oldValue, newValue -> requestLayout() }
+    var showStatusView = GlobalConfig.showStatusView
+        set(value) {
+            field = value
+            requestLayout()
+        }
+    var toolbarHeight = if (GlobalConfig.toolbarHeight == -1) context.dip2px(44f) else GlobalConfig.toolbarHeight
+        set(value) {
+            field = value
+            requestLayout()
+        }
+    var toolBarPaddingLeft = if (GlobalConfig.toolbarPaddingLeft == -1) context.dip2px(15f) else GlobalConfig.toolbarPaddingLeft
+        set(value) {
+            field = value
+            requestLayout()
+        }
+    var toolBarPaddingRight = if (GlobalConfig.toolbarPaddingRight == -1) context.dip2px(15f) else GlobalConfig.toolbarPaddingRight
+        set(value) {
+            field = value
+            requestLayout()
+        }
 
     //全局配置
     object GlobalConfig {
@@ -52,20 +68,25 @@ class ToolBarPro : ViewGroup {
         var toolbarPaddingLeft = -1//父视图的左右padding
         var toolbarPaddingRight = -1//父视图的左右padding
         var toolbarBgColor: Int? = null
+
         //CenterTitle
         var centerTitleSize: Float? = null//sp 标题文字大小
         var centerTitleColor: Int? = null
+
         //Navigation
         var navigationDrawable: Drawable? = null
         var navigationColor: Int? = null
+
         //menu1
         var menu1Drawable: Drawable? = null
         var menu1TextColor: Int? = null
         var menu1TextSize: Float? = null
+
         //menu2
         var menu2Drawable: Drawable? = null
         var menu2TextColor: Int? = null
         var menu2TextSize: Float? = null
+
         //menu3
         var menu3Drawable: Drawable? = null
         var menu3TextColor: Int? = null
@@ -238,6 +259,14 @@ class ToolBarPro : ViewGroup {
             clipChildren = false
             setPadding(context.dip2px(0f), context.dip2px(0f), context.dip2px(0f), context.dip2px(0f))
             if (GlobalConfig.dividerShow) addView(divider)//增加divider
+
+            if (isInEditMode) {
+                this.centerTitle {
+                    this.text = "TITLE"
+                    this.setTextColor(Color.WHITE)
+                }
+
+            }
         }
     }
 

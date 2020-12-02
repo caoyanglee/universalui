@@ -18,6 +18,16 @@ class TestActivity : BaseViewActivity() {
     override fun getLayoutResID(): Int = R.layout.activity_test
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
+        mToolBar.with(this)
+                .navigationIcon {
+                    this.setImageResource(R.drawable.universal_arrow_back_white)
+                    this.click { onBackPressed() }
+                }
+                .centerTitle {
+                    this.text = "测试"
+                }
+
+
         vm.test(this)
 
 //        var loader = MainActivity::class.java.classLoader

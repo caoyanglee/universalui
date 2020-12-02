@@ -49,6 +49,7 @@ class AppData : OriginAppData() {
     private fun initAppBarConfig() {
 
         ToolBarPro.GlobalConfig.apply {
+            showStatusView = true
             //ToolBar
             toolbarBgColor = context.getColorPro(R.color.colorPrimary)
 
@@ -63,7 +64,6 @@ class AppData : OriginAppData() {
             dividerShow = false
             dividerColor = Color.TRANSPARENT
             dividerSize = context.dip2px(0f)
-
         }
     }
 
