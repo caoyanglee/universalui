@@ -19,6 +19,7 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.Display
 import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.widget.Toast
@@ -102,55 +103,22 @@ fun Context.getStatusBarHeight(): Int {
     return sbar
 }
 
-//Navigation是否显示
-fun Context.isNavigationBarShow(): Boolean {
-//    val ws = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//        val display = ws.defaultDisplay
-//        val size = Point()
-//        val realSize = Point()
-//        display.getSize(size)
-//        display.getRealSize(realSize)
-//        return realSize.y != size.y
-//    } else {
-//        val menu = ViewConfiguration.get(this).hasPermanentMenuKey()
-//        val back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
-//        return !(menu || back)
-//    }
-
-
-    var hasNavigationBar = false
-    val rs: Resources = this.getResources()
-    val id: Int = rs.getIdentifier("config_showNavigationBar", "bool", "android")
-    if (id > 0) {
-        hasNavigationBar = rs.getBoolean(id)
-    }
-    try {
-        val systemPropertiesClass = Class.forName("android.os.SystemProperties")
-        val m: Method = systemPropertiesClass.getMethod("get", String::class.java)
-        val navBarOverride = m.invoke(systemPropertiesClass, "qemu.hw.mainkeys") as String
-        if ("1" == navBarOverride) {
-            hasNavigationBar = false
-        } else if ("0" == navBarOverride) {
-            hasNavigationBar = true
-        }
-    } catch (e: java.lang.Exception) {
-    }
-    return hasNavigationBar
-}
 
 //Navigation的高度
-fun Context.getNavigationBarHeight(orientation: Int = Configuration.ORIENTATION_PORTRAIT): Int {
-    if (!isNavigationBarShow()) return 0
-
-    val resourceId = resources.getIdentifier(
-            if (orientation == Configuration.ORIENTATION_PORTRAIT)
-                "navigation_bar_height"
-            else
-                "navigation_bar_height_landscape",
-            "dimen", "android")
-    val hasMenuKey: Boolean = ViewConfiguration.get(this).hasPermanentMenuKey()
-    return if (resourceId > 0 && !hasMenuKey) { resources.getDimensionPixelSize(resourceId) } else 0
+fun Activity.getNavigationBarHeight(): Int {
+    val activity = this
+    val display: Display = activity.windowManager.defaultDisplay
+    val size = Point()
+    val realSize = Point()
+    display.getSize(size)
+    display.getRealSize(realSize)
+    val resources: Resources = activity.resources
+    val resourceId: Int = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+    val height: Int = resources.getDimensionPixelSize(resourceId)
+    //超出系统默认的导航栏高度以上，则认为存在虚拟导航
+    return if (realSize.y - size.y > height - 10) {
+        height
+    } else 0
 }
 
 //获取屏幕宽度
