@@ -1,6 +1,5 @@
 package com.pmm.ui.ktx
 
-import android.app.Application
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
@@ -9,12 +8,10 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import com.pmm.ui.types.FILE
-import com.pmm.ui.R
 import java.io.File
 
 
 private val SCHEME = "package"
-
 
 //进入拨号键面
 fun Context.launchCallPage(phoneNumber: String) {

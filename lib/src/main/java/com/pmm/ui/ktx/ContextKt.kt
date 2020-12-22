@@ -131,7 +131,7 @@ fun Context.getScreenWidth(): Int {
 }
 
 //获取屏幕内容高度
-fun Context.getScreeContentHeight(): Int {
+fun Context.getScreenContentHeight(): Int {
     val ws = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val display = ws.defaultDisplay
     val outSize = Point()
@@ -139,10 +139,6 @@ fun Context.getScreeContentHeight(): Int {
     return outSize.y
 }
 
-//屏幕高度=显示的内容+navigation的高度
-fun Context.getScreenHeight(): Int {
-    return getScreeContentHeight() + getNavigationBarHeight()
-}
 
 //复制文本内容
 inline fun Context.copyContent(content: String, finish: () -> Unit = {}) {

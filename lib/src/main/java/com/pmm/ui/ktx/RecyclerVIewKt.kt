@@ -30,11 +30,6 @@ fun RecyclerView.init(): RecyclerView {
     return this
 }
 
-//设置留白 兼容底部导航条 已经把NavigationBar的高度算进去了
-fun RecyclerView.setPaddingWithNavigationBar(left: Int, top: Int, right: Int, bottom: Int) {
-    this.setPadding(left, top, right, this.context.getNavigationBarHeight() + bottom)
-}
-
 /**
  * @param views 目标视图
  * @param scrollHeight 滚动的距离 单位px
