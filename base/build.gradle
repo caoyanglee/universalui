@@ -36,7 +36,7 @@ dependencies {
     //lib
     api project(':lib')
     //metro
-    api deps.extension.metro_lib
+    api deps.extension.metro
     kapt deps.extension.metro_compiler
     //multidex
     api 'androidx.multidex:multidex:2.0.1'

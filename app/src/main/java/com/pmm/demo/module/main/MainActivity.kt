@@ -1,7 +1,5 @@
 package com.pmm.demo.module.main
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
@@ -30,18 +28,13 @@ class MainActivity : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
     private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
-    private val mVM: MainVM by lazy { ViewModelProvider(this).get(MainVM::class.java) }
+    private val mVM by lazy { ViewModelProvider(this).get(MainVM::class.java) }
 
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
-        }
-    }
 
     override fun getLayoutResID() = R.layout.activity_main
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
+
 
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
 
