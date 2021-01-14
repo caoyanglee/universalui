@@ -18,9 +18,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.Display
-import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.AttrRes
@@ -32,11 +32,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.bumptech.glide.Glide
 import com.pmm.ui.OriginAppData
+import com.pmm.ui.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.lang.reflect.Field
-import java.lang.reflect.Method
+
 
 /**
  * Author:你需要一台永动机
@@ -86,23 +87,17 @@ fun Context.sp2px(spValue: Float): Int {
 
 // 获取状态栏/通知栏的高度
 fun Context.getStatusBarHeight(): Int {
-    var c: Class<*>? = null
-    var obj: Any? = null
-    var field: Field? = null
-    var x = 0
-    var sbar = 0
-    try {
-        c = Class.forName("com.android.internal.R\$dimen")
-        obj = c!!.newInstance()
-        field = c.getField("status_bar_height")
-        x = Integer.parseInt(field!!.get(obj).toString())
-        sbar = resources.getDimensionPixelSize(x)
-    } catch (e1: Exception) {
-        e1.printStackTrace()
+    val context = this
+    var result = 0
+    val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+    if (resId > 0) {
+        result = context.resources.getDimensionPixelOffset(resId)
     }
-    return sbar
+    if (result <= 0) {
+        result = context.resources.getDimensionPixelOffset(R.dimen.dimen_24dp)
+    }
+    return result
 }
-
 
 //Navigation的高度
 fun Activity.getNavigationBarHeight(): Int {

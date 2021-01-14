@@ -20,4 +20,6 @@
     <dimen name="font_tiny">10sp</dimen>
     <dimen name="font_mini">8sp</dimen>
 
+    <dimen name="dimen_24dp">24dp</dimen>
+
 </resources>
