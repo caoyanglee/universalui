@@ -10,11 +10,11 @@ import com.pmm.ui.core.architecture.mvp.BaseView
 
 /**
  * Author:你需要一台永动机
- * Date:2019/3/15 17:07
+ * Date:1/14/21 2:02 PM
  * Description:
  */
-@Deprecated("2021年9月份后删除，请使用BaseFragmentV2")
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragmentV2(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId), BaseView {
+
     private var isViewPagerShow = false//是否在viewpager显示
     private var isFirstShow = false//第一次显示
     private var isFirstFrameLayoutShow = false////是否是在FrameLayout显示
@@ -22,22 +22,10 @@ abstract class BaseFragment : Fragment() {
     var isViewCreated = false //视图是否加载
         private set//不允许进行设置
 
-    protected open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
-
-    @LayoutRes
-    protected open fun getLayoutResID(): Int = -1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         beforeViewAttachBaseViewAction(savedInstanceState)
         beforeViewAttach(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var mContentView = getLayoutUI()//设置视图
-        if (mContentView == null && getLayoutResID() != -1)
-            mContentView = LayoutInflater.from(activity).inflate(getLayoutResID(), container, false) as ViewGroup
-        return mContentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

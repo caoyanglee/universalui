@@ -29,7 +29,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -60,4 +62,6 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     //dialog
     compile 'com.afollestad.material-dialogs:core:3.3.0'
+    //viewbinding
+    compile 'com.kirich1409.viewbindingpropertydelegate:vbpd-noreflection:1.4.1'
 }

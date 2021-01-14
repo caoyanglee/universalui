@@ -2,12 +2,14 @@ package com.pmm.demo.module.main
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.BaseViewActivityV2
 import com.pmm.demo.base.CategoryB
 import com.pmm.demo.base.CategoryListAdapter
+import com.pmm.demo.databinding.ActivityMainBinding
 import com.pmm.demo.module.base.BasicKnowledgeActivity
 import com.pmm.demo.module.datapersistence.DataPersistenceActivity
 import com.pmm.demo.module.java.JavaActivity
@@ -18,23 +20,20 @@ import com.pmm.metro.Metro
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
 import com.pmm.ui.helper.security.AESHelper
 import com.pmm.ui.ktx.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.include_recyclerview.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainActivity : BaseViewActivity() {
+class MainActivity : BaseViewActivityV2(R.layout.activity_main) {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
+    private val mAdapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
     private val mVM by lazy { ViewModelProvider(this).get(MainVM::class.java) }
 
-
-    override fun getLayoutResID() = R.layout.activity_main
+    // Without reflection
+    private val mVB by viewBinding(ActivityMainBinding::bind, R.id.container)
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-
 
         //ToolBarManager.with(this, contentView).setMTitle("通用Demo")
 
@@ -43,7 +42,7 @@ class MainActivity : BaseViewActivity() {
             Snackbar.make(getContentView(), "欢迎来到通用UI库", Snackbar.LENGTH_SHORT).showMD2()
         }
 
-        tvTitle.click {
+        mVB.tvTitle.click {
             openActivity<TestActivity>()
         }
 
@@ -58,7 +57,7 @@ class MainActivity : BaseViewActivity() {
 
 
     fun initRecy() {
-        adapter.onItemClick = { item, position ->
+        mAdapter.onItemClick = { item, position ->
             when (item.primaryTitle) {
                 "Android基础" -> {
                     openActivity<BasicKnowledgeActivity>()
@@ -86,12 +85,15 @@ class MainActivity : BaseViewActivity() {
                 }
             }
         }
-        recyclerView.init()
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(LinearItemDecoration(
-                context = this,
-                dividerSize = dip2px(16f)
-        ))
+        mVB.includeList.recyclerView.apply {
+            this.init()
+            this.adapter = mAdapter
+            this.addItemDecoration(LinearItemDecoration(
+                    context = this@MainActivity,
+                    dividerSize = dip2px(16f)
+            ))
+        }
+
         category.add(CategoryB("Android基础", "Android的一些基础Demo"))
         category.add(CategoryB("Android进阶", "Android的一些进阶Demo"))
         category.add(CategoryB("Java", "Java的一些基础Demo"))
@@ -105,7 +107,7 @@ class MainActivity : BaseViewActivity() {
         category.add(CategoryB("性能优化", "必备~"))
         category.add(CategoryB("实用的第三方库", "必备~"))
 
-        adapter.setDataToAdapter(category)
+        mAdapter.setDataToAdapter(category)
 
 
     }
