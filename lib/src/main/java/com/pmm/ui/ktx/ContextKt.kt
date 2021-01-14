@@ -343,7 +343,8 @@ fun Context.createNotificationChannel(
         channelDesc: String = "",
         importance: Int = 0,
         enableVibration: Boolean = true,
-        lightColor: Int = Color.GREEN
+        lightColor: Int = Color.GREEN,
+        showBadge: Boolean = false
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val mNotificationManager =
@@ -361,6 +362,7 @@ fun Context.createNotificationChannel(
         mChannel.lightColor = lightColor
         // 设置通知出现时的震动（如果 android 设备支持的话）
         mChannel.enableVibration(enableVibration)
+        mChannel.setShowBadge(showBadge)
         //mChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
         //最后在NotificationManager中创建该通知渠道
         mNotificationManager.createNotificationChannel(mChannel)

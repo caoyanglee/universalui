@@ -1,4 +1,4 @@
-package com.pmm.demo.module.Base.snackbar
+package com.pmm.demo.module.base.snackbar
 
 import android.os.Bundle
 import android.widget.FrameLayout

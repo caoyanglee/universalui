@@ -1,4 +1,4 @@
-package com.pmm.demo.module.Base
+package com.pmm.demo.module.base
 
 import android.graphics.Color
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.pmm.demo.module.Base.fragment.viewpager
+package com.pmm.demo.module.base.fragment.viewpager
 
 import android.graphics.Color
 import android.os.Bundle

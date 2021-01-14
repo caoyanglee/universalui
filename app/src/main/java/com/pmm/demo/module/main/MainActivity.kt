@@ -3,13 +3,14 @@ package com.pmm.demo.module.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
 import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivity
 import com.pmm.demo.base.CategoryB
 import com.pmm.demo.base.CategoryListAdapter
-import com.pmm.demo.module.Base.BasicKnowledgeActivity
+import com.pmm.demo.module.base.BasicKnowledgeActivity
 import com.pmm.demo.module.datapersistence.DataPersistenceActivity
 import com.pmm.demo.module.java.JavaActivity
 import com.pmm.demo.module.kotlin.KotlinActivity
@@ -29,6 +30,7 @@ class MainActivity : BaseViewActivity() {
 
     private val category = arrayListOf<CategoryB>()
     private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
+    private val mVM: MainVM by lazy { ViewModelProvider(this).get(MainVM::class.java) }
 
 
     companion object {
