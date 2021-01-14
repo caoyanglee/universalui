@@ -1,33 +1,22 @@
 package com.pmm.demo.module.lib3
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.*
+import com.pmm.demo.databinding.ActivityUniversalListBinding
 import com.pmm.demo.module.lib3.eventbus.EventBusActivity
 import com.pmm.demo.module.lib3.materialdialog.MaterialDialogActivity
-import com.pmm.demo.base.CategoryB
-import com.pmm.demo.base.CategoryListAdapter
-import com.pmm.demo.base.initToolBar
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.init
-import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
+import com.pmm.ui.ktx.openActivity
 
-class Lib3Activity : BaseViewActivity() {
+class Lib3Activity : BaseViewActivityV2(R.layout.activity_universal_list) {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
-
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, Lib3Activity::class.java)
-        }
-    }
-
-    override fun getLayoutResID() = R.layout.activity_universal_list
+    private val mAdapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
+    private val mVB by viewBinding(ActivityUniversalListBinding::bind, R.id.container)
 
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
@@ -37,31 +26,29 @@ class Lib3Activity : BaseViewActivity() {
 
 
     fun initRecy() {
-        adapter.onItemClick = { item, position ->
+        mAdapter.onItemClick = { item, position ->
             when (position) {
                 0 -> {
                     //MaterialDialog
-                    startActivity(MaterialDialogActivity.newIntent(this))
+                    openActivity<MaterialDialogActivity>()
                 }
                 1 -> {
                     //EventBus
-                    startActivity(EventBusActivity.newIntent(this))
+                    openActivity<EventBusActivity>()
 
                 }
             }
         }
-        recyclerView.init()
-        recyclerView.addItemDecoration(LinearItemDecoration(
-                context = this,
-                dividerSize = dip2px(16f)
-        ))
-        recyclerView.adapter = adapter
-
-
-
+        mVB.recyclerView.apply {
+            this.init()
+            this.addItemDecoration(LinearItemDecoration(
+                    context = this@Lib3Activity,
+                    dividerSize = dip2px(16f)
+            ))
+            this.adapter = mAdapter
+        }
         category.add(CategoryB("MaterialDialog", "MD,Dialog"))
         category.add(CategoryB("EventBus", "事件总线，事件分发"))
-
-        adapter.setDataToAdapter(category)
+        mAdapter.setDataToAdapter(category)
     }
 }

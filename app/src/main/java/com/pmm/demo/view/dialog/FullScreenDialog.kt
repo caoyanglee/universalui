@@ -4,10 +4,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
+import by.kirich1409.viewbindingdelegate.dialogViewBinding
 import com.pmm.demo.R
+import com.pmm.demo.databinding.DialogFullScreenBinding
 import com.pmm.ui.core.dialog.BaseDialog
 import com.pmm.ui.core.StatusNavigationBar
-import kotlinx.android.synthetic.main.dialog_full_screen.*
 
 /**
  * Author:你需要一台永动机
@@ -28,6 +29,8 @@ class FullScreenDialog : BaseDialog() {
 
     override fun getWindowAnimation(): Int = R.style.BottomToUpDialog
 
+    private val mVB by dialogViewBinding(DialogFullScreenBinding::bind, R.id.container)
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -37,8 +40,7 @@ class FullScreenDialog : BaseDialog() {
     private fun initViews() {
         StatusNavigationBar.setColor(dialog?.window, Color.WHITE)
         StatusNavigationBar.setLightMode(dialog?.window)
-
-        mToolbar.with(activity).apply {
+        mVB.mToolbar.with(activity).apply {
             toolbarHeight = 0
             showStatusView = true
         }

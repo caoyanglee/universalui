@@ -1,22 +1,19 @@
 package com.pmm.demo.advanced
 
 import android.os.Bundle
-import com.pmm.demo.base.BaseViewActivity
-import com.pmm.demo.base.CategoryB
-import com.pmm.demo.base.CategoryListAdapter
-import com.pmm.demo.base.initToolBar
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.pmm.demo.advanced.databinding.ActivityAndroidAdvancedBinding
+import com.pmm.demo.base.*
 import com.pmm.metro.Metro
 import com.pmm.metro.annotatoin.Station
 import com.pmm.ui.ktx.init
-import kotlinx.android.synthetic.main.activity_android_advanced.*
 
 @Station("/android/advanced")
-class AndroidAdvanced : BaseViewActivity() {
+class AndroidAdvancedAy : BaseViewActivityV2(R.layout.activity_android_advanced) {
+    private val mVB by viewBinding(ActivityAndroidAdvancedBinding::bind, R.id.container)
 
     private val category = arrayListOf<CategoryB>()
     private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
-
-    override fun getLayoutResID() = R.layout.activity_android_advanced
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         initToolBar()
@@ -34,13 +31,9 @@ class AndroidAdvanced : BaseViewActivity() {
                 }
             }
         }
-        recyclerView.init()
-        recyclerView.adapter = adapter
-
-
-
+        mVB.recyclerView.init()
+        mVB.recyclerView.adapter = adapter
         category.add(CategoryB("Android Binder机制", "Service的调用"))
-
         adapter.setDataToAdapter(category)
     }
 

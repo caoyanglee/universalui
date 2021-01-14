@@ -12,7 +12,8 @@ import com.pmm.ui.core.StatusNavigationBar
  * Date:2018/4/8 17:18
  * Description:Activity的基类
  */
-abstract class BaseViewActivity : BaseActivity(), BaseView {
+@Deprecated("2021年9月份后删除，请使用BaseFragmentV2")
+abstract class BaseViewActivity : BaseActivity(), BaseView, BaseViewInit {
 
     //superCreate之前
     final override fun beforeSuperCreate(savedInstanceState: Bundle?) {

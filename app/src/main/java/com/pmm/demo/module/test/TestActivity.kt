@@ -3,22 +3,22 @@ package com.pmm.demo.module.test
 import android.app.Activity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afollestad.assent.Permission
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.BaseViewActivityV2
+import com.pmm.demo.databinding.ActivityTestBinding
 import com.pmm.ui.helper.AndroidBug5497Workaround
 import com.pmm.ui.ktx.*
-import kotlinx.android.synthetic.main.activity_test.*
 
 
-class TestActivity : BaseViewActivity() {
+class TestActivity : BaseViewActivityV2(R.layout.activity_test) {
 
     private val vm by lazy { ViewModelProvider(this).get(TestViewModel::class.java) }
-
-    override fun getLayoutResID(): Int = R.layout.activity_test
+    private val mVB by viewBinding(ActivityTestBinding::bind, R.id.container)
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        mToolBar.with(this)
+        mVB.mToolBar.with(this)
                 .navigationIcon {
                     this.setImageResource(R.drawable.universal_arrow_back_white)
                     this.click { onBackPressed() }
@@ -37,12 +37,12 @@ class TestActivity : BaseViewActivity() {
 //            ClassLoader.getSystemClassLoader()
 //        }
 
-        mBtn1.click {
+        mVB.mBtn1.click {
             setResult(Activity.RESULT_OK)
             onBackPressed()
         }
 
-        mBtn5.click {
+        mVB.mBtn5.click {
             this.requestPermission(
                     Permission.WRITE_EXTERNAL_STORAGE,
                     Permission.READ_EXTERNAL_STORAGE,
@@ -64,6 +64,6 @@ class TestActivity : BaseViewActivity() {
 
     override fun onResume() {
         super.onResume()
-        vNavigationBar.text = "导航条高度：${px2dip(getNavigationBarHeight().toFloat())}单位"
+        mVB.vNavigationBar.text = "导航条高度：${px2dip(getNavigationBarHeight().toFloat())}单位"
     }
 }

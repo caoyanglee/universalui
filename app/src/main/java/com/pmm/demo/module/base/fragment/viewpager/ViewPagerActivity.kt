@@ -1,29 +1,27 @@
 package com.pmm.demo.module.base.fragment.viewpager
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.orhanobut.logger.Logger
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.BaseViewActivityV2
 import com.pmm.demo.base.initToolBar
+import com.pmm.demo.databinding.ActivityUniversalListBinding
+import com.pmm.demo.databinding.ActivityViewPagerBinding
 import com.pmm.metro.annotatoin.Station
 import com.pmm.ui.core.pager.BaseFragmentPagerAdapter
 import com.pmm.ui.interfaces.MyViewPagerChangeListener
 import com.pmm.ui.ktx.setDefaultItem
 import com.pmm.ui.ktx.toast
 import com.pmm.ui.widget.TabView
-import kotlinx.android.synthetic.main.activity_view_pager.*
 
 @Station(path = "/fragment/viewpager")
-class ViewPagerActivity : BaseViewActivity() {
-
-    override fun getLayoutResID(): Int = R.layout.activity_view_pager
-
-    companion object {
-        fun newIntent(context: Context) = Intent(context, ViewPagerActivity::class.java)
-    }
+class ViewPagerActivity : BaseViewActivityV2(R.layout.activity_view_pager) {
+    private val mVB by viewBinding(ActivityViewPagerBinding::bind, R.id.container)
+    private val viewpager by lazy { mVB.viewpager }
+    private val mTabView by lazy { mVB.mTabView }
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         initToolBar("ViewPager")

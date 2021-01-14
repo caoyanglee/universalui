@@ -1,40 +1,26 @@
 package com.pmm.demo.module.kotlin.coroutines
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.BaseViewActivityV2
+import com.pmm.demo.base.initToolBarWithBack
+import com.pmm.demo.databinding.ActivityCoroutineBinding
 import com.pmm.ui.core.dialog.ProgressDialog
-import com.pmm.ui.ktx.click
 import com.pmm.ui.ktx.toast
-import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
 
 /**
  * 协程
  */
-class CoroutineActivity : BaseViewActivity() {
+class CoroutineActivity : BaseViewActivityV2(R.layout.activity_coroutine) {
 
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, CoroutineActivity::class.java)
-        }
-    }
-
-    override fun getLayoutResID() = R.layout.activity_coroutine
-
+    private val mVB by viewBinding(ActivityCoroutineBinding::bind, R.id.container)
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
-        mToolBar.with(this)
-                .centerTitle { this.text = "协程" }
-                .navigationIcon { this.click { onBackPressed() } }
-
-
-
-        btn_coroutine.setOnClickListener {
+        initToolBarWithBack(title = "协程")
+        mVB.btnCoroutine.setOnClickListener {
             test2()
         }
     }

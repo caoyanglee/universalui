@@ -2,27 +2,24 @@ package com.pmm.demo.module.base
 
 import android.graphics.Color
 import android.os.Bundle
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
-import com.pmm.demo.base.CategoryB
-import com.pmm.demo.base.CategoryListAdapter
-import com.pmm.demo.base.initToolBar
+import com.pmm.demo.base.*
+import com.pmm.demo.databinding.ActivityUniversalListBinding
 import com.pmm.metro.Metro
 import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
 import com.pmm.ui.ktx.click
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.init
 import com.pmm.ui.ktx.toast
-import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
 
 /**
  * 基础知识
  */
-class BasicKnowledgeActivity : BaseViewActivity() {
+class BasicKnowledgeActivity : BaseViewActivityV2(R.layout.activity_universal_list) {
 
     private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
-
-    override fun getLayoutResID(): Int = R.layout.activity_universal_list
+    private val mVB by viewBinding(ActivityUniversalListBinding::bind, R.id.container)
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
 //        StatusBarManager.setLightMode(window, true)
@@ -76,9 +73,9 @@ class BasicKnowledgeActivity : BaseViewActivity() {
 //            }
         }
 
-        recyclerView.init()
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(LinearItemDecoration(
+        mVB.recyclerView.init()
+        mVB.recyclerView.adapter = adapter
+        mVB.recyclerView.addItemDecoration(LinearItemDecoration(
                 context = this,
                 dividerSize = dip2px(16f)
         ))

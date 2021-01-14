@@ -87,6 +87,7 @@ class MainActivity : BaseViewActivityV2(R.layout.activity_main) {
         }
         mVB.includeList.recyclerView.apply {
             this.init()
+            this.setPadding(0, dip2px(10f), 0, getNavigationBarHeight())
             this.adapter = mAdapter
             this.addItemDecoration(LinearItemDecoration(
                     context = this@MainActivity,

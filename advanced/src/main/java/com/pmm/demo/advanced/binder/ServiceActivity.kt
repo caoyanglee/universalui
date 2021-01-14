@@ -9,18 +9,20 @@ import android.os.IBinder
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.advanced.ICalcAIDL
 import com.pmm.demo.advanced.R
-import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.advanced.databinding.ActivityServiceBinding
+import com.pmm.demo.base.BaseViewActivityV2
 import com.pmm.demo.base.initToolBar
 import com.pmm.metro.annotatoin.Station
 
 @Station("/android/advanced/binder")
-class ServiceActivity : BaseViewActivity() {
+class ServiceActivity : BaseViewActivityV2(R.layout.activity_service) {
+
+    private val mVB by viewBinding(ActivityServiceBinding::bind, R.id.container)
 
     private val TAG = "client"
-
-    override fun getLayoutResID(): Int = R.layout.activity_service
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         initToolBar()

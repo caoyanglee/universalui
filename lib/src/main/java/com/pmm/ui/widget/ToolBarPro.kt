@@ -14,10 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.pmm.ui.ktx.*
 import com.pmm.ui.R
+import com.pmm.ui.ktx.*
 import java.lang.ref.WeakReference
-import kotlin.properties.Delegates
 
 /**
  * Author:你需要一台永动机

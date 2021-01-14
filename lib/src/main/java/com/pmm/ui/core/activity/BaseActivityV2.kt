@@ -11,7 +11,7 @@ import com.pmm.ui.core.architecture.mvp.BaseView
  * Date:2018/4/8 17:18
  * Description:Activity的基类
  */
-abstract class BaseActivityV2(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId), BaseView {
+abstract class BaseActivityV2(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //superCreate之前
@@ -41,7 +41,7 @@ abstract class BaseActivityV2(@LayoutRes contentLayoutId: Int) : AppCompatActivi
 
     protected open fun afterViewAttach(savedInstanceState: Bundle?) {}
 
-    override fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
+    fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
 
 
 }

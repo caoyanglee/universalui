@@ -1,9 +1,11 @@
 package com.pmm.demo.base
 
 import android.content.Context
+import android.view.View
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.pmm.demo.base.databinding.BaseListItemMainCategoryBinding
 import com.pmm.ui.core.recyclerview.BaseRecyclerAdapter
 import com.pmm.ui.core.recyclerview.BaseRecyclerViewHolder
-import kotlinx.android.synthetic.main.base_list_item_main_category.view.*
 
 /**
  * Author:你需要一台永动机
@@ -14,11 +16,17 @@ class CategoryListAdapter(mContext: Context) : BaseRecyclerAdapter<Any, Category
 
     override fun getItemLayoutRes() = R.layout.base_list_item_main_category
 
+    override fun getViewHolder(itemView: View?): BaseRecyclerViewHolder = MyViewHolder(itemView)
+
     override fun itemViewChange(holder: BaseRecyclerViewHolder, position: Int) {
-        val item = getItem(position)?:return
-        holder.itemView.apply {
-            tv_primary.text = item.primaryTitle
-            tv_secondary.text = item.subTitle
+        val item = getItem(position) ?: return
+        (holder as MyViewHolder).mVB.apply {
+            tvPrimary.text = item.primaryTitle
+            tvSecondary.text = item.subTitle
         }
+    }
+
+    inner class MyViewHolder(itemView: View?) : BaseRecyclerViewHolder(itemView) {
+        val mVB by viewBinding(BaseListItemMainCategoryBinding::bind, R.id.container)
     }
 }

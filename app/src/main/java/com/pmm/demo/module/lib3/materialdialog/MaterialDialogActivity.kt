@@ -1,50 +1,43 @@
 package com.pmm.demo.module.lib3.materialdialog
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
+import com.pmm.demo.base.BaseViewActivityV2
+import com.pmm.demo.databinding.ActivityMaterialDialogBinding
 import com.pmm.ui.core.dialog.ProgressDialog
 import com.pmm.ui.ktx.*
-import kotlinx.android.synthetic.main.activity_material_dialog.*
 
-class MaterialDialogActivity : BaseViewActivity() {
-    override fun getLayoutResID() = R.layout.activity_material_dialog
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, MaterialDialogActivity::class.java)
-        }
-    }
+class MaterialDialogActivity : BaseViewActivityV2(R.layout.activity_material_dialog) {
+    private val mVB by viewBinding(ActivityMaterialDialogBinding::bind, R.id.container)
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
 
         //进度条
-        mBtn1.click {
+        mVB.mBtn1.click {
             ProgressDialog.show(this, cancelable = true)
         }
         //日期选择呢器
-        mBtn2.click {
+        mVB.mBtn2.click {
 //            showDatePicker { year, month, dayOfMonth, datetime ->
 //                toast("$year-$month-$dayOfMonth")
 //            }
         }
         //时间选择器
-        mBtn3.click {
+        mVB.mBtn3.click {
 //            showTimePicker { hourOfDay, minute, datetime ->
 //                toast("$hourOfDay:$minute")
 //            }
         }
         //确认选择器
-        mBtn4.click {
+        mVB.mBtn4.click {
             showConfirmDialog {
                 toast("确定成功")
             }
         }
 
         //列表选择器
-        mBtn5.click {
+        mVB.mBtn5.click {
             showListPicker(
                     title = "操作",
                     items = listOf("删除", "还原"),
@@ -54,7 +47,7 @@ class MaterialDialogActivity : BaseViewActivity() {
             )
         }
         //输入选择器
-        mBtn6.click {
+        mVB.mBtn6.click {
 //            showInputPicker(
 //                    title = "昵称",
 //                    hint = "请输入昵称",
@@ -65,7 +58,7 @@ class MaterialDialogActivity : BaseViewActivity() {
 //            )
         }
         //单选选择器
-        mBtn7.click {
+        mVB.mBtn7.click {
             showSingleChoicePicker(
                     title = "性别",
                     items = listOf("男", "女"),

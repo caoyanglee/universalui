@@ -1,27 +1,16 @@
 package com.pmm.demo.module.java.pattern
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
-import com.pmm.ui.ktx.click
-import kotlinx.android.synthetic.main.activity_pattern.*
+import com.pmm.demo.base.BaseViewActivityV2
+import com.pmm.demo.base.initToolBarWithBack
 import java.util.regex.Pattern
 
 /**
  * Java的正则表达式
  */
-class PatternActivity : BaseViewActivity() {
-    override fun getLayoutResID(): Int = R.layout.activity_pattern
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, PatternActivity::class.java)
-        }
-    }
-
+class PatternActivity : BaseViewActivityV2(R.layout.activity_pattern) {
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         initViews()
@@ -30,13 +19,7 @@ class PatternActivity : BaseViewActivity() {
 
 
     private fun initViews() {
-        mToolBar.with(this)
-                .navigationIcon {
-                    this.click { onBackPressed() }
-                }
-                .centerTitle {
-                    this.text = "正则表达式"
-                }
+        initToolBarWithBack("正则表达式")
     }
 
     private fun initContent() {

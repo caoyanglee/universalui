@@ -14,7 +14,7 @@ import com.pmm.ui.core.activity.BaseActivityV2
  * Date:2018/4/8 17:18
  * Description:Activity的基类x
  */
-abstract class BaseViewActivityV2(@LayoutRes contentLayoutId: Int) : BaseActivityV2(contentLayoutId), BaseView {
+abstract class BaseViewActivityV2(@LayoutRes contentLayoutId: Int) : BaseActivityV2(contentLayoutId), BaseViewInit {
 
     //superCreate之前
     final override fun beforeSuperCreate(savedInstanceState: Bundle?) {

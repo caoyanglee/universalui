@@ -1,36 +1,33 @@
 package com.pmm.demo.module.lib3.eventbus
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.R
-import com.pmm.ui.ktx.click
-import kotlinx.android.synthetic.main.activity_event_bus.*
+import com.pmm.demo.base.BaseViewActivityV2
+import com.pmm.demo.base.initToolBarWithBack
+import com.pmm.demo.databinding.ActivityEventBusBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class EventBusActivity : AppCompatActivity() {
+class EventBusActivity : BaseViewActivityV2(R.layout.activity_event_bus) {
+    private val mVB by viewBinding(ActivityEventBusBinding::bind, R.id.container)
 
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, EventBusActivity::class.java)
-        }
+    override fun afterViewAttach(savedInstanceState: Bundle?) {
+        initRender()
     }
 
+    override fun initRender() {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_bus)
 
-        mToolbar.with(this)
-                .centerTitle { this.text = "EventBusActivity" }
-                .navigationIcon { this.click { onBackPressed() } }
+        initToolBarWithBack("EventBusActivity")
 
-
-        btn_next.setOnClickListener {
+        mVB.btnNext.setOnClickListener {
             startActivity(Intent(this, EventBusSecActivity::class.java))
         }
 
@@ -44,7 +41,7 @@ class EventBusActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onTextReceive(event: TextEvent) {
-        tv_message.text = "这里是~EventBusSec发送的消息：${event.message}"
+        mVB.tvMessage.text = "这里是~EventBusSec发送的消息：${event.message}"
     }
 
 

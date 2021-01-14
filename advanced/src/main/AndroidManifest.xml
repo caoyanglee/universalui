@@ -5,7 +5,7 @@
     <application
         android:allowBackup="false"
         android:supportsRtl="true">
-        <activity android:name=".AndroidAdvanced" />
+        <activity android:name=".AndroidAdvancedAy" />
         <activity android:name=".binder.ServiceActivity" />
 
         <!--使用Binder的服务-->

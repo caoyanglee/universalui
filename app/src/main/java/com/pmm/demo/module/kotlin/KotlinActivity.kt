@@ -1,24 +1,22 @@
 package com.pmm.demo.module.kotlin
 
 import android.os.Bundle
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.R
-import com.pmm.demo.base.BaseViewActivity
-import com.pmm.demo.base.initToolBar
+import com.pmm.demo.base.*
+import com.pmm.demo.databinding.ActivityUniversalListBinding
 import com.pmm.demo.module.kotlin.coroutines.CoroutineActivity
-import com.pmm.demo.base.CategoryB
-import com.pmm.demo.base.CategoryListAdapter
 import com.pmm.ui.ktx.init
-import kotlinx.android.synthetic.main.include_recyclerview.recyclerView
+import com.pmm.ui.ktx.openActivity
 
 /**
  * kotlin的一些基础Demo
  */
-class KotlinActivity : BaseViewActivity() {
+class KotlinActivity : BaseViewActivityV2(R.layout.activity_universal_list) {
 
     private val category = arrayListOf<CategoryB>()
-    private val adapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
-
-    override fun getLayoutResID() = R.layout.activity_universal_list
+    private val mAdapter: CategoryListAdapter by lazy { CategoryListAdapter(this) }
+    private val mVB by viewBinding(ActivityUniversalListBinding::bind, R.id.container)
 
     override fun afterViewAttach(savedInstanceState: Bundle?) {
         initToolBar("Kotlin")
@@ -27,22 +25,22 @@ class KotlinActivity : BaseViewActivity() {
 
 
     fun initRecy() {
-        adapter.onItemClick = { item, position ->
+        mAdapter.onItemClick = { item, position ->
             when (position) {
                 0 -> {
                     //协程
-                    startActivity(CoroutineActivity.newIntent(this))
+                    openActivity<CoroutineActivity>()
                 }
             }
         }
-        recyclerView.init()
-        recyclerView.adapter = adapter
+        mVB.recyclerView.init()
+        mVB.recyclerView.adapter = mAdapter
 
 
 
         category.add(CategoryB("协程", "异步处理"))
 
-        adapter.setDataToAdapter(category)
+        mAdapter.setDataToAdapter(category)
     }
 
 }

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 /**
  * 专门显示fragment的activity的基类
  */
-abstract class BaseFragmentActivity : BaseViewActivity() {
+abstract class BaseFragmentActivity : BaseViewActivity(), BaseViewInit {
 
     protected abstract val fragment: Fragment
 

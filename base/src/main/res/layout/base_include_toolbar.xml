@@ -3,5 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mToolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:visibility="invisible" />
+    android:layout_height="wrap_content" />

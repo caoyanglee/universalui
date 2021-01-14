@@ -10,6 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.pmm.ui.ktx.inflate
 
 /**
  * Author:你需要一台永动机
@@ -21,9 +22,6 @@ abstract class BaseDialog : DialogFragment() {
     var onNegativeCallback: ((BaseDialog) -> Unit)? = null
     var onCancelCallback: ((BaseDialog) -> Unit)? = null
     var onDismissCallback: ((BaseDialog) -> Unit)? = null
-
-    lateinit var mContentView: View
-        private set
 
     protected open fun getTagName(): String = this::class.java.simpleName
 
@@ -58,9 +56,8 @@ abstract class BaseDialog : DialogFragment() {
     }
 
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mContentView = LayoutInflater.from(context).inflate(getLayoutResID(), container, false) as View
         //设置视图
-        return mContentView
+        return LayoutInflater.from(context).inflate(getLayoutResID(), container, false) as View
     }
 
     //使用Fragment

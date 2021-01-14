@@ -1,7 +1,7 @@
 package com.pmm.demo.base
 
-import android.app.Activity
 import android.text.TextUtils
+import androidx.appcompat.app.AppCompatActivity
 import com.pmm.ui.widget.ToolBarPro
 
 /**
@@ -11,10 +11,19 @@ import com.pmm.ui.widget.ToolBarPro
  */
 
 
-fun Activity.initToolBar(centerTitle: String? = null) = findViewById<ToolBarPro>(R.id.mToolbar).with(this)
+fun AppCompatActivity.initToolBar(title: String? = null) = findViewById<ToolBarPro>(R.id.mToolbar).with(this)
         .centerTitle {
             this.text = intent.getStringExtra("title")
-            if (!TextUtils.isEmpty(centerTitle)) {
-                this.text = centerTitle
+            if (!TextUtils.isEmpty(title)) {
+                this.text = title
             }
         }.navigationIcon {}
+
+
+fun AppCompatActivity.initToolBarWithBack(title: String? = null) = findViewById<ToolBarPro>(R.id.mToolbar).with(this)
+        .centerTitle {
+            this.text = intent.getStringExtra("title")
+            if (!TextUtils.isEmpty(title)) {
+                this.text = title
+            }
+        }.navigationIcon { onBackPressed() }
