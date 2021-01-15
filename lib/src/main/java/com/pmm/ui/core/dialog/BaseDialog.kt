@@ -11,16 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 
+
+typealias DialogCallback = (BaseDialog) -> Unit
+
 /**
  * Author:你需要一台永动机
  * Date:2019/4/9 23:26
  * Description:专门处理弹窗式Dialog
  */
 abstract class BaseDialog : DialogFragment() {
-    var onPositiveCallback: ((BaseDialog) -> Unit)? = null
-    var onNegativeCallback: ((BaseDialog) -> Unit)? = null
-    var onCancelCallback: ((BaseDialog) -> Unit)? = null
-    var onDismissCallback: ((BaseDialog) -> Unit)? = null
+    var onPositiveCallback: DialogCallback? = null
+    var onNegativeCallback: DialogCallback? = null
+    var onCancelCallback: DialogCallback? = null
+    var onDismissCallback: DialogCallback? = null
 
     protected open fun getTagName(): String = this::class.java.simpleName
 
