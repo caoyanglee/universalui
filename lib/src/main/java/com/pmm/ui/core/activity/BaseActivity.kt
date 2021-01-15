@@ -54,7 +54,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected open fun afterViewAttach(savedInstanceState: Bundle?) {}
 
-    protected fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
+    protected open fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
 
 
 }

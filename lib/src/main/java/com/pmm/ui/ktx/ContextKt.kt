@@ -207,7 +207,7 @@ fun Context.getAppIcon(): Int {
 /**
  * 获取应用的名字
  */
-fun Context.getAppName(): String? {
+fun Context.getAppName(): String {
     val pm: PackageManager = packageManager
     try {
         val info = pm.getApplicationInfo(this.packageName, 0)

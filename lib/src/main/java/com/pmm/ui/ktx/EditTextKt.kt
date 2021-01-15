@@ -16,7 +16,7 @@ import com.pmm.ui.interfaces.MyTextWatcher
 //扩展函数&扩展属性
 
 //清除所有的的内容
-fun Any.clearAllContent(vararg texts: TextView) {
+fun clearAllContent(vararg texts: TextView) {
     for (item in texts) {
         item.text = ""
     }

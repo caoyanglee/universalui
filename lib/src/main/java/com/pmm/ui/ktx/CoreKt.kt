@@ -12,13 +12,6 @@ import kotlinx.coroutines.launch
  * Description:
  */
 
-//获取手机型号
-fun Any.getSystemModel() = android.os.Build.MODEL
-
-// 获取手机厂商
-fun Any.getDeviceBrand() = android.os.Build.BRAND
-
-
 //是否开启 不保留活动
 fun ContentResolver.isAlwaysFinishActivities(): Boolean {
     val isAlways = Settings.Global.getInt(this, Settings.Global.ALWAYS_FINISH_ACTIVITIES, 0)//开发者选项 不保留活动
@@ -33,7 +26,7 @@ private var isDoubleClick = false//是否已经双击
 /**
  * 双击 - 用于回调
  */
-fun Any.doubleClick(singleClick: () -> Unit, doubleClick: () -> Unit, delay: Long = 1000) {
+fun doubleClick(singleClick: () -> Unit, doubleClick: () -> Unit, delay: Long = 1000) {
     val curTime = System.currentTimeMillis()
     if (curTime - lastClickTime > delay) {
         if (isSingleClick) return

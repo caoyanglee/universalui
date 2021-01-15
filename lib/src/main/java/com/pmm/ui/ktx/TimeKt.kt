@@ -154,7 +154,7 @@ fun String.utc2Local(
 /**
  * 获取当前时间戳
  */
-fun Any.getCurrentTimeStamp() = System.currentTimeMillis()
+fun getCurrentTimeStamp() = System.currentTimeMillis()
 
 //Date转UTC时间字符串
 fun Date.date2UtcString(): String = this.date2String("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", isUtc = true)
