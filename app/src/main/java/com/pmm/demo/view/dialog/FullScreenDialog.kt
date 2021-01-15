@@ -39,7 +39,7 @@ class FullScreenDialog : BaseDialog() {
 
     private fun initViews() {
         StatusNavigationBar.setColor(dialog?.window, Color.WHITE)
-        StatusNavigationBar.setLightMode(dialog?.window)
+        StatusNavigationBar.change2LightStatusBar(dialog?.window)
         mVB.mToolbar.with(activity).apply {
             toolbarHeight = 0
             showStatusView = true

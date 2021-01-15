@@ -4,10 +4,9 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import com.bumptech.glide.Glide
-import com.pmm.ui.core.activity.BaseActivity
-import com.pmm.ui.core.architecture.mvp.BaseView
 import com.pmm.ui.core.StatusNavigationBar
 import com.pmm.ui.core.activity.BaseActivityV2
+import com.pmm.ui.ktx.isDarkMode
 
 /**
  * Author:你需要一台永动机
@@ -19,7 +18,7 @@ abstract class BaseViewActivityV2(@LayoutRes contentLayoutId: Int) : BaseActivit
     //superCreate之前
     final override fun beforeSuperCreate(savedInstanceState: Bundle?) {
         StatusNavigationBar.setStatusNavigationBarTransparent(window)
-        StatusNavigationBar.setDarkMode(window, true)
+        if (isDarkMode()) StatusNavigationBar.change2DarkStatusBar(window) else StatusNavigationBar.change2LightStatusBar(window)
     }
 
     //视图加载前

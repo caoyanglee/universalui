@@ -1,7 +1,5 @@
 package com.pmm.ui.core
 
-
-import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.view.View
@@ -78,48 +76,6 @@ object StatusNavigationBar {
     }
 
     /**
-     * 状态栏亮色模式，设置状态栏黑色文字、图标，
-     * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
-     *
-     * @param activity
-     * @return 1:MIUUI 2:Flyme 3:android6.0
-     */
-    fun setLightMode(window: Window?, isFullScreen: Boolean = false) {
-        window?.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (isFullScreen)
-                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
-                            View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                else
-                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (isFullScreen)
-                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                else
-                    this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            }
-        }
-    }
-
-
-    /**
-     * 状态栏黑色模式，文字白色文字、图标
-     * 6.0以上版本其他Android
-     *
-     * @param activity
-     */
-    fun setDarkMode(window: Window?, isFullScreen: Boolean = false) {
-        window?.apply {
-            if (isFullScreen)
-                this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            else {
-                this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            }
-        }
-    }
-
-
-    /**
      * 隐藏状态栏
      */
     fun hideStatusBar(window: Window) {
@@ -142,9 +98,7 @@ object StatusNavigationBar {
      * 修改状态栏的颜色为白色
      */
     fun change2LightStatusBar(window: Window?) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
         val decorView = window?.decorView ?: return
         decorView.systemUiVisibility = decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
@@ -153,9 +107,7 @@ object StatusNavigationBar {
      * 修改状态栏的颜色为黑色，也就是Dark模式
      */
     fun change2DarkStatusBar(window: Window?) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
         val decorView = window?.decorView ?: return
         decorView.systemUiVisibility = decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
     }

@@ -13,7 +13,7 @@ import com.pmm.ui.core.architecture.mvp.BaseView
  * Date:1/14/21 2:02 PM
  * Description:
  */
-abstract class BaseFragmentV2(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId), BaseView {
+abstract class BaseFragmentV2(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
 
     private var isViewPagerShow = false//是否在viewpager显示
     private var isFirstShow = false//第一次显示

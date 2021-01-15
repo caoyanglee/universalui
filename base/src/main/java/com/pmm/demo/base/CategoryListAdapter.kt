@@ -26,7 +26,7 @@ class CategoryListAdapter(mContext: Context) : BaseRecyclerAdapter<Any, Category
         }
     }
 
-    inner class MyViewHolder(itemView: View?) : BaseRecyclerViewHolder(itemView) {
+    private class MyViewHolder(itemView: View?) : BaseRecyclerViewHolder(itemView) {
         val mVB by viewBinding(BaseListItemMainCategoryBinding::bind, R.id.container)
     }
 }
