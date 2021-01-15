@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.pmm.ui.core.architecture.mvp.BaseView
 
 /**
  * Author:你需要一台永动机

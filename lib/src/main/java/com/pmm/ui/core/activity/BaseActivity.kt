@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import com.pmm.ui.core.architecture.mvp.BaseView
 
 /**
  * Author:你需要一台永动机
@@ -12,7 +11,7 @@ import com.pmm.ui.core.architecture.mvp.BaseView
  * Description:Activity的基类
  */
 @Deprecated("2021年9月份后删除，请使用BaseFragmentV2")
-abstract class BaseActivity : AppCompatActivity(), BaseView {
+abstract class BaseActivity : AppCompatActivity() {
 
     protected open fun getLayoutUI(): ViewGroup? = null//优先使用这个，没有在拿getLayoutResID的视图
 
@@ -43,7 +42,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     //superCreate之前
-    protected open fun beforeSuperCreate(savedInstanceState: Bundle?){}
+    protected open fun beforeSuperCreate(savedInstanceState: Bundle?) {}
 
     //baseView的操作
     protected open fun beforeViewAttachBaseViewAction(savedInstanceState: Bundle?) {}
@@ -55,7 +54,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     protected open fun afterViewAttach(savedInstanceState: Bundle?) {}
 
-    override fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
+    protected fun getContentView(): ViewGroup = window.decorView.findViewById(android.R.id.content)
 
 
 }

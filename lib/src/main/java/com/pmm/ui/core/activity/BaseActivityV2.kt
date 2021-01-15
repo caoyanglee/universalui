@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import com.pmm.ui.core.architecture.mvp.BaseView
 
 /**
  * Author:你需要一台永动机

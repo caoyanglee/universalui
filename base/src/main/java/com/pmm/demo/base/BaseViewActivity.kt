@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.pmm.ui.core.StatusNavigationBar
 import com.pmm.ui.core.activity.BaseActivity
-import com.pmm.ui.core.architecture.mvp.BaseView
 import com.pmm.ui.ktx.isDarkMode
 
 /**
@@ -14,7 +13,7 @@ import com.pmm.ui.ktx.isDarkMode
  * Description:Activity的基类
  */
 @Deprecated("2021年9月份后删除，请使用BaseFragmentV2")
-abstract class BaseViewActivity : BaseActivity(), BaseView, BaseViewInit {
+abstract class BaseViewActivity : BaseActivity(), BaseViewInit {
 
     //superCreate之前
     final override fun beforeSuperCreate(savedInstanceState: Bundle?) {
