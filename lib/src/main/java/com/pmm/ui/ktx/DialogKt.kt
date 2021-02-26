@@ -7,6 +7,7 @@ import android.content.ContextWrapper
 import androidx.fragment.app.FragmentActivity
 import com.afollestad.assent.Permission
 import com.afollestad.assent.askForPermissions
+import com.afollestad.assent.isAllGranted
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
@@ -70,22 +71,28 @@ fun FragmentActivity.requestPermission(
         }
     }
     //开始请求权限
-    askForPermissions(*permissions) {
-        when {
-            it.isAllGranted(*permissions) -> {
-                allGrantedCallback?.invoke()
-            }
-            it.permanentlyDenied().isNotEmpty() -> {
-                if (permanentlyDeniedCallback?.invoke() == true) return@askForPermissions
-                showDialog(true)
-            }
-            else -> {
-                if (allDeniedCallback?.invoke() == true) return@askForPermissions
-                showDialog(false)
+
+    val permissionsGranted: Boolean = isAllGranted(*permissions)
+    if (permissionsGranted) {
+        allGrantedCallback?.invoke()
+    } else {
+        askForPermissions(*permissions) {
+            when {
+                it.isAllGranted(*permissions) -> {
+                    allGrantedCallback?.invoke()
+                }
+                it.permanentlyDenied().isNotEmpty() -> {
+                    if (permanentlyDeniedCallback?.invoke() == true) return@askForPermissions
+                    showDialog(true)
+                }
+                else -> {
+                    if (allDeniedCallback?.invoke() == true) return@askForPermissions
+                    showDialog(false)
+                }
             }
         }
-    }
 
+    }
 }
 
 /**

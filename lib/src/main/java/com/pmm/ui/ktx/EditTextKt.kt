@@ -132,18 +132,21 @@ fun EditText.checkIsNullAndToast(): Boolean {
  */
 fun EditText.addClearView(clearView: View? = null, keyWordListener: ((keyWord: String) -> Unit)? = null) {
     //默认隐藏处理
-    clearView?.gone()
+    fun checkClearView(){
+        val keyword = this.text.toString().trim()
+        if (keyword.isNotBlank()) {
+            clearView?.visible()
+        } else {
+            clearView?.gone()
+        }
+    }
+
+    checkClearView()
     this.addTextChangedListener(object : MyTextWatcher {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val keyword = s.toString()
-
-            if (keyword.isNotBlank()) {
-                clearView?.visible()
-            } else {
-                clearView?.gone()
-            }
-
             keyWordListener?.invoke(keyword)
+            checkClearView()
         }
     })
 

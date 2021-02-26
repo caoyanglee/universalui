@@ -3,12 +3,12 @@ package com.pmm.ui.ktx
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Looper
+import android.view.*
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -153,16 +153,45 @@ fun View.getBitmap(handle: (viewBitmap: Bitmap) -> Unit) {
  * 替代getDrawingCache方法
  *
  */
-fun View.screenShot(handle: (viewBitmap: Bitmap) -> Unit) {
-    try {
-        val screenshot: Bitmap = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)
-        val c = Canvas(screenshot)
-        c.translate((-this.scrollX).toFloat(), (-this.scrollY).toFloat())
-        this.draw(c)
-        handle(screenshot)
-    } catch (e: Exception) {
-        System.gc()
-        context.toast("保存错误，请重新点击")
+fun View.screenShot(window: Window, callback: (viewBitmap: Bitmap) -> Unit) {
+    val view = this
+    // PixelCopy is available since API 24 but doesn't seem to work 100% until API 29.
+    // The build version statement can be adjusted according to how well PixelCopy
+    // works in your environment before "P".
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val locationOfView = IntArray(2)
+        view.getLocationInWindow(locationOfView)
+        val rect = Rect(
+                locationOfView[0],
+                locationOfView[1],
+                locationOfView[0] + view.width,
+                locationOfView[1] + view.height
+        )
+
+        try {
+            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+            PixelCopy.request(
+                    window, rect, bitmap, { copyResult: Int ->
+                if (copyResult == PixelCopy.SUCCESS) {
+                    callback(bitmap)
+                }
+            },
+                    Handler(Looper.getMainLooper())
+            )
+        } catch (e: IllegalArgumentException) {
+            // PixelCopy may throw IllegalArgumentException, make sure to handle it
+            e.printStackTrace()
+        }
+    } else {
+        try {
+            val screenshot: Bitmap = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)
+            val c = Canvas(screenshot)
+            c.translate((-this.scrollX).toFloat(), (-this.scrollY).toFloat())
+            this.draw(c)
+            callback(screenshot)
+        } catch (e: Exception) {
+            System.gc()
+        }
     }
 }
 

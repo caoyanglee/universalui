@@ -2,6 +2,7 @@ package com.pmm.demo.module.test
 
 import android.app.Activity
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afollestad.assent.Permission
@@ -44,9 +45,7 @@ class TestActivity : BaseViewActivityV2(R.layout.activity_test) {
 
         mVB.mBtn5.click {
             this.requestPermission(
-                    Permission.WRITE_EXTERNAL_STORAGE,
                     Permission.READ_EXTERNAL_STORAGE,
-                    Permission.CAMERA,
                     allGrantedCallback = { toast("拿到权限了") },
                     allDeniedCallback = {
                         toast("所有权限都拒绝了")
@@ -65,5 +64,20 @@ class TestActivity : BaseViewActivityV2(R.layout.activity_test) {
     override fun onResume() {
         super.onResume()
         mVB.vNavigationBar.text = "导航条高度：${px2dip(getNavigationBarHeight().toFloat())}单位"
+    }
+
+
+    //检查定位权限
+    fun FragmentActivity.requestLocationPermissions(
+            allGrantedCallback: () -> Unit,
+            permanentlyDeniedCallback: (() -> Boolean)? = null
+    ) {
+        requestPermission(
+                Permission.ACCESS_FINE_LOCATION,
+                Permission.ACCESS_COARSE_LOCATION,
+                allGrantedCallback = allGrantedCallback,
+                permanentlyDeniedCallback = permanentlyDeniedCallback,
+                message = "需要获取您的位置信息才能给你服务"
+        )
     }
 }

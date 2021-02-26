@@ -83,7 +83,7 @@ fun Long.formatDate2now(): String {
  * 比较时间 是否超过几天
  * 单位：毫秒
  */
-fun Long.moreThanDays(day: Int = 7): Boolean {
+fun Long.moreThanDays(day: Int = 1): Boolean {
     val currentTime = Calendar.getInstance().time.time
     val recordTime = this
     if (recordTime == 0L) return true
@@ -98,7 +98,30 @@ fun Long.moreThanDays(day: Int = 7): Boolean {
  * 比较时间 是否超过几天
  * 单位：毫秒
  */
-fun Date.moreThanDays(day: Int = 7): Boolean = this.time.moreThanDays(day)
+fun Date.moreThanDays(day: Int = 1): Boolean = this.time.moreThanDays(day)
+
+
+/**
+ * 比较时间 是否超过几天
+ * 单位：毫秒
+ */
+fun Long.lessThanDays(day: Int = 1): Boolean {
+    val currentTime = Calendar.getInstance().time.time
+    val recordTime = this
+    if (recordTime == 0L) return false
+    if (recordTime>currentTime)return false
+    val differ = currentTime - recordTime
+    if (differ < 1000 * 60 * 60 * 24 * day) {
+        return true
+    }
+    return false
+}
+
+/**
+ * 比较时间 是否超过几天
+ * 单位：毫秒
+ */
+fun Date.lessThanDays(day: Int = 1): Boolean = this.time.lessThanDays(day)
 
 
 /**
