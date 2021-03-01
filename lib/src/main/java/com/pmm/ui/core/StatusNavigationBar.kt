@@ -113,5 +113,23 @@ object StatusNavigationBar {
     }
 
 
+    /**
+     * 修改底部操作栏的颜色为白色
+     */
+    fun change2LightNavigationBar(window: Window?) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
+        val decorView = window?.decorView ?: return
+        decorView.systemUiVisibility = decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+    }
+
+    /**
+     * 修改底部操作栏的颜色为黑色，也就是Dark模式
+     */
+    fun change2DarkNavigationBar(window: Window?) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
+        val decorView = window?.decorView ?: return
+        decorView.systemUiVisibility = decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+    }
+
 }
 
