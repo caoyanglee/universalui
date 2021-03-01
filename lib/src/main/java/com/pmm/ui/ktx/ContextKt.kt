@@ -16,9 +16,9 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Display
 import android.view.WindowManager
@@ -36,7 +36,6 @@ import com.pmm.ui.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import java.lang.reflect.Field
 
 
 /**
@@ -375,11 +374,25 @@ fun Context.isPortrait() = resources.configuration.orientation == Configuration.
 fun Context.isLandScape() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 /**
- * 判断是否拥有某个权限
+ * 显示华为手机的角标
  */
-fun Context.isHavePermissions(vararg permissions: String): Boolean {
-    for (item in permissions) {
-        if (checkCallingOrSelfPermission(item) != PackageManager.PERMISSION_GRANTED) return false
+private var mIsSupportedBade = true //是否支持华为的角标
+
+fun Context.showHuaWeiBadge(num: Int) {
+    if (mIsSupportedBade) {
+        try {
+            val bundle = Bundle()
+            bundle.putString("package", "com.pmm.remember")
+            bundle.putString("class", "com.pmm.remember.ui.splash.SplashAy")
+            bundle.putInt("badgenumber", num)
+            this.contentResolver.call(
+                    Uri.parse("content://com.huawei.android.launcher.settings/badge/"),
+                    "change_badge",
+                    null,
+                    bundle
+            )
+        } catch (e: Exception) {
+            mIsSupportedBade = false //此处为是否显示角标
+        }
     }
-    return true
 }
