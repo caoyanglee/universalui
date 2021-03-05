@@ -20,10 +20,10 @@ typealias DialogCallback = (BaseDialog) -> Unit
  * Description:专门处理弹窗式Dialog
  */
 abstract class BaseDialog : DialogFragment() {
-    var onPositiveCallback: DialogCallback? = null
-    var onNegativeCallback: DialogCallback? = null
-    var onCancelCallback: DialogCallback? = null
-    var onDismissCallback: DialogCallback? = null
+    var positiveCallback: DialogCallback? = null
+    var negativeCallback: DialogCallback? = null
+    var cancelCallback: DialogCallback? = null
+    var dismissCallback: DialogCallback? = null
 
     protected open fun getTagName(): String = this::class.java.simpleName
 
@@ -97,23 +97,23 @@ abstract class BaseDialog : DialogFragment() {
     //执行positive的操作
     protected fun actionPositiveClick() {
         dismiss()
-        onPositiveCallback?.invoke(this)
+        positiveCallback?.invoke(this)
     }
 
     //执行negative的操作
     protected fun actionNegativeClick() {
         dismiss()
-        onNegativeCallback?.invoke(this)
+        negativeCallback?.invoke(this)
     }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        onCancelCallback?.invoke(this)
+        cancelCallback?.invoke(this)
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        onDismissCallback?.invoke(this)
+        dismissCallback?.invoke(this)
     }
 
 }
