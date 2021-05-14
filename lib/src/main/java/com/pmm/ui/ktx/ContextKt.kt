@@ -377,7 +377,6 @@ fun Context.isLandScape() = resources.configuration.orientation == Configuration
  * 显示华为手机的角标
  */
 private var mIsSupportedBade = true //是否支持华为的角标
-
 fun Context.showHuaWeiBadge(num: Int) {
     if (mIsSupportedBade) {
         try {

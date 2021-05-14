@@ -18,7 +18,7 @@ abstract class BaseViewActivityV2(@LayoutRes contentLayoutId: Int) : BaseActivit
     //superCreate之前
     final override fun beforeSuperCreate(savedInstanceState: Bundle?) {
         StatusNavigationBar.setStatusNavigationBarTransparent(window)
-        if (isDarkMode()) StatusNavigationBar.change2DarkStatusBar(window) else StatusNavigationBar.change2LightStatusBar(window)
+//        if (isDarkMode()) StatusNavigationBar.change2DarkStatusBar(window) else StatusNavigationBar.change2LightStatusBar(window)
     }
 
     //视图加载前

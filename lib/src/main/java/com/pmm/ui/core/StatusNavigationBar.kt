@@ -46,8 +46,10 @@ object StatusNavigationBar {
                 this.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 this.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
             }
-            this.navigationBarColor = Color.TRANSPARENT
-            this.statusBarColor = Color.TRANSPARENT
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                this.navigationBarColor = Color.TRANSPARENT
+                this.statusBarColor = Color.TRANSPARENT
+            }
             this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
