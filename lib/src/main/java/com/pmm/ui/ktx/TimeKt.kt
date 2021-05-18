@@ -9,22 +9,25 @@ import java.util.*
  * String转Date
  * @param format 模板 yyyy-MM-dd HH:mm:ss
  */
-fun String.string2Date(
-        format: String = "yyyy-MM-dd HH:mm:ss",
-        local: Locale = Locale.getDefault(),
-        isUtc: Boolean = false
-): Date? = SimpleDateFormat(format, local).apply {
-    if (isUtc) this.timeZone = TimeZone.getTimeZone("UTC")
-}.parse(this)
+fun String?.string2Date(
+    format: String = "yyyy-MM-dd HH:mm:ss",
+    local: Locale = Locale.getDefault(),
+    isUtc: Boolean = false
+): Date? {
+    if (this.isNullOrEmpty()) return null
+    return SimpleDateFormat(format, local).apply {
+        if (isUtc) this.timeZone = TimeZone.getTimeZone("UTC")
+    }.parse(this)
+}
 
 /**
  * Date转String
  *  @param format 模板 yyyy-MM-dd HH:mm:ss
  */
 fun Date.date2String(
-        format: String = "yyyy-MM-dd HH:mm:ss",
-        local: Locale = Locale.getDefault(),
-        isUtc: Boolean = false
+    format: String = "yyyy-MM-dd HH:mm:ss",
+    local: Locale = Locale.getDefault(),
+    isUtc: Boolean = false
 ): String = SimpleDateFormat(format, local).apply {
     if (isUtc) this.timeZone = TimeZone.getTimeZone("UTC")
 }.format(this)
@@ -36,9 +39,9 @@ fun Date.date2String(
  * @param format 模板 yyyy-MM-dd HH:mm:ss
  */
 fun Long.formatDate(
-        format: String = "yyyy-MM-dd HH:mm:ss",
-        local: Locale = Locale.getDefault(),
-        isUtc: Boolean = false
+    format: String = "yyyy-MM-dd HH:mm:ss",
+    local: Locale = Locale.getDefault(),
+    isUtc: Boolean = false
 ): String = SimpleDateFormat(format, local).apply {
     if (isUtc) this.timeZone = TimeZone.getTimeZone("UTC")
 }.format(Date(this))
@@ -109,7 +112,7 @@ fun Long.lessThanDays(day: Int = 1): Boolean {
     val currentTime = Calendar.getInstance().time.time
     val recordTime = this
     if (recordTime == 0L) return false
-    if (recordTime>currentTime)return false
+    if (recordTime > currentTime) return false
     val differ = currentTime - recordTime
     if (differ < 1000 * 60 * 60 * 24 * day) {
         return true
@@ -130,8 +133,8 @@ fun Date.lessThanDays(day: Int = 1): Boolean = this.time.lessThanDays(day)
  *  @param utcFormatStr   模板 yyyy-MM-dd'T'HH:mm:ss.SSS'Z'            2019-05-09T05:52:56.000Z
  */
 fun String.local2UTC(
-        localFormatStr: String = "yyyy-MM-dd HH:mm:ss",
-        utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    localFormatStr: String = "yyyy-MM-dd HH:mm:ss",
+    utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 ): String {
     val locaFormat = SimpleDateFormat(localFormatStr, Locale.getDefault()).apply {
         this.timeZone = TimeZone.getDefault()
@@ -156,8 +159,8 @@ fun String.local2UTC(
  *  @param utcFormatStr   模板 yyyy-MM-dd'T'HH:mm:ss.SSS'Z'            2019-05-09T05:52:56.000Z
  */
 fun String.utc2Local(
-        localFormatStr: String = "yyyy-MM-dd HH:mm:ss",
-        utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    localFormatStr: String = "yyyy-MM-dd HH:mm:ss",
+    utcFormatStr: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 ): String {
     if (this.isBlank()) return ""
     val utcFormat = SimpleDateFormat(utcFormatStr, Locale.getDefault()).apply {

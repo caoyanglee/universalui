@@ -3,6 +3,7 @@ package com.pmm.ui.ktx
 import android.content.ContentResolver
 import android.graphics.Color
 import android.provider.Settings
+import androidx.core.graphics.ColorUtils
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
@@ -54,10 +55,7 @@ fun doubleClick(singleClick: () -> Unit, doubleClick: () -> Unit, delay: Long = 
 /**
  * 是否是亮色
  */
-fun Int.isLightColor(): Boolean {
-    val darkness = 1 - (0.299 * Color.red(this) + 0.587 * Color.green(this) + 0.114 * Color.blue(this)) / 255
-    return darkness < 0.5
-}
+fun Int.isLightColor(): Boolean = ColorUtils.calculateLuminance(this) >= 0.5
 
 
 
