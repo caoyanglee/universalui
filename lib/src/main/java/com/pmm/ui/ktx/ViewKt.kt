@@ -10,6 +10,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.*
 import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
@@ -57,7 +59,11 @@ inline fun View.clickLong(crossinline longClick: ((View) -> Unit)) {
 /**
  * 双击
  */
-inline fun View.clickDouble(crossinline singleClick: () -> Unit, crossinline doubleClick: () -> Unit, delay: Long = 1000) {
+inline fun View.clickDouble(
+    crossinline singleClick: () -> Unit,
+    crossinline doubleClick: () -> Unit,
+    delay: Long = 1000
+) {
     var lastClickTime: Long = 0
     var isSingleClick = false//是否已经单击
     var isDoubleClick = false//是否已经双击
@@ -134,9 +140,11 @@ fun View.unFocus() {
 }
 
 //解析xml视图
-fun ViewGroup.inflate(layoutRes: Int): View = LayoutInflater.from(context).inflate(layoutRes, this, false)
+fun ViewGroup.inflate(layoutRes: Int): View =
+    LayoutInflater.from(context).inflate(layoutRes, this, false)
 
-fun Context.inflate(layoutRes: Int): View = LayoutInflater.from(this).inflate(layoutRes, null, false)
+fun Context.inflate(layoutRes: Int): View =
+    LayoutInflater.from(this).inflate(layoutRes, null, false)
 
 //获取当前视图对应的Bitmap
 @Deprecated("图片超过屏幕时会crash @see View.screenShot()")
@@ -162,21 +170,21 @@ fun View.screenShot(window: Window, callback: (viewBitmap: Bitmap) -> Unit) {
         val locationOfView = IntArray(2)
         view.getLocationInWindow(locationOfView)
         val rect = Rect(
-                locationOfView[0],
-                locationOfView[1],
-                locationOfView[0] + view.width,
-                locationOfView[1] + view.height
+            locationOfView[0],
+            locationOfView[1],
+            locationOfView[0] + view.width,
+            locationOfView[1] + view.height
         )
 
         try {
             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             PixelCopy.request(
-                    window, rect, bitmap, { copyResult: Int ->
-                if (copyResult == PixelCopy.SUCCESS) {
-                    callback(bitmap)
-                }
-            },
-                    Handler(Looper.getMainLooper())
+                window, rect, bitmap, { copyResult: Int ->
+                    if (copyResult == PixelCopy.SUCCESS) {
+                        callback(bitmap)
+                    }
+                },
+                Handler(Looper.getMainLooper())
             )
         } catch (e: IllegalArgumentException) {
             // PixelCopy may throw IllegalArgumentException, make sure to handle it
@@ -184,7 +192,8 @@ fun View.screenShot(window: Window, callback: (viewBitmap: Bitmap) -> Unit) {
         }
     } else {
         try {
-            val screenshot: Bitmap = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)
+            val screenshot: Bitmap =
+                Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)
             val c = Canvas(screenshot)
             c.translate((-this.scrollX).toFloat(), (-this.scrollY).toFloat())
             this.draw(c)
@@ -300,16 +309,21 @@ fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
         this.radius = context.dip2px(8f).toFloat()
     })
     snackbarView.setMargins(
-            b = marginBottom,
-            l = context.dip2px(16f),
-            r = context.dip2px(16f)
+        b = marginBottom,
+        l = context.dip2px(16f),
+        r = context.dip2px(16f)
     )
     this.show()
 }
 
 //寻找fragment 防止闪退获取不到原来的fragment ViewPager
-fun ViewPager.findFragment(fm: FragmentManager, position: Int): Fragment? {
-    return fm.findFragmentByTag("android:switcher:${this.id}:${position}")
+inline fun <reified T : Fragment> FragmentManager.findFragment(
+    viewpager: ViewPager,
+    position: Int
+): T {
+    val fragmentClass = T::class.java
+    val existFragment = this.findFragmentByTag("android:switcher:${viewpager.id}:${position}")
+    return (existFragment ?: fragmentClass.newInstance()) as T
 }
 
 //寻找fragment 防止闪退获取不到原来的fragment frameLayout
@@ -317,5 +331,17 @@ inline fun <reified T : Fragment> FragmentManager.findFragment(): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
     return (this.findFragmentByTag(fragmentName)
-            ?: fragmentClass.newInstance()) as T
+        ?: fragmentClass.newInstance()) as T
+}
+
+/**
+ * 约束布局的配置
+ * PS：约束布局下的所有子视图必须添加id，否则会出现抛错误
+ * All children of ConstraintLayout must have ids to use ConstraintSet
+ */
+inline fun ConstraintLayout.config(configCallBack: ((set: ConstraintSet) -> Unit)) {
+    val set = ConstraintSet()
+    set.clone(this)
+    configCallBack.invoke(set)
+    set.applyTo(this)
 }
