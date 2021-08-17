@@ -17,15 +17,15 @@ buildscript {
                     'metro_compiler': 'com.github.caoyanglee.Metro:compiler:0.3.2',//Metro路由 注解处理器
             ]
     ]
-    ext.kotlin_version = '1.4.30'
+    ext.kotlin_version = '1.5.10'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath 'com.android.tools.build:gradle:7.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
@@ -44,7 +44,7 @@ task clean(type: Delete) {
 
 ext {
     //Sdk and tools
-    minSdkVersion = 18
+    minSdkVersion = 21
     targetSdkVersion = 30
     compileSdkVersion = 30
 }

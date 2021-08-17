@@ -341,6 +341,7 @@ fun TextView.addUnderLine() {
 
 //加粗
 fun TextView.setBold(isBold: Boolean) {
+    //todo model_name.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
     this.paint.isFakeBoldText = isBold
 }
 
