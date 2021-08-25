@@ -140,26 +140,14 @@ fun View.unFocus() {
 }
 
 //解析xml视图
-fun ViewGroup.inflate(layoutRes: Int): View =
-    LayoutInflater.from(context).inflate(layoutRes, this, false)
+fun ViewGroup.inflate(layoutRes: Int, attachToRoot: Boolean = false): View =
+    LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
-fun Context.inflate(layoutRes: Int): View =
-    LayoutInflater.from(this).inflate(layoutRes, null, false)
-
-//获取当前视图对应的Bitmap
-@Deprecated("图片超过屏幕时会crash @see View.screenShot()")
-fun View.getBitmap(handle: (viewBitmap: Bitmap) -> Unit) {
-    isDrawingCacheEnabled = true
-    buildDrawingCache()
-    val viewBitmap = drawingCache
-    handle(viewBitmap)
-    isDrawingCacheEnabled = false
-}
-
+fun Context.inflate(layoutRes: Int, attachToRoot: Boolean = false): View =
+    LayoutInflater.from(this).inflate(layoutRes, null, attachToRoot)
 
 /**
  * 替代getDrawingCache方法
- *
  */
 fun View.screenShot(window: Window, callback: (viewBitmap: Bitmap) -> Unit) {
     val view = this
