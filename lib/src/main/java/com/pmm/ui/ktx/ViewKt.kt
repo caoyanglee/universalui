@@ -306,6 +306,7 @@ fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
 
 /**
  * 寻找fragment 防止闪退获取不到原来的fragment ViewPager
+ * PS:T必须为可空类型
  */
 inline fun <reified T : Fragment?> FragmentManager.findFragment(
     viewpager: ViewPager,
@@ -317,12 +318,38 @@ inline fun <reified T : Fragment?> FragmentManager.findFragment(
 }
 
 /**
+ * 寻找fragment 防止闪退获取不到原来的fragment ViewPager
+ * PS：若没有此Fragment会默认创建一个默认Fragment对象
+ */
+inline fun <reified T : Fragment> FragmentManager.findFragmentWithCreate(
+    viewpager: ViewPager,
+    position: Int
+): T {
+    val fragmentClass = T::class.java
+    val existFragment = this.findFragmentByTag("android:switcher:${viewpager.id}:${position}")
+    return (existFragment ?: fragmentClass.newInstance()) as T
+}
+
+
+/**
  * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
+ * PS:T必须为可空类型
  */
 inline fun <reified T : Fragment?> FragmentManager.findFragment(): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
     return (this.findFragmentByTag(fragmentName)) as T
+}
+
+
+/**
+ * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
+ * PS：若没有此Fragment会默认创建一个默认Fragment对象
+ */
+inline fun <reified T : Fragment> FragmentManager.findFragmentWithCreate(): T {
+    val fragmentClass = T::class.java
+    val fragmentName = fragmentClass.name
+    return (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
 }
 
 /**
