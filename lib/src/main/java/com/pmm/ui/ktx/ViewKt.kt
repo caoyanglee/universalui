@@ -308,49 +308,36 @@ fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
  * 寻找fragment 防止闪退获取不到原来的fragment ViewPager
  * PS:T必须为可空类型
  */
-inline fun <reified T : Fragment?> FragmentManager.findFragment(
+inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
     viewpager: ViewPager,
-    position: Int
-): T {
-    //val fragmentClass = T::class.java
-    val existFragment = this.findFragmentByTag("android:switcher:${viewpager.id}:${position}")
-    return existFragment as T
-}
-
-/**
- * 寻找fragment 防止闪退获取不到原来的fragment ViewPager
- * PS：若没有此Fragment会默认创建一个默认Fragment对象
- */
-inline fun <reified T : Fragment> FragmentManager.findFragmentOrCreate(
-    viewpager: ViewPager,
-    position: Int
+    position: Int,
+    newInstance: T? = null//需要初始化的对象
 ): T {
     val fragmentClass = T::class.java
     val existFragment = this.findFragmentByTag("android:switcher:${viewpager.id}:${position}")
-    return (existFragment ?: fragmentClass.newInstance()) as T
+    if (newInstance == null) {
+        return (existFragment ?: fragmentClass.newInstance()) as T
+    } else {
+        return (existFragment ?: newInstance) as T
+    }
 }
-
 
 /**
  * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
- * PS:T必须为可空类型
+ * @param newInstance 若为空会创建一个默认的对象，不为空则使用这个对象
  */
-inline fun <reified T : Fragment?> FragmentManager.findFragment(): T {
+inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
+    newInstance: T? = null//需要初始化的对象
+): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
-    return (this.findFragmentByTag(fragmentName)) as T
+    if (newInstance == null) {
+        return (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
+    } else {
+        return (this.findFragmentByTag(fragmentName) ?: newInstance) as T
+    }
 }
 
-
-/**
- * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
- * PS：若没有此Fragment会默认创建一个默认Fragment对象
- */
-inline fun <reified T : Fragment> FragmentManager.findFragmentOrCreate(): T {
-    val fragmentClass = T::class.java
-    val fragmentName = fragmentClass.name
-    return (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
-}
 
 /**
  * 约束布局的配置
