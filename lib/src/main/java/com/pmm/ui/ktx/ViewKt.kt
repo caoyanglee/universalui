@@ -321,7 +321,7 @@ inline fun <reified T : Fragment?> FragmentManager.findFragment(
  * 寻找fragment 防止闪退获取不到原来的fragment ViewPager
  * PS：若没有此Fragment会默认创建一个默认Fragment对象
  */
-inline fun <reified T : Fragment> FragmentManager.findFragmentWithCreate(
+inline fun <reified T : Fragment> FragmentManager.findFragmentOrCreate(
     viewpager: ViewPager,
     position: Int
 ): T {
@@ -346,7 +346,7 @@ inline fun <reified T : Fragment?> FragmentManager.findFragment(): T {
  * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
  * PS：若没有此Fragment会默认创建一个默认Fragment对象
  */
-inline fun <reified T : Fragment> FragmentManager.findFragmentWithCreate(): T {
+inline fun <reified T : Fragment> FragmentManager.findFragmentOrCreate(): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
     return (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
