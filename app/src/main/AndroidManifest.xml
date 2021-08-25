@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".module.base.snackbar.SnackbarActivity"/>
+        <activity android:name=".module.base.snackbar.SnackbarActivity" />
         <activity android:name=".module.base.fragment.viewpager.ViewPagerActivity" />
         <activity android:name=".module.base.fragment.single.SingleFragmentActivity" />
         <activity android:name=".module.test.TestActivity" />
