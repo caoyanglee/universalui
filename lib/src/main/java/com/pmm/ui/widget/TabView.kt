@@ -27,7 +27,11 @@ import kotlin.properties.Delegates
  * Date:2019-06-14 11:12
  * Description:导航栏视图
  */
-class TabView : LinearLayoutCompat {
+class TabView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : LinearLayoutCompat(context, attrs, defStyleAttr) {
 
     private lateinit var hLinearLayout: LinearLayoutCompat
 
@@ -61,32 +65,21 @@ class TabView : LinearLayoutCompat {
     var onTabClick: ((position: Int) -> Unit)? = null
     var onTabReClick: ((position: Int) -> Unit)? = null
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-            context,
-            attrs,
-            defStyle
-    ) {
-        init(context, attrs, defStyle)
-    }
-
-    private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+    init {
         //init attrs
         val a = context.obtainStyledAttributes(attrs, R.styleable.TabView, defStyleAttr, 0)
         val isShowDivider = a.getBoolean(R.styleable.TabView_tab_dividerShow, true)
         val dividerColor =
-                a.getColor(R.styleable.TabView_tab_dividerColor, Color.rgb(221, 221, 221))
+            a.getColor(R.styleable.TabView_tab_dividerColor, Color.rgb(221, 221, 221))
         val dividerSize = a.getDimension(R.styleable.TabView_tab_dividerSize, 1f)
         textColor = a.getColor(R.styleable.TabView_tab_textColor, Color.BLACK)
         textColorActive = a.getColor(
-                R.styleable.TabView_tab_textColorActive,
-                context.getColorPro(R.color.colorAccent)
+            R.styleable.TabView_tab_textColorActive,
+            context.getColorPro(R.color.colorAccent)
         )
 
-        textSize = a.getDimension(R.styleable.TabView_tab_textSize, getContext().dip2px(10f).toFloat())
+        textSize =
+            a.getDimension(R.styleable.TabView_tab_textSize, getContext().dip2px(10f).toFloat())
         a.recycle()
 
         this.apply {
@@ -107,12 +100,13 @@ class TabView : LinearLayoutCompat {
         }
 
         setData(
-                TabData("Tab1", R.color.colorPrimary, R.color.colorPrimaryDark),
-                TabData("Tab2", R.color.colorPrimary, R.color.colorPrimaryDark),
-                TabData("Tab3", R.color.colorPrimary, R.color.colorPrimaryDark),
-                TabData("Tab4", R.color.colorPrimary, R.color.colorPrimaryDark)
+            TabData("Tab1", R.color.colorPrimary, R.color.colorPrimaryDark),
+            TabData("Tab2", R.color.colorPrimary, R.color.colorPrimaryDark),
+            TabData("Tab3", R.color.colorPrimary, R.color.colorPrimaryDark),
+            TabData("Tab4", R.color.colorPrimary, R.color.colorPrimaryDark)
         )
     }
+
 
     private fun getTabCellView(position: Int, data: TabData): FrameLayout {
         return FrameLayout(context).apply {
@@ -133,9 +127,9 @@ class TabView : LinearLayoutCompat {
             //文本
             val mTvCenter = TextView(context).apply {
                 this.layoutParams = FrameLayout.LayoutParams(
-                        LayoutParams.WRAP_CONTENT,
-                        LayoutParams.WRAP_CONTENT,
-                        Gravity.CENTER
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER
                 )
                 this.text = "${data.name}"
                 this.gravity = Gravity.CENTER
@@ -155,8 +149,8 @@ class TabView : LinearLayoutCompat {
                 if (data.imgNormal != null && data.imgActive != null) {
                     try {
                         topDrawable = createImgSelector(
-                                ContextCompat.getDrawable(context, data.imgNormal!!)!!,
-                                ContextCompat.getDrawable(context, data.imgActive!!)!!
+                            ContextCompat.getDrawable(context, data.imgNormal!!)!!,
+                            ContextCompat.getDrawable(context, data.imgActive!!)!!
                         )
                     } catch (e: Exception) {
                         //nothing
@@ -165,10 +159,10 @@ class TabView : LinearLayoutCompat {
 
 
                 this.setCompoundDrawables(
-                        null,
-                        topDrawable,
-                        null,
-                        null
+                    null,
+                    topDrawable,
+                    null,
+                    null
                 )
                 this.compoundDrawablePadding = context.dip2px(2f)
 
@@ -180,10 +174,10 @@ class TabView : LinearLayoutCompat {
             //小红点
             val mDot = SimpleView(context).apply {
                 this.layoutParams =
-                        FrameLayout.LayoutParams(context.dip2px(8f), context.dip2px(8f), Gravity.CENTER)
-                                .apply {
-                                    this.setMargins(context.dip2px(8f), 0, 0, context.dip2px(16f))
-                                }
+                    FrameLayout.LayoutParams(context.dip2px(8f), context.dip2px(8f), Gravity.CENTER)
+                        .apply {
+                            this.setMargins(context.dip2px(8f), 0, 0, context.dip2px(16f))
+                        }
                 this.setBgColor(Color.RED, Color.RED, Color.RED)
                 this.isEnabled = false
                 this.setCorner(90f)
@@ -197,14 +191,14 @@ class TabView : LinearLayoutCompat {
             //数量红圈
             val mNum = SimpleView(context).apply {
                 this.layoutParams =
-                        FrameLayout.LayoutParams(
-                                context.dip2px(16f),
-                                context.dip2px(16f),
-                                Gravity.CENTER
-                        )
-                                .apply {
-                                    this.setMargins(context.dip2px(8f), 0, 0, context.dip2px(16f))
-                                }
+                    FrameLayout.LayoutParams(
+                        context.dip2px(16f),
+                        context.dip2px(16f),
+                        Gravity.CENTER
+                    )
+                        .apply {
+                            this.setMargins(context.dip2px(8f), 0, 0, context.dip2px(16f))
+                        }
                 this.setBgColor(Color.RED, Color.RED, Color.RED)
                 this.isEnabled = false
                 this.setCorner(90f)
@@ -221,9 +215,9 @@ class TabView : LinearLayoutCompat {
     }
 
     class TabData(
-            var name: String,
-            @DrawableRes var imgNormal: Int? = null,
-            @DrawableRes var imgActive: Int? = null
+        var name: String,
+        @DrawableRes var imgNormal: Int? = null,
+        @DrawableRes var imgActive: Int? = null
     )
 
     fun setData(vararg tabs: TabData) {
@@ -243,11 +237,11 @@ class TabView : LinearLayoutCompat {
     fun showNum(position: Int, num: Int) {
         if (!checkPassport()) return
         mNumMap[position].text = "${
-        when {
-            num < 0 -> 0
-            num > 99 -> 99
-            else -> num
-        }
+            when {
+                num < 0 -> 0
+                num > 99 -> 99
+                else -> num
+            }
         }"
         mNumMap[position].visible()
     }
@@ -269,7 +263,7 @@ class TabView : LinearLayoutCompat {
      * 设置图片的Selector
      */
     private fun createImgSelector(
-            normal: Drawable, activated: Drawable
+        normal: Drawable, activated: Drawable
     ): StateListDrawable {
         return StateListDrawable().apply {
             //activated

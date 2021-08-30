@@ -5,14 +5,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
 
 //方形约束布局
-class SquareConstraintLayout : ConstraintLayout {
-
-    constructor(context: Context) : super(context) {}
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {}
-
+class SquareConstraintLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         // Set a square layout.

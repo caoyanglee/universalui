@@ -21,7 +21,11 @@ import com.pmm.ui.R
  * Date:2018/9/17 10:04
  * Description:可变化的TextView,为了减少drawable的使用
  */
-class SimpleView : AppCompatTextView {
+class SimpleView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+): AppCompatTextView(context, attrs, defStyleAttr) {
 
     //获取对应的属性值 Android框架自带的属性 attr
     private val pressed = android.R.attr.state_pressed
@@ -54,12 +58,8 @@ class SimpleView : AppCompatTextView {
     private var textPressColor = textDefaultColor
     private var textUnEnableColor = textDefaultColor
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-        val attr = context.obtainStyledAttributes(attrs, R.styleable.SimpleView, defStyle, 0)
+    init {
+        val attr = context.obtainStyledAttributes(attrs, R.styleable.SimpleView, defStyleAttr, 0)
         //background
         val backgroundColor = attr.getColor(R.styleable.SimpleView_wm_backgroundColor, Color.TRANSPARENT)
         val backgroundPressColor = attr.getColor(R.styleable.SimpleView_wm_backgroundPressColor, backgroundColor)
@@ -88,10 +88,10 @@ class SimpleView : AppCompatTextView {
             bg.setColor(backgroundColor)
             bg.setStroke(strokeWidth.toInt(), strokeColor)
             bg.cornerRadii = floatArrayOf(
-                    cornerRadius_TL, cornerRadius_TL,
-                    cornerRadius_TR, cornerRadius_TR,
-                    cornerRadius_BR, cornerRadius_BR,
-                    cornerRadius_BL, cornerRadius_BL)
+                cornerRadius_TL, cornerRadius_TL,
+                cornerRadius_TR, cornerRadius_TR,
+                cornerRadius_BR, cornerRadius_BR,
+                cornerRadius_BL, cornerRadius_BL)
 
             if (this@SimpleView.cornerRadius != -1f) bg.cornerRadius = this@SimpleView.cornerRadius
         }
@@ -101,10 +101,10 @@ class SimpleView : AppCompatTextView {
             selectBg.setColor(backgroundPressColor)
             selectBg.setStroke(strokeWidth.toInt(), strokePressColor)
             selectBg.cornerRadii = floatArrayOf(
-                    cornerRadius_TL, cornerRadius_TL,
-                    cornerRadius_TR, cornerRadius_TR,
-                    cornerRadius_BR, cornerRadius_BR,
-                    cornerRadius_BL, cornerRadius_BL)
+                cornerRadius_TL, cornerRadius_TL,
+                cornerRadius_TR, cornerRadius_TR,
+                cornerRadius_BR, cornerRadius_BR,
+                cornerRadius_BL, cornerRadius_BL)
 
             if (this@SimpleView.cornerRadius != -1f) selectBg.cornerRadius = this@SimpleView.cornerRadius
         }
@@ -114,10 +114,10 @@ class SimpleView : AppCompatTextView {
             unEnableBg.setColor(backgroundUnEnableColor)
             unEnableBg.setStroke(strokeWidth.toInt(), strokeUnEnableColor)
             unEnableBg.cornerRadii = floatArrayOf(
-                    cornerRadius_TL, cornerRadius_TL,
-                    cornerRadius_TR, cornerRadius_TR,
-                    cornerRadius_BR, cornerRadius_BR,
-                    cornerRadius_BL, cornerRadius_BL
+                cornerRadius_TL, cornerRadius_TL,
+                cornerRadius_TR, cornerRadius_TR,
+                cornerRadius_BR, cornerRadius_BR,
+                cornerRadius_BL, cornerRadius_BL
             )
             if (this@SimpleView.cornerRadius != -1f) unEnableBg.cornerRadius = this@SimpleView.cornerRadius
         }
@@ -134,7 +134,6 @@ class SimpleView : AppCompatTextView {
         //gravity
         //gravity = Gravity.CENTER
     }
-
 
     //获取系统的水波纹效果
     @RequiresApi(Build.VERSION_CODES.M)

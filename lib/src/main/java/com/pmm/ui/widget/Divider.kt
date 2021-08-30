@@ -10,14 +10,11 @@ import android.view.View
  * Date:2018/11/1 21:13
  * Description: 分割线（横向和竖向）
  */
-class Divider : View {
-
-
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {}
+class Divider @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)

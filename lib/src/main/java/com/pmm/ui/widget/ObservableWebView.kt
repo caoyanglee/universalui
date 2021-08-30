@@ -7,17 +7,13 @@ import android.webkit.WebView
 /**
  * 可监听的webVIew
  */
-class ObservableWebView : WebView {
+class ObservableWebView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = android.R.attr.webViewStyle//构造函数必须带有样式，否则键盘无法弹起
+) : WebView(context, attrs, defStyleAttr) {
 
     var mOnScrollChangedCallback: OnScrollChangedCallback? = null
-
-    constructor(context: Context) : this(context, null)
-
-    //构造函数必须带有样式，否则键盘无法弹起
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.webViewStyle)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
-
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)

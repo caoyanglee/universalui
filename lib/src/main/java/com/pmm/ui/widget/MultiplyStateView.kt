@@ -16,7 +16,11 @@ import com.pmm.ui.R
  * @date 2017/6/6 下午4:17
  * @description 多视图状态
  */
-open class MultiplyStateView : FrameLayout {
+open class MultiplyStateView  @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+): FrameLayout(context, attrs, defStyleAttr) {
 
     companion object {
         val VIEW_STATE_CONTENT = 0
@@ -37,16 +41,7 @@ open class MultiplyStateView : FrameLayout {
     var mViewState: Int = VIEW_STATE_CONTENT
 
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-        init(attrs)
-    }
-
-
-    fun init(attrs: AttributeSet?) {
+    init {
         mInflater = LayoutInflater.from(context)
         val a = context.obtainStyledAttributes(attrs, R.styleable.MultiStateViewWM)
 
@@ -72,7 +67,7 @@ open class MultiplyStateView : FrameLayout {
         }
 
         //current view state
-        var viewState = a.getInt(R.styleable.MultiStateViewWM_msv_viewState, VIEW_STATE_CONTENT)
+        val viewState = a.getInt(R.styleable.MultiStateViewWM_msv_viewState, VIEW_STATE_CONTENT)
 
         //switch view
         when (viewState) {
@@ -84,9 +79,9 @@ open class MultiplyStateView : FrameLayout {
         //recycle for preventing app from ram leaking
         a.recycle()
 
-
         this.layoutTransition = LayoutTransition()//设置布局动画
     }
+
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()

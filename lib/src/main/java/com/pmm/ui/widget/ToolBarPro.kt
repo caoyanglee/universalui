@@ -24,13 +24,11 @@ import java.lang.ref.WeakReference
  * Description:
  */
 
-class ToolBarPro : ViewGroup {
-
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+class ToolBarPro @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+)  : ViewGroup(context, attrs, defStyleAttr) {
 
     private val colorPrimary: Int by lazy { context.getColorPro(R.color.colorPrimary) }
     private val colorAccent: Int by lazy { context.getColorPro(R.color.colorAccent) }
