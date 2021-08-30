@@ -53,7 +53,8 @@ fun Context?.toast(message: CharSequence, forceLongShow: Boolean = false) {
     try {
         if (message.isBlank()) return//过滤
         val targetContext = this ?: OriginAppData.context
-        val duration = if (forceLongShow || message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+        val duration =
+            if (forceLongShow || message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
         Toast.makeText(targetContext, message, duration).show()
     } catch (e: Exception) {
         //doNothing
@@ -142,6 +143,9 @@ inline fun Context.copyContent(content: String, finish: () -> Unit = {}) {
 }
 
 //粘贴文本内容
+//android Q的规定如下
+//只有默认输入法(IME)或者是目前处于焦点的应用, 才能访问到剪贴板数据.
+//而在onCreate或者onResume方法时，View可能还处于申请获取焦点状态，导致获取不到剪切板数据，所以当所有View都绘制完毕后，就可以获取到剪切板数据了。
 fun Context.pasteContent(): String {
     var content: String = ""
     val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -280,8 +284,8 @@ fun Context.isDarkMode(): Boolean {
 //获取attr的颜色
 @CheckResult
 fun Context.resolveColor(
-        @AttrRes attr: Int,
-        fallback: (() -> Int)? = null
+    @AttrRes attr: Int,
+    fallback: (() -> Int)? = null
 ): Int {
     val a = theme.obtainStyledAttributes(intArrayOf(attr))
     try {
@@ -298,8 +302,8 @@ fun Context.resolveColor(
 //获取attr的图片
 @CheckResult
 fun Context.resolveDrawable(
-        @AttrRes attr: Int,
-        fallback: (() -> Drawable?)? = null
+    @AttrRes attr: Int,
+    fallback: (() -> Drawable?)? = null
 ): Drawable? {
     val a = theme.obtainStyledAttributes(intArrayOf(attr))
     try {
@@ -316,13 +320,13 @@ fun Context.resolveDrawable(
 //获取图片的染色图
 @CheckResult
 fun Context.drawable(
-        @DrawableRes drawable: Int,
-        @ColorInt tint: Int? = null
+    @DrawableRes drawable: Int,
+    @ColorInt tint: Int? = null
 ): Drawable {
     val result = ContextCompat.getDrawable(this, drawable)!!
     if (tint != null) {
         return DrawableCompat.wrap(result)
-                .apply { DrawableCompat.setTint(this, tint) }
+            .apply { DrawableCompat.setTint(this, tint) }
     }
     return result
 }
@@ -332,17 +336,17 @@ fun Context.drawable(
  * @param importance NotificationManager.IMPORTANCE_LOW
  */
 fun Context.createNotificationChannel(
-        channelId: String,
-        channelName: String,
-        channelDesc: String = "",
-        importance: Int = 0,
-        enableVibration: Boolean = true,
-        lightColor: Int = Color.GREEN,
-        showBadge: Boolean = false
+    channelId: String,
+    channelName: String,
+    channelDesc: String = "",
+    importance: Int = 0,
+    enableVibration: Boolean = true,
+    lightColor: Int = Color.GREEN,
+    showBadge: Boolean = false
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val mNotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         // 通知渠道的id
         // 用户可以看到的通知渠道的名字.
         val name = channelName
@@ -371,7 +375,8 @@ fun Context.isPortrait() = resources.configuration.orientation == Configuration.
 /**
  * 是否是横屏
  */
-fun Context.isLandScape() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+fun Context.isLandScape() =
+    resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 /**
  * 显示华为手机的角标
@@ -385,10 +390,10 @@ fun Context.showHuaWeiBadge(num: Int) {
             bundle.putString("class", "com.pmm.remember.ui.splash.SplashAy")
             bundle.putInt("badgenumber", num)
             this.contentResolver.call(
-                    Uri.parse("content://com.huawei.android.launcher.settings/badge/"),
-                    "change_badge",
-                    null,
-                    bundle
+                Uri.parse("content://com.huawei.android.launcher.settings/badge/"),
+                "change_badge",
+                null,
+                bundle
             )
         } catch (e: Exception) {
             mIsSupportedBade = false //此处为是否显示角标
