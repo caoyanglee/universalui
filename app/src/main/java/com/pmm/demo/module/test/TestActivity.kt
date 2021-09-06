@@ -58,6 +58,17 @@ class TestActivity : BaseViewActivityV2(R.layout.activity_test) {
                     message = "您需要给小盛权限，才能正常访问存储文件哦"
             )
         }
+        mVB.mBtn6.click {
+            setClipContent("123")
+        }
+        mVB.mBtn7.click {
+            setClipContent(null)
+        }
+
+        mVB.mBtn8.click {
+            toast( "${getClipContent()}")
+        }
+
         AndroidBug5497Workaround.assistActivity(this, true)
     }
 

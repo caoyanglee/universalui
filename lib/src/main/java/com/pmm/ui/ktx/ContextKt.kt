@@ -135,24 +135,28 @@ fun Context.getScreenContentHeight(): Int {
 }
 
 
-//复制文本内容
-inline fun Context.copyContent(content: String, finish: () -> Unit = {}) {
+/**
+ * 复制文本内容
+ * @param content 如果为空，相当于把当前剪贴板置空
+ */
+inline fun Context.setClipContent(content: String?, finish: () -> Unit = {}) {
     val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     clipboardManager.setPrimaryClip(ClipData.newPlainText(null, content))
     finish.invoke()
 }
 
-//粘贴文本内容
-//android Q的规定如下
-//只有默认输入法(IME)或者是目前处于焦点的应用, 才能访问到剪贴板数据.
-//而在onCreate或者onResume方法时，View可能还处于申请获取焦点状态，导致获取不到剪切板数据，所以当所有View都绘制完毕后，就可以获取到剪切板数据了。
-fun Context.pasteContent(): String {
-    var content: String = ""
+/**
+ * 粘贴文本内容
+ * android Q的规定如下
+ * 只有默认输入法(IME)或者是目前处于焦点的应用, 才能访问到剪贴板数据.
+ * 而在onCreate或者onResume方法时，View可能还处于申请获取焦点状态，导致获取不到剪切板数据，所以当所有View都绘制完毕后，就可以获取到剪切板数据了。
+ */
+fun Context.getClipContent(): String? {
     val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     if (clipboardManager.hasPrimaryClip()) {
-        content = "${clipboardManager.primaryClip?.getItemAt(0)?.text}"
+        return clipboardManager.primaryClip?.getItemAt(0)?.text?.toString()
     }
-    return content
+    return null
 }
 
 //获取网络信息

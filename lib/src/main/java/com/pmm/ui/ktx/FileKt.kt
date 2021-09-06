@@ -73,21 +73,21 @@ private fun getFormatSize(size: Double): String {
     if (megaByte < 1) {
         val result1 = BigDecimal(java.lang.Double.toString(kiloByte))
         return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
-                .toPlainString() + "KB"
+            .toPlainString() + "KB"
     }
 
     val gigaByte = megaByte / 1024
     if (gigaByte < 1) {
         val result2 = BigDecimal(java.lang.Double.toString(megaByte))
         return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
-                .toPlainString() + "MB"
+            .toPlainString() + "MB"
     }
 
     val teraBytes = gigaByte / 1024
     if (teraBytes < 1) {
         val result3 = BigDecimal(java.lang.Double.toString(gigaByte))
         return result3.setScale(2, BigDecimal.ROUND_HALF_UP)
-                .toPlainString() + "GB"
+            .toPlainString() + "GB"
     }
     val result4 = BigDecimal(teraBytes)
     return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB"
@@ -128,8 +128,11 @@ fun Context.getAssetsString(fileName: String): String {
     val sb = StringBuilder()
     val am = this.assets
     try {
-        val br = BufferedReader(InputStreamReader(
-                am.open(fileName)))
+        val br = BufferedReader(
+            InputStreamReader(
+                am.open(fileName)
+            )
+        )
         var next = ""
 
         while (true) {
