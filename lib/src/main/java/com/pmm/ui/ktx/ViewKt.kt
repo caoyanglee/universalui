@@ -14,7 +14,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -62,7 +64,7 @@ inline fun View.clickLong(crossinline longClick: ((View) -> Unit)) {
 inline fun View.clickDouble(
     crossinline singleClick: () -> Unit,
     crossinline doubleClick: () -> Unit,
-    delay: Long = 1000
+    delay: Long = 1000,
 ) {
     var lastClickTime: Long = 0
     var isSingleClick = false//是否已经单击
@@ -304,40 +306,72 @@ fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
     this.show()
 }
 
+
 /**
- * 寻找fragment 防止闪退获取不到原来的fragment ViewPager
- * PS:T必须为可空类型
+ * 通过viewpager 获取指定位置的fragment
+ * @param viewpager fragment 容器
+ * @param position 指定的位置
+ */
+inline fun <reified T : Fragment> FragmentManager.findFragment(
+    viewpager: ViewPager,
+    position: Int,
+): T? {
+    val adapter = viewpager.adapter
+    val itemId: Long = if (adapter is FragmentStateAdapter) {
+        adapter.getItemId(position)
+    } else {
+        position.toLong()
+    }
+    return this.findFragmentByTag("android:switcher:${viewpager.id}:${itemId}") as T?
+}
+
+
+/**
+ * 通过viewpager 获取指定位置的fragment，如果没有则创建
+ * @param viewpager fragment 容器
+ * @param position 指定的位置
  */
 inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
     viewpager: ViewPager,
     position: Int,
-    creator: () -> T?//需要初始化的对象
-): T {
+): T = findOrCreateFragment(viewpager, position) {
+    T::class.java.newInstance()
+}
+
+
+/**
+ * 通过viewpager 获取指定位置的fragment，如果没有则创建
+ * @param viewpager fragment 容器
+ * @param position 指定的位置
+ * @param creator 如果找不到，则创建
+ */
+inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
+    viewpager: ViewPager,
+    position: Int,
+    creator: () -> T,//需要初始化的对象
+): T = (findFragment(viewpager, position) ?: creator.invoke())
+
+
+/**
+ * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
+ *
+ */
+inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(): T {
     val fragmentClass = T::class.java
-    val existFragment = this.findFragmentByTag("android:switcher:${viewpager.id}:${position}")
-    val newInstance = creator.invoke()
-    return if (newInstance == null) {
-        (existFragment ?: fragmentClass.newInstance()) as T
-    } else {
-        (existFragment ?: newInstance) as T
-    }
+    val fragmentName = fragmentClass.name
+    return (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
 }
 
 /**
  * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
- * @param newInstance 若为空会创建一个默认的对象，不为空则使用这个对象
+ * @param creator 若为空会创建一个默认的对象，不为空则使用这个对象
  */
 inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
-    creator: () -> T?//需要初始化的对象
+    creator: () -> T?,//需要初始化的对象
 ): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
-    val newInstance = creator.invoke()
-    return if (newInstance == null) {
-        (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
-    } else {
-        (this.findFragmentByTag(fragmentName) ?: newInstance) as T
-    }
+    return (this.findFragmentByTag(fragmentName) ?: creator.invoke()) as T
 }
 
 

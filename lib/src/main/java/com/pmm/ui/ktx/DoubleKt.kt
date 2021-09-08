@@ -1,6 +1,5 @@
 package com.pmm.ui.ktx
 
-import java.math.BigDecimal
 import java.text.DecimalFormat
 
 /**
@@ -25,15 +24,9 @@ import java.text.DecimalFormat
  * e，指数类型。如9.38e+5。
  * g，浮点数型（比%f，%a长度短些，显示6位有效数字，且会进行四舍五入）
  */
-//fun Double?.toString(decimalsNum: Int): String {
-//    if (decimalsNum < 0) return "$this"
-//    return String.format("%.${decimalsNum}f", this)
-//}
-
-
 fun Double?.toString(decimalsNum: Int): String {
     if (decimalsNum < 0) return "$this"
-    return BigDecimal(this ?: 0.0).setScale(decimalsNum, BigDecimal.ROUND_DOWN).toString()
+    return String.format("%.${decimalsNum}f", this)
 }
 
 /**
