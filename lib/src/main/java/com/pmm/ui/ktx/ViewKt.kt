@@ -354,7 +354,6 @@ inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
 
 /**
  * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
- *
  */
 inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(): T {
     val fragmentClass = T::class.java
@@ -364,10 +363,9 @@ inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(): T {
 
 /**
  * 寻找fragment 防止闪退获取不到原来的fragment frameLayout
- * @param creator 若为空会创建一个默认的对象，不为空则使用这个对象
  */
 inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
-    creator: () -> T?,//需要初始化的对象
+    creator: () -> T,//需要初始化的对象
 ): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
