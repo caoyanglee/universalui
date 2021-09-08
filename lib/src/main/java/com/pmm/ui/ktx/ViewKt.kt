@@ -311,10 +311,11 @@ fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
 inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
     viewpager: ViewPager,
     position: Int,
-    newInstance: T? = null//需要初始化的对象
+    creator: () -> T?//需要初始化的对象
 ): T {
     val fragmentClass = T::class.java
     val existFragment = this.findFragmentByTag("android:switcher:${viewpager.id}:${position}")
+    val newInstance = creator.invoke()
     return if (newInstance == null) {
         (existFragment ?: fragmentClass.newInstance()) as T
     } else {
@@ -327,10 +328,11 @@ inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
  * @param newInstance 若为空会创建一个默认的对象，不为空则使用这个对象
  */
 inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
-    newInstance: T? = null//需要初始化的对象
+    creator: () -> T?//需要初始化的对象
 ): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
+    val newInstance = creator.invoke()
     return if (newInstance == null) {
         (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
     } else {
