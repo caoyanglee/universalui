@@ -8,13 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
-
-/**
- * Author:你需要一台永动机
- * Date:2019/4/15 14:25
- * Description:
- */
-
 /**
  * 隐藏键盘
  * @param targetView 目标视图
@@ -46,10 +39,10 @@ fun Activity.showKeyBoard(targetView: View? = null) {
  * 打开Activity
  */
 inline fun <reified T : Activity> Activity.openActivity(
-        bundle: Bundle? = null,
-        requestCode: Int? = null,
-        enterAnim: Int? = null,
-        exitAnim: Int? = null
+    bundle: Bundle? = null,
+    requestCode: Int? = null,
+    enterAnim: Int? = null,
+    exitAnim: Int? = null
 ) {
     val intent = Intent(this, T::class.java)
     if (bundle != null) intent.putExtras(bundle)

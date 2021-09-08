@@ -292,11 +292,11 @@ fun ViewPager.setDefaultItem(item: Int = 0, smoothScroll: Boolean = true) {
  */
 fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
     val context = this.context
-    val snackbarView = this.view as FrameLayout//获取SnackBar布局View实例
-    snackbarView.bg(ViewBgOption().apply {
+    val snackBarView = this.view as FrameLayout//获取SnackBar布局View实例
+    snackBarView.bg(ViewBgOption().apply {
         this.radius = context.dip2px(8f).toFloat()
     })
-    snackbarView.setMargins(
+    snackBarView.setMargins(
         b = marginBottom,
         l = context.dip2px(16f),
         r = context.dip2px(16f)
@@ -315,10 +315,10 @@ inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
 ): T {
     val fragmentClass = T::class.java
     val existFragment = this.findFragmentByTag("android:switcher:${viewpager.id}:${position}")
-    if (newInstance == null) {
-        return (existFragment ?: fragmentClass.newInstance()) as T
+    return if (newInstance == null) {
+        (existFragment ?: fragmentClass.newInstance()) as T
     } else {
-        return (existFragment ?: newInstance) as T
+        (existFragment ?: newInstance) as T
     }
 }
 
@@ -331,10 +331,10 @@ inline fun <reified T : Fragment> FragmentManager.findOrCreateFragment(
 ): T {
     val fragmentClass = T::class.java
     val fragmentName = fragmentClass.name
-    if (newInstance == null) {
-        return (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
+    return if (newInstance == null) {
+        (this.findFragmentByTag(fragmentName) ?: fragmentClass.newInstance()) as T
     } else {
-        return (this.findFragmentByTag(fragmentName) ?: newInstance) as T
+        (this.findFragmentByTag(fragmentName) ?: newInstance) as T
     }
 }
 

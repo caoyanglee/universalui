@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.pmm.ui.core.recyclerview.layoutmanager.LinearLayoutManagerPro
+import kotlin.math.abs
 
 /**
  * Author:你需要一台永动机
@@ -70,7 +71,7 @@ fun RecyclerView.addScrollToBottomAnimation(vararg views: View, scrollHeight: Fl
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            if (Math.abs(dy) <= 20) return//偏移量必须大于20
+            if (abs(dy) <= 20) return//偏移量必须大于20
             if (dy > 0) {
                 scroll2Bottom()//上拉
             } else {

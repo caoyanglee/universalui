@@ -13,23 +13,15 @@ import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
  * Description:
  * CoordinatorLayout和AppBarLayout 嵌套滑动时有时appbarlayout无法滑动问题
  */
-class AppBarLayoutCompat : AppBarLayout {
+class AppBarLayoutCompat @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : AppBarLayout(context, attrs, defStyleAttr) {
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle
-    ) {
-        init(context, attrs, defStyle)
-    }
-
-    private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+    init {
         post {
-            val layoutParams = this.getLayoutParams() as CoordinatorLayout.LayoutParams
+            val layoutParams = this.layoutParams as CoordinatorLayout.LayoutParams
             val behavior = layoutParams.behavior as Behavior
 
             behavior.setDragCallback(object : DragCallback() {
@@ -39,5 +31,4 @@ class AppBarLayoutCompat : AppBarLayout {
             })
         }
     }
-
 }

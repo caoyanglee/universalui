@@ -1,12 +1,9 @@
 package com.pmm.ui.ktx
 
+import java.math.BigDecimal
 import java.text.DecimalFormat
 
 /**
- * Author:你需要一台永动机
- * Date:2019-06-20 15:12
- * Description: 对浮点数进行格式化　　
- *
  * 占位符格式为： %[index$][标识]*[最小宽度][.精度]转换符
  *
  * 可用标识：
@@ -28,9 +25,15 @@ import java.text.DecimalFormat
  * e，指数类型。如9.38e+5。
  * g，浮点数型（比%f，%a长度短些，显示6位有效数字，且会进行四舍五入）
  */
+//fun Double?.toString(decimalsNum: Int): String {
+//    if (decimalsNum < 0) return "$this"
+//    return String.format("%.${decimalsNum}f", this)
+//}
+
+
 fun Double?.toString(decimalsNum: Int): String {
     if (decimalsNum < 0) return "$this"
-    return String.format("%.${decimalsNum}f", this)
+    return BigDecimal(this ?: 0.0).setScale(decimalsNum, BigDecimal.ROUND_DOWN).toString()
 }
 
 /**
