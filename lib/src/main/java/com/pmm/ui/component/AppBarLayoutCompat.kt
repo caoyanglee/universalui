@@ -22,9 +22,9 @@ class AppBarLayoutCompat @JvmOverloads constructor(
     init {
         post {
             val layoutParams = this.layoutParams as CoordinatorLayout.LayoutParams
-            val behavior = layoutParams.behavior as Behavior
+            val behavior = layoutParams.behavior as Behavior?
 
-            behavior.setDragCallback(object : DragCallback() {
+            behavior?.setDragCallback(object : DragCallback() {
                 override fun canDrag(appBarLayout: AppBarLayout): Boolean {
                     return true
                 }
