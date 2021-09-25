@@ -1,5 +1,6 @@
 package com.pmm.demo.base
 
+import android.app.Application
 import android.content.Context
 import android.graphics.Color
 import androidx.multidex.MultiDex
@@ -7,7 +8,6 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.pmm.metro.Metro
-import com.pmm.ui.OriginAppData
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.getColorPro
 import com.pmm.ui.ktx.getDrawablePro
@@ -20,15 +20,13 @@ import kotlin.properties.Delegates
  * Date:2018/9/17 18:30
  * Description:
  */
-class AppData : OriginAppData() {
+class AppData : Application() {
 
 
     //伴随对象
     companion object {
         var context: AppData by Delegates.notNull()
     }
-
-    override fun isDebug() = BuildConfig.DEBUG
 
     override fun onCreate() {
         super.onCreate()
@@ -69,13 +67,13 @@ class AppData : OriginAppData() {
 
     private fun initLogger() {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
-                .methodCount(2) // (Optional) How many method line to show. Default 2
-                .tag("weimu")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
-                .build()
+            .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+            .methodCount(2) // (Optional) How many method line to show. Default 2
+            .tag("weimu")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+            .build()
 
         Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
-            override fun isLoggable(priority: Int, tag: String?) = isDebug()
+            override fun isLoggable(priority: Int, tag: String?) = BuildConfig.DEBUG
         })
     }
 

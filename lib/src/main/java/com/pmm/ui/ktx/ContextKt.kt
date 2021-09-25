@@ -31,7 +31,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.bumptech.glide.Glide
-import com.pmm.ui.OriginAppData
 import com.pmm.ui.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -51,11 +50,9 @@ import kotlinx.coroutines.launch
  */
 fun Context?.toast(message: CharSequence, forceLongShow: Boolean = false) {
     try {
-        if (message.isBlank()) return//过滤
-        val targetContext = this ?: OriginAppData.context
-        val duration =
-            if (forceLongShow || message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
-        Toast.makeText(targetContext, message, duration).show()
+        if (message.isBlank() || this == null) return//过滤
+        val duration = if (forceLongShow || message.length > 30) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+        Toast.makeText(this, message, duration).show()
     } catch (e: Exception) {
         //doNothing
     }
@@ -289,7 +286,7 @@ fun Context.isDarkMode(): Boolean {
 @CheckResult
 fun Context.resolveColor(
     @AttrRes attr: Int,
-    fallback: (() -> Int)? = null
+    fallback: (() -> Int)? = null,
 ): Int {
     val a = theme.obtainStyledAttributes(intArrayOf(attr))
     try {
@@ -307,7 +304,7 @@ fun Context.resolveColor(
 @CheckResult
 fun Context.resolveDrawable(
     @AttrRes attr: Int,
-    fallback: (() -> Drawable?)? = null
+    fallback: (() -> Drawable?)? = null,
 ): Drawable? {
     val a = theme.obtainStyledAttributes(intArrayOf(attr))
     try {
@@ -325,7 +322,7 @@ fun Context.resolveDrawable(
 @CheckResult
 fun Context.drawable(
     @DrawableRes drawable: Int,
-    @ColorInt tint: Int? = null
+    @ColorInt tint: Int? = null,
 ): Drawable {
     val result = ContextCompat.getDrawable(this, drawable)!!
     if (tint != null) {
@@ -346,7 +343,7 @@ fun Context.createNotificationChannel(
     importance: Int = 0,
     enableVibration: Boolean = true,
     lightColor: Int = Color.GREEN,
-    showBadge: Boolean = false
+    showBadge: Boolean = false,
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val mNotificationManager =
