@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afollestad.assent.Permission
+import com.afollestad.assent.askForPermissions
+import com.orhanobut.logger.Logger
 import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivityV2
 import com.pmm.demo.databinding.ActivityTestBinding
@@ -45,7 +47,7 @@ class TestActivity : BaseViewActivityV2(R.layout.activity_test) {
 
         mVB.mBtn5.click {
             this.requestPermission(
-                    Permission.READ_EXTERNAL_STORAGE,
+                    Permission.RECORD_AUDIO,
                     allGrantedCallback = { toast("拿到权限了") },
                     allDeniedCallback = {
                         toast("所有权限都拒绝了")
