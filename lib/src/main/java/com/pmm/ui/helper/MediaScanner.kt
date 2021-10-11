@@ -4,6 +4,8 @@ import android.content.Context
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.util.Log
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 /**
  * Author:你需要一台永动机
@@ -50,7 +52,7 @@ class MediaScanner(context: Context) : MediaScannerConnection.MediaScannerConnec
     fun scanFiles(filePaths: Array<String>, mimeTypes: Array<String>, scanCompletedListener: (() -> Unit)? = null): MediaScanner {
         this.filePaths = filePaths
         this.mimeTypes = mimeTypes
-        Log.d(TAG, "连接扫描服务")
+        Log.d(TAG, "连接扫描服务 文件数 = ${this.filePaths.size}")
         mediaScanConn?.connect()//连接扫描服务
         this.scanCompletedListener = scanCompletedListener
         return this
@@ -62,14 +64,10 @@ class MediaScanner(context: Context) : MediaScannerConnection.MediaScannerConnec
     override fun onMediaScannerConnected() {
         Log.d(TAG, "是否连接 = ${mediaScanConn?.isConnected}")
         for (i in filePaths.indices) {
-            Log.d(TAG, """
-                path = ${filePaths[i]}
-                type = ${mimeTypes[i]}
-            """.trimIndent())
+            Log.d(TAG, "path = ${filePaths[i]}")
+            Log.d(TAG, "type = ${mimeTypes[i]}")
             mediaScanConn?.scanFile(filePaths[i], mimeTypes[i])//服务回调执行扫描
         }
-        filePaths = arrayOf()
-        mimeTypes = arrayOf()
     }
 
     /**
@@ -79,17 +77,21 @@ class MediaScanner(context: Context) : MediaScannerConnection.MediaScannerConnec
      * @param uri
      * @author YOLANDA
      */
-    override fun onScanCompleted(path: String, uri: Uri) {
+    override fun onScanCompleted(path: String, uri: Uri?) {
         scanTimes++
-        Log.d(TAG, """
+        Log.d(
+            TAG, """
             扫描成功
             path = $path
             uri = $uri
-            scanTimes = $scanTimes
-        """.trimIndent())
-        if (scanTimes == filePaths.size) {//如果扫描完了全部文件
-            Log.d(TAG, "扫描完成")
-            scanCompletedListener?.invoke()
+            scanTimes = $scanTimes,
+            filePaths.size = ${filePaths.size}
+        """.trimIndent()
+        )
+        if (scanTimes == filePaths.size) {
+            MainScope().launch {
+                scanCompletedListener?.invoke()
+            }
             mediaScanConn?.disconnect()//断开扫描服务
             scanTimes = 0//复位计数
         }
