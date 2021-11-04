@@ -29,16 +29,17 @@ typealias DialogCallBack = (() -> Unit)//适用各种回调
  */
 @SuppressLint("CheckResult")
 fun FragmentActivity.requestPermission(
-        vararg permissions: Permission,
-        allGrantedCallback: (() -> Unit)? = null,
-        allDeniedCallback: (() -> Boolean)? = null,
-        permanentlyDeniedCallback: (() -> Boolean)? = null,
-        //以下都是权限提示弹窗
-        message: String = "无此权限app有可能无法正常运行!",
-        positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
-        positiveCallback: (() -> Boolean)? = null,
-        negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
-        negativeCallback: DialogCallBack? = null,
+    vararg permissions: Permission,
+    allGrantedCallback: (() -> Unit)? = null,
+    allDeniedCallback: (() -> Boolean)? = null,
+    permanentlyDeniedCallback: (() -> Boolean)? = null,
+    //以下都是权限提示弹窗
+    bgCornerRadius: Float = 8f,
+    message: String = "无此权限app有可能无法正常运行!",
+    positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
+    positiveCallback: (() -> Boolean)? = null,
+    negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
+    negativeCallback: DialogCallBack? = null,
 ) {
     val activity = this
 
@@ -46,7 +47,7 @@ fun FragmentActivity.requestPermission(
     fun showDialog(isPermanentlyDenied: Boolean) {
         MaterialDialog(this).show {
             cancelable(false)
-            cornerRadius(8f)
+            cornerRadius(bgCornerRadius)
             title(R.string.dialog_title_default)
             message(text = message)
             positiveButton(text = positiveStr) {
@@ -55,14 +56,14 @@ fun FragmentActivity.requestPermission(
                     activity.openAppInfoPage()
                 else
                     activity.requestPermission(
-                            permissions = permissions,
-                            allGrantedCallback = allGrantedCallback,
-                            permanentlyDeniedCallback = permanentlyDeniedCallback,
-                            message = message,
-                            positiveStr = positiveStr,
-                            positiveCallback = positiveCallback,
-                            negativeStr = negativeStr,
-                            negativeCallback = negativeCallback
+                        permissions = permissions,
+                        allGrantedCallback = allGrantedCallback,
+                        permanentlyDeniedCallback = permanentlyDeniedCallback,
+                        message = message,
+                        positiveStr = positiveStr,
+                        positiveCallback = positiveCallback,
+                        negativeStr = negativeStr,
+                        negativeCallback = negativeCallback
                     )
             }
             negativeButton(text = negativeStr) {
@@ -99,18 +100,19 @@ fun FragmentActivity.requestPermission(
  * 显示确认的dialog
  */
 fun ContextWrapper.showConfirmDialog(
-        title: String = baseContext.getString(R.string.dialog_title_default),
-        message: String = baseContext.getString(R.string.dialog_message_default),
-        cancelable: Boolean = true,
-        negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
-        negativeCallback: DialogCallback? = null,
-        positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
-        positiveCallback: DialogCallback? = null,
-        dismissCallback: DialogCallback? = null
+    title: String = baseContext.getString(R.string.dialog_title_default),
+    message: String = baseContext.getString(R.string.dialog_message_default),
+    bgCornerRadius: Float = 8f,
+    cancelable: Boolean = true,
+    negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
+    negativeCallback: DialogCallback? = null,
+    positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
+    positiveCallback: DialogCallback? = null,
+    dismissCallback: DialogCallback? = null
 ) {
     MaterialDialog(this).show {
         cancelable(cancelable)
-        cornerRadius(8f)
+        cornerRadius(bgCornerRadius)
         title(text = title)
         message(text = message)
         positiveButton(text = positiveStr) {
@@ -132,14 +134,15 @@ fun ContextWrapper.showConfirmDialog(
  * @param callBack 选择回调
  */
 fun ContextWrapper.showSingleChoicePicker(
-        title: String = baseContext.getString(R.string.dialog_title_default),
-        items: List<CharSequence>,
-        selectedIndex: Int = 0,
-        callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
-        dismissCallback: DialogCallback? = null
+    title: String = baseContext.getString(R.string.dialog_title_default),
+    items: List<CharSequence>,
+    selectedIndex: Int = 0,
+    bgCornerRadius: Float = 8f,
+    callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
+    dismissCallback: DialogCallback? = null
 ) {
     MaterialDialog(this).show {
-        cornerRadius(8f)
+        cornerRadius(bgCornerRadius)
         title(text = title)
         listItemsSingleChoice(items = items, initialSelection = selectedIndex) { dialog, index, text ->
             dialog.dismiss()
@@ -156,13 +159,14 @@ fun ContextWrapper.showSingleChoicePicker(
  * @param callBack 选择回调
  */
 fun ContextWrapper.showListPicker(
-        title: String? = null,
-        items: List<CharSequence>,
-        callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
-        dismissCallback: DialogCallback? = null
+    title: String? = null,
+    items: List<CharSequence>,
+    bgCornerRadius: Float = 8f,
+    callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
+    dismissCallback: DialogCallback? = null
 ) {
     MaterialDialog(this).show {
-        cornerRadius(8f)
+        cornerRadius(bgCornerRadius)
         if (title != null && title.isNotBlank()) title(text = title)
         listItems(items = items) { dialog, index, text ->
             dialog.dismiss()

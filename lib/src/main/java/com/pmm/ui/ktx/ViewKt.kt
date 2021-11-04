@@ -292,11 +292,14 @@ fun ViewPager.setDefaultItem(item: Int = 0, smoothScroll: Boolean = true) {
  * 展示SnackBar的MD2样式
  * @param marginBottom 距离底部的margin
  */
-fun Snackbar.showMD2(marginBottom: Int = this.context.dip2px(16f)) {
+fun Snackbar.showMD2(
+    bgCornerRadius: Float = 8f,
+    marginBottom: Int = this.context.dip2px(16f)
+) {
     val context = this.context
     val snackBarView = this.view as FrameLayout//获取SnackBar布局View实例
     snackBarView.bg(ViewBgOption().apply {
-        this.radius = context.dip2px(8f).toFloat()
+        this.radius = context.dip2px(bgCornerRadius).toFloat()
     })
     snackBarView.setMargins(
         b = marginBottom,
