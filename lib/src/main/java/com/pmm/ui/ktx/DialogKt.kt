@@ -34,7 +34,7 @@ fun FragmentActivity.requestPermission(
     allDeniedCallback: (() -> Boolean)? = null,
     permanentlyDeniedCallback: (() -> Boolean)? = null,
     //以下都是权限提示弹窗
-    bgCornerRadius: Float = 8f,
+    bgCornerRadius: Float = 16f,
     message: String = "无此权限app有可能无法正常运行!",
     positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
     positiveCallback: (() -> Boolean)? = null,
@@ -102,7 +102,7 @@ fun FragmentActivity.requestPermission(
 fun ContextWrapper.showConfirmDialog(
     title: String = baseContext.getString(R.string.dialog_title_default),
     message: String = baseContext.getString(R.string.dialog_message_default),
-    bgCornerRadius: Float = 8f,
+    bgCornerRadius: Float = 16f,
     cancelable: Boolean = true,
     negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
     negativeCallback: DialogCallback? = null,
@@ -137,7 +137,7 @@ fun ContextWrapper.showSingleChoicePicker(
     title: String = baseContext.getString(R.string.dialog_title_default),
     items: List<CharSequence>,
     selectedIndex: Int = 0,
-    bgCornerRadius: Float = 8f,
+    bgCornerRadius: Float = 16f,
     callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
     dismissCallback: DialogCallback? = null
 ) {
@@ -161,7 +161,7 @@ fun ContextWrapper.showSingleChoicePicker(
 fun ContextWrapper.showListPicker(
     title: String? = null,
     items: List<CharSequence>,
-    bgCornerRadius: Float = 8f,
+    bgCornerRadius: Float = 16f,
     callBack: ((dialog: MaterialDialog, which: Int, text: CharSequence) -> Unit),
     dismissCallback: DialogCallback? = null
 ) {
