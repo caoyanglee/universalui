@@ -2,21 +2,20 @@
 
 package com.pmm.ui.ktx
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContextWrapper
 import androidx.fragment.app.FragmentActivity
-import com.afollestad.assent.Permission
-import com.afollestad.assent.askForPermissions
-import com.afollestad.assent.isAllGranted
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
+import com.permissionx.guolindev.PermissionX
 import com.pmm.ui.R
 
 
-typealias DialogCallBack = (() -> Unit)//适用各种回调
+typealias DialogCallBack = (() -> Unit)?//适用各种回调
 
 /**
  *
@@ -29,71 +28,55 @@ typealias DialogCallBack = (() -> Unit)//适用各种回调
  */
 @SuppressLint("CheckResult")
 fun FragmentActivity.requestPermission(
-    vararg permissions: Permission,
-    allGrantedCallback: (() -> Unit)? = null,
-    allDeniedCallback: (() -> Boolean)? = null,
-    permanentlyDeniedCallback: (() -> Boolean)? = null,
+    vararg permissions: String,
+    allGrantedCallback: DialogCallBack = null,
+    denyCallback: DialogCallBack = null,
     //以下都是权限提示弹窗
-    bgCornerRadius: Float = 16f,
     message: String = "无此权限app有可能无法正常运行!",
     positiveStr: String = baseContext.getString(R.string.dialog_action_ok),
-    positiveCallback: (() -> Boolean)? = null,
     negativeStr: String? = baseContext.getString(R.string.dialog_action_cancel),
-    negativeCallback: DialogCallBack? = null,
 ) {
-    val activity = this
-
-    //权限弹窗
-    fun showDialog(isPermanentlyDenied: Boolean) {
-        MaterialDialog(this).show {
-            cancelable(false)
-            cornerRadius(bgCornerRadius)
-            title(R.string.dialog_title_default)
-            message(text = message)
-            positiveButton(text = positiveStr) {
-                if (positiveCallback?.invoke() == true) return@positiveButton
-                if (isPermanentlyDenied)
-                    activity.openAppInfoPage()
-                else
-                    activity.requestPermission(
-                        permissions = permissions,
-                        allGrantedCallback = allGrantedCallback,
-                        permanentlyDeniedCallback = permanentlyDeniedCallback,
-                        message = message,
-                        positiveStr = positiveStr,
-                        positiveCallback = positiveCallback,
-                        negativeStr = negativeStr,
-                        negativeCallback = negativeCallback
-                    )
-            }
-            negativeButton(text = negativeStr) {
-                negativeCallback?.invoke()
-            }
-        }
-    }
     //开始请求权限
-
-    val permissionsGranted: Boolean = isAllGranted(*permissions)
-    if (permissionsGranted) {
-        allGrantedCallback?.invoke()
-    } else {
-        askForPermissions(*permissions) {
-            when {
-                it.isAllGranted(*permissions) -> {
-                    allGrantedCallback?.invoke()
-                }
-                it.permanentlyDenied().isNotEmpty() -> {
-                    if (permanentlyDeniedCallback?.invoke() == true) return@askForPermissions
-                    showDialog(true)
-                }
-                else -> {
-                    if (allDeniedCallback?.invoke() == true) return@askForPermissions
-                    showDialog(false)
-                }
+    PermissionX.init(this)
+        .permissions(*permissions)
+        .onExplainRequestReason { scope, deniedList ->
+            scope.showRequestReasonDialog(
+                deniedList,
+                message,
+                positiveStr,
+                negativeStr
+            )
+        }
+        //.explainReasonBeforeRequest()
+        .onForwardToSettings { scope, deniedList ->
+            scope.showForwardToSettingsDialog(deniedList, message, positiveStr, negativeStr)
+        }
+        .request { allGranted, grantedList, deniedList ->
+            if (allGranted) {
+                allGrantedCallback?.invoke()
+            } else {
+                denyCallback?.invoke()
             }
         }
+}
 
-    }
+
+@SuppressLint("CheckResult")
+fun FragmentActivity.requestPermissionWithoutDialog(
+    vararg permissions: String,
+    allGrantedCallback: (() -> Unit)? = null,
+    denyCallback: DialogCallBack = null,
+) {
+    //开始请求权限
+    PermissionX.init(this)
+        .permissions(*permissions)
+        .request { allGranted, grantedList, deniedList ->
+            if (allGranted) {
+                allGrantedCallback?.invoke()
+            } else {
+                denyCallback?.invoke()
+            }
+        }
 }
 
 /**
@@ -144,7 +127,10 @@ fun ContextWrapper.showSingleChoicePicker(
     MaterialDialog(this).show {
         cornerRadius(bgCornerRadius)
         title(text = title)
-        listItemsSingleChoice(items = items, initialSelection = selectedIndex) { dialog, index, text ->
+        listItemsSingleChoice(
+            items = items,
+            initialSelection = selectedIndex
+        ) { dialog, index, text ->
             dialog.dismiss()
             callBack.invoke(dialog, index, text)
         }

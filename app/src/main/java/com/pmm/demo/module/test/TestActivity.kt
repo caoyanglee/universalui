@@ -1,13 +1,10 @@
 package com.pmm.demo.module.test
 
+import android.Manifest
 import android.app.Activity
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.afollestad.assent.Permission
-import com.afollestad.assent.askForPermissions
-import com.orhanobut.logger.Logger
 import com.pmm.demo.R
 import com.pmm.demo.base.BaseViewActivityV2
 import com.pmm.demo.databinding.ActivityTestBinding
@@ -47,15 +44,10 @@ class TestActivity : BaseViewActivityV2(R.layout.activity_test) {
 
         mVB.mBtn5.click {
             this.requestPermission(
-                    Permission.RECORD_AUDIO,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
                     allGrantedCallback = { toast("拿到权限了") },
-                    allDeniedCallback = {
-                        toast("所有权限都拒绝了")
-                        true
-                    },
-                    permanentlyDeniedCallback = {
-                        toast("有权限被永久拒绝了")
-                        true
+                    denyCallback = {
+                        toast("权限被拒绝了")
                     },
                     message = "您需要给小盛权限，才能正常访问存储文件哦"
             )
@@ -77,20 +69,5 @@ class TestActivity : BaseViewActivityV2(R.layout.activity_test) {
     override fun onResume() {
         super.onResume()
         mVB.vNavigationBar.text = "导航条高度：${px2dip(getNavigationBarHeight().toFloat())}单位"
-    }
-
-
-    //检查定位权限
-    fun FragmentActivity.requestLocationPermissions(
-            allGrantedCallback: () -> Unit,
-            permanentlyDeniedCallback: (() -> Boolean)? = null
-    ) {
-        requestPermission(
-                Permission.ACCESS_FINE_LOCATION,
-                Permission.ACCESS_COARSE_LOCATION,
-                allGrantedCallback = allGrantedCallback,
-                permanentlyDeniedCallback = permanentlyDeniedCallback,
-                message = "需要获取您的位置信息才能给你服务"
-        )
     }
 }
