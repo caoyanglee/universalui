@@ -9,7 +9,9 @@
         <activity android:name=".binder.ServiceActivity" />
 
         <!--使用Binder的服务-->
-        <service android:name=".binder.ServiceWithBinder">
+        <service android:name=".binder.ServiceWithBinder"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="com.pmm.demo.advanced.binder.normal" />
 
@@ -18,7 +20,9 @@
         </service>
 
         <!--使用AIDL的服务-->
-        <service android:name=".binder.ServiceWithAIDL">
+        <service android:name=".binder.ServiceWithAIDL"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="com.pmm.demo.advanced.binder.aidl" />
 

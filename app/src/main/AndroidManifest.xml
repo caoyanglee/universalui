@@ -42,7 +42,9 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <activity android:name=".module.main.MainActivity">
+        <activity android:name=".module.main.MainActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
