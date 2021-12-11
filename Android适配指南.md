@@ -1,0 +1,1 @@
+1. [Android12适配指南](https://blog.csdn.net/qq_36670483/article/details/117077253)
