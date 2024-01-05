@@ -17,13 +17,13 @@ buildscript {
                     ]
             ],
             'extension': [
-                    'silentUpdate'  : 'com.github.caoyanglee:SilentUpdate:0.4.0',//静默更新
-                    'imagePicker'   : 'com.github.caoyanglee:ImagePicker:0.2.31',//图片选择
-                    'metro'         : 'com.github.caoyanglee.Metro:lib:0.3.2',//Metro路由
-                    'metro_compiler': 'com.github.caoyanglee.Metro:compiler:0.3.2',//Metro路由 注解处理器
+                    'silentUpdate'  : 'com.github.caoyanglee:SilentUpdate:0.5.6',//静默更新
+                    'imagePicker'   : 'com.github.caoyanglee:ImagePicker:0.3.6',//图片选择
+                    'metro'         : 'com.github.caoyanglee.Metro:lib:0.3.3',//Metro路由
+                    'metro_compiler': 'com.github.caoyanglee.Metro:compiler:0.3.3',//Metro路由 注解处理器
             ]
     ]
-    ext.kotlin_version = '1.6.0'
+    ext.kotlin_version = '1.6.10'
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public' }//阿里云 maven & jcenter
         maven { url "https://jitpack.io" } // 添加jitpack

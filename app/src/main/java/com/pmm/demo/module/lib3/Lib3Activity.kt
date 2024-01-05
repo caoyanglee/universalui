@@ -1,5 +1,6 @@
 package com.pmm.demo.module.lib3
 
+import android.content.Intent
 import android.os.Bundle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pmm.demo.R
@@ -11,6 +12,8 @@ import com.pmm.ui.core.recyclerview.decoration.LinearItemDecoration
 import com.pmm.ui.ktx.dip2px
 import com.pmm.ui.ktx.init
 import com.pmm.ui.ktx.openActivity
+import com.pmm.ui.ktx.toast
+import org.greenrobot.eventbus.EventBus
 
 class Lib3Activity : BaseViewActivityV2(R.layout.activity_universal_list) {
 
@@ -51,4 +54,10 @@ class Lib3Activity : BaseViewActivityV2(R.layout.activity_universal_list) {
         category.add(CategoryB("EventBus", "事件总线，事件分发"))
         mAdapter.setDataToAdapter(category)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
 }
