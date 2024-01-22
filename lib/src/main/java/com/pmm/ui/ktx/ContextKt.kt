@@ -122,6 +122,13 @@ fun Context.getScreenWidth(): Int {
     return outSize.x
 }
 
+//获取屏幕高度
+fun Context.getScreenHeight(): Int {
+    val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = windowManager.defaultDisplay
+    return display.height
+}
+
 //获取屏幕内容高度
 fun Context.getScreenContentHeight(): Int {
     val ws = getSystemService(Context.WINDOW_SERVICE) as WindowManager
