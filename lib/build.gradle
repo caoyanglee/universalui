@@ -9,6 +9,7 @@ plugins {
 group = 'com.github.caoyanglee'
 
 android {
+    namespace = 'com.pmm.ui'
     compileSdkVersion versions.compileSdk
 
     defaultConfig {
@@ -45,7 +46,7 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     //kt
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     //google core
     api 'androidx.appcompat:appcompat:1.4.1'
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
